@@ -84,3 +84,16 @@ test('blinkHidden toggles every blink period only while iframes last', () => {
   assert.equal(blinkHidden(p, 2.5 * b), false);
   assert.equal(blinkHidden(p, 1.5 * b + 1), false);              // iframes over: always drawn
 });
+
+test('damageEnemy: small-hit numbers are rate-limited under mass hits; big hits always print', () => {
+  const { run, p, log } = setup('slime');
+  const N = TUNING.fx.numberBudget;
+  for (let i = 0; i < 100; i++) damageEnemy(run, spawnEnemy(run, 'orc', p.x + 50, p.y), 1);   // 100 small hits, one step
+  const small = log.filter(l => l[0] === 'number').length;
+  assert.ok(small >= 1 && small <= N.burst, `small ${small}`);
+  damageEnemy(run, spawnEnemy(run, 'orc', p.x + 50, p.y), TUNING.fx.bigHit);
+  assert.equal(log.filter(l => l[0] === 'number').length, small + 1);              // big hit ignores the budget
+  run.time += 1;                                                                     // budget refills over time
+  damageEnemy(run, spawnEnemy(run, 'orc', p.x + 50, p.y), 1);
+  assert.equal(log.filter(l => l[0] === 'number').length, small + 2);
+});

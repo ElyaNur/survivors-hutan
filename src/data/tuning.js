@@ -59,6 +59,7 @@ const TUNING = {
     blink: 0.08,                       // s: player sprite toggles this often during iframes
     knockback: 3,                      // px: default enemy shove per hit
     bigHit: 30,                        // damage at or above this prints yellow instead of white
+    numberBudget: { burst: 6, rate: 15 },   // small-hit numbers: token bucket (max at once, refill /s) so crowds stay readable; big hits always print
     deathBurst: { count: 6, speed: 60 },
     deathColor: {                      // particle colour per enemy type (palette)
       slime: '#5ee0a0', bat: '#9b5de5', slimeRed: '#e2585e', goblin: '#7fcf5c', wolf: '#a3a3c2', orc: '#8a9a58', witch: '#ff5ad9',

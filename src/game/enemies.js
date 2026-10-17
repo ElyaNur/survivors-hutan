@@ -40,8 +40,12 @@ export function spawnEnemy(run, type, x, y) {
 // opts: { fromX, fromY } shove source (default: the player), { power } shove px, { color } number colour (default by size of hit).
 export function damageEnemy(run, e, dmg, { fromX = run.player.x, fromY = run.player.y, power = FX.knockback, color } = {}) {
   if (e.dead) return null;
-  const hit = hitEnemy(e, dmg, run.time), fx = run.fx;
-  fx.number(e.x + (Math.random() - 0.5) * 8, e.y - e.r - 6, hit.dealt, color ?? (hit.dealt >= FX.bigHit ? 'y' : 'w'));
+  const hit = hitEnemy(e, dmg, run.time), fx = run.fx, big = hit.dealt >= FX.bigHit, nb = FX.numberBudget;
+  run.numTokens = Math.min(nb.burst, run.numTokens + (run.time - run.numAt) * nb.rate); run.numAt = run.time;
+  if (big || run.numTokens >= 1) {                         // small hits share a budget: mass hits don't bury the screen
+    if (!big) run.numTokens--;
+    fx.number(e.x + (Math.random() - 0.5) * 8, e.y - e.r - 6, hit.dealt, color ?? (big ? 'y' : 'w'));
+  }
   if (hit.killed) killEnemy(run, e);
   else if (power) knockback(e, fromX, fromY, power);
   return hit;

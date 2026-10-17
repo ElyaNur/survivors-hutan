@@ -19,7 +19,7 @@ export function createRun(classId, starterSkillId, seed, assets) {
     player: { x: SPAWN.x, y: SPAWN.y, hp: TUNING.player.hp, maxHp: TUNING.player.hp, speed: TUNING.player.speed,
       iframesUntil: 0, facing: 1, moving: false },
     prog: { level: 1, xp: 0 }, build, mods: passiveMods(build), pendingLevelUps: 0, cards: null, newUlts: [],
-    skillState: {}, ultState: {}, enemies: [], projectiles: [], areas: [], pickups: [], fx: createFx(assets), kills: 0, bossDead: false, banner: null,
+    skillState: {}, ultState: {}, enemies: [], projectiles: [], areas: [], pickups: [], fx: createFx(assets), numTokens: TUNING.fx.numberBudget.burst, numAt: 0, kills: 0, bossDead: false, banner: null,
   };
 }
 
