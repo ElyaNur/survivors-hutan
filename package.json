@@ -1,0 +1,4 @@
+{"name":"survivors-hutan","private":true,"type":"module",
+ "scripts":{"test":"node --test","serve":"python3 -m http.server 8080",
+   "art":"for f in art/[!p]*.px.js; do node .claude/skills/pxl-pixel-art/bin/pxl.js build \"$f\" || exit 1; done",
+   "release":"bash scripts/release.sh"}}
