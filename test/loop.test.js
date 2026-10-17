@@ -7,3 +7,13 @@ test('accumulates whole steps', () => {
 test('clamps long frames (tab return) to maxFrame', () => {
   assert.equal(stepClock(0, 5).steps, 6);   // 0.1s / (1/60) = 6
 });
+import { startLoop } from '../src/engine/loop.js';
+test('setPaused(false) while running does not drop frame time', () => {
+  let now = 0, cb, updates = 0;
+  globalThis.requestAnimationFrame = f => { cb = f; };
+  performance.now = () => now;
+  const loop = startLoop(() => updates++, () => {});
+  now = 1000 / 60; cb(now); assert.equal(updates, 1);
+  now = 20; loop.setPaused(false);              // e.g. key auto-repeat while running
+  now = 2000 / 60; cb(now); assert.equal(updates, 2);
+});

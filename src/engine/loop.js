@@ -19,5 +19,6 @@ export function startLoop(update, draw) {
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-  return { setPaused(p) { paused = p; if (!p) last = performance.now(); } };
+  // reset the clock only on a real paused->running transition
+  return { setPaused(p) { if (paused && !p) last = performance.now(); paused = p; } };
 }
