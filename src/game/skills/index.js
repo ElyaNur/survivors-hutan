@@ -5,9 +5,12 @@ import { camera } from '../world.js';
 import fireball from './fireball.js';
 import iceShard from './iceShard.js';
 import arcaneOrb from './arcaneOrb.js';
+import meteor from './meteor.js';
+import frostNova from './frostNova.js';
+import chainLightning from './chainLightning.js';
 
 // Each skill: { id, update(run, st, level, mods, dt), draw?(ctx, run, st, level, assets, cam) }.
-export const SKILLS = { fireball, iceShard, arcaneOrb };
+export const SKILLS = { fireball, meteor, iceShard, frostNova, chainLightning, arcaneOrb };
 
 // TUNING.skills[id][key] at level 1..5: a 5-array, {base, perLv}, or a plain number.
 export function stat(id, key, level) {
@@ -28,21 +31,31 @@ export function nearestEnemy(run, x, y, maxR) {
   return best;
 }
 
-// Centre of the 32 px cell holding the most enemies in view (ties: the one nearer the player).
+// Centre of the 32 px cell holding the most enemies in view (ties: the one nearer the player), skipping
+// cells whose centre is within minD of a point in `avoid` (several meteors at once); null when none.
 const CELL = 32, counts = new Map();
-export function densestPoint(run, view) {
+function tooClose(pts, x, y, d) {
+  for (const q of pts) if ((q.x - x) ** 2 + (q.y - y) ** 2 < d * d) return true;
+  return false;
+}
+export function densestCell(run, view, avoid = [], minD = 0) {
   const p = run.player;
   let bestN = 0, bestD = 0, bx = 0, by = 0;
   counts.clear();
   for (const e of run.enemies) {
     if (e.dead || !inView(e, view)) continue;
-    const cx = Math.floor(e.x / CELL), cy = Math.floor(e.y / CELL), k = cx * 100003 + cy, n = (counts.get(k) ?? 0) + 1;
+    const cx = Math.floor(e.x / CELL), cy = Math.floor(e.y / CELL), mx = (cx + 0.5) * CELL, my = (cy + 0.5) * CELL;
+    if (avoid.length && tooClose(avoid, mx, my, minD)) continue;
+    const k = cx * 100003 + cy, n = (counts.get(k) ?? 0) + 1;
     counts.set(k, n);
-    const d = ((cx + 0.5) * CELL - p.x) ** 2 + ((cy + 0.5) * CELL - p.y) ** 2;
-    if (n > bestN || (n === bestN && d < bestD)) { bestN = n; bestD = d; bx = cx; by = cy; }
+    const d = (mx - p.x) ** 2 + (my - p.y) ** 2;
+    if (n > bestN || (n === bestN && d < bestD)) { bestN = n; bestD = d; bx = mx; by = my; }
   }
-  return bestN ? { x: (bx + 0.5) * CELL, y: (by + 0.5) * CELL } : { x: p.x, y: p.y };
+  return bestN ? { x: bx, y: by } : null;
 }
+
+// densestCell, or the player position when the view is empty.
+export const densestPoint = (run, view) => densestCell(run, view) ?? { x: run.player.x, y: run.player.y };
 
 // Uniform pick among on-screen enemies (reservoir sampling: no list built), or null.
 export function randomOnScreenEnemy(run, rng) {

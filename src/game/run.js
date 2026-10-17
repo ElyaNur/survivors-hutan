@@ -38,7 +38,7 @@ export function updateRun(run, dt, input) {
     spawnEnemy(run, s.type, s.x, s.y);
   updateEnemies(run, dt);
   const sk = run.build.skills;
-  for (const id in sk) SKILLS[id]?.update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);   // ponytail: 10b skills absent until they land
+  for (const id in sk) SKILLS[id].update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);
   updateProjectiles(run, dt);
   updatePickups(run, dt);
 }
@@ -118,7 +118,7 @@ export function drawRun(ctx, run, assets) {
     drawPlayer();
   }
   const sk = run.build.skills;
-  for (const id in sk) SKILLS[id]?.draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
+  for (const id in sk) SKILLS[id].draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
   drawProjectiles(ctx, run, assets, cam, t);
   run.fx.draw(ctx, cam, assets);                             // above every actor, below the HUD
 }

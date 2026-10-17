@@ -25,7 +25,7 @@ const TUNING = {
       range: 220, spread: 12, size: 4 },   // range: targeting + flight px; spread: deg between balls; size: hit radius px
     meteor: {
       dmg: { base: 30, perLv: 10 }, cd: [4.0, 3.75, 3.5, 3.25, 3.0], r: [28, 32, 36, 40, 44], count: [1, 1, 2, 2, 3],
-      warn: 0.8, burn: [1.5, 1.875, 2.25, 2.625, 3.0], burnDps: 6,
+      warn: 0.8, burn: [1.5, 1.875, 2.25, 2.625, 3.0], burnDps: 6, burnTick: 0.5,   // burnTick: s between burning-ground hits
     },
     iceShard: {
       dmg: { base: 8, perLv: 3 }, cd: 1.0, pierce: [1, 2, 3, 4, 5], shards: [1, 2, 2, 3, 3], fan: 15,

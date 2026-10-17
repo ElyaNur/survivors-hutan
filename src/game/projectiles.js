@@ -24,8 +24,8 @@ export function spawnProjectile(run, opts) {
 const AREA = { x: 0, y: 0, r: 0, dmg: 0, delay: 0, dur: 0, tickEvery: 0.5, freeze: 0, slow: 0, slowDur: 1, sprite: '', warnSprite: '',
   glow: '', glowDur: 0, onTrigger: null };
 // spawnArea(run, {x, y, r, dmg, delay = 0, dur = 0, tickEvery = 0.5, freeze = 0, slow = 0, slowDur = 1, sprite?, warnSprite?,
-//   glow?, glowDur?, onTrigger?(run, a)}): after `delay` hits every enemy within r, then ticks every tickEvery for `dur`.
-// glow: halo key lit on the ground for glowDur after the trigger, fading out.
+//   glow?, glowDur?, onTrigger?(run, a)}): after `delay` hits every enemy within r, then ticks every tickEvery for `dur`
+// (onTrigger may change a.dmg for the ticks). glow: halo key lit on the ground for glowDur after the trigger, fading out.
 export function spawnArea(run, opts) {
   const a = Object.assign(freeAreas.pop() ?? {}, AREA, opts);
   a.age = 0; a.triggered = false; a.nextTick = 0;
@@ -97,8 +97,10 @@ export function updateProjectiles(run, dt) {
 // Banded halos, built once per colour: pxl's glow only lights the sprite's own pixels, these spill onto
 // the ground. Drawn with 'lighter' so they add light instead of painting a disc.
 const HALOS = {                                             // key -> [r, g, b, radius px] (palette colours)
-  fire: [255, 120, 40, 9], ice: [124, 240, 255, 7], arcane: [216, 123, 255, 9], hex: [255, 90, 217, 8],
+  fire: [255, 120, 40, 9], ice: [124, 240, 255, 7], arcane: [216, 123, 255, 9], hex: [255, 90, 217, 8], bolt: [255, 241, 168, 8],
 };
+const HALO_TINT = 0.5;                                      // share of the halo first painted normally: 'lighter' alone
+                                                            // only brightens the grass to lime, this gives it the hue
 const AREA_GLOW = 0.7;                                      // peak strength of an area's ground light
 const HALO_BANDS = [[0.5, 0.45], [0.75, 0.25], [1, 0.12]];   // [share of radius, alpha]
 const haloCache = {};
@@ -115,9 +117,10 @@ function haloImage(key) {
 
 // Additive halo centred at screen x,y; scale > 1 grows it (chunky bands, on purpose).
 export function drawHalo(ctx, key, x, y, scale = 1, alpha = 1) {
-  const img = haloCache[key] ??= haloImage(key), s = Math.round(img.width * scale);
+  const img = haloCache[key] ??= haloImage(key), s = Math.round(img.width * scale), hx = Math.round(x - s / 2), hy = Math.round(y - s / 2);
+  ctx.globalAlpha = alpha * HALO_TINT; ctx.drawImage(img, hx, hy, s, s);
   ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = alpha;
-  ctx.drawImage(img, Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+  ctx.drawImage(img, hx, hy, s, s);
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
 }
 

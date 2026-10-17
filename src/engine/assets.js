@@ -58,8 +58,8 @@ export async function loadSheets(names, base = 'art/out/') {
     has: name => name in animOwner || name in frameOwner,
     animTotal: name => animOwner[name]?.anims[name].total ?? 0,   // ms, 0 for a plain frame
     size: name => { const f = firstFrame(name); return { w: f.w, h: f.h }; },
-    // Draws a frame or anim centred at x,y. t is ms into the anim.
-    draw(ctx, name, x, y, { flip = false, t = 0, alpha = 1, flash = false } = {}) {
+    // Draws a frame or anim centred at x,y. t is ms into the anim; scale grows it about its centre.
+    draw(ctx, name, x, y, { flip = false, t = 0, alpha = 1, flash = false, scale = 1 } = {}) {
       const s = animOwner[name];
       const fname = s ? animFrame(s.anims[name], t) : name;
       const sh = s ?? frameOwner[name];
@@ -68,7 +68,7 @@ export async function loadSheets(names, base = 'art/out/') {
       ctx.save();
       ctx.globalAlpha = alpha;
       ctx.translate(Math.round(x), Math.round(y));
-      if (flip) ctx.scale(-1, 1); // keeps the centre pixel column fixed for odd widths
+      if (flip || scale !== 1) ctx.scale(flip ? -scale : scale, scale); // flip keeps the centre pixel column fixed for odd widths
       ctx.drawImage(flash ? sh.white : sh.img, f.x, f.y, f.w, f.h, -(flip ? f.w - (f.w >> 1) : f.w >> 1), -(f.h >> 1), f.w, f.h);
       ctx.restore();
     },

@@ -136,4 +136,85 @@ anim("arcaneOrb", { w: 11, h: 11, fps: 12, frames: 6 }, (c) => {
 },
   glow("zlw", { r: 2, strength: 0.6, bands: 2 }))
 
-sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb"])
+// ---- Meteor (fire family, like the fireball but heavier). The rock, flying right (turned in game):
+// a dark stone lumped with molten cracks, wrapped in fire at the front, a long flame tail streaming behind.
+anim("meteor_fall", { w: 26, h: 15, fps: 12, frames: 3 }, (c) => {
+  const f = c.frame, cy = 7
+  const TAIL = [[2, -1], [0, 1], [1, 0]][f]                                        // tail tip flicker: [extra length, y shift]
+  c.poly([16, cy - 6, 2 - TAIL[0], cy + TAIL[1], 16, cy + 7], "R")                  // outer tail, cooling red
+  c.poly([16, cy - 5, 5 - TAIL[0], cy + TAIL[1], 16, cy + 6], "O")
+  c.poly([17, cy - 3, 9, cy + TAIL[1], 17, cy + 4], "o")
+  c.poly([18, cy - 2, 12, cy, 18, cy + 3], "Y")                                     // hot core of the tail
+  c.circ(19, cy, 6, "O"); c.circ(20, cy, 5, "o"); c.circ(21, cy, 4, "Y")           // fire envelope, hottest at the front
+  c.ring(21, cy, 4, "y"); c.px(25, cy, "w"); c.px(25, cy - 1, "w"); c.px(25, cy + 1, "y")
+  c.circ(18, cy, 4, "X"); c.circ(17, cy - 1, 2, "x"); c.px(18, cy - 1, "X")          // the stone, lit top-left
+  c.px(16, cy - 2, "w"); c.hline(16, cy + 4, 4, "k"); c.vline(14, cy, 3, "k")      // glint, dark underside
+  c.line(16, cy + 2, 19, cy - 1, "O"); c.px(20, cy - 1, "Y"); c.px(17, cy + 2, "o"); c.px(21, cy + 1, "y")   // molten cracks, hot front face
+  for (const [x, y] of [[[6, 2], [10, 12], [3, 9]], [[8, 12], [4, 4], [11, 1]], [[5, 11], [9, 3], [2, 6]]][f]) c.px(x, y, "o")   // embers
+},
+  glow("wyY", { r: 3, strength: 0.5, bands: 2 }))
+
+// Warning, sized for r 28 (scaled to r in game). One 0.8 s pass: a dithered shadow swells as the rock nears,
+// the danger ring throbs and four marks close in on the spot.
+anim("meteor_warn", { w: 59, h: 59, fps: 10, frames: 8 }, (c) => {
+  const f = c.frame, C = 29, sr = Math.round(9 + f * 2.4)
+  c.circ(C, C, sr, "#1d1a2f50"); c.circ(C, C, Math.round(sr * 0.6), "#1d1a2f80")   // see-through ink (k): any ground shows under it
+  const hot = f % 2 === 0
+  c.ring(C, C, 28, hot ? "Y" : "O"); c.ring(C, C, 27, hot ? "O" : "R")
+  const m = 24 - f * 1.6                                                           // closing marks
+  for (const [dx, dy] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
+    const x = Math.round(C + dx * m), y = Math.round(C + dy * m)
+    c.line(x - dy * 2, y - dx * 2, x + dx * 2, y + dy * 2, "Y"); c.line(x + dy * 2, y + dx * 2, x + dx * 2, y + dy * 2, "Y")
+    c.px(x + dx * 2, y + dy * 2, "y")
+  }
+})
+
+// Burning ground: one flame tuft, strewn over the area many times (desynced) in game.
+anim("fx_burn", { w: 9, h: 13, fps: 10, frames: 4 }, (c) => {
+  const f = c.frame, sway = [0, 1, 0, -1][f], h = [8, 9, 7, 9][f], tip = 9 - h
+  c.poly([1, 9, 4 + sway, tip, 5 + sway, tip, 8, 9], "O"); c.circ(4, 9, 3, "O")     // teardrop: round base, licking tip
+  c.poly([2, 10, 4 + sway, tip + 3, 7, 10], "o"); c.circ(4, 10, 2, "o")
+  c.circ(4, 11, 1, "Y"); c.px(4, 10, "y"); c.px(4 + (sway > 0 ? 1 : 0), tip + 5, "Y")
+  const side = f % 2 ? 1 : 7                                                        // little tongue flicking at the side
+  c.vline(side, 7 - (f >> 1), 2, "O"); c.px(side, 6 - (f >> 1), "o")
+  c.hline(2, 12, 5, "R")                                                            // embers at the root
+  if (f === 1) c.px(6, tip - 1, "Y")                                                // a spark lifting off
+  if (f === 3) c.px(2, tip, "o")
+},
+  glow("Yy", { r: 2, strength: 0.4, bands: 2 }))
+
+// ---- Frost Nova (ice family, like the shard). Ring, sized to end at r 36 (scaled to r in game): a white flash
+// that rushes out as a white-edged ice ring with crystal spikes, then breaks into frost.
+const NOVA = [8, 16, 23, 29, 33, 36]
+anim("fx_frostNova", { w: 77, h: 77, fps: 18, loop: false, frames: NOVA.length }, (c) => {
+  const f = c.frame, C = 38, R = NOVA[f]
+  if (f === 0) c.circ(C, C, 6, "w")
+  if (f < 4) for (let y = 0; y < 77; y++) for (let x = 0; x < 77; x++) {           // frost left behind the ring
+    const d = Math.hypot(x - C, y - C)
+    if (d < R - 2 && d > R - 7 && (x * 3 + y * 5) % 7 === 0) c.px(x, y, f < 2 ? "c" : "C")
+  }
+  c.ring(C, C, R - 2, f < 4 ? "C" : "B"); c.ring(C, C, R - 1, "c"); c.ring(C, C, R, f < 4 ? "w" : "c")
+  if (f > 0 && f < 5) for (let i = 0; i < 8; i++) {                                 // crystal spikes on the edge
+    const a = (i + 0.5) * Math.PI / 4, ca = Math.cos(a), sa = Math.sin(a), L = f < 3 ? 4 : 3
+    c.line(Math.round(C + ca * (R - 1)), Math.round(C + sa * (R - 1)), Math.round(C + ca * (R + L)), Math.round(C + sa * (R + L)), "c")
+    c.px(Math.round(C + ca * (R + L)), Math.round(C + sa * (R + L)), "w")
+  }
+  if (f >= 4) c.dither(0, 0, 77, 77, ".", "_", f === 4 ? 0.35 : 0.65)              // melts away
+},
+  glow("wc", { r: 2, strength: 0.5, bands: 2 }))
+
+// ---- Lightning (yellow-white, violet edge). Strike on a target, 15x15: a white pop with a spiked star
+// that throws violet sparks and fizzles.
+anim("fx_lightningHit", { w: 15, h: 15, fps: 20, loop: false, frames: 5 }, (c) => {
+  const f = c.frame, C = 7, DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1], [0.7, 0.7], [-0.7, 0.7], [-0.7, -0.7], [0.7, -0.7]]
+  if (f < 2) { c.circ(C, C, 3 - f, "w"); c.ring(C, C, 4 - f, "y") }
+  DIRS.forEach(([dx, dy], i) => {
+    const long = i < 4, r0 = 2 + f, r1 = r0 + (long ? 4 : 2) - f
+    const at = (r) => [Math.round(C + dx * r), Math.round(C + dy * r)]
+    if (f < 3 && r1 > r0) { const [x0, y0] = at(r0), [x1, y1] = at(r1); c.line(x0, y0, x1, y1, f ? "y" : "w"); c.px(x1, y1, "v") }
+    else if (f < 5 && i % 2 === f % 2) { const [x, y] = at(r0 + 1); c.px(x, y, f < 4 ? "l" : "v") }
+  })
+},
+  glow("wy", { r: 2, strength: 0.6, bands: 2 }))
+
+sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*"])

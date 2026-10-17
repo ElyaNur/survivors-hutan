@@ -50,3 +50,24 @@ test('areas: trigger after delay, then tick for dur, then go away', () => {
   for (let i = 0; i < 20; i++) updateProjectiles(run, 0.1);
   assert.equal(e.hp, e.maxHp - 3); assert.equal(run.areas.length, 0);
 });
+
+import { chainTargets } from '../src/game/skills/chainLightning.js';
+const foe = (x, y = 0) => ({ x, y, dead: false });
+
+test('chainTargets: at most jumps+1 targets, each the nearest unhit one to the last', () => {
+  const es = [0, 50, 100, 150, 200].map(x => foe(x));
+  assert.deepEqual(chainTargets({ enemies: es }, es[0], 2, 60), es.slice(0, 3));
+});
+
+test('chainTargets: stops when no unhit enemy is within range', () => {
+  const es = [foe(0), foe(50), foe(200)];
+  assert.deepEqual(chainTargets({ enemies: es }, es[0], 5, 60), [es[0], es[1]]);
+});
+
+test('chainTargets: never repeats an enemy (no ping-pong), skips the dead', () => {
+  const es = [foe(0), foe(10), foe(5, 5), foe(0, 20)], dead = { ...foe(2, 2), dead: true };
+  const got = chainTargets({ enemies: [...es, dead] }, es[0], 10, 60);
+  assert.equal(got.length, 4);
+  assert.equal(new Set(got).size, 4);
+  assert.ok(!got.includes(dead));
+});
