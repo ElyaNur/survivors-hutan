@@ -44,7 +44,6 @@ export function updateRun(run, dt, input) {
   const wasFrozen = run.fx.frozen();                       // hitstop: the world holds still, fx keep counting down
   run.fx.update(dt);
   if (wasFrozen) return;
-  if (input.pressed('KeyT')) run.time += 60;   // TEMP-DEBUG: jump one minute ahead to see later enemy types
   run.time += dt;
   updatePlayer(run.player, dt, input);
   run.grid.clear();

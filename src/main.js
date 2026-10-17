@@ -77,11 +77,15 @@ const ACT = {
   menu: a => a === 'play' ? go('classSelect') : a === 'records' ? go('records') : toggleMute(),
   classSelect: a => a === 'back' ? go('menu') : (classId = a, go('starterPick')),
   records: () => go('menu'),
-  starterPick: id => { run = createRun(classId, id, Date.now(), assets); window.run = run; go('playing'); },   // TEMP-DEBUG: console hook
+  starterPick: id => { run = createRun(classId, id, Date.now(), assets); go('playing'); },
   levelup: card => { chooseCard(run, card); go(run.state === 'levelup' ? 'levelup' : 'playing'); },   // a fresh screen per pending level
   paused: a => { if (a === 'forfeit') run.player.hp = 0; go('playing'); },   // forfeit: he falls like any death, then the result
   result: a => go(a === 'again' ? 'starterPick' : 'menu'),
 };
+
+// What ?debug (src/debug.js) may touch. The run is replaced on each new run, hence the getter.
+const game = { get run() { return run; }, assets, spawnEnemy, overlays: [] };
+if (new URLSearchParams(location.search).has('debug')) import('./debug.js').then(m => m.install(game)).catch(() => {});
 
 initInput(canvas);
 startLoop(
@@ -101,7 +105,12 @@ startLoop(
     if (!held) input.endFrame();                          // per sim step: a tap is never cleared before a step reads it (nor during hitstop)
     held = false;
   },
-  () => { drawRun(ctx, run, assets); if (run !== backdrop && scene !== 'result') drawHud(ctx, run, assets); screen?.draw(ctx); });
+  () => {
+    drawRun(ctx, run, assets);
+    if (run !== backdrop && scene !== 'result') drawHud(ctx, run, assets);
+    for (const draw of game.overlays) draw(ctx);
+    screen?.draw(ctx);
+  });
 
 // Hidden tab or lost focus: the pause screen (the run holds still; the loop keeps stepping so its input works).
 const autoPause = () => { if (scene === 'playing' && !run.ending) go('paused'); };

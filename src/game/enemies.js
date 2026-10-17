@@ -123,7 +123,7 @@ export function winBlast(run, x, y) {
 // Contact and shots hurt the mage through here so a landed hit flashes the screen red. Nothing hurts him
 // once the run is ending (won or dying).
 export function hurtMage(run, dmg) {
-  if (run.ending || !hurtPlayer(run.player, dmg, run.time)) return;
+  if (run.ending || run.godMode || !hurtPlayer(run.player, dmg, run.time)) return;   // godMode: debug.js (F7)
   sfx('hurt');
   run.fx.flashScreen(FX.flashHurt.color, FX.flashHurt.dur);
   run.fx.shake(FX.shakeHurt.px, FX.shakeHurt.dur);

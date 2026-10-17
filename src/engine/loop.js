@@ -7,18 +7,13 @@ export function stepClock(acc, frameDt, step = 1 / 60, maxFrame = 0.1) {
 }
 
 export function startLoop(update, draw) {
-  let acc = 0, last = performance.now(), paused = false;
+  let acc = 0, last = performance.now();
   function frame(now) {
     const dt = (now - last) / 1000; last = now;
-    if (paused) acc = 0;
-    else {
-      const r = stepClock(acc, dt); acc = r.acc;
-      for (let i = 0; i < r.steps; i++) update(1 / 60);
-    }
+    const r = stepClock(acc, dt); acc = r.acc;
+    for (let i = 0; i < r.steps; i++) update(1 / 60);
     draw();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
-  // reset the clock only on a real paused->running transition
-  return { setPaused(p) { if (paused && !p) last = performance.now(); paused = p; } };
 }

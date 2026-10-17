@@ -12,11 +12,11 @@ export const input = {
   endFrame() { taps.clear(); this.mouse.clicked = false; },
 };
 
-export function initInput(canvas, onAnyKey = () => {}) {
+export function initInput(canvas) {
   addEventListener('keydown', e => {
     if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
     if (!e.repeat) taps.add(e.code);
-    keys.add(e.code); onAnyKey(e);
+    keys.add(e.code);
   });
   addEventListener('keyup', e => keys.delete(e.code));
   addEventListener('blur', () => keys.clear());
