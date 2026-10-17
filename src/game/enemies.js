@@ -2,7 +2,7 @@
 import TUNING from '../data/tuning.js';
 import { SCHEDULE } from '../data/spawns.js';
 import { offscreenPoint } from '../logic/spawner.js';
-import { hurtPlayer, speedFactor } from '../logic/combat.js';
+import { hitEnemy, hurtPlayer, knockback, speedFactor } from '../logic/combat.js';
 import { WORLD_W, WORLD_H, terrainSpeed, camera } from './world.js';
 import { dropGem, dropHeart, dropMagnet } from './pickups.js';
 
@@ -17,6 +17,7 @@ const BODY_OVERLAP = 0.9;                                   // enemies may sink 
 const WITCH_DEADBAND = 8;                                   // px around keepDist where the witch stands still
 const CAST_LEAD = 0.4;                                      // s: witch_cast (4 frames @10fps) plays before the shot
 const ORB = { x: 4, y: -3 };                                // staff orb offset from the witch's centre (sprite px)
+const FX = TUNING.fx;
 const near = [];                                            // reused grid query buffer
 
 export function spawnEnemy(run, type, x, y) {
@@ -31,6 +32,37 @@ export function spawnEnemy(run, type, x, y) {
   };
   run.enemies.push(e);
   return e;
+}
+
+// The one door for hurting an enemy (skills, auras, ults all call this): flash, shove, number, and the kill itself.
+// opts: { fromX, fromY } shove source (default: the player), { power } shove px, { color } number colour (default by size of hit).
+export function damageEnemy(run, e, dmg, { fromX = run.player.x, fromY = run.player.y, power = FX.knockback, color } = {}) {
+  if (e.dead) return null;
+  const hit = hitEnemy(e, dmg, run.time), fx = run.fx;
+  fx.number(e.x + (Math.random() - 0.5) * 8, e.y - e.r - 6, hit.dealt, color ?? (hit.dealt >= FX.bigHit ? 'y' : 'w'));
+  if (hit.killed) killEnemy(run, e);
+  else if (power) knockback(e, fromX, fromY, power);
+  return hit;
+}
+
+// Kill bookkeeping, done at the moment of death; updateEnemies only sweeps the corpses out afterwards.
+function killEnemy(run, e) {
+  const fx = run.fx, boss = BOSSES.has(e.type);
+  if (!boss) {                                              // bosses drop chests (Task 12)
+    dropGem(run, e.x, e.y, e.def.xp);
+    if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
+    if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
+  } else fx.hitstop(FX.hitstopBig);
+  run.kills++;
+  fx.anim(e.x, e.y, 'fx_poof');
+  fx.burst(e.x, e.y, FX.deathColor[e.type] ?? FX.deathColor.default, FX.deathBurst.count, FX.deathBurst.speed);
+}
+
+// Contact and shots hurt the mage through here so a landed hit flashes the screen red.
+function hurtMage(run, dmg) {
+  if (!hurtPlayer(run.player, dmg, run.time)) return;
+  run.fx.flashScreen(FX.flashHurt.color, FX.flashHurt.dur);
+  run.fx.shake(FX.shakeHurt.px, FX.shakeHurt.dur);
 }
 
 function fire(run, e, def) {
@@ -88,23 +120,13 @@ export function updateEnemies(run, dt) {
     }
     const touch = e.r + pr;
     if (d < touch) {                                        // contact: hurt, and keep the mage visible in the crowd
-      hurtPlayer(p, def.dmg, now);
+      hurtMage(run, def.dmg);
       const ex = e.x - p.x, ey = e.y - p.y, de = Math.hypot(ex, ey) || 1, keep = touch * BODY_OVERLAP;
       if (de < keep) { e.x = p.x + ex / de * keep; e.y = p.y + ey / de * keep; }
     }
   }
-  for (let i = es.length - 1; i >= 0; i--) {                // deaths: swap-remove, order doesn't matter
-    const e = es[i];
-    if (!e.dead) continue;
-    if (!BOSSES.has(e.type)) {                              // bosses drop chests (Task 12)
-      dropGem(run, e.x, e.y, e.def.xp);
-      if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
-      if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
-    }
-    run.kills++;
-    if (run.fx) run.fx.anim(e.x, e.y, 'fx_poof');
-    es[i] = es[es.length - 1]; es.pop();
-  }
+  for (let i = es.length - 1; i >= 0; i--)                  // sweep corpses: swap-remove, order doesn't matter
+    if (es[i].dead) { es[i] = es[es.length - 1]; es.pop(); }
 }
 
 // ponytail: hostile shots only; Task 10's updateProjectiles takes this over.
@@ -115,7 +137,7 @@ export function updateEnemyShots(run, dt) {
     if (!s.hostile) continue;
     s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
     const hit = Math.hypot(s.x - p.x, s.y - p.y) < s.radius + pr;
-    if (hit) hurtPlayer(p, s.dmg, run.time);
+    if (hit) hurtMage(run, s.dmg);
     if (hit || s.life <= 0) { ps[i] = ps[ps.length - 1]; ps.pop(); }
   }
 }
@@ -134,6 +156,7 @@ export function sortEnemies(run, assets) {
 }
 
 export function drawEnemy(ctx, assets, e, cam, tMs, now) {
+  if (e.dead) return;                                      // killed this step: the poof has taken over
   const sx = e.x - cam.x, sy = e.y - cam.y;
   if (sx < -40 || sy < -40 || sx > cam.w + 40 || sy > cam.h + 40) return;
   const flip = e.facing < 0, flash = now < e.flashUntil;

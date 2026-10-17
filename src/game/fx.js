@@ -1,32 +1,28 @@
 // Game-feel effects: particles, damage numbers, screen shake, hitstop, flash, one-shot anims.
 // Fixed pools (ring-overwrite = drop oldest), so no per-frame allocation.
 import TUNING from '../data/tuning.js';
+import { drawText } from '../engine/font.js';
 
-const NUM_LIFE = 0.6, NUM_RISE = 12, MAX_ANIMS = 32, FLASH_ALPHA = 0.4, FLASH_PAD = 8;
+const NUM_LIFE = 0.6, NUM_RISE = 12, MAX_ANIMS = 32, FLASH_ALPHA = 0.4, FLASH_PAD = 8, ANIM_FALLBACK = 0.4;
 
 const pool = (n, mk) => Array.from({ length: n }, mk);
 
-// Swap this one function for a bitmap font later.
-function drawText(ctx, str, x, y, color) {
-  ctx.fillStyle = '#000'; ctx.fillText(str, x + 1, y + 1);
-  ctx.fillStyle = color; ctx.fillText(str, x, y);
-}
-
-export function createFx() {
+// assets (optional) supplies anim lengths: assets.animTotal(name) -> ms.
+export function createFx(assets) {
   const parts = pool(TUNING.fx.maxParticles, () => ({ life: 0, max: 0, x: 0, y: 0, vx: 0, vy: 0, color: '#fff' }));
-  const nums = pool(TUNING.fx.maxNumbers, () => ({ life: 0, x: 0, y: 0, text: '', color: '#fff' }));
+  const nums = pool(TUNING.fx.maxNumbers, () => ({ life: 0, x: 0, y: 0, text: '', color: 'w' }));
   const anims = pool(MAX_ANIMS, () => ({ life: 0, age: 0, x: 0, y: 0, name: '', scale: 1 }));
   let pi = 0, ni = 0, ai = 0;
   let shakePx = 0, shakeDur = 0, shakeLeft = 0, hitLeft = 0;
   let flashColor = '#fff', flashDur = 0, flashLeft = 0;
-  const off = { x: 0, y: 0 };
+  const off = { x: 0, y: 0 }, topt = { color: 'w', align: 'center', alpha: 1 };   // topt reused: no per-number allocation
   const amp = () => (shakeLeft > 0 ? shakePx * shakeLeft / shakeDur : 0);
   const count = a => { let c = 0; for (let i = 0; i < a.length; i++) if (a[i].life > 0) c++; return c; };
 
   return {
     shake(px, dur) { if (px >= amp()) { shakePx = px; shakeDur = dur; shakeLeft = dur; } },
     hitstop(sec) { if (sec > hitLeft) hitLeft = sec; },
-    number(x, y, value, color = '#fff') {
+    number(x, y, value, color = 'w') {
       const n = nums[ni]; ni = (ni + 1) % nums.length;
       n.life = NUM_LIFE; n.x = x; n.y = y; n.text = String(value); n.color = color;
     },
@@ -39,8 +35,8 @@ export function createFx() {
       }
     },
     flashScreen(color, dur) { flashColor = color; flashDur = flashLeft = dur; },
-    // ponytail: assets doesn't expose an anim's total, so lifetime is the dur option (seconds).
-    anim(x, y, name, { scale = 1, dur = 0.4 } = {}) {
+    // dur (seconds) defaults to the anim's own length.
+    anim(x, y, name, { scale = 1, dur = (assets?.animTotal(name) || ANIM_FALLBACK * 1000) / 1000 } = {}) {
       const a = anims[ai]; ai = (ai + 1) % anims.length;
       a.life = dur; a.age = 0; a.x = x; a.y = y; a.name = name; a.scale = scale;
     },
@@ -76,14 +72,12 @@ export function createFx() {
         if (a.scale === 1) assets.draw(ctx, a.name, sx, sy, { t: a.age * 1000 });
         else { ctx.save(); ctx.translate(sx, sy); ctx.scale(a.scale, a.scale); assets.draw(ctx, a.name, 0, 0, { t: a.age * 1000 }); ctx.restore(); }
       }
-      ctx.font = '8px monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       for (const n of nums) {
         if (n.life <= 0) continue;
         const k = 1 - n.life / NUM_LIFE;
-        ctx.globalAlpha = Math.min(1, n.life / (NUM_LIFE * 0.5));
-        drawText(ctx, n.text, Math.round(n.x - cam.x), Math.round(n.y - cam.y - NUM_RISE * k), n.color);
+        topt.color = n.color; topt.alpha = Math.min(1, n.life / (NUM_LIFE * 0.5));
+        drawText(ctx, assets, n.text, n.x - cam.x, n.y - cam.y - NUM_RISE * k, topt);
       }
-      ctx.globalAlpha = 1;
       if (flashLeft > 0) {
         ctx.globalAlpha = FLASH_ALPHA * flashLeft / flashDur; ctx.fillStyle = flashColor;
         ctx.fillRect(-FLASH_PAD, -FLASH_PAD, cam.w + 2 * FLASH_PAD, cam.h + 2 * FLASH_PAD);

@@ -41,18 +41,33 @@ test('hitstop freezes then releases', () => {
   fx.hitstop(0.05); assert.equal(fx.frozen(), true);
   fx.update(0.06); assert.equal(fx.frozen(), false);
 });
-test('draw renders particles, numbers, anims and flash', () => {
-  const calls = { rect: 0, text: 0, anim: [], flash: 0 };
-  const ctx = new Proxy({ canvas: { width: 480, height: 270 } }, {
-    get: (t, k) => k in t ? t[k] : (k === 'fillRect' ? () => { calls.rect++; } : k === 'fillText' ? () => { calls.text++; } : () => {}),
-    set: (t, k, v) => { t[k] = v; return true; },
-  });
-  const assets = { draw: (c, name, x, y, o) => calls.anim.push([name, x, y, o.t]) };
+const stubCtx = calls => new Proxy({ canvas: { width: 480, height: 270 } }, {
+  get: (t, k) => k in t ? t[k] : (k === 'fillRect' ? () => { calls.rect++; } : () => {}),
+  set: (t, k, v) => { calls.set.push(k); t[k] = v; return true; },
+});
+const stubAssets = (calls, totals = {}) => ({
+  has: () => true, size: () => ({ w: 5, h: 7 }), animTotal: n => totals[n] ?? 0,
+  draw: (c, name, x, y, o) => calls.draw.push([name, x, y, o.t]),
+});
+test('draw renders particles, bitmap-font numbers, anims and flash, without touching text state', () => {
+  const calls = { rect: 0, draw: [], set: [] };
   const fx = createFx();
-  fx.burst(100, 100, '#f00', 3, 40); fx.number(100, 100, 7, '#fff'); fx.anim(120, 90, 'fx_poof'); fx.flashScreen('#f00', 0.2);
+  fx.burst(100, 100, '#f00', 3, 40); fx.number(100, 100, 7, 'y'); fx.anim(120, 90, 'fx_poof', { dur: 0.4 }); fx.flashScreen('#f00', 0.2);
   fx.update(0.1);
-  fx.draw(ctx, { x: 50, y: 50, w: 480, h: 270 }, assets);
-  assert.ok(calls.rect >= 4); assert.equal(calls.text, 2); // shadow + fill
-  assert.equal(calls.anim.length, 1); assert.equal(calls.anim[0][0], 'fx_poof');
-  assert.equal(calls.anim[0][1], 70); assert.equal(calls.anim[0][2], 40); assert.ok(Math.abs(calls.anim[0][3] - 100) < 1e-6);
+  fx.draw(stubCtx(calls), { x: 50, y: 50, w: 480, h: 270 }, stubAssets(calls));
+  assert.ok(calls.rect >= 4);
+  const glyphs = calls.draw.filter(d => d[0].startsWith('glyph_'));
+  assert.deepEqual(glyphs.map(g => g[0]), ['glyph_55_y']);
+  const poof = calls.draw.find(d => d[0] === 'fx_poof');
+  assert.equal(poof[1], 70); assert.equal(poof[2], 40); assert.ok(Math.abs(poof[3] - 100) < 1e-6);
+  assert.ok(!calls.set.some(k => k === 'textAlign' || k === 'textBaseline' || k === 'font'), 'leaked ' + calls.set);
+});
+test('anim lifetime defaults to assets.animTotal; an explicit dur wins; no assets falls back', () => {
+  const life = (fx, opts) => { fx.anim(0, 0, 'fx_poof', opts); let t = 0; while (fx.counts().anims && t < 5) { fx.update(0.01); t += 0.01; } return t; };
+  const near = (a, b) => assert.ok(Math.abs(a - b) < 0.03, `${a} vs ${b}`);
+  const calls = { draw: [] };
+  near(life(createFx(stubAssets(calls, { fx_poof: 355 }))), 0.355);
+  near(life(createFx(stubAssets(calls, { fx_poof: 355 })), { dur: 0.1 }), 0.1);
+  near(life(createFx()), 0.4);
+  near(life(createFx(stubAssets(calls, {}))), 0.4);           // a plain frame (total 0) also falls back
 });

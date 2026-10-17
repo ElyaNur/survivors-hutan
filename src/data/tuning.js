@@ -52,6 +52,17 @@ const TUNING = {
     maxGems: 300, pullSpeed: 200,   // pullSpeed: px/s a magnetised pickup flies at the player
     gemTiers: [{ minXp: 5, sprite: 'gem_red' }, { minXp: 2, sprite: 'gem_green' }, { minXp: 0, sprite: 'gem_blue' }],   // first match wins
   },
-  fx: { shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, maxParticles: 600, maxNumbers: 150 },
+  fx: {
+    shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, maxParticles: 600, maxNumbers: 150,
+    shakeHurt: { px: 1.5, dur: 0.12 }, flashHurt: { color: '#ff2a2a', dur: 0.25 },
+    blink: 0.08,                       // s: player sprite toggles this often during iframes
+    knockback: 3,                      // px: default enemy shove per hit
+    bigHit: 30,                        // damage at or above this prints yellow instead of white
+    deathBurst: { count: 6, speed: 60 },
+    deathColor: {                      // particle colour per enemy type (palette)
+      slime: '#5ee0a0', bat: '#9b5de5', slimeRed: '#e2585e', goblin: '#7fcf5c', wolf: '#a3a3c2', orc: '#8a9a58', witch: '#ff5ad9',
+      default: '#fff1a8',
+    },
+  },
 };
 export default TUNING;

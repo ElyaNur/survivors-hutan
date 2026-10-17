@@ -56,6 +56,7 @@ export async function loadSheets(names, base = 'art/out/') {
   const firstFrame = name => animOwner[name] ? animOwner[name].frames[animOwner[name].anims[name].frames[0]] : frameOwner[name].frames[name];
   return {
     has: name => name in animOwner || name in frameOwner,
+    animTotal: name => animOwner[name]?.anims[name].total ?? 0,   // ms, 0 for a plain frame
     size: name => { const f = firstFrame(name); return { w: f.w, h: f.h }; },
     // Draws a frame or anim centred at x,y. t is ms into the anim.
     draw(ctx, name, x, y, { flip = false, t = 0, alpha = 1, flash = false } = {}) {

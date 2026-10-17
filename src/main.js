@@ -24,21 +24,22 @@ resize();
 const assets = await loadSheets(['mage', 'enemies', 'fx', 'world', 'ui']);
 const CLASS = 'mage';                                   // ponytail: fixed until class select (Task 13)
 // Flow: starter pick -> playing <-> levelup. Until the pick, a throwaway run is the frozen backdrop.
-let run = createRun(CLASS, CLASSES[CLASS].skills[0], 0), started = false;
+let run = createRun(CLASS, CLASSES[CLASS].skills[0], 0, assets), started = false;
 let screen = starterPickScreen(CLASSES[CLASS], assets);
-let loop;
+let loop, held = false;
 initInput(canvas, () => { if (!document.hidden) loop.setPaused(false); });
 loop = startLoop(
   dt => {
     if (!started) {
       const id = screen.update(input);
-      if (id) { run = createRun(CLASS, id, Date.now()); started = true; screen = null; window.run = run; }   // TEMP-DEBUG: console hook
+      if (id) { run = createRun(CLASS, id, Date.now(), assets); started = true; screen = null; window.run = run; }   // TEMP-DEBUG: console hook
     } else if (screen) {
       const card = screen.update(input);
       if (card) { chooseCard(run, card); screen = null; }   // still levelup -> a fresh screen for the next pending level
-    } else { updateRun(run, dt, input); updateBanner(run, dt); }
+    } else { held = run.fx.frozen(); updateRun(run, dt, input); updateBanner(run, dt); }
     if (started && !screen && run.state === 'levelup') screen = levelUpScreen(run, assets);
-    input.endFrame();                                     // per sim step: a tap is never cleared before a step reads it
+    if (!held) input.endFrame();                          // per sim step: a tap is never cleared before a step reads it (nor during hitstop)
+    held = false;
   },
   () => { drawRun(ctx, run, assets); if (started) drawHud(ctx, run, assets); if (screen) screen.draw(ctx); });
 
