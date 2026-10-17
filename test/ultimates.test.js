@@ -112,3 +112,9 @@ test('Absolute Zero and Armageddon blasts hit quietly', () => {
   assert.ok(arm.enemies.filter(e => e.hp < e.maxHp).length >= 50, 'the blast landed');
   assert.ok(arm.fx.nums <= TUNING.fx.numberBudget.burst, `${arm.fx.nums} numbers`);
 });
+
+test('the Meteor skill blast is mass AoE too: it hits quietly', () => {
+  const run = setup(); tank(run, 60);
+  SKILLS.meteor.update(run, {}, 5, run.mods, 0.01);
+  assert.ok(run.areas.length > 0 && run.areas.every(a => a.quiet));
+});

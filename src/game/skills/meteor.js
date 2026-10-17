@@ -65,7 +65,7 @@ export default {
     for (const q of picks)
       spawnArea(run, { x: q.x, y: q.y, r, dmg: stat(ID, 'dmg', level), delay: stat(ID, 'warn', level), dur: burn, tickEvery: tick,
         burnDmg: stat(ID, 'burnDps', level) * tick, tufts: Math.round(Math.PI * r * r / TUFT_AREA),
-        glow: 'fire', glowDur: burn, onTrigger: impact });
+        glow: 'fire', glowDur: burn, quiet: true, onTrigger: impact });   // quiet: a blast on a crowd prints sparingly
   },
   // Above the actors, so a crowd never hides them: the shadow (it falls on the monsters too), the rock, the fire
   // they stand in. The ground glow under them is the area's own (drawAreas).
