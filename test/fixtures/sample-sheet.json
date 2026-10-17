@@ -5,7 +5,7 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -13,11 +13,11 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 250
   },
@@ -26,7 +26,7 @@
     "x": 17,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -34,11 +34,11 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 250
   },
@@ -47,7 +47,7 @@
     "x": 34,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -55,20 +55,20 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 250
   },
   "mage_idle_3": {
    "frame": {
     "x": 0,
-    "y": 20,
+    "y": 26,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -76,20 +76,20 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 250
   },
   "mage_walk_0": {
    "frame": {
     "x": 17,
-    "y": 20,
+    "y": 26,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -97,20 +97,20 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 125
   },
   "mage_walk_1": {
    "frame": {
     "x": 34,
-    "y": 20,
+    "y": 26,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -118,20 +118,20 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 125
   },
   "mage_walk_2": {
    "frame": {
     "x": 0,
-    "y": 40,
+    "y": 52,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -139,20 +139,20 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 125
   },
   "mage_walk_3": {
    "frame": {
     "x": 17,
-    "y": 40,
+    "y": 52,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "rotated": false,
    "trimmed": false,
@@ -160,11 +160,11 @@
     "x": 0,
     "y": 0,
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "sourceSize": {
     "w": 17,
-    "h": 20
+    "h": 26
    },
    "duration": 125
   }
@@ -175,7 +175,7 @@
   "format": "RGBA8888",
   "size": {
    "w": 51,
-   "h": 60
+   "h": 78
   },
   "scale": "1",
   "frameTags": [

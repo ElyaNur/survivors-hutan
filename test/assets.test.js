@@ -10,7 +10,7 @@ test('every anim frame exists in frames; total is sum of durations', () => {
     assert.equal(a.durations.length, a.frames.length);
   }
 });
-test('frame rects are plain x,y,w,h', () => assert.deepEqual(sheet.frames.mage_idle_0, { x: 0, y: 0, w: 17, h: 20 }));
+test('frame rects are plain x,y,w,h', () => assert.deepEqual(sheet.frames.mage_idle_0, { x: 0, y: 0, w: 17, h: 26 }));
 const a = { frames: ['a', 'b'], durations: [100, 100], total: 200 };
 test('animFrame picks by time, loops, or holds last', () => {
   assert.equal(animFrame(a, 150), 'b');

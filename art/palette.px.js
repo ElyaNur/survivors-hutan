@@ -22,6 +22,7 @@ pal({
   R: "#a3324a", // dark red
   r: "#e2585e", // monster red, roof
   i: "#ff9f9a", // pink highlight
+  P: "#3b2466", // deep purple: archmage robe/hood shadow
   V: "#5a3a9e", // dark violet
   v: "#9b5de5", // violet: monsters, arcane spells
   l: "#d3b0ff", // lavender
@@ -34,6 +35,7 @@ pal({
   // ice (spells)
   C: "#3ccfe0", // ice cyan
   c: "#a6f6ff", // pale ice
+  e: "#7cf0ff", // bright glow mark: staff crystal pulse, runes, glowing eyes
   // skin
   H: "#e09a78", // skin shadow
   h: "#ffd2a6", // skin
@@ -41,4 +43,4 @@ pal({
   X: "#5d5a78", // stone dark, smoke
   x: "#a3a3c2", // stone light, smoke light
 })
-ramps("kFfGgj", "kMBbs", "kBCcw", "kNnup", "kRri", "kROoYyw", "kVvl", "kHh", "kXx")
+ramps("kFfGgj", "kMBbs", "kBCcw", "kNnup", "kRri", "kROoYyw", "kPVvl", "kHh", "kXx")
