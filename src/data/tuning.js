@@ -1,0 +1,54 @@
+// Starting guesses (tuned later). Per-level skill values: number | {base, perLv} | 5-array (lv1..lv5).
+const TUNING = {
+  player: { hp: 100, speed: 60, iframes: 0.5, magnet: 24, pickup: 8 },
+  frozenVulnMult: 2,
+  xp: { base: 5, step1: 10, step2: 13, step3: 16 },
+  enemyHpGrowthPerMin: 0.08,
+  maxEnemies: 400,
+  enemies: {
+    slime:    { hp: 6,    speed: 30, dmg: 5,  xp: 1,  size: 12 },
+    bat:      { hp: 4,    speed: 70, dmg: 4,  xp: 1,  size: 10 },
+    slimeRed: { hp: 18,   speed: 38, dmg: 8,  xp: 2,  size: 12 },
+    goblin:   { hp: 20,   speed: 45, dmg: 8,  xp: 2,  size: 14 },
+    wolf:     { hp: 25,   speed: 85, dmg: 10, xp: 3,  size: 16 },
+    orc:      { hp: 80,   speed: 28, dmg: 15, xp: 5,  size: 18 },
+    witch:    { hp: 30,   speed: 35, dmg: 8,  xp: 4,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 10 },
+    kingSlime: { hp: 600,  speed: 25, dmg: 20, xp: 40, size: 32, splitInto: 'slime', splitCount: 8 },
+    orcChief:  { hp: 1200, speed: 35, dmg: 25, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5 },
+    treant:    { hp: 8000, speed: 15, dmg: 30, xp: 0,  size: 64, rootWarn: 1.0, rootR: 20, rootDmg: 20, rootEvery: 3,
+                 summonType: 'goblin', summonCount: 6, summonEvery: 12 },
+  },
+  skills: {
+    fireball: { dmg: { base: 10, perLv: 4 }, cd: 1.2, speed: 160, boomR: [12, 14, 16, 18, 20], count: [1, 1, 2, 2, 3] },
+    meteor: {
+      dmg: { base: 30, perLv: 10 }, cd: [4.0, 3.75, 3.5, 3.25, 3.0], r: [28, 32, 36, 40, 44], count: [1, 1, 2, 2, 3],
+      warn: 0.8, burn: [1.5, 1.875, 2.25, 2.625, 3.0], burnDps: 6,
+    },
+    iceShard: {
+      dmg: { base: 8, perLv: 3 }, cd: 1.0, pierce: [1, 2, 3, 4, 5], shards: [1, 2, 2, 3, 3], fan: 15,
+      slow: [0.30, 0.35, 0.40, 0.45, 0.50], slowDur: 1.5, speed: 180,
+    },
+    frostNova: { dmg: { base: 6, perLv: 2 }, cd: { base: 4.0, perLv: -0.3 }, r: { base: 36, perLv: 6 }, freeze: { base: 1.0, perLv: 0.2 } },
+    chainLightning: { dmg: { base: 12, perLv: 4 }, cd: 1.5, jumps: [2, 3, 4, 5, 6], strikes: [1, 1, 2, 2, 3], jumpRange: 60 },
+    arcaneOrb: {
+      dmg: { base: 6, perLv: 2 }, orbs: [2, 3, 4, 5, 6], orbitR: { base: 28, perLv: 3 },
+      rotSpeed: { base: 3.0, perLv: 0.4 }, hitCd: 0.5,
+    },
+  },
+  ults: {
+    armageddon:   { cd: 25, dur: 4, rate: 6, dmg: 60, r: 36 },
+    absoluteZero: { cd: 30, freeze: 3, vulnMult: 2, hitDmg: 20 },
+    badaiPetir:   { cd: 25, dur: 6, rate: 5, range: 140, dmg: 40, orbBoost: 0.5 },
+  },
+  passives: {   // per-level amount
+    vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },
+    magnet: { magnet: 0.25 }, wisdom: { xp: 0.10 }, amplify: { area: 0.08 },
+  },
+  healCard: 30,
+  drops: {
+    heartChance: 0.01, heartHeal: 25, magnetChance: 0.003,
+    gemTiers: [{ minXp: 5, sprite: 'gem_red' }, { minXp: 2, sprite: 'gem_green' }, { minXp: 0, sprite: 'gem_blue' }],   // first match wins
+  },
+  fx: { shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, maxParticles: 600, maxNumbers: 150 },
+};
+export default TUNING;
