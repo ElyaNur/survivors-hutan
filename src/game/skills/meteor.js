@@ -28,15 +28,30 @@ function impact(run, a) {
 // Meteor areas are the ones whose trigger is ours (the pool resets onTrigger; a flag field would leak into reuse).
 const mine = a => a.onTrigger === impact;
 // How far along its fall a meteor's rock is (0..1, squared below so it speeds up); <= 0 = still out of sight.
-const fallK = a => 1 - (a.delay - a.age) / FALL;
+// A warning shorter than FALL (Armageddon's) shows the rock for all of it.
+const fallK = a => 1 - (a.delay - a.age) / Math.min(FALL, a.delay);
+const ANG = Math.atan2(-FROM_Y, -FROM_X);
+
+// Shared with Armageddon: embers off a falling rock, and the warning shadow + the rock itself (screen x, y).
+export function shedEmbers(run, a) {
+  const k = fallK(a);
+  if (k > 0) run.fx.burst(a.x + FROM_X * (1 - k * k), a.y + FROM_Y * (1 - k * k), k < 0.5 ? '#ffd23f' : '#e8532e', 1, 20);
+}
+export function drawIncoming(ctx, assets, a, x, y, t) {
+  assets.draw(ctx, 'meteor_warn', x, y, { t: a.age / a.delay * assets.animTotal('meteor_warn'), scale: a.r / WARN_R });   // one pass per warning
+  const k = fallK(a);
+  if (k <= 0) return;
+  const rx = Math.round(x + FROM_X * (1 - k * k)), ry = Math.round(y + FROM_Y * (1 - k * k));
+  drawHalo(ctx, 'fire', rx, ry, 1.6);
+  ctx.save(); ctx.translate(rx, ry); ctx.rotate(ANG);
+  assets.draw(ctx, 'meteor_fall', 0, 0, { t });
+  ctx.restore();
+}
 
 export default {
   id: ID,
   update(run, st, level, mods, dt) {
-    for (const a of run.areas) {                            // embers shed by the falling rocks
-      const k = mine(a) && !a.triggered ? fallK(a) : -1;
-      if (k > 0) run.fx.burst(a.x + FROM_X * (1 - k * k), a.y + FROM_Y * (1 - k * k), k < 0.5 ? '#ffd23f' : '#e8532e', 1, 20);
-    }
+    for (const a of run.areas) if (mine(a) && !a.triggered) shedEmbers(run, a);   // embers shed by the falling rocks
     if ((st.cd = (st.cd ?? 0) - dt) > 0) return;
     const view = camera(run.player), r = stat(ID, 'r', level) * mods.area, picks = [];
     for (let i = 0; i < stat(ID, 'count', level); i++) {
@@ -55,7 +70,7 @@ export default {
   // Above the actors, so a crowd never hides them: the shadow (it falls on the monsters too), the rock, the fire
   // they stand in. The ground glow under them is the area's own (drawAreas).
   draw(ctx, run, st, level, assets, cam) {
-    const t = performance.now(), ang = Math.atan2(-FROM_Y, -FROM_X), px = run.player.x - cam.x, py = run.player.y - cam.y;
+    const t = performance.now(), px = run.player.x - cam.x, py = run.player.y - cam.y;
     for (const a of run.areas) {
       if (!mine(a)) continue;
       const x = a.x - cam.x, y = a.y - cam.y;
@@ -70,14 +85,7 @@ export default {
         }
         continue;
       }
-      assets.draw(ctx, 'meteor_warn', x, y, { t: a.age * 1000, scale: a.r / WARN_R });
-      const k = fallK(a);
-      if (k <= 0) continue;
-      const rx = Math.round(x + FROM_X * (1 - k * k)), ry = Math.round(y + FROM_Y * (1 - k * k));
-      drawHalo(ctx, 'fire', rx, ry, 1.6);
-      ctx.save(); ctx.translate(rx, ry); ctx.rotate(ang);
-      assets.draw(ctx, 'meteor_fall', 0, 0, { t });
-      ctx.restore();
+      drawIncoming(ctx, assets, a, x, y, t);
     }
   },
 };

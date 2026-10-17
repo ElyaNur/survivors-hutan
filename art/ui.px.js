@@ -212,5 +212,12 @@ frame("panel", 8, ["k", ["Z", "P"], "k"], "#2a2346d9")
 frame("slot", 18, ["k", ["P", "Z"]], "k")
 frame("slot_lit", 18, ["k", ["y", "o"]], "k")
 frame("bar", 8, ["k", ["Z", "P"]], "k")
+// Ult unlock banner (9-slice, 8 px edges): ink outline, a gold bevel over a crimson band, a ruby set in each corner.
+frame("ult_banner", 24, ["k", ["y", "O"], ["Y", "R"], "k", ["K", "K"]], "#1d1a2fe6", (c, s) => {
+  for (const [x, y] of [[4, 4], [s - 5, 4], [4, s - 5], [s - 5, s - 5]]) {
+    c.px(x, y - 1, "k"); c.px(x - 1, y, "k"); c.px(x + 1, y, "k"); c.px(x, y + 1, "k")   // diamond setting
+    c.px(x, y, "r"); c.px(x, y - 1, "i")
+  }
+})
 
-sheet("ui", ["glyph_*", "icon_*", "card*", "panel", "slot*", "bar"])
+sheet("ui", ["glyph_*", "icon_*", "card*", "panel", "slot*", "bar", "ult_*"])

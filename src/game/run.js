@@ -11,6 +11,7 @@ import { updatePickups, drawPickups } from './pickups.js';
 import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy } from './enemies.js';
 import { updateProjectiles, drawAreas, drawProjectiles } from './projectiles.js';
 import { SKILLS } from './skills/index.js';
+import { ULTS } from './skills/ultimates.js';
 
 export function createRun(classId, starterSkillId, seed, assets) {
   const build = { skills: { [starterSkillId]: 1 }, passives: {}, ults: [] };
@@ -39,6 +40,7 @@ export function updateRun(run, dt, input) {
   updateEnemies(run, dt);
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);
+  for (const id of run.build.ults) ULTS[id].update(run, run.ultState[id] ??= {}, 0, run.mods, dt);   // fresh state fires at once
   updateProjectiles(run, dt);
   updatePickups(run, dt);
 }
@@ -115,6 +117,7 @@ export function drawRun(ctx, run, assets) {
   actorsTo(Infinity);
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
+  for (const id of run.build.ults) ULTS[id].draw(ctx, run, run.ultState[id] ??= {}, 0, assets, cam);   // skies, rocks, cloud: still under the mage
   drawProjectiles(ctx, run, assets, cam, t);
   // Above every actor, below the HUD. The mage is drawn again over spells and blasts (only numbers and the hurt
   // flash go over him): the player's anchor never drowns. Crowd over him: a 1px light outline first.

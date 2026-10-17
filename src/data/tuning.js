@@ -39,9 +39,9 @@ const TUNING = {
     },
   },
   ults: {
-    armageddon:   { cd: 25, dur: 4, rate: 6, dmg: 60, r: 36 },
-    absoluteZero: { cd: 30, freeze: 3, vulnMult: 2, hitDmg: 20 },
-    badaiPetir:   { cd: 25, dur: 6, rate: 5, range: 140, dmg: 40, orbBoost: 0.5 },
+    armageddon:   { cd: 25, dur: 4, rate: 6, dmg: 60, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
+    absoluteZero: { cd: 30, freeze: 3, vulnMult: 2, hitDmg: 20 },          // hitDmg lands on the fresh ice (x frozenVulnMult)
+    badaiPetir:   { cd: 25, dur: 6, rate: 5, range: 140, dmg: 40, orbBoost: 0.5, jumps: 2, jumpRange: 60 },   // orbs deal x(1 + orbBoost)
   },
   passives: {   // per-level amount
     vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },
@@ -54,7 +54,7 @@ const TUNING = {
     gemTiers: [{ minXp: 5, sprite: 'gem_red' }, { minXp: 2, sprite: 'gem_green' }, { minXp: 0, sprite: 'gem_blue' }],   // first match wins
   },
   fx: {
-    shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, maxParticles: 600, maxNumbers: 150,
+    shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, hitstopUlt: 0.1, maxParticles: 600, maxNumbers: 150,
     shakeHurt: { px: 1.5, dur: 0.12 }, flashHurt: { color: '#ff2a2a', dur: 0.25 },
     blink: 0.08,                       // s: player sprite toggles this often during iframes
     knockback: 3,                      // px: default enemy shove per hit

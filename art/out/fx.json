@@ -170,8 +170,8 @@
   },
   "fx_explosion_5": {
    "frame": {
-    "x": 0,
-    "y": 24,
+    "x": 144,
+    "y": 0,
     "w": 24,
     "h": 24
    },
@@ -191,7 +191,7 @@
   },
   "fx_poof_0": {
    "frame": {
-    "x": 24,
+    "x": 0,
     "y": 24,
     "w": 16,
     "h": 16
@@ -212,7 +212,7 @@
   },
   "fx_poof_1": {
    "frame": {
-    "x": 40,
+    "x": 16,
     "y": 24,
     "w": 16,
     "h": 16
@@ -233,7 +233,7 @@
   },
   "fx_poof_2": {
    "frame": {
-    "x": 56,
+    "x": 32,
     "y": 24,
     "w": 16,
     "h": 16
@@ -254,7 +254,7 @@
   },
   "fx_poof_3": {
    "frame": {
-    "x": 72,
+    "x": 48,
     "y": 24,
     "w": 16,
     "h": 16
@@ -275,7 +275,7 @@
   },
   "fx_poof_4": {
    "frame": {
-    "x": 88,
+    "x": 64,
     "y": 24,
     "w": 16,
     "h": 16
@@ -296,7 +296,7 @@
   },
   "fx_iceHit_0": {
    "frame": {
-    "x": 104,
+    "x": 80,
     "y": 24,
     "w": 15,
     "h": 15
@@ -317,7 +317,7 @@
   },
   "fx_iceHit_1": {
    "frame": {
-    "x": 119,
+    "x": 95,
     "y": 24,
     "w": 15,
     "h": 15
@@ -338,8 +338,8 @@
   },
   "fx_iceHit_2": {
    "frame": {
-    "x": 0,
-    "y": 48,
+    "x": 110,
+    "y": 24,
     "w": 15,
     "h": 15
    },
@@ -359,8 +359,8 @@
   },
   "fx_iceHit_3": {
    "frame": {
-    "x": 15,
-    "y": 48,
+    "x": 125,
+    "y": 24,
     "w": 15,
     "h": 15
    },
@@ -380,8 +380,8 @@
   },
   "fx_iceHit_4": {
    "frame": {
-    "x": 30,
-    "y": 48,
+    "x": 0,
+    "y": 40,
     "w": 15,
     "h": 15
    },
@@ -401,8 +401,8 @@
   },
   "fx_frozen_0": {
    "frame": {
-    "x": 45,
-    "y": 48,
+    "x": 15,
+    "y": 40,
     "w": 18,
     "h": 18
    },
@@ -422,8 +422,8 @@
   },
   "fx_frozen_1": {
    "frame": {
-    "x": 63,
-    "y": 48,
+    "x": 33,
+    "y": 40,
     "w": 18,
     "h": 18
    },
@@ -443,8 +443,8 @@
   },
   "fx_frozen_2": {
    "frame": {
-    "x": 81,
-    "y": 48,
+    "x": 51,
+    "y": 40,
     "w": 18,
     "h": 18
    },
@@ -464,8 +464,8 @@
   },
   "fx_burn_0": {
    "frame": {
-    "x": 99,
-    "y": 48,
+    "x": 69,
+    "y": 40,
     "w": 9,
     "h": 13
    },
@@ -485,8 +485,8 @@
   },
   "fx_burn_1": {
    "frame": {
-    "x": 108,
-    "y": 48,
+    "x": 78,
+    "y": 40,
     "w": 9,
     "h": 13
    },
@@ -506,8 +506,8 @@
   },
   "fx_burn_2": {
    "frame": {
-    "x": 0,
-    "y": 66,
+    "x": 87,
+    "y": 40,
     "w": 9,
     "h": 13
    },
@@ -527,8 +527,8 @@
   },
   "fx_burn_3": {
    "frame": {
-    "x": 9,
-    "y": 66,
+    "x": 96,
+    "y": 40,
     "w": 9,
     "h": 13
    },
@@ -548,8 +548,8 @@
   },
   "fx_frostNova_0": {
    "frame": {
-    "x": 18,
-    "y": 66,
+    "x": 105,
+    "y": 40,
     "w": 77,
     "h": 77
    },
@@ -569,8 +569,8 @@
   },
   "fx_frostNova_1": {
    "frame": {
-    "x": 95,
-    "y": 66,
+    "x": 0,
+    "y": 117,
     "w": 77,
     "h": 77
    },
@@ -590,8 +590,8 @@
   },
   "fx_frostNova_2": {
    "frame": {
-    "x": 172,
-    "y": 66,
+    "x": 77,
+    "y": 117,
     "w": 77,
     "h": 77
    },
@@ -611,8 +611,8 @@
   },
   "fx_frostNova_3": {
    "frame": {
-    "x": 249,
-    "y": 66,
+    "x": 154,
+    "y": 117,
     "w": 77,
     "h": 77
    },
@@ -632,8 +632,8 @@
   },
   "fx_frostNova_4": {
    "frame": {
-    "x": 326,
-    "y": 66,
+    "x": 231,
+    "y": 117,
     "w": 77,
     "h": 77
    },
@@ -653,8 +653,8 @@
   },
   "fx_frostNova_5": {
    "frame": {
-    "x": 403,
-    "y": 66,
+    "x": 308,
+    "y": 117,
     "w": 77,
     "h": 77
    },
@@ -674,8 +674,8 @@
   },
   "fx_lightningHit_0": {
    "frame": {
-    "x": 0,
-    "y": 143,
+    "x": 385,
+    "y": 117,
     "w": 15,
     "h": 15
    },
@@ -695,8 +695,8 @@
   },
   "fx_lightningHit_1": {
    "frame": {
-    "x": 15,
-    "y": 143,
+    "x": 400,
+    "y": 117,
     "w": 15,
     "h": 15
    },
@@ -716,8 +716,8 @@
   },
   "fx_lightningHit_2": {
    "frame": {
-    "x": 30,
-    "y": 143,
+    "x": 415,
+    "y": 117,
     "w": 15,
     "h": 15
    },
@@ -737,8 +737,8 @@
   },
   "fx_lightningHit_3": {
    "frame": {
-    "x": 45,
-    "y": 143,
+    "x": 430,
+    "y": 117,
     "w": 15,
     "h": 15
    },
@@ -758,8 +758,8 @@
   },
   "fx_lightningHit_4": {
    "frame": {
-    "x": 60,
-    "y": 143,
+    "x": 0,
+    "y": 194,
     "w": 15,
     "h": 15
    },
@@ -777,10 +777,283 @@
    },
    "duration": 50
   },
+  "fx_shatter_0": {
+   "frame": {
+    "x": 15,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_shatter_1": {
+   "frame": {
+    "x": 36,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_shatter_2": {
+   "frame": {
+    "x": 57,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_shatter_3": {
+   "frame": {
+    "x": 78,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_shatter_4": {
+   "frame": {
+    "x": 99,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_shatter_5": {
+   "frame": {
+    "x": 120,
+    "y": 194,
+    "w": 21,
+    "h": 21
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 21
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 21
+   },
+   "duration": 63
+  },
+  "fx_ultFlash_0": {
+   "frame": {
+    "x": 141,
+    "y": 194,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_1": {
+   "frame": {
+    "x": 205,
+    "y": 194,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_2": {
+   "frame": {
+    "x": 0,
+    "y": 258,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_3": {
+   "frame": {
+    "x": 64,
+    "y": 258,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_4": {
+   "frame": {
+    "x": 128,
+    "y": 258,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_5": {
+   "frame": {
+    "x": 192,
+    "y": 258,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
+  "fx_ultFlash_6": {
+   "frame": {
+    "x": 256,
+    "y": 258,
+    "w": 64,
+    "h": 64
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 64,
+    "h": 64
+   },
+   "sourceSize": {
+    "w": 64,
+    "h": 64
+   },
+   "duration": 71
+  },
   "iceShard_fly_0": {
    "frame": {
-    "x": 75,
-    "y": 143,
+    "x": 320,
+    "y": 258,
     "w": 11,
     "h": 7
    },
@@ -800,8 +1073,8 @@
   },
   "iceShard_fly_1": {
    "frame": {
-    "x": 86,
-    "y": 143,
+    "x": 331,
+    "y": 258,
     "w": 11,
     "h": 7
    },
@@ -821,8 +1094,8 @@
   },
   "iceShard_fly_2": {
    "frame": {
-    "x": 97,
-    "y": 143,
+    "x": 342,
+    "y": 258,
     "w": 11,
     "h": 7
    },
@@ -842,8 +1115,8 @@
   },
   "arcaneOrb_0": {
    "frame": {
-    "x": 0,
-    "y": 158,
+    "x": 353,
+    "y": 258,
     "w": 11,
     "h": 11
    },
@@ -863,8 +1136,8 @@
   },
   "arcaneOrb_1": {
    "frame": {
-    "x": 11,
-    "y": 158,
+    "x": 0,
+    "y": 322,
     "w": 11,
     "h": 11
    },
@@ -884,8 +1157,8 @@
   },
   "arcaneOrb_2": {
    "frame": {
-    "x": 22,
-    "y": 158,
+    "x": 11,
+    "y": 322,
     "w": 11,
     "h": 11
    },
@@ -905,8 +1178,8 @@
   },
   "arcaneOrb_3": {
    "frame": {
-    "x": 33,
-    "y": 158,
+    "x": 22,
+    "y": 322,
     "w": 11,
     "h": 11
    },
@@ -926,8 +1199,8 @@
   },
   "arcaneOrb_4": {
    "frame": {
-    "x": 44,
-    "y": 158,
+    "x": 33,
+    "y": 322,
     "w": 11,
     "h": 11
    },
@@ -947,8 +1220,8 @@
   },
   "arcaneOrb_5": {
    "frame": {
-    "x": 55,
-    "y": 158,
+    "x": 44,
+    "y": 322,
     "w": 11,
     "h": 11
    },
@@ -968,8 +1241,8 @@
   },
   "meteor_fall_0": {
    "frame": {
-    "x": 66,
-    "y": 158,
+    "x": 55,
+    "y": 322,
     "w": 26,
     "h": 15
    },
@@ -989,8 +1262,8 @@
   },
   "meteor_fall_1": {
    "frame": {
-    "x": 92,
-    "y": 158,
+    "x": 81,
+    "y": 322,
     "w": 26,
     "h": 15
    },
@@ -1010,8 +1283,8 @@
   },
   "meteor_fall_2": {
    "frame": {
-    "x": 0,
-    "y": 173,
+    "x": 107,
+    "y": 322,
     "w": 26,
     "h": 15
    },
@@ -1031,8 +1304,8 @@
   },
   "meteor_warn_0": {
    "frame": {
-    "x": 26,
-    "y": 173,
+    "x": 133,
+    "y": 322,
     "w": 59,
     "h": 59
    },
@@ -1052,8 +1325,8 @@
   },
   "meteor_warn_1": {
    "frame": {
-    "x": 85,
-    "y": 173,
+    "x": 0,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1073,8 +1346,8 @@
   },
   "meteor_warn_2": {
    "frame": {
-    "x": 144,
-    "y": 173,
+    "x": 59,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1094,8 +1367,8 @@
   },
   "meteor_warn_3": {
    "frame": {
-    "x": 203,
-    "y": 173,
+    "x": 118,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1115,8 +1388,8 @@
   },
   "meteor_warn_4": {
    "frame": {
-    "x": 262,
-    "y": 173,
+    "x": 177,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1136,8 +1409,8 @@
   },
   "meteor_warn_5": {
    "frame": {
-    "x": 321,
-    "y": 173,
+    "x": 236,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1157,8 +1430,8 @@
   },
   "meteor_warn_6": {
    "frame": {
-    "x": 380,
-    "y": 173,
+    "x": 295,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1178,8 +1451,8 @@
   },
   "meteor_warn_7": {
    "frame": {
-    "x": 0,
-    "y": 232,
+    "x": 354,
+    "y": 381,
     "w": 59,
     "h": 59
    },
@@ -1196,6 +1469,174 @@
     "h": 59
    },
    "duration": 100
+  },
+  "stormCloud_0": {
+   "frame": {
+    "x": 413,
+    "y": 381,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_1": {
+   "frame": {
+    "x": 461,
+    "y": 381,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_2": {
+   "frame": {
+    "x": 0,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_3": {
+   "frame": {
+    "x": 48,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_4": {
+   "frame": {
+    "x": 96,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_5": {
+   "frame": {
+    "x": 144,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_6": {
+   "frame": {
+    "x": 192,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
+  },
+  "stormCloud_7": {
+   "frame": {
+    "x": 240,
+    "y": 440,
+    "w": 48,
+    "h": 22
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 48,
+    "h": 22
+   },
+   "sourceSize": {
+    "w": 48,
+    "h": 22
+   },
+   "duration": 100
   }
  },
  "meta": {
@@ -1203,8 +1644,8 @@
   "image": "fx.png",
   "format": "RGBA8888",
   "size": {
-   "w": 480,
-   "h": 291
+   "w": 509,
+   "h": 462
   },
   "scale": "1",
   "frameTags": [
@@ -1257,27 +1698,45 @@
     "direction": "forward"
    },
    {
-    "name": "iceShard_fly",
+    "name": "fx_shatter",
     "from": 37,
-    "to": 39,
+    "to": 42,
+    "direction": "forward"
+   },
+   {
+    "name": "fx_ultFlash",
+    "from": 43,
+    "to": 49,
+    "direction": "forward"
+   },
+   {
+    "name": "iceShard_fly",
+    "from": 50,
+    "to": 52,
     "direction": "forward"
    },
    {
     "name": "arcaneOrb",
-    "from": 40,
-    "to": 45,
+    "from": 53,
+    "to": 58,
     "direction": "forward"
    },
    {
     "name": "meteor_fall",
-    "from": 46,
-    "to": 48,
+    "from": 59,
+    "to": 61,
     "direction": "forward"
    },
    {
     "name": "meteor_warn",
-    "from": 49,
-    "to": 56,
+    "from": 62,
+    "to": 69,
+    "direction": "forward"
+   },
+   {
+    "name": "stormCloud",
+    "from": 70,
+    "to": 77,
     "direction": "forward"
    }
   ]

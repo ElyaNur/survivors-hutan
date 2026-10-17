@@ -217,4 +217,71 @@ anim("fx_lightningHit", { w: 15, h: 15, fps: 20, loop: false, frames: 5 }, (c) =
 },
   glow("wy", { r: 2, strength: 0.6, bands: 2 }))
 
-sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*"])
+// ---- Ultimates.
+// Shatter, 21x21: an enemy that dies on Absolute Zero's ice. A white crack-star pops, then the body flies apart as
+// angular ice shards that spin out, drop a little and melt.
+const SHARDS = [[0.2, 4, 3], [1.1, 3, 2], [2.0, 4, 3], [2.9, 3, 2], [3.7, 4, 3], [4.5, 3, 2], [5.4, 4, 2]]   // [angle, length, width]
+anim("fx_shatter", { w: 21, h: 21, fps: 16, loop: false, frames: 6 }, (c) => {
+  const f = c.frame, C = 10
+  if (f < 2) {                                                                      // the pop: core + cracks running out
+    c.circ(C, C, 3 - f, "w")
+    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3 + 0.3, L = 5 + f * 3; c.line(C, C, Math.round(C + Math.cos(a) * L), Math.round(C + Math.sin(a) * L), f ? "c" : "w") }
+  }
+  if (f === 0) return
+  SHARDS.forEach(([a, L, wd], i) => {
+    const d = 2 + f * 2.2, spin = a + f * (i % 2 ? 0.7 : -0.7), fall = f * f * 0.25
+    const x = C + Math.cos(a) * d, y = C + Math.sin(a) * d + fall
+    const ux = Math.cos(spin), uy = Math.sin(spin), nx = -uy, ny = ux
+    const tipX = x + ux * L, tipY = y + uy * L, bx = x - ux * 1, by = y - uy * 1
+    c.poly([Math.round(bx + nx * wd / 2), Math.round(by + ny * wd / 2), Math.round(tipX), Math.round(tipY), Math.round(bx - nx * wd / 2), Math.round(by - ny * wd / 2)], f < 4 ? "C" : "B")
+    c.line(Math.round(bx), Math.round(by), Math.round(tipX), Math.round(tipY), f < 4 ? "c" : "C")
+    if (f < 4) c.px(Math.round(tipX), Math.round(tipY), "w")
+  })
+  if (f >= 4) c.dither(0, 0, 21, 21, ".", "_", f === 4 ? 0.3 : 0.6)                // melting away
+},
+  glow("wc", { r: 2, strength: 0.5, bands: 2 }))
+
+// Storm cloud, 48x22 (Badai Petir), floats over the mage: dark violet-grey puffs lit faintly from the top, an ink
+// belly, and lightning flickering inside it (the puffs light up around the flash), a fork dropping out now and then.
+const PUFF = [[10, 12, 7], [19, 9, 8], [29, 8, 8], [38, 11, 7], [24, 13, 8], [14, 15, 5], [34, 15, 5], [5, 15, 4], [43, 15, 4]]   // [x, y, r]
+const BACK_TO_FRONT = PUFF.map((_, i) => i).sort((a, b) => PUFF[a][1] - PUFF[b][1])   // higher puffs sit behind
+const FLASH = [null, null, [21, 12], null, [32, 11], null, null, [14, 13]]          // per frame: lightning inside at [x, y]
+anim("stormCloud", { w: 48, h: 22, fps: 10, frames: 8 }, (c) => {
+  const f = c.frame, k = c.phase * Math.PI * 2, fl = FLASH[f]
+  const at = (i) => { const [x, y, r] = PUFF[i]; return [x + Math.round(Math.sin(k + i * 1.7) * 0.8), y + Math.round(Math.cos(k + i * 2.3) * 0.6), r] }
+  for (let i = 0; i < PUFF.length; i++) { const [x, y, r] = at(i); c.circ(x, y, r, "k") }                    // ink rim
+  for (const i of BACK_TO_FRONT) {                                                  // each puff over the ones behind it:
+    const [x, y, r] = at(i)
+    c.circ(x, y, r - 1, "P"); c.circ(x - 1, y - 1, r - 2, "v"); c.circ(x, y, r - 2, "V")   // shaded edge, lit top-left crescent, body
+  }
+  c.hline(6, 19, 36, "k")
+  if (fl) {                                                                         // a flash inside: lit puffs, a hot crack
+    const [x, y] = fl
+    c.recolor({ P: "V", V: "v", X: "l" }, [x, y, 9])
+    c.line(x - 4, y - 2, x, y + 1, "y"); c.line(x, y + 1, x + 3, y - 1, "y"); c.line(x + 3, y - 1, x + 6, y + 2, "w")
+    c.px(x, y + 1, "w")
+    if (f === 2 || f === 7) { c.line(x, y + 2, x - 2, y + 6, "y"); c.line(x - 2, y + 6, x, y + 9, "w") }   // fork out of the belly
+  } else for (const [x, y] of [[[16, 14], [30, 12]], [[25, 15]], [[12, 13], [36, 14]]][f % 3]) c.px(x, y, "v")   // glints inside
+},
+  glow("wy", { r: 3, strength: 0.6, bands: 2 }))
+
+// Ult unlock flash, 64x64, on the mage when a recipe completes: a white burst, eight golden rays shooting out
+// (long and short), an expanding gold ring, sparkles at the end.
+anim("fx_ultFlash", { w: 64, h: 64, fps: 14, loop: false, frames: 7 }, (c) => {
+  const f = c.frame, C = 32
+  if (f < 3) { c.circ(C, C, 7 - f * 2, "w"); c.ring(C, C, 8 - f * 2, "y") }
+  for (let i = 0; i < 8; i++) {
+    const a = i * Math.PI / 4 + Math.PI / 8, long = i % 2 === 0, r0 = 4 + f * 3, r1 = r0 + (long ? 16 : 9) - f * 2
+    if (r1 <= r0) continue
+    const x0 = Math.round(C + Math.cos(a) * r0), y0 = Math.round(C + Math.sin(a) * r0), x1 = Math.round(C + Math.cos(a) * r1), y1 = Math.round(C + Math.sin(a) * r1)
+    c.line(x0, y0, x1, y1, f < 2 ? "w" : f < 4 ? "y" : "Y", long && f < 3 ? 2 : 1)
+    c.px(x1, y1, "w")
+  }
+  const R = 6 + f * 4
+  if (f >= 1 && f < 6) { c.ring(C, C, R, f < 3 ? "y" : "Y"); if (f < 4) c.ring(C, C, R - 1, "o") }
+  if (f >= 4) for (let i = 0; i < 6; i++) { const a = i * 1.05 + f; c.px(Math.round(C + Math.cos(a) * (R + 3)), Math.round(C + Math.sin(a) * (R + 3)), f < 6 ? "w" : "y") }
+  if (f >= 5) c.dither(0, 0, 64, 64, ".", "_", f === 5 ? 0.3 : 0.6)
+},
+  glow("wy", { r: 3, strength: 0.5, bands: 2 }))
+
+sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud"])

@@ -21,6 +21,7 @@ const ORB = { x: 4, y: -3 };                                // staff orb offset 
 const FX = TUNING.fx;
 const SLOW_ALPHA = 0.7, FROST_ALPHA = 0.45;   // fx_frozen strength when slowed; white frost wash when frozen
 const near = [];                                            // reused grid query buffer
+const SHATTER = [['#ffffff', 3, 90], ['#a6f6ff', 5, 70], ['#3ccfe0', 3, 50]];   // ice burst on a shatter: [palette w/c/C, count, speed]
 
 export function spawnEnemy(run, type, x, y) {
   const def = TUNING.enemies[type];
@@ -60,6 +61,11 @@ function killEnemy(run, e) {
     if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
   } else fx.hitstop(FX.hitstopBig);
   run.kills++;
+  if (run.time < e.vulnerableUntil) {                       // died on Absolute Zero's ice: it shatters
+    fx.anim(e.x, e.y, 'fx_shatter');
+    for (const [c, n, sp] of SHATTER) fx.burst(e.x, e.y, c, n, sp);
+    return;
+  }
   fx.anim(e.x, e.y, 'fx_poof');
   fx.burst(e.x, e.y, FX.deathColor[e.type] ?? FX.deathColor.default, FX.deathBurst.count, FX.deathBurst.speed);
 }

@@ -28,13 +28,13 @@ export function chainTargets(run, first, jumps, range) {
   return out;
 }
 
-// One bolt: the sky point, then every target's position at the strike (the dead don't drag it away).
-function strike(run, st, first, level) {
-  const ts = chainTargets(run, first, stat(ID, 'jumps', level), stat(ID, 'jumpRange', level));
-  const b = st.bolts.find(o => o.age >= LIFE) ?? (st.bolts.push({ xs: [], ys: [] }), st.bolts[st.bolts.length - 1]);
+// One bolt from (fromX, fromY), then every target's position at the strike (the dead don't drag it away).
+// bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir strikes through here too.
+export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
+  const ts = chainTargets(run, first, jumps, range);
+  const b = bolts.find(o => o.age >= LIFE) ?? (bolts.push({ xs: [], ys: [] }), bolts[bolts.length - 1]);
   b.age = 0; b.n = ts.length + 1;
-  b.xs[0] = first.x + (run.rng.next() - 0.5) * 2 * SKY_DRIFT; b.ys[0] = first.y - SKY;
-  const dmg = stat(ID, 'dmg', level);
+  b.xs[0] = fromX; b.ys[0] = fromY;
   ts.forEach((e, i) => {
     b.xs[i + 1] = e.x; b.ys[i + 1] = e.y;
     damageEnemy(run, e, dmg, { fromX: b.xs[i], fromY: b.ys[i] });
@@ -69,32 +69,39 @@ function drawSegment(ctx, x0, y0, x1, y1, w, s) {
   }
 }
 
+export function ageBolts(bolts, dt) { for (const b of bolts) b.age += dt; }
+
+export function drawBolts(ctx, bolts, cam) {
+  const frameSeed = (performance.now() / 16) | 0;
+  for (const b of bolts) {
+    if (b.age >= LIFE) continue;
+    ctx.globalAlpha = 1 - 0.5 * b.age / LIFE;
+    for (const [w, color] of LAYERS) {
+      if (w === 3 && b.age > LIFE * 0.6) continue;         // the violet edge goes first
+      ctx.fillStyle = color;
+      for (let i = 0; i + 1 < b.n; i++)
+        drawSegment(ctx, b.xs[i] - cam.x, b.ys[i] - cam.y, b.xs[i + 1] - cam.x, b.ys[i + 1] - cam.y, w, frameSeed * 31 + i * 7 + 1);
+    }
+    ctx.globalAlpha = 1;
+    for (let i = 1; i < b.n; i++) drawHalo(ctx, 'bolt', b.xs[i] - cam.x, b.ys[i] - cam.y, 1, 1 - b.age / LIFE);
+  }
+}
+
+function cast(run, st, e, level) {
+  strike(run, st.bolts, e, stat(ID, 'dmg', level), stat(ID, 'jumps', level), stat(ID, 'jumpRange', level),
+    e.x + (run.rng.next() - 0.5) * 2 * SKY_DRIFT, e.y - SKY);   // from the sky above it, leaning
+}
+
 export default {
   id: ID,
   update(run, st, level, mods, dt) {
-    st.bolts ??= [];
-    for (const b of st.bolts) b.age += dt;
+    ageBolts(st.bolts ??= [], dt);
     if ((st.cd = (st.cd ?? 0) - dt) > 0) return;
     const first = randomOnScreenEnemy(run, run.rng);
     if (!first) return;                                     // stays charged until something is on screen
     st.cd = stat(ID, 'cd', level) * mods.cooldown;
-    strike(run, st, first, level);
-    for (let i = 1; i < stat(ID, 'strikes', level); i++) { const e = randomOnScreenEnemy(run, run.rng); if (e) strike(run, st, e, level); }
+    cast(run, st, first, level);
+    for (let i = 1; i < stat(ID, 'strikes', level); i++) { const e = randomOnScreenEnemy(run, run.rng); if (e) cast(run, st, e, level); }
   },
-  draw(ctx, run, st, level, assets, cam) {
-    if (!st.bolts) return;
-    const frameSeed = (performance.now() / 16) | 0;
-    for (const b of st.bolts) {
-      if (b.age >= LIFE) continue;
-      ctx.globalAlpha = 1 - 0.5 * b.age / LIFE;
-      for (const [w, color] of LAYERS) {
-        if (w === 3 && b.age > LIFE * 0.6) continue;         // the violet edge goes first
-        ctx.fillStyle = color;
-        for (let i = 0; i + 1 < b.n; i++)
-          drawSegment(ctx, b.xs[i] - cam.x, b.ys[i] - cam.y, b.xs[i + 1] - cam.x, b.ys[i + 1] - cam.y, w, frameSeed * 31 + i * 7 + 1);
-      }
-      ctx.globalAlpha = 1;
-      for (let i = 1; i < b.n; i++) drawHalo(ctx, 'bolt', b.xs[i] - cam.x, b.ys[i] - cam.y, 1, 1 - b.age / LIFE);
-    }
-  },
+  draw(ctx, run, st, level, assets, cam) { if (st.bolts) drawBolts(ctx, st.bolts, cam); },
 };

@@ -3,7 +3,7 @@
 import TUNING from '../data/tuning.js';
 import { drawText } from '../engine/font.js';
 
-const NUM_LIFE = 0.6, NUM_RISE = 12, MAX_ANIMS = 32, FLASH_ALPHA = 0.4, FLASH_PAD = 8, ANIM_FALLBACK = 0.4;
+const NUM_LIFE = 0.6, NUM_RISE = 12, MAX_ANIMS = 96, FLASH_ALPHA = 0.4, FLASH_PAD = 8, ANIM_FALLBACK = 0.4;   // anims: room for a meteor rain's blasts plus a crowd's death poofs
 
 const pool = (n, mk) => Array.from({ length: n }, mk);
 

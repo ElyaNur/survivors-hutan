@@ -12279,6 +12279,26 @@
     "w": 8,
     "h": 8
    }
+  },
+  "ult_banner": {
+   "frame": {
+    "x": 205,
+    "y": 177,
+    "w": 24,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 24,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 24,
+    "h": 24
+   }
   }
  },
  "meta": {
@@ -12287,7 +12307,7 @@
   "format": "RGBA8888",
   "size": {
    "w": 337,
-   "h": 195
+   "h": 201
   },
   "scale": "1"
  }

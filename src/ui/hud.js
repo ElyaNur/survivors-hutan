@@ -3,8 +3,9 @@ import { NAMES } from '../data/classes.js';
 import { xpToNext } from '../logic/progression.js';
 import { camera } from '../game/world.js';
 import { drawText, textWidth } from '../engine/font.js';
+import TUNING from '../data/tuning.js';
 
-const W = 480, H = 270, SLOTS = 4, MAX_LV = 5, BANNER_T = 2.5;
+const W = 480, H = 270, SLOTS = 4, MAX_LV = 5, BANNER_T = 2.5, BANNER_X = 24, BANNER_EDGE = 8;   // ult_banner: 9-slice edge px
 const C = { k: '#1d1a2f', K: '#6b1c33', r: '#e2585e', i: '#ff9f9a', b: '#4aa8e0', s: '#8fd3f5', B: '#2f6fc4', Y: '#ffd23f', y: '#fff1a8', Z: '#463a72' };
 
 export const formatTime = sec => {
@@ -15,7 +16,11 @@ export const formatTime = sec => {
 // One ult at a time: takes the next entry from run.newUlts and shows it for BANNER_T s.
 export function updateBanner(run, dt) {
   if (run.banner && (run.banner.t += dt) >= BANNER_T) run.banner = null;
-  if (!run.banner && run.newUlts.length) run.banner = { id: run.newUlts.shift(), t: 0 };
+  if (run.banner || !run.newUlts.length) return;
+  run.banner = { id: run.newUlts.shift(), t: 0 };
+  const fx = run.fx, { shakeUlt, hitstopUlt } = TUNING.fx;   // the unlock lands like a blow
+  fx.shake(shakeUlt.px, shakeUlt.dur); fx.hitstop(hitstopUlt);
+  fx.anim(run.player.x, run.player.y, 'fx_ultFlash');
 }
 
 function pips(ctx, x, y, lv) {
@@ -61,8 +66,7 @@ function drawBanner(ctx, run, assets) {
   const cy = 74, h = Math.round(36 * open);
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.fillStyle = 'rgba(29, 26, 47, 0.88)'; ctx.fillRect(0, cy - h / 2, W, h);
-  ctx.fillStyle = C.Y; ctx.fillRect(0, cy - h / 2, W, 1); ctx.fillRect(0, cy + h / 2 - 1, W, 1);
+  if (h >= 2 * BANNER_EDGE) assets.drawSlice(ctx, 'ult_banner', BANNER_X, cy - h / 2, W - 2 * BANNER_X, h, BANNER_EDGE);
   ctx.restore();
   if (open < 1) return;
   const title = `ULTIMATE TERBUKA: ${NAMES[id].name}!`;
