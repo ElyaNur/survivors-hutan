@@ -66,3 +66,8 @@ pal({
   U: "#2a2346", // card / panel body (ink-violet, a step above k so the outline still reads)
   Z: "#463a72", // card border mid (between U and V)
 })
+// Added for Orb Arcane (Task 10a): its own orchid, so it never reads as the witch's hex magenta.
+pal({
+  z: "#d87bff", // arcane orchid: orb body, arcane glow
+})
+ramps("kPVvzlw")

@@ -8,7 +8,9 @@ import { updatePlayer, blinkHidden } from './player.js';
 import { createFx } from './fx.js';
 import { createSpawner, spawnerUpdate } from '../logic/spawner.js';
 import { updatePickups, drawPickups } from './pickups.js';
-import { BOUNDS, spawnEnemy, updateEnemies, updateEnemyShots, sortEnemies, drawEnemy, drawEnemyShots } from './enemies.js';
+import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy } from './enemies.js';
+import { updateProjectiles, drawAreas, drawProjectiles } from './projectiles.js';
+import { SKILLS } from './skills/index.js';
 
 export function createRun(classId, starterSkillId, seed, assets) {
   const build = { skills: { [starterSkillId]: 1 }, passives: {}, ults: [] };
@@ -35,7 +37,9 @@ export function updateRun(run, dt, input) {
   for (const s of spawnerUpdate(run.spawner, run.time, dt, camera(run.player), BOUNDS, run.rng, run.enemies.length))
     spawnEnemy(run, s.type, s.x, s.y);
   updateEnemies(run, dt);
-  updateEnemyShots(run, dt);
+  const sk = run.build.skills;
+  for (const id in sk) SKILLS[id]?.update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);   // ponytail: 10b skills absent until they land
+  updateProjectiles(run, dt);
   updatePickups(run, dt);
 }
 
@@ -74,6 +78,7 @@ export function drawRun(ctx, run, assets) {
   ctx.drawImage(w.ground, cam.x, cam.y, cam.w, cam.h, 0, 0, cam.w, cam.h);
   drawWorldTop(ctx, assets, cam, t);
   drawPickups(ctx, run, assets, cam, t);                   // on the ground, under every actor
+  drawAreas(ctx, run, assets, cam);
   // y-sort: props, enemies and the player by the row their feet stand on
   const feet = p.y + 12;                                     // mage sprite is 26 tall, drawn centred
   const es = sortEnemies(run, assets);
@@ -112,6 +117,8 @@ export function drawRun(ctx, run, assets) {
     drawPlayer(-1, 0, true); drawPlayer(1, 0, true); drawPlayer(0, -1, true); drawPlayer(0, 1, true);
     drawPlayer();
   }
-  drawEnemyShots(ctx, run, assets, cam, t);
+  const sk = run.build.skills;
+  for (const id in sk) SKILLS[id]?.draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
+  drawProjectiles(ctx, run, assets, cam, t);
   run.fx.draw(ctx, cam, assets);                             // above every actor, below the HUD
 }

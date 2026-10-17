@@ -5,6 +5,7 @@ import { offscreenPoint } from '../logic/spawner.js';
 import { hitEnemy, hurtPlayer, knockback, speedFactor } from '../logic/combat.js';
 import { WORLD_W, WORLD_H, terrainSpeed, camera } from './world.js';
 import { dropGem, dropHeart, dropMagnet } from './pickups.js';
+import { spawnProjectile } from './projectiles.js';
 
 export const BOUNDS = { w: WORLD_W, h: WORLD_H };
 const BOSSES = new Set(SCHEDULE.bosses.map(b => b.type));
@@ -18,6 +19,7 @@ const WITCH_DEADBAND = 8;                                   // px around keepDis
 const CAST_LEAD = 0.4;                                      // s: witch_cast (4 frames @10fps) plays before the shot
 const ORB = { x: 4, y: -3 };                                // staff orb offset from the witch's centre (sprite px)
 const FX = TUNING.fx;
+const SLOW_ALPHA = 0.7, FROST_ALPHA = 0.45;   // fx_frozen strength when slowed; white frost wash when frozen
 const near = [];                                            // reused grid query buffer
 
 export function spawnEnemy(run, type, x, y) {
@@ -59,7 +61,7 @@ function killEnemy(run, e) {
 }
 
 // Contact and shots hurt the mage through here so a landed hit flashes the screen red.
-function hurtMage(run, dmg) {
+export function hurtMage(run, dmg) {
   if (!hurtPlayer(run.player, dmg, run.time)) return;
   run.fx.flashScreen(FX.flashHurt.color, FX.flashHurt.dur);
   run.fx.shake(FX.shakeHurt.px, FX.shakeHurt.dur);
@@ -68,8 +70,8 @@ function hurtMage(run, dmg) {
 function fire(run, e, def) {
   const p = run.player, x = e.x + ORB.x * e.facing, y = e.y + ORB.y;
   const dx = p.x - x, dy = p.y - y, d = Math.hypot(dx, dy) || 1;
-  run.projectiles.push({ x, y, vx: dx / d * def.shotSpeed, vy: dy / d * def.shotSpeed, dmg: def.shotDmg,
-    radius: def.shotSize / 2, pierce: 1, life: def.shotLife, sprite: 'witchShot_fly', hostile: true });
+  spawnProjectile(run, { x, y, vx: dx / d * def.shotSpeed, vy: dy / d * def.shotSpeed, dmg: def.shotDmg,
+    radius: def.shotSize / 2, life: def.shotLife, sprite: 'witchShot_fly', hostile: true, glow: 'hex' });
 }
 
 export function updateEnemies(run, dt) {
@@ -129,19 +131,6 @@ export function updateEnemies(run, dt) {
     if (es[i].dead) { es[i] = es[es.length - 1]; es.pop(); }
 }
 
-// ponytail: hostile shots only; Task 10's updateProjectiles takes this over.
-export function updateEnemyShots(run, dt) {
-  const p = run.player, pr = TUNING.player.size / 2, ps = run.projectiles;
-  for (let i = ps.length - 1; i >= 0; i--) {
-    const s = ps[i];
-    if (!s.hostile) continue;
-    s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
-    const hit = Math.hypot(s.x - p.x, s.y - p.y) < s.radius + pr;
-    if (hit) hurtMage(run, s.dmg);
-    if (hit || s.life <= 0) { ps[i] = ps[ps.length - 1]; ps.pop(); }
-  }
-}
-
 // ---- Drawing (browser)
 const footY = e => e.y + e.foot;
 const byFoot = (a, b) => footY(a) - footY(b);
@@ -160,41 +149,18 @@ export function drawEnemy(ctx, assets, e, cam, tMs, now) {
   const sx = e.x - cam.x, sy = e.y - cam.y;
   if (sx < -40 || sy < -40 || sx > cam.w + 40 || sy > cam.h + 40) return;
   const flip = e.facing < 0, flash = now < e.flashUntil;
+  const name = ANIM[e.type], t = (now < e.frozenUntil ? 0 : tMs) + e.phase * 1000;   // phase desyncs the crowd; frozen = stopped
   if (e.type === 'witch' && e.inRange && e.shotAt - now < CAST_LEAD)
-    return assets.draw(ctx, 'witch_cast', sx, sy, { flip, flash, t: (CAST_LEAD - (e.shotAt - now)) * 1000 });
-  const name = ANIM[e.type], t = tMs + e.phase * 1000;   // phase desyncs the crowd
-  if (assets.has(name)) return assets.draw(ctx, name, sx, sy, { flip, flash, t });
-  // ponytail: bosses get their art in Task 12; until then a scaled slime stands in
-  const s = Math.max(1, Math.round(e.def.size / 14));
-  ctx.save(); ctx.translate(Math.round(sx), Math.round(sy)); ctx.scale(s, s);
-  assets.draw(ctx, 'slime_walk', 0, 0, { flip, flash, t });
-  ctx.restore();
-}
-
-// Banded magenta halo, built once: the sprite's own glow can't spill onto the ground, this does.
-const HALO_R = 8, HALO_BANDS = [[4, 0.45], [6, 0.25], [HALO_R, 0.12]];   // [radius px, alpha]
-let halo = null;
-function shotHalo() {
-  const n = HALO_R * 2 + 1, cv = document.createElement('canvas'); cv.width = cv.height = n;
-  const g = cv.getContext('2d'), img = g.createImageData(n, n);
-  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-    const band = HALO_BANDS.find(([r]) => Math.hypot(x - HALO_R, y - HALO_R) <= r + 0.3);
-    if (!band) continue;
-    const i = (y * n + x) * 4;
-    img.data.set([255, 90, 217, Math.round(band[1] * 255)], i);   // palette "m"
+    assets.draw(ctx, 'witch_cast', sx, sy, { flip, flash, t: (CAST_LEAD - (e.shotAt - now)) * 1000 });
+  else if (assets.has(name)) assets.draw(ctx, name, sx, sy, { flip, flash, t });
+  else {   // ponytail: bosses get their art in Task 12; until then a scaled slime stands in
+    const s = Math.max(1, Math.round(e.def.size / 14));
+    ctx.save(); ctx.translate(Math.round(sx), Math.round(sy)); ctx.scale(s, s);
+    assets.draw(ctx, 'slime_walk', 0, 0, { flip, flash, t });
+    ctx.restore();
   }
-  g.putImageData(img, 0, 0);
-  return cv;
-}
-
-export function drawEnemyShots(ctx, run, assets, cam, tMs) {
-  halo ??= shotHalo();
-  for (const s of run.projectiles) {
-    if (!s.hostile) continue;
-    const x = Math.round(s.x - cam.x), y = Math.round(s.y - cam.y);
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.drawImage(halo, x - HALO_R, y - HALO_R);
-    ctx.globalCompositeOperation = 'source-over';
-    assets.draw(ctx, s.sprite, x, y, { t: tMs });
-  }
+  if (now < e.frozenUntil) {                               // frozen: frosted pale all over, ice at the feet
+    if (assets.has(name)) assets.draw(ctx, name, sx, sy, { flip, flash: true, t, alpha: FROST_ALPHA });
+    assets.draw(ctx, 'fx_frozen', sx, sy, { t: tMs + e.phase * 1000 });   // glints keep twinkling
+  } else if (now < e.slowUntil) assets.draw(ctx, 'fx_frozen', sx, sy, { t, alpha: SLOW_ALPHA });   // slowed: lighter crust
 }

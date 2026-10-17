@@ -21,20 +21,21 @@ const TUNING = {
                  summonType: 'goblin', summonCount: 6, summonEvery: 12 },
   },
   skills: {
-    fireball: { dmg: { base: 10, perLv: 4 }, cd: 1.2, speed: 160, boomR: [12, 14, 16, 18, 20], count: [1, 1, 2, 2, 3] },
+    fireball: { dmg: { base: 10, perLv: 4 }, cd: 1.2, speed: 160, boomR: [12, 14, 16, 18, 20], count: [1, 1, 2, 2, 3],
+      range: 220, spread: 12, size: 4 },   // range: targeting + flight px; spread: deg between balls; size: hit radius px
     meteor: {
       dmg: { base: 30, perLv: 10 }, cd: [4.0, 3.75, 3.5, 3.25, 3.0], r: [28, 32, 36, 40, 44], count: [1, 1, 2, 2, 3],
       warn: 0.8, burn: [1.5, 1.875, 2.25, 2.625, 3.0], burnDps: 6,
     },
     iceShard: {
       dmg: { base: 8, perLv: 3 }, cd: 1.0, pierce: [1, 2, 3, 4, 5], shards: [1, 2, 2, 3, 3], fan: 15,
-      slow: [0.30, 0.35, 0.40, 0.45, 0.50], slowDur: 1.5, speed: 180,
+      slow: [0.30, 0.35, 0.40, 0.45, 0.50], slowDur: 1.5, speed: 180, range: 220, size: 3,
     },
     frostNova: { dmg: { base: 6, perLv: 2 }, cd: { base: 4.0, perLv: -0.3 }, r: { base: 36, perLv: 6 }, freeze: { base: 1.0, perLv: 0.2 } },
     chainLightning: { dmg: { base: 12, perLv: 4 }, cd: 1.5, jumps: [2, 3, 4, 5, 6], strikes: [1, 1, 2, 2, 3], jumpRange: 60 },
     arcaneOrb: {
       dmg: { base: 6, perLv: 2 }, orbs: [2, 3, 4, 5, 6], orbitR: { base: 28, perLv: 3 },
-      rotSpeed: { base: 3.0, perLv: 0.4 }, hitCd: 0.5,
+      rotSpeed: { base: 3.0, perLv: 0.4 }, hitCd: 0.5, size: 5, push: 4,   // size: orb hit radius px; push: knockback px
     },
   },
   ults: {

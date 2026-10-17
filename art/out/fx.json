@@ -86,8 +86,8 @@
   },
   "fx_explosion_1": {
    "frame": {
-    "x": 0,
-    "y": 24,
+    "x": 48,
+    "y": 0,
     "w": 24,
     "h": 24
    },
@@ -107,8 +107,8 @@
   },
   "fx_explosion_2": {
    "frame": {
-    "x": 24,
-    "y": 24,
+    "x": 72,
+    "y": 0,
     "w": 24,
     "h": 24
    },
@@ -128,7 +128,7 @@
   },
   "fx_explosion_3": {
    "frame": {
-    "x": 48,
+    "x": 0,
     "y": 24,
     "w": 24,
     "h": 24
@@ -149,7 +149,7 @@
   },
   "fx_explosion_4": {
    "frame": {
-    "x": 72,
+    "x": 24,
     "y": 24,
     "w": 24,
     "h": 24
@@ -170,8 +170,8 @@
   },
   "fx_explosion_5": {
    "frame": {
-    "x": 0,
-    "y": 48,
+    "x": 48,
+    "y": 24,
     "w": 24,
     "h": 24
    },
@@ -191,8 +191,8 @@
   },
   "fx_poof_0": {
    "frame": {
-    "x": 24,
-    "y": 48,
+    "x": 72,
+    "y": 24,
     "w": 16,
     "h": 16
    },
@@ -212,8 +212,8 @@
   },
   "fx_poof_1": {
    "frame": {
-    "x": 40,
-    "y": 48,
+    "x": 88,
+    "y": 24,
     "w": 16,
     "h": 16
    },
@@ -233,8 +233,8 @@
   },
   "fx_poof_2": {
    "frame": {
-    "x": 56,
-    "y": 48,
+    "x": 104,
+    "y": 24,
     "w": 16,
     "h": 16
    },
@@ -255,7 +255,7 @@
   "fx_poof_3": {
    "frame": {
     "x": 0,
-    "y": 72,
+    "y": 48,
     "w": 16,
     "h": 16
    },
@@ -276,7 +276,7 @@
   "fx_poof_4": {
    "frame": {
     "x": 16,
-    "y": 72,
+    "y": 48,
     "w": 16,
     "h": 16
    },
@@ -293,6 +293,363 @@
     "h": 16
    },
    "duration": 71
+  },
+  "fx_iceHit_0": {
+   "frame": {
+    "x": 32,
+    "y": 48,
+    "w": 15,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 15
+   },
+   "duration": 63
+  },
+  "fx_iceHit_1": {
+   "frame": {
+    "x": 47,
+    "y": 48,
+    "w": 15,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 15
+   },
+   "duration": 63
+  },
+  "fx_iceHit_2": {
+   "frame": {
+    "x": 62,
+    "y": 48,
+    "w": 15,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 15
+   },
+   "duration": 63
+  },
+  "fx_iceHit_3": {
+   "frame": {
+    "x": 77,
+    "y": 48,
+    "w": 15,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 15
+   },
+   "duration": 63
+  },
+  "fx_iceHit_4": {
+   "frame": {
+    "x": 0,
+    "y": 64,
+    "w": 15,
+    "h": 15
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 15
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 15
+   },
+   "duration": 63
+  },
+  "fx_frozen_0": {
+   "frame": {
+    "x": 15,
+    "y": 64,
+    "w": 18,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 18,
+    "h": 18
+   },
+   "duration": 250
+  },
+  "fx_frozen_1": {
+   "frame": {
+    "x": 33,
+    "y": 64,
+    "w": 18,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 18,
+    "h": 18
+   },
+   "duration": 250
+  },
+  "fx_frozen_2": {
+   "frame": {
+    "x": 51,
+    "y": 64,
+    "w": 18,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 18,
+    "h": 18
+   },
+   "duration": 250
+  },
+  "iceShard_fly_0": {
+   "frame": {
+    "x": 69,
+    "y": 64,
+    "w": 11,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 7
+   },
+   "duration": 83
+  },
+  "iceShard_fly_1": {
+   "frame": {
+    "x": 80,
+    "y": 64,
+    "w": 11,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 7
+   },
+   "duration": 83
+  },
+  "iceShard_fly_2": {
+   "frame": {
+    "x": 0,
+    "y": 82,
+    "w": 11,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 7
+   },
+   "duration": 83
+  },
+  "arcaneOrb_0": {
+   "frame": {
+    "x": 11,
+    "y": 82,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
+  },
+  "arcaneOrb_1": {
+   "frame": {
+    "x": 22,
+    "y": 82,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
+  },
+  "arcaneOrb_2": {
+   "frame": {
+    "x": 33,
+    "y": 82,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
+  },
+  "arcaneOrb_3": {
+   "frame": {
+    "x": 44,
+    "y": 82,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
+  },
+  "arcaneOrb_4": {
+   "frame": {
+    "x": 55,
+    "y": 82,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
+  },
+  "arcaneOrb_5": {
+   "frame": {
+    "x": 0,
+    "y": 93,
+    "w": 11,
+    "h": 11
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 11,
+    "h": 11
+   },
+   "sourceSize": {
+    "w": 11,
+    "h": 11
+   },
+   "duration": 83
   }
  },
  "meta": {
@@ -300,8 +657,8 @@
   "image": "fx.png",
   "format": "RGBA8888",
   "size": {
-   "w": 96,
-   "h": 88
+   "w": 120,
+   "h": 104
   },
   "scale": "1",
   "frameTags": [
@@ -321,6 +678,30 @@
     "name": "fx_poof",
     "from": 9,
     "to": 13,
+    "direction": "forward"
+   },
+   {
+    "name": "fx_iceHit",
+    "from": 14,
+    "to": 18,
+    "direction": "forward"
+   },
+   {
+    "name": "fx_frozen",
+    "from": 19,
+    "to": 21,
+    "direction": "forward"
+   },
+   {
+    "name": "iceShard_fly",
+    "from": 22,
+    "to": 24,
+    "direction": "forward"
+   },
+   {
+    "name": "arcaneOrb",
+    "from": 25,
+    "to": 30,
     "direction": "forward"
    }
   ]

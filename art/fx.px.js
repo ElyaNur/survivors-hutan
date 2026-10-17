@@ -73,4 +73,67 @@ anim("fx_poof", { w: 16, h: 16, fps: 14, loop: false, frames: POOF.length }, (c)
   if (fade) c.dither(0, 0, 16, 16, ".", "_", fade)                                  // thin out to nothing
 })
 
-sheet("fx", ["fireball*", "fx_*"])
+// ---- Ice (cyan/white). Ice Shard flies right like the fireball: a dart, bright tip, frost flakes trailing.
+const SHARD = [`
+...........
+....BCcc...
+.c.BCcccce.
+c.CCcwwwwww
+...BCcccce.
+....BCcc...
+...........`, `
+...........
+....BCcc...
+c..BCcccce.
+.cCCcwwwwww
+.c.BCcccce.
+....BCcc...
+...........`, `
+...........
+.c..BCcc...
+...BCcccce.
+.cCCcwwwwww
+c..BCcccce.
+....BCcc...
+...........`]
+anim("iceShard_fly", { w: 11, h: 7, fps: 12 },
+  ...SHARD.map((g) => frame(grid(0, 0, g))),
+  glow("wc", { r: 2, strength: 0.5, bands: 2 }))
+
+// Shard impact, 15x15: a white pop that splits into eight splinters flying out and melting away.
+const SPLINTER = [[1, 0], [0.7, 0.7], [0, 1], [-0.7, 0.7], [-1, 0], [-0.7, -0.7], [0, -1], [0.7, -0.7]]
+anim("fx_iceHit", { w: 15, h: 15, fps: 16, loop: false, frames: 5 }, (c) => {
+  const f = c.frame
+  if (f < 2) { c.circ(7, 7, 2 - f, "w"); c.ring(7, 7, 2 + f, "c") }
+  SPLINTER.forEach(([dx, dy], i) => {
+    const r0 = 2 + f * 1.4, r1 = r0 + (i % 2 ? 1.5 : 2.5)
+    const x0 = Math.round(7 + dx * r0), y0 = Math.round(7 + dy * r0), x1 = Math.round(7 + dx * r1), y1 = Math.round(7 + dy * r1)
+    if (f < 4) c.line(x0, y0, x1, y1, f < 2 ? "w" : "c")
+    c.px(x1, y1, f < 3 ? "c" : "C")
+  })
+},
+  glow("wc", { r: 2, strength: 0.5, bands: 2 }))
+
+// Frost on a slowed (faint) or frozen (solid) enemy, 18x18, centred on it: ice crystals grown up
+// around its feet, frosty glints that twinkle near its head.
+anim("fx_frozen", { w: 18, h: 18, fps: 4, frames: 3 }, (c) => {
+  for (const [x, h, lean] of [[2, 4, -1], [5, 7, 0], [8, 4, 1], [11, 8, 0], [14, 5, 1], [16, 3, 0]]) {   // crystals: base x, height, tip lean
+    const b = 18, tx = x + lean, ty = b - h
+    c.poly([x - 1, b, tx, ty, tx + 1, ty, x + 2, b], "C")
+    c.line(x, b - 1, tx, ty + 1, "c"); c.px(tx, ty, "w")
+  }
+  const GLINT = [[[3, 4], [13, 2]], [[14, 6], [6, 1]], [[9, 3], [2, 9]]][c.frame]
+  for (const [x, y] of GLINT) { c.px(x, y, "w"); c.px(x - 1, y, "c"); c.px(x + 1, y, "c"); c.px(x, y - 1, "c"); c.px(x, y + 1, "c") }
+},
+  glow("w", { r: 2, strength: 0.4, bands: 2 }))
+
+// ---- Arcane (violet/orchid). Orb, 11x11: a violet sphere lit from the top-left, two motes circling it.
+anim("arcaneOrb", { w: 11, h: 11, fps: 12, frames: 6 }, (c) => {
+  c.circ(5, 5, 4, "V"); c.circ(5, 5, 3, "v"); c.circ(4, 4, 2, "z"); c.circ(4, 4, 1, "l"); c.px(3, 3, "w")
+  const a = c.phase * Math.PI * 2
+  for (const [k, col] of [[0, "w"], [Math.PI, "l"]])
+    c.px(Math.round(5 + Math.cos(a + k) * 5), Math.round(5 + Math.sin(a + k) * 4.5), col)
+},
+  glow("zlw", { r: 2, strength: 0.6, bands: 2 }))
+
+sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb"])
