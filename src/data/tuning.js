@@ -1,18 +1,20 @@
 // Starting guesses (tuned later). Per-level skill values: number | {base, perLv} | 5-array (lv1..lv5).
 const TUNING = {
-  player: { hp: 100, speed: 60, iframes: 0.5, magnet: 24, pickup: 8 },
+  player: { hp: 100, speed: 60, iframes: 0.5, magnet: 24, pickup: 8, size: 12 },   // size: hitbox diameter (sprite is 17 wide)
   frozenVulnMult: 2,
   xp: { base: 5, step1: 10, step2: 13, step3: 16 },
   enemyHpGrowthPerMin: 0.08,
   maxEnemies: 400,
+  enemyCullDist: 700,   // farther than this from the player -> moved back to just off-screen
   enemies: {
     slime:    { hp: 6,    speed: 30, dmg: 5,  xp: 1,  size: 12 },
-    bat:      { hp: 4,    speed: 70, dmg: 4,  xp: 1,  size: 10 },
+    bat:      { hp: 4,    speed: 70, dmg: 4,  xp: 1,  size: 10, wobble: 0.9, wobbleRate: 7 },
     slimeRed: { hp: 18,   speed: 38, dmg: 8,  xp: 2,  size: 12 },
     goblin:   { hp: 20,   speed: 45, dmg: 8,  xp: 2,  size: 14 },
-    wolf:     { hp: 25,   speed: 85, dmg: 10, xp: 3,  size: 16 },
+    wolf:     { hp: 25,   speed: 85, dmg: 10, xp: 3,  size: 16, reaim: 2 },
     orc:      { hp: 80,   speed: 28, dmg: 15, xp: 5,  size: 18 },
-    witch:    { hp: 30,   speed: 35, dmg: 8,  xp: 4,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 10 },
+    witch:    { hp: 30,   speed: 35, dmg: 8,  xp: 4,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 10,
+                 shotSize: 6, shotLife: 5, shotRange: 180 },
     kingSlime: { hp: 600,  speed: 25, dmg: 20, xp: 40, size: 32, splitInto: 'slime', splitCount: 8 },
     orcChief:  { hp: 1200, speed: 35, dmg: 25, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5 },
     treant:    { hp: 8000, speed: 15, dmg: 30, xp: 0,  size: 64, rootWarn: 1.0, rootR: 20, rootDmg: 20, rootEvery: 3,

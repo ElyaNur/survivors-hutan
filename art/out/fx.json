@@ -65,8 +65,8 @@
   },
   "fx_explosion_0": {
    "frame": {
-    "x": 0,
-    "y": 8,
+    "x": 24,
+    "y": 0,
     "w": 24,
     "h": 24
    },
@@ -86,8 +86,8 @@
   },
   "fx_explosion_1": {
    "frame": {
-    "x": 24,
-    "y": 8,
+    "x": 0,
+    "y": 24,
     "w": 24,
     "h": 24
    },
@@ -107,8 +107,8 @@
   },
   "fx_explosion_2": {
    "frame": {
-    "x": 48,
-    "y": 8,
+    "x": 24,
+    "y": 24,
     "w": 24,
     "h": 24
    },
@@ -128,8 +128,8 @@
   },
   "fx_explosion_3": {
    "frame": {
-    "x": 0,
-    "y": 32,
+    "x": 48,
+    "y": 24,
     "w": 24,
     "h": 24
    },
@@ -149,8 +149,8 @@
   },
   "fx_explosion_4": {
    "frame": {
-    "x": 24,
-    "y": 32,
+    "x": 72,
+    "y": 24,
     "w": 24,
     "h": 24
    },
@@ -170,8 +170,8 @@
   },
   "fx_explosion_5": {
    "frame": {
-    "x": 48,
-    "y": 32,
+    "x": 0,
+    "y": 48,
     "w": 24,
     "h": 24
    },
@@ -188,6 +188,111 @@
     "h": 24
    },
    "duration": 100
+  },
+  "fx_poof_0": {
+   "frame": {
+    "x": 24,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   },
+   "duration": 71
+  },
+  "fx_poof_1": {
+   "frame": {
+    "x": 40,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   },
+   "duration": 71
+  },
+  "fx_poof_2": {
+   "frame": {
+    "x": 56,
+    "y": 48,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   },
+   "duration": 71
+  },
+  "fx_poof_3": {
+   "frame": {
+    "x": 0,
+    "y": 72,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   },
+   "duration": 71
+  },
+  "fx_poof_4": {
+   "frame": {
+    "x": 16,
+    "y": 72,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   },
+   "duration": 71
   }
  },
  "meta": {
@@ -195,8 +300,8 @@
   "image": "fx.png",
   "format": "RGBA8888",
   "size": {
-   "w": 72,
-   "h": 56
+   "w": 96,
+   "h": 88
   },
   "scale": "1",
   "frameTags": [
@@ -210,6 +315,12 @@
     "name": "fx_explosion",
     "from": 3,
     "to": 8,
+    "direction": "forward"
+   },
+   {
+    "name": "fx_poof",
+    "from": 9,
+    "to": 13,
     "direction": "forward"
    }
   ]

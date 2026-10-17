@@ -46,3 +46,14 @@ pal({
   x: "#a3a3c2", // stone light, smoke light
 })
 ramps("kFfGgj", "kMBbs", "kBCcw", "kNnup", "kRri", "kROoYyw", "kPVvl", "kHh", "kXx")
+// Added for monsters (Task 6): keys that never clash with the grass, the mage or the player's spells.
+pal({
+  t: "#5ee0a0", // slime mint (green slime that still pops on the grass)
+  T: "#2b9a78", // slime mint shadow
+  a: "#c8ffe6", // slime mint highlight
+  A: "#8a9a58", // orc hide (khaki olive)
+  E: "#5a6638", // orc hide shadow
+  m: "#ff5ad9", // hex magenta: witch magic, enemy shots (no player spell uses it)
+  d: "#a3238f", // dark magenta
+})
+ramps("kTta", "kEA", "kdmw")

@@ -53,4 +53,24 @@ anim("fx_explosion", { w: 24, h: 24, fps: 10, loop: false, frames: BLAST.length 
 },
   glow("wy", { r: 3, strength: 0.5, bands: 2 }))
 
+// Death poof, 16x16, shared by every monster: a white pop that breaks into grey puffs, which drift
+// outwards and shrink away. Light from the top-left like everything else.
+const POOF_PUFFS = [[0, 0], [-4, -2], [4, -3], [-3, 4], [4, 3], [0, -5]]
+const POOF = [ // spread, puff r, [rim, fill], fade (share of pixels dithered away)
+  [0.3, 2, ["x", "w"], 0],
+  [0.6, 3, ["x", "w"], 0],
+  [0.9, 3, ["X", "x"], 0],
+  [1.2, 3, ["X", "x"], 0.5],
+  [1.5, 2, ["X", "x"], 0.75],
+]
+anim("fx_poof", { w: 16, h: 16, fps: 14, loop: false, frames: POOF.length }, (c) => {
+  const [spread, r, [rim, fill], fade] = POOF[c.frame]
+  const at = (dx, dy) => [Math.round(8 + dx * spread), Math.round(8 + dy * spread - c.frame * 0.5)]
+  for (const [dx, dy] of POOF_PUFFS) { const [x, y] = at(dx, dy); c.circ(x, y, r, rim) }
+  for (const [dx, dy] of POOF_PUFFS) { const [x, y] = at(dx, dy); c.circ(x - 1, y - 1, r - 1, fill) }
+  if (c.frame === 2) for (const [dx, dy] of POOF_PUFFS) { const [x, y] = at(dx, dy); c.px(x - 2, y - 2, "w") }
+  if (c.frame === 0) for (const [sx, sy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) c.px(8 + sx * 6, 8 + sy * 6, "w")
+  if (fade) c.dither(0, 0, 16, 16, ".", "_", fade)                                  // thin out to nothing
+})
+
 sheet("fx", ["fireball*", "fx_*"])

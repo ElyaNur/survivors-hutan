@@ -44,8 +44,8 @@
   },
   "slime_walk_2": {
    "frame": {
-    "x": 0,
-    "y": 16,
+    "x": 34,
+    "y": 0,
     "w": 17,
     "h": 16
    },
@@ -65,6 +65,90 @@
   },
   "slime_walk_3": {
    "frame": {
+    "x": 51,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 16
+   },
+   "duration": 125
+  },
+  "slimeRed_walk_0": {
+   "frame": {
+    "x": 68,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 16
+   },
+   "duration": 125
+  },
+  "slimeRed_walk_1": {
+   "frame": {
+    "x": 85,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 16
+   },
+   "duration": 125
+  },
+  "slimeRed_walk_2": {
+   "frame": {
+    "x": 0,
+    "y": 16,
+    "w": 17,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 16
+   },
+   "duration": 125
+  },
+  "slimeRed_walk_3": {
+   "frame": {
     "x": 17,
     "y": 16,
     "w": 17,
@@ -83,6 +167,594 @@
     "h": 16
    },
    "duration": 125
+  },
+  "bat_fly_0": {
+   "frame": {
+    "x": 34,
+    "y": 16,
+    "w": 19,
+    "h": 12
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 19,
+    "h": 12
+   },
+   "sourceSize": {
+    "w": 19,
+    "h": 12
+   },
+   "duration": 83
+  },
+  "bat_fly_1": {
+   "frame": {
+    "x": 53,
+    "y": 16,
+    "w": 19,
+    "h": 12
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 19,
+    "h": 12
+   },
+   "sourceSize": {
+    "w": 19,
+    "h": 12
+   },
+   "duration": 83
+  },
+  "bat_fly_2": {
+   "frame": {
+    "x": 72,
+    "y": 16,
+    "w": 19,
+    "h": 12
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 19,
+    "h": 12
+   },
+   "sourceSize": {
+    "w": 19,
+    "h": 12
+   },
+   "duration": 83
+  },
+  "bat_fly_3": {
+   "frame": {
+    "x": 91,
+    "y": 16,
+    "w": 19,
+    "h": 12
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 19,
+    "h": 12
+   },
+   "sourceSize": {
+    "w": 19,
+    "h": 12
+   },
+   "duration": 83
+  },
+  "goblin_walk_0": {
+   "frame": {
+    "x": 0,
+    "y": 32,
+    "w": 15,
+    "h": 19
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 19
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 19
+   },
+   "duration": 125
+  },
+  "goblin_walk_1": {
+   "frame": {
+    "x": 15,
+    "y": 32,
+    "w": 15,
+    "h": 19
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 19
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 19
+   },
+   "duration": 125
+  },
+  "goblin_walk_2": {
+   "frame": {
+    "x": 30,
+    "y": 32,
+    "w": 15,
+    "h": 19
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 19
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 19
+   },
+   "duration": 125
+  },
+  "goblin_walk_3": {
+   "frame": {
+    "x": 45,
+    "y": 32,
+    "w": 15,
+    "h": 19
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 15,
+    "h": 19
+   },
+   "sourceSize": {
+    "w": 15,
+    "h": 19
+   },
+   "duration": 125
+  },
+  "wolf_run_0": {
+   "frame": {
+    "x": 60,
+    "y": 32,
+    "w": 21,
+    "h": 17
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 17
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 17
+   },
+   "duration": 83
+  },
+  "wolf_run_1": {
+   "frame": {
+    "x": 81,
+    "y": 32,
+    "w": 21,
+    "h": 17
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 17
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 17
+   },
+   "duration": 83
+  },
+  "wolf_run_2": {
+   "frame": {
+    "x": 0,
+    "y": 51,
+    "w": 21,
+    "h": 17
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 17
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 17
+   },
+   "duration": 83
+  },
+  "wolf_run_3": {
+   "frame": {
+    "x": 21,
+    "y": 51,
+    "w": 21,
+    "h": 17
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 21,
+    "h": 17
+   },
+   "sourceSize": {
+    "w": 21,
+    "h": 17
+   },
+   "duration": 83
+  },
+  "orc_walk_0": {
+   "frame": {
+    "x": 42,
+    "y": 51,
+    "w": 20,
+    "h": 23
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 20,
+    "h": 23
+   },
+   "sourceSize": {
+    "w": 20,
+    "h": 23
+   },
+   "duration": 167
+  },
+  "orc_walk_1": {
+   "frame": {
+    "x": 62,
+    "y": 51,
+    "w": 20,
+    "h": 23
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 20,
+    "h": 23
+   },
+   "sourceSize": {
+    "w": 20,
+    "h": 23
+   },
+   "duration": 167
+  },
+  "orc_walk_2": {
+   "frame": {
+    "x": 82,
+    "y": 51,
+    "w": 20,
+    "h": 23
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 20,
+    "h": 23
+   },
+   "sourceSize": {
+    "w": 20,
+    "h": 23
+   },
+   "duration": 167
+  },
+  "orc_walk_3": {
+   "frame": {
+    "x": 102,
+    "y": 51,
+    "w": 20,
+    "h": 23
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 20,
+    "h": 23
+   },
+   "sourceSize": {
+    "w": 20,
+    "h": 23
+   },
+   "duration": 167
+  },
+  "witch_walk_0": {
+   "frame": {
+    "x": 0,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 167
+  },
+  "witch_walk_1": {
+   "frame": {
+    "x": 17,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 167
+  },
+  "witch_walk_2": {
+   "frame": {
+    "x": 34,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 167
+  },
+  "witch_walk_3": {
+   "frame": {
+    "x": 51,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 167
+  },
+  "witch_cast_0": {
+   "frame": {
+    "x": 68,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 100
+  },
+  "witch_cast_1": {
+   "frame": {
+    "x": 85,
+    "y": 74,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 100
+  },
+  "witch_cast_2": {
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 100
+  },
+  "witch_cast_3": {
+   "frame": {
+    "x": 17,
+    "y": 98,
+    "w": 17,
+    "h": 24
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 24
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 24
+   },
+   "duration": 100
+  },
+  "witchShot_fly_0": {
+   "frame": {
+    "x": 34,
+    "y": 98,
+    "w": 9,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 9
+   },
+   "duration": 100
+  },
+  "witchShot_fly_1": {
+   "frame": {
+    "x": 43,
+    "y": 98,
+    "w": 9,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 9
+   },
+   "duration": 100
+  },
+  "witchShot_fly_2": {
+   "frame": {
+    "x": 52,
+    "y": 98,
+    "w": 9,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 9
+   },
+   "duration": 100
+  },
+  "witchShot_fly_3": {
+   "frame": {
+    "x": 61,
+    "y": 98,
+    "w": 9,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 9
+   },
+   "duration": 100
   }
  },
  "meta": {
@@ -90,8 +762,8 @@
   "image": "enemies.png",
   "format": "RGBA8888",
   "size": {
-   "w": 34,
-   "h": 32
+   "w": 122,
+   "h": 122
   },
   "scale": "1",
   "frameTags": [
@@ -99,6 +771,54 @@
     "name": "slime_walk",
     "from": 0,
     "to": 3,
+    "direction": "forward"
+   },
+   {
+    "name": "slimeRed_walk",
+    "from": 4,
+    "to": 7,
+    "direction": "forward"
+   },
+   {
+    "name": "bat_fly",
+    "from": 8,
+    "to": 11,
+    "direction": "forward"
+   },
+   {
+    "name": "goblin_walk",
+    "from": 12,
+    "to": 15,
+    "direction": "forward"
+   },
+   {
+    "name": "wolf_run",
+    "from": 16,
+    "to": 19,
+    "direction": "forward"
+   },
+   {
+    "name": "orc_walk",
+    "from": 20,
+    "to": 23,
+    "direction": "forward"
+   },
+   {
+    "name": "witch_walk",
+    "from": 24,
+    "to": 27,
+    "direction": "forward"
+   },
+   {
+    "name": "witch_cast",
+    "from": 28,
+    "to": 31,
+    "direction": "forward"
+   },
+   {
+    "name": "witchShot_fly",
+    "from": 32,
+    "to": 35,
     "direction": "forward"
    }
   ]

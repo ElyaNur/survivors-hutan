@@ -20,6 +20,7 @@ resize();
 
 const assets = await loadSheets(['mage', 'enemies', 'fx', 'world']);
 const run = createRun('mage', 'fireball', Date.now());
+window.run = run;   // TEMP-DEBUG: lets the browser console drive the run
 let loop;
 initInput(canvas, () => { if (!document.hidden) loop.setPaused(false); });
 loop = startLoop(
