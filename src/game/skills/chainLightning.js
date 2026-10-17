@@ -3,6 +3,7 @@
 import { stat, randomOnScreenEnemy } from './index.js';
 import { damageEnemy } from '../enemies.js';
 import { drawHalo } from '../projectiles.js';
+import { sfx } from '../../engine/audio.js';
 
 const ID = 'chainLightning';
 const LIFE = 0.12, SKY = 90, SKY_DRIFT = 24;                // bolt shown s; it enters this far above the first target, leaning
@@ -32,6 +33,7 @@ export function chainTargets(run, first, jumps, range) {
 // bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir strikes through here too.
 export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
   const ts = chainTargets(run, first, jumps, range);
+  sfx('zap');
   const b = bolts.find(o => o.age >= LIFE) ?? (bolts.push({ xs: [], ys: [] }), bolts[bolts.length - 1]);
   b.age = 0; b.n = ts.length + 1;
   b.xs[0] = fromX; b.ys[0] = fromY;

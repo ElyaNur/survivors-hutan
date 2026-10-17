@@ -3,6 +3,7 @@ import { stat } from './index.js';
 import { damageEnemy } from '../enemies.js';
 import { drawHalo } from '../projectiles.js';
 import TUNING from '../../data/tuning.js';
+import { sfx } from '../../engine/audio.js';
 
 const ID = 'arcaneOrb', TAU = Math.PI * 2, MAX_ENEMY_R = 32;
 const TRAIL = [[0.22, 2, '#d3b0ff'], [0.36, 2, '#d87bff'], [0.5, 1, '#d87bff'], [0.62, 1, '#9b5de5']];   // sparks behind each orb: [radians back, px, palette l/z/v]
@@ -24,7 +25,7 @@ export default {
       for (const e of near) {
         const reach = r + e.r;
         if (e.dead || (e.x - x) ** 2 + (e.y - y) ** 2 > reach * reach || (st.hits.get(e) ?? 0) > now) continue;
-        st.hits.set(e, now + hitCd);
+        st.hits.set(e, now + hitCd); sfx('orb');
         damageEnemy(run, e, dmg, { fromX: x, fromY: y, power: push });
         run.fx.burst(e.x, e.y, charged ? '#fff1a8' : '#d87bff', 3, 50);   // palette y (charged) / z
       }

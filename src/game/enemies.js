@@ -6,6 +6,7 @@ import { hitEnemy, hurtPlayer, knockback, speedFactor } from '../logic/combat.js
 import { WORLD_W, WORLD_H, terrainSpeed, camera } from './world.js';
 import { dropGem, dropHeart, dropMagnet, dropChest } from './pickups.js';
 import { spawnProjectile, spawnArea } from './projectiles.js';
+import { sfx } from '../engine/audio.js';
 
 export const BOUNDS = { w: WORLD_W, h: WORLD_H };
 const BOSSES = new Set(SCHEDULE.bosses.map(b => b.type));
@@ -42,7 +43,7 @@ export function spawnEnemy(run, type, x, y) {
     nextAt: run.time + (def.chargeEvery ?? def.rootEvery ?? 0), summonAt: run.time + (def.summonEvery ?? 0),
   };
   run.enemies.push(e);
-  if (BOSSES.has(type)) run.boss = e;                        // the HUD's health bar follows the newest boss
+  if (BOSSES.has(type)) { run.boss = e; sfx('bossRoar'); }                        // the HUD's health bar follows the newest boss
   return e;
 }
 
@@ -58,8 +59,8 @@ export function damageEnemy(run, e, dmg, { fromX = run.player.x, fromY = run.pla
     if (!loud) run.numTokens--;
     fx.number(e.x + (Math.random() - 0.5) * 8, e.y - e.r - 6, hit.dealt, color ?? (big ? 'y' : 'w'));
   }
-  if (hit.killed) killEnemy(run, e);
-  else if (power) knockback(e, fromX, fromY, power * (e.def.knock ?? 1));   // bosses barely budge
+  if (hit.killed) { sfx('die'); killEnemy(run, e); }
+  else { sfx('hit'); if (power) knockback(e, fromX, fromY, power * (e.def.knock ?? 1)); }   // bosses barely budge
   return hit;
 }
 
@@ -72,7 +73,7 @@ function killEnemy(run, e) {
   if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
   if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
   if (run.time < e.vulnerableUntil) {                       // died on Absolute Zero's ice: it shatters
-    fx.anim(e.x, e.y, 'fx_shatter');
+    sfx('ice'); fx.anim(e.x, e.y, 'fx_shatter');
     for (const [c, n, sp] of SHATTER) fx.burst(e.x, e.y, c, n, sp);
     return;
   }
@@ -123,6 +124,7 @@ export function winBlast(run, x, y) {
 // once the run is ending (won or dying).
 export function hurtMage(run, dmg) {
   if (run.ending || !hurtPlayer(run.player, dmg, run.time)) return;
+  sfx('hurt');
   run.fx.flashScreen(FX.flashHurt.color, FX.flashHurt.dur);
   run.fx.shake(FX.shakeHurt.px, FX.shakeHurt.dur);
 }

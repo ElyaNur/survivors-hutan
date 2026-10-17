@@ -8,6 +8,7 @@ import { damageEnemy } from '../enemies.js';
 import { spawnArea, drawHalo } from '../projectiles.js';
 import { shedEmbers, drawIncoming } from './meteor.js';
 import { strike, ageBolts, drawBolts } from './chainLightning.js';
+import { sfx } from '../../engine/audio.js';
 
 const U = TUNING.ults, FX = TUNING.fx, W = 480, H = 270, PAD = 8;   // overlays overfill the view by PAD (shake)
 
@@ -37,6 +38,7 @@ const SPARKS = [['#ffffff', 5, 170], ['#fff1a8', 8, 140], ['#ffd23f', 8, 100], [
 
 function boom(run, a) {
   const fx = run.fx;
+  sfx('meteor');
   fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur);
   for (const [dx, dy, s] of BOOMS) fx.anim(a.x + dx * a.r, a.y + dy * a.r, 'fx_explosion', { scale: s });
   for (const [c, n, s] of SPARKS) fx.burst(a.x, a.y, c, n, s * a.r / 28);
@@ -47,7 +49,7 @@ const armageddon = {
   id: 'armageddon',
   update(run, st, level, mods, dt) {
     for (const a of run.areas) if (armMeteor(a) && !a.triggered) shedEmbers(run, a);
-    if (ready(st, ARM.cd, mods, dt)) { st.t = 0; st.n = 0; run.fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur); }
+    if (ready(st, ARM.cd, mods, dt)) { st.t = 0; st.n = 0; sfx('ult'); run.fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur); }
     if (st.t === undefined || st.t > ARM.dur + ARM.warn) return;
     const v = camera(run.player), want = Math.min(ARM_TOTAL, Math.floor(st.t * ARM.rate) + 1);   // exactly rate x dur, the first at once
     for (; st.n < want; st.n++)
@@ -76,7 +78,7 @@ const absoluteZero = {
   update(run, st, level, mods, dt) {
     if (!ready(st, AZ.cd, mods, dt)) return;
     const p = run.player, v = camera(p), until = run.time + AZ.freeze, fx = run.fx;
-    st.at = run.time; st.x = p.x; st.y = p.y;
+    st.at = run.time; st.x = p.x; st.y = p.y; sfx('ult');
     fx.flashScreen(ICE_FLASH[0], ICE_FLASH[1]);
     fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur);
     fx.hitstop(FX.hitstopBig);
@@ -130,6 +132,7 @@ const badaiPetir = {
     const p = run.player;
     if (ready(st, BP.cd, mods, dt)) {
       st.active = true; st.t = 0; st.acc = 1; st.litAt = -LIT_GAP; st.cx = p.x; st.cy = p.y - CLOUD_Y;   // acc 1: first bolt at once
+      sfx('ult');
       run.fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur);
     }
     if (!st.active) return;

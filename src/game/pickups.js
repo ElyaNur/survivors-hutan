@@ -1,6 +1,7 @@
 // Pickups on the ground: XP gems, hearts, magnets, chests. Magnetised into the player, then applied.
 import TUNING from '../data/tuning.js';
 import { gainXp } from '../logic/progression.js';
+import { sfx } from '../engine/audio.js';
 
 const D = TUNING.drops;
 const CHEST_LIFT = 3;                                    // chest_open (14x18) draws 3px higher so its body sits where the chest lay
@@ -37,6 +38,7 @@ function mergeGems(run) {
 
 function collect(run, q) {
   const p = run.player;
+  sfx(q.kind === 'chest' ? 'chest' : 'pickup');
   if (q.kind === 'gem') run.pendingLevelUps += gainXp(run.prog, q.xp * run.mods.xp);
   else if (q.kind === 'heart') p.hp = Math.min(p.maxHp, p.hp + D.heartHeal);
   else if (q.kind === 'chest') {                          // free levels, xp untouched; the cards wait for the lid

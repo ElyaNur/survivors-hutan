@@ -2,6 +2,7 @@
 import { stat, nearestEnemy } from './index.js';
 import { spawnProjectile } from '../projectiles.js';
 import { applySlow } from '../../logic/combat.js';
+import { sfx } from '../../engine/audio.js';
 
 const ID = 'iceShard', DEG = Math.PI / 180;
 
@@ -17,7 +18,7 @@ export default {
     if ((st.cd = (st.cd ?? 0) - dt) > 0) return;
     const pl = run.player, range = stat(ID, 'range', level), e = nearestEnemy(run, pl.x, pl.y, range);
     if (!e) return;
-    st.cd = stat(ID, 'cd', level) * mods.cooldown;
+    st.cd = stat(ID, 'cd', level) * mods.cooldown; sfx('ice');
     const n = stat(ID, 'shards', level), speed = stat(ID, 'speed', level), fan = stat(ID, 'fan', level) * DEG;
     const base = Math.atan2(e.y - pl.y, e.x - pl.x);
     for (let i = 0; i < n; i++) {

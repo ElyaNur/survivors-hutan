@@ -4,6 +4,7 @@ import TUNING from '../../data/tuning.js';
 import { stat, densestCell } from './index.js';
 import { spawnArea, drawHalo } from '../projectiles.js';
 import { camera } from '../world.js';
+import { sfx } from '../../engine/audio.js';
 
 const ID = 'meteor', FX = TUNING.fx;
 const WARN_R = 28;                                          // meteor_warn is drawn for r 28 (Lv1)
@@ -18,6 +19,7 @@ const SPARKS = [['#ffffff', 6, 180], ['#fff1a8', 12, 150], ['#ffd23f', 12, 110],
 // Impact: the blast already hit (the area's own trigger); from here on the area is the burning ground.
 function impact(run, a) {
   const fx = run.fx;
+  sfx('meteor');
   a.dmg = a.burnDmg;
   fx.shake(FX.shakeMeteor.px, FX.shakeMeteor.dur);
   fx.hitstop(FX.hitstopBig);

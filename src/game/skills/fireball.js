@@ -1,6 +1,7 @@
 // Fireball: balls at the nearest enemy (fanned when several), each blows up on the first hit.
 import { stat, nearestEnemy } from './index.js';
 import { spawnProjectile, spawnArea } from '../projectiles.js';
+import { sfx } from '../../engine/audio.js';
 
 const ID = 'fireball', DEG = Math.PI / 180;
 const ART_R = 12, GLOW_DUR = 0.2;                           // fx_explosion is 24 px across; ground lit this long
@@ -20,7 +21,7 @@ export default {
     if ((st.cd = (st.cd ?? 0) - dt) > 0) return;
     const pl = run.player, range = stat(ID, 'range', level), e = nearestEnemy(run, pl.x, pl.y, range);
     if (!e) return;                                         // stays charged until something is in range
-    st.cd = stat(ID, 'cd', level) * mods.cooldown;
+    st.cd = stat(ID, 'cd', level) * mods.cooldown; sfx('fireball');
     const n = stat(ID, 'count', level), speed = stat(ID, 'speed', level), spread = stat(ID, 'spread', level) * DEG;
     const base = Math.atan2(e.y - pl.y, e.x - pl.x), boomR = stat(ID, 'boomR', level) * mods.area, boomDmg = stat(ID, 'dmg', level);
     for (let i = 0; i < n; i++) {

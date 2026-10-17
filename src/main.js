@@ -7,6 +7,7 @@ import { HUT, isWater } from './game/world.js';
 import { CLASSES } from './data/classes.js';
 import { drawHud, updateBanner } from './ui/hud.js';
 import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, pauseScreen, resultScreen } from './ui/screens.js';
+import { sfx, isMuted, setMuted } from './engine/audio.js';
 import { loadRecords, saveRecords, mergeResult } from './logic/records.js';
 
 const W = 480, H = 270;
@@ -28,13 +29,7 @@ const assets = await loadSheets(['mage', 'enemies', 'fx', 'world', 'ui']);
 
 // Storage may be missing or throw (private mode, blocked cookies): no records, no remembered mute, still playable.
 const storage = (() => { try { return localStorage; } catch { return null; } })();
-const MUTE_KEY = 'survivorsHutan.muted';                  // '1' = muted; Task 14's audio reads it
-let muted = false;
-try { muted = storage?.getItem(MUTE_KEY) === '1'; } catch { /* default: sound on */ }
-function toggleMute() {
-  muted = !muted;
-  try { storage?.setItem(MUTE_KEY, muted ? '1' : '0'); } catch { /* not remembered */ }
-}
+const toggleMute = () => setMuted(!isMuted());           // audio.js owns the remembered flag
 let records = loadRecords(storage);
 
 // Backdrop for the menus and the starter pick: the clearing by the hut, the mage idle, a few slimes wandering.
@@ -63,11 +58,11 @@ function wander(run, dt) {
 let run = backdrop, scene, screen = null, classId = 'mage', held = false;
 function go(next) {
   scene = next;
-  if (next === 'menu') { run = backdrop; screen = menuScreen(assets, () => muted); }
+  if (next === 'menu') { run = backdrop; screen = menuScreen(assets, isMuted); }
   else if (next === 'classSelect') screen = classSelectScreen(assets, CLASSES);
   else if (next === 'records') screen = recordsScreen(assets, CLASSES, records);
   else if (next === 'starterPick') { run = backdrop; screen = starterPickScreen(CLASSES[classId], assets); }
-  else if (next === 'levelup') screen = levelUpScreen(run, assets);
+  else if (next === 'levelup') { screen = levelUpScreen(run, assets); sfx('levelup'); }
   else if (next === 'paused') screen = pauseScreen(assets);
   else if (next === 'result') {
     const won = run.state === 'won', res = { time: Math.floor(run.endAt ?? run.time), kills: run.kills, level: run.prog.level, won };
@@ -101,7 +96,7 @@ startLoop(
     } else {
       if (run === backdrop) wander(backdrop, dt);
       const a = screen.update(input);
-      if (a) ACT[scene](a);
+      if (a) { sfx('click'); ACT[scene](a); }
     }
     if (!held) input.endFrame();                          // per sim step: a tap is never cleared before a step reads it (nor during hitstop)
     held = false;

@@ -49,6 +49,7 @@ const TUNING = {
     vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },
     magnet: { magnet: 0.25 }, wisdom: { xp: 0.10 }, amplify: { area: 0.08 },
   },
+  audio: { master: 0.3, minGap: 0.04, maxVoices: 12, detuneCents: 50 },   // master: output gain; minGap: s between plays of one name; detune: +-cents per play
   healCard: 30,
   endDelay: { won: 2, lost: 1.5 },   // s from the treant's death / the mage's to the result
   drops: {
