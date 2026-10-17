@@ -129,3 +129,22 @@ test('ult banner: one at a time from newUlts, 2.5 s each', () => {
   updateBanner(run, 2.6);
   assert.equal(run.banner, null);
 });
+
+test('pause: Menyerah needs a second press (a refocus click alone never forfeits)', async () => {
+  const { pauseScreen } = await import('../src/ui/screens.js');
+  const stub = () => { const taps = new Set(); return { taps, mouse: { x: 0, y: 0, clicked: false }, pressed: c => taps.delete(c) }; };
+  const step = (s, inp, n = 1) => { let a = null; for (let i = 0; i < n && !a; i++) { a = s.update(inp); inp.mouse.clicked = false; } return a; };
+  const p = pauseScreen(null), inp = stub();
+  step(p, inp, 30);                                          // past the input lock
+  Object.assign(inp.mouse, { x: 240, y: 150, clicked: true });   // the click that refocuses the window, on Menyerah
+  assert.equal(step(p, inp), null, 'first click only arms');
+  inp.mouse.clicked = true;
+  assert.equal(step(p, inp), 'forfeit', 'second click confirms');
+  const q = pauseScreen(null), k = stub();
+  step(q, k, 30);
+  k.taps.add('Digit2'); assert.equal(step(q, k), null);
+  k.taps.add('ArrowUp'); step(q, k);                          // moving off Menyerah disarms it
+  k.taps.add('Digit2'); assert.equal(step(q, k), null);
+  k.taps.add('Enter'); assert.equal(step(q, k), 'forfeit');
+  k.taps.add('Escape'); assert.equal(step(pauseScreen(null), k), 'resume');
+});

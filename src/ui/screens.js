@@ -4,6 +4,7 @@ import { NAMES } from '../data/classes.js';
 import { recipeTags } from '../logic/progression.js';
 import { drawText, wrapText, textWidth } from '../engine/font.js';
 import { formatTime } from './hud.js';
+import { EMPTY_RECORD } from '../logic/records.js';
 
 const W = 480, H = 270, STEP = 1 / 60;   // update() runs once per fixed sim step
 const LOCK = 0.3;                        // s before a pick counts: no accidental pick from a mid-fight key or click
@@ -243,7 +244,7 @@ export function recordsScreen(assets, classes, records) {
       title(ctx, assets, 'Rekor', 20, 2);
       list.forEach((cls, i) => classCard(ctx, assets, cls, { ...rects[i], h: 154 }, false, t, (x, y) => {
         if (cls.locked) { drawText(ctx, assets, 'Segera', x + 64, y + 10, { color: 'y', align: 'center', scale: 2 }); return; }
-        const r = records[cls.id] ?? { bestTime: 0, bestKills: 0, bestLevel: 0, wins: 0 };
+        const r = { ...EMPTY_RECORD, ...records[cls.id] };
         [['Terlama', formatTime(r.bestTime)], ['Kill', r.bestKills], ['Level', r.bestLevel], ['Menang', r.wins]].forEach(([k, v], n) => {
           drawText(ctx, assets, k, x + 10, y + n * 9, { color: 'x' });
           drawText(ctx, assets, String(v), x + 118, y + n * 9, { align: 'right' });
@@ -254,11 +255,20 @@ export function recordsScreen(assets, classes, records) {
   };
 }
 
-// -> 'resume' | 'forfeit'. Esc toggles back.
+// -> 'resume' | 'forfeit'. Esc toggles back. Menyerah asks twice: the click that refocuses the window after an
+// auto-pause can land on it, and one stray click must never end a long run.
 export function pauseScreen(assets) {
-  const ACTIONS = ['resume', 'forfeit'], b = buttons(assets, ['Lanjut', 'Menyerah'], layoutCards(2, 1, 110, 20, 8, 112), 1);
+  let armed = false;
+  const b = buttons(assets, ['Lanjut', () => (armed ? 'Yakin? Menyerah' : 'Menyerah')], layoutCards(2, 1, 110, 20, 8, 112), 1);
   return {
-    update: input => (input.pressed('Escape') ? 'resume' : ACTIONS[b.update(input)] ?? null),
+    update(input) {
+      if (input.pressed('Escape')) return 'resume';
+      const i = b.update(input);
+      if (b.picker.sel !== 1) armed = false;                 // moved off it: ask again next time
+      if (i === 0) return 'resume';
+      if (i === 1) { if (armed) return 'forfeit'; armed = true; }
+      return null;
+    },
     draw(ctx) {
       dim(ctx);
       assets.drawSlice(ctx, 'panel', W / 2 - 80, 56, 160, 132, 3);
