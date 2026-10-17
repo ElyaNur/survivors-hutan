@@ -7,6 +7,7 @@ pal({
   f: "#2f7d3a", // tree
   G: "#46a24a", // leaves, grass shade
   g: "#7fcf5c", // grass
+  q: "#6ab84d", // grass mid: shade on grass, tufts (mockup B grass2)
   j: "#c3ef84", // lime highlight
   // blues: water, sky, mage robe
   M: "#2b3486", // navy: robe/hat shadow, deep water
@@ -18,6 +19,7 @@ pal({
   n: "#b77a45", // wood, hut, staff
   u: "#e0a96a", // light wood
   p: "#d9c27a", // path, sand
+  D: "#b09a5c", // path/sand shadow, worn edge
   // monster reds and violets
   R: "#a3324a", // dark red
   r: "#e2585e", // monster red, roof

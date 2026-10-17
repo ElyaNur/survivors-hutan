@@ -18,7 +18,7 @@ function resize() {
 addEventListener('resize', resize);
 resize();
 
-const assets = await loadSheets(['mage', 'enemies', 'fx']);
+const assets = await loadSheets(['mage', 'enemies', 'fx', 'world']);
 const run = createRun('mage', 'fireball', Date.now());
 let loop;
 initInput(canvas, () => { if (!document.hidden) loop.setPaused(false); });
