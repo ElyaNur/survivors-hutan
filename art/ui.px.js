@@ -187,6 +187,19 @@ wkkwkkw
 .wwkww.
 .x.x.x.`)
 
+// Padlock for locked classes, 9x10 + outline: grey shackle, gold body, keyhole.
+sprite("icon_lock", { outline: "k" }, `
+..xxxxx..
+.xx...xX.
+.x.....X.
+.x.....X.
+yyyyyyyyY
+yYYYYYYYo
+yYYYkYYYo
+yYYYkYYYo
+yYYYYYYYo
+Yoooooooo`)
+
 // ---- Frames (drawn 9-slice by the game; centre and edges are flat so they stretch cleanly).
 // ring(d) picks a key by the distance d from the edge and which side (top-left lit, bottom-right shaded).
 function frame(name, size, rings, body, corner) {
@@ -208,6 +221,7 @@ const studs = (lit, mid, dark) => (c, s) => {
 }
 frame("card", 16, ["k", ["l", "V"], ["Z", "P"], "k"], "U", studs("y", "Y", "o"))
 frame("card_sel", 16, ["k", ["w", "o"], ["Y", "O"], "k"], "U", studs("w", "y", "Y"))
+frame("card_off", 16, ["k", ["X", "P"], ["P", "U"], "k"], "#221c3a", studs("x", "X", "P"))   // locked class
 frame("panel", 8, ["k", ["Z", "P"], "k"], "#2a2346d9")
 frame("slot", 18, ["k", ["P", "Z"]], "k")
 frame("slot_lit", 18, ["k", ["y", "o"]], "k")

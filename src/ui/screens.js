@@ -1,8 +1,9 @@
-// Card screens: the starter pick (6 skills) and the level-up (3 cards). The world is frozen behind them.
+// Card screens (starter pick, level-up) and the menus (main, class select, records, pause, result).
 import TUNING from '../data/tuning.js';
 import { NAMES } from '../data/classes.js';
 import { recipeTags } from '../logic/progression.js';
-import { drawText, wrapText } from '../engine/font.js';
+import { drawText, wrapText, textWidth } from '../engine/font.js';
+import { formatTime } from './hud.js';
 
 const W = 480, H = 270, STEP = 1 / 60;   // update() runs once per fixed sim step
 const LOCK = 0.3;                        // s before a pick counts: no accidental pick from a mid-fight key or click
@@ -116,4 +117,186 @@ export function starterPickScreen(classDef, assets) {
     hint: '1-6, panah + Enter, atau klik',
   });
   return { ...s, update: input => { const i = s.update(input); return i < 0 ? null : ids[i]; } };
+}
+
+// ---- Menus. Each update(input) returns an action string (or a class id), else null. Esc = back where there is one.
+// A row/column of framed buttons over the shared picker. labels: strings, or functions for live text.
+function buttons(assets, labels, rects, cols) {
+  const picker = createPicker(rects, cols);
+  return {
+    picker,
+    update: input => picker.update(input),
+    draw(ctx) {
+      labels.forEach((l, i) => {
+        const r = rects[i], sel = picker.sel === i, y = r.y - (sel ? 1 : 0);
+        assets.drawSlice(ctx, sel ? 'card_sel' : 'card', r.x, y, r.w, r.h, 5);
+        drawText(ctx, assets, typeof l === 'function' ? l() : l, r.x + r.w / 2, y + (r.h - 5) / 2, { color: sel ? 'w' : 'y', align: 'center' });
+      });
+    },
+  };
+}
+
+// Big title, cached per string: the text over a solid extrusion (its silhouette stacked downward) and a dark base.
+const titles = {};
+function title(ctx, assets, str, y, scale, color = 'y') {
+  const key = str + scale + color;
+  if (!titles[key]) {
+    const depth = 2 * scale, w = textWidth(str, scale) + 2 * scale, h = 7 * scale;
+    const solid = fill => {                                  // the text's silhouette (ink + outline) in one colour
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d'); g.imageSmoothingEnabled = false;
+      drawText(g, assets, str, scale, scale, { color, scale });
+      if (fill) { g.globalCompositeOperation = 'source-in'; g.fillStyle = fill; g.fillRect(0, 0, w, h); }
+      return c;
+    };
+    const out = document.createElement('canvas'); out.width = w; out.height = h + depth + 1;
+    const g = out.getContext('2d'), text = solid(), side = solid(color === 'r' ? '#6b1c33' : '#a3324a');   // palette K / R
+    g.drawImage(solid('#1d1a2f'), 0, depth + 1);
+    for (let d = depth; d > 0; d--) g.drawImage(side, 0, d);
+    g.drawImage(text, 0, 0);
+    titles[key] = out;
+  }
+  const c = titles[key];
+  ctx.drawImage(c, Math.round(W / 2 - c.width / 2), Math.round(y - scale));
+}
+
+const hint = (ctx, assets, str, y = H - 12) => drawText(ctx, assets, str, W / 2, y, { align: 'center' });
+
+// Main menu over the live forest. -> 'play' | 'records' | 'sound'
+let shade = null;                                          // gradients, built once on the first menu draw
+export function menuScreen(assets, isMuted) {
+  const ACTIONS = ['play', 'records', 'sound'];
+  const b = buttons(assets, ['Main', 'Rekor', () => 'Suara: ' + (isMuted() ? 'Mati' : 'Nyala')], layoutCards(3, 3, 100, 20, 10, 196), 3);
+  return {
+    update: input => ACTIONS[b.update(input)] ?? null,
+    draw(ctx) {
+      if (!shade) {
+        const top = ctx.createLinearGradient(0, 0, 0, 80), edge = ctx.createRadialGradient(W / 2, H / 2, 90, W / 2, H / 2, 290);
+        top.addColorStop(0, 'rgba(29, 26, 47, 0.85)'); top.addColorStop(1, 'rgba(29, 26, 47, 0)');
+        edge.addColorStop(0, 'rgba(29, 26, 47, 0)'); edge.addColorStop(1, 'rgba(29, 26, 47, 0.6)');
+        shade = { top, edge };
+      }
+      ctx.fillStyle = shade.edge; ctx.fillRect(0, 0, W, H);   // vignette: the eye lands on the hut and the mage
+      ctx.fillStyle = shade.top; ctx.fillRect(0, 0, W, 80);    // dusk band so the title reads
+      title(ctx, assets, 'SURVIVORS HUTAN', 12, 4);
+      drawText(ctx, assets, 'Bertahan 20 menit di Hutan Cerah', W / 2, 46, { color: 'w', align: 'center' });
+      b.draw(ctx);
+      hint(ctx, assets, 'Panah + Enter, atau klik', H - 14);
+    },
+  };
+}
+
+const CLASS_INFO = { mage: { sprite: 'mage_idle', desc: 'Penyihir jarak jauh. 6 skill, 3 ultimate.' } };
+
+// One class card: the hero (or a locked '?'), name, and a body drawn by `body(x, y)`.
+// A selected locked card lights up violet (never gold: gold means pickable); `shake` s left of a refused pick.
+function classCard(ctx, assets, cls, r, sel, t, body, shake = 0) {
+  const x = r.x + Math.round(Math.sin(shake * 60) * 3 * Math.min(1, shake * 4)), y = r.y - (sel ? 2 : 0);
+  assets.drawSlice(ctx, cls.locked ? (sel ? 'card' : 'card_off') : sel ? 'card_sel' : 'card', x, y, r.w, r.h, 5);
+  assets.drawSlice(ctx, cls.locked ? 'slot' : sel ? 'slot_lit' : 'slot', x + r.w / 2 - 24, y + 10, 48, 60, 2);
+  if (cls.locked) {
+    drawText(ctx, assets, '?', x + r.w / 2, y + 26, { color: 'x', align: 'center', scale: 5 });
+    assets.draw(ctx, 'icon_lock', x + r.w / 2 + 17, y + 62);
+  } else assets.draw(ctx, CLASS_INFO[cls.id].sprite, x + r.w / 2, y + 40, { t: t * 1000, scale: 2 });
+  drawText(ctx, assets, cls.name, x + r.w / 2, y + 78, { color: cls.locked ? 'x' : sel ? 'w' : 'y', align: 'center', scale: 2 });
+  body(x, y + 96);
+}
+
+const CLASS_RECTS = () => layoutCards(3, 3, 128, 150, 12, 54);
+
+// -> class id | 'back'. Locked classes can be looked at, not picked.
+export function classSelectScreen(assets, classes) {
+  const list = Object.values(classes), rects = CLASS_RECTS(), picker = createPicker(rects, 3);
+  let t = 0, shake = 0;
+  return {
+    update(input) {
+      t += STEP; shake = Math.max(0, shake - STEP);
+      if (input.pressed('Escape')) return 'back';
+      const i = picker.update(input);
+      if (i >= 0 && list[i].locked) shake = 0.3;              // not yet: the card shakes its head
+      return i >= 0 && !list[i].locked ? list[i].id : null;
+    },
+    draw(ctx) {
+      dim(ctx);
+      title(ctx, assets, 'Pilih kelas', 20, 2);
+      list.forEach((cls, i) => classCard(ctx, assets, cls, rects[i], picker.sel === i, t, (x, y) => {
+        if (cls.locked) drawText(ctx, assets, 'Segera', x + 64, y + 10, { color: 'y', align: 'center', scale: 2 });
+        else wrapText(CLASS_INFO[cls.id].desc, 112).forEach((l, k) => drawText(ctx, assets, l, x + 8, y + k * 8, { color: picker.sel === i ? 'w' : 'x' }));
+      }, picker.sel === i ? shake : 0));
+      hint(ctx, assets, '1-3, panah + Enter, atau klik. Esc: kembali');
+    },
+  };
+}
+
+// Per-class bests. -> 'back'
+export function recordsScreen(assets, classes, records) {
+  const list = Object.values(classes), rects = CLASS_RECTS();
+  const back = buttons(assets, ['Kembali'], layoutCards(1, 1, 100, 20, 0, 216), 1);
+  let t = 0;
+  return {
+    update(input) {
+      t += STEP;
+      return input.pressed('Escape') || back.update(input) === 0 ? 'back' : null;
+    },
+    draw(ctx) {
+      dim(ctx);
+      title(ctx, assets, 'Rekor', 20, 2);
+      list.forEach((cls, i) => classCard(ctx, assets, cls, { ...rects[i], h: 154 }, false, t, (x, y) => {
+        if (cls.locked) { drawText(ctx, assets, 'Segera', x + 64, y + 10, { color: 'y', align: 'center', scale: 2 }); return; }
+        const r = records[cls.id] ?? { bestTime: 0, bestKills: 0, bestLevel: 0, wins: 0 };
+        [['Terlama', formatTime(r.bestTime)], ['Kill', r.bestKills], ['Level', r.bestLevel], ['Menang', r.wins]].forEach(([k, v], n) => {
+          drawText(ctx, assets, k, x + 10, y + n * 9, { color: 'x' });
+          drawText(ctx, assets, String(v), x + 118, y + n * 9, { align: 'right' });
+        });
+      }));
+      back.draw(ctx);
+    },
+  };
+}
+
+// -> 'resume' | 'forfeit'. Esc toggles back.
+export function pauseScreen(assets) {
+  const ACTIONS = ['resume', 'forfeit'], b = buttons(assets, ['Lanjut', 'Menyerah'], layoutCards(2, 1, 110, 20, 8, 112), 1);
+  return {
+    update: input => (input.pressed('Escape') ? 'resume' : ACTIONS[b.update(input)] ?? null),
+    draw(ctx) {
+      dim(ctx);
+      assets.drawSlice(ctx, 'panel', W / 2 - 80, 56, 160, 132, 3);
+      title(ctx, assets, 'JEDA', 70, 3);
+      b.draw(ctx);
+      hint(ctx, assets, 'Esc: lanjut', 174);
+    },
+  };
+}
+
+// res: { won, time, kills, level, ults, newBest }. -> 'again' | 'menu'
+export function resultScreen(assets, res) {
+  const ACTIONS = ['again', 'menu'], b = buttons(assets, ['Main lagi', 'Menu'], layoutCards(2, 2, 100, 20, 12, 214), 2);
+  let t = 0;
+  const rows = [['Waktu bertahan', formatTime(res.time), 'time'], ['Kill', res.kills, 'kills'], ['Level', res.level, 'level']];
+  return {
+    update(input) { t += STEP; return ACTIONS[b.update(input)] ?? null; },
+    draw(ctx) {
+      dim(ctx);
+      const k = ease(t / 0.35);                                  // the verdict drops in
+      title(ctx, assets, res.won ? 'MENANG!' : 'KALAH', 18 - Math.round((1 - k) * 20), 5, res.won ? 'y' : 'r');
+      const px = W / 2 - 110, py = 70;
+      assets.drawSlice(ctx, 'card', px, py, 220, 124, 5);
+      rows.forEach(([label, v, key], n) => {
+        const y = py + 12 + n * 20;
+        drawText(ctx, assets, label, px + 12, y + 3, { color: 'x' });
+        drawText(ctx, assets, String(v), px + 112, y, { scale: 2 });
+        if (res.newBest.includes(key)) drawText(ctx, assets, 'Rekor baru!', px + 208, y + 3, { color: Math.floor(t * 3) % 2 ? 'w' : 'g', align: 'right' });
+      });
+      const uy = py + 12 + 3 * 20;
+      drawText(ctx, assets, 'Ultimate', px + 12, uy + 3, { color: 'x' });
+      if (!res.ults.length) drawText(ctx, assets, '-', px + 112, uy + 3, { color: 'x' });
+      res.ults.forEach((id, n) => {
+        assets.drawSlice(ctx, 'slot_lit', px + 110 + n * 22, uy - 4, 18, 18, 2);
+        assets.draw(ctx, 'icon_' + id, px + 119 + n * 22, uy + 5);
+      });
+      if (res.ults.length) drawText(ctx, assets, res.ults.map(id => NAMES[id].name).join(', '), W / 2, uy + 22, { color: 'y', align: 'center' });
+      b.draw(ctx);
+    },
+  };
 }
