@@ -58,7 +58,8 @@ export function createFx(assets) {
     offset: () => off, // shared object, read it, don't keep it
     frozen: () => hitLeft > 0,
     counts: () => ({ particles: count(parts), numbers: count(nums), anims: count(anims) }),
-    draw(ctx, cam, assets) {
+    // between(): drawn after particles and anims, before numbers and the screen flash (the mage goes there).
+    draw(ctx, cam, assets, between) {
       for (const p of parts) {
         if (p.life <= 0) continue;
         ctx.globalAlpha = Math.min(1, p.life / p.max * 2);
@@ -72,6 +73,7 @@ export function createFx(assets) {
         if (a.scale === 1) assets.draw(ctx, a.name, sx, sy, { t: a.age * 1000 });
         else { ctx.save(); ctx.translate(sx, sy); ctx.scale(a.scale, a.scale); assets.draw(ctx, a.name, 0, 0, { t: a.age * 1000 }); ctx.restore(); }
       }
+      between?.();
       for (const n of nums) {
         if (n.life <= 0) continue;
         const k = 1 - n.life / NUM_LIFE;

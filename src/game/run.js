@@ -113,12 +113,13 @@ export function drawRun(ctx, run, assets) {
     drawProp(ctx, assets, o, cam, drawn && Math.abs(o.x - p.x) < 16 && o.y - feet < 36 ? 0.5 : 1);
   }
   actorsTo(Infinity);
-  if (covered) {                                             // crowd over the mage: 1px light outline, then him again on top
-    drawPlayer(-1, 0, true); drawPlayer(1, 0, true); drawPlayer(0, -1, true); drawPlayer(0, 1, true);
-    drawPlayer();
-  }
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
   drawProjectiles(ctx, run, assets, cam, t);
-  run.fx.draw(ctx, cam, assets);                             // above every actor, below the HUD
+  // Above every actor, below the HUD. The mage is drawn again over spells and blasts (only numbers and the hurt
+  // flash go over him): the player's anchor never drowns. Crowd over him: a 1px light outline first.
+  run.fx.draw(ctx, cam, assets, () => {
+    if (covered) { drawPlayer(-1, 0, true); drawPlayer(1, 0, true); drawPlayer(0, -1, true); drawPlayer(0, 1, true); }
+    drawPlayer();
+  });
 }
