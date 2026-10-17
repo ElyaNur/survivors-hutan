@@ -65,6 +65,10 @@ export async function loadSheets(names, base = 'art/out/') {
       const sh = s ?? frameOwner[name];
       if (!sh) throw new Error('unknown sprite: ' + name);
       const f = sh.frames[fname];
+      if (!flip && scale === 1 && alpha === 1 && ctx.globalAlpha === 1) {   // most draws: no state to set or undo, skip save/restore
+        ctx.drawImage(flash ? sh.white : sh.img, f.x, f.y, f.w, f.h, Math.round(x) - (f.w >> 1), Math.round(y) - (f.h >> 1), f.w, f.h);
+        return;
+      }
       ctx.save();
       ctx.globalAlpha = alpha;
       ctx.translate(Math.round(x), Math.round(y));
