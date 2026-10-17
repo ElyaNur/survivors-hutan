@@ -49,6 +49,7 @@ const TUNING = {
   healCard: 30,
   drops: {
     heartChance: 0.01, heartHeal: 25, magnetChance: 0.003,
+    maxGems: 300, pullSpeed: 200,   // pullSpeed: px/s a magnetised pickup flies at the player
     gemTiers: [{ minXp: 5, sprite: 'gem_red' }, { minXp: 2, sprite: 'gem_green' }, { minXp: 0, sprite: 'gem_blue' }],   // first match wins
   },
   fx: { shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, maxParticles: 600, maxNumbers: 150 },

@@ -4,6 +4,7 @@ import { SCHEDULE } from '../data/spawns.js';
 import { offscreenPoint } from '../logic/spawner.js';
 import { hurtPlayer, speedFactor } from '../logic/combat.js';
 import { WORLD_W, WORLD_H, terrainSpeed, camera } from './world.js';
+import { dropGem, dropHeart, dropMagnet } from './pickups.js';
 
 export const BOUNDS = { w: WORLD_W, h: WORLD_H };
 const BOSSES = new Set(SCHEDULE.bosses.map(b => b.type));
@@ -17,9 +18,6 @@ const WITCH_DEADBAND = 8;                                   // px around keepDis
 const CAST_LEAD = 0.4;                                      // s: witch_cast (4 frames @10fps) plays before the shot
 const ORB = { x: 4, y: -3 };                                // staff orb offset from the witch's centre (sprite px)
 const near = [];                                            // reused grid query buffer
-
-// ponytail: stub; Task 7 replaces it with the real gem pickup.
-export function dropGem(run, x, y, xp) { run.pickups.push({ kind: 'gem', x, y, xp }); }
 
 export function spawnEnemy(run, type, x, y) {
   const def = TUNING.enemies[type];
@@ -98,7 +96,11 @@ export function updateEnemies(run, dt) {
   for (let i = es.length - 1; i >= 0; i--) {                // deaths: swap-remove, order doesn't matter
     const e = es[i];
     if (!e.dead) continue;
-    dropGem(run, e.x, e.y, e.def.xp);
+    if (!BOSSES.has(e.type)) {                              // bosses drop chests (Task 12)
+      dropGem(run, e.x, e.y, e.def.xp);
+      if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
+      if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
+    }
     run.kills++;
     if (run.fx) run.fx.anim(e.x, e.y, 'fx_poof');
     es[i] = es[es.length - 1]; es.pop();

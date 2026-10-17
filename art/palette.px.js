@@ -57,3 +57,7 @@ pal({
   d: "#a3238f", // dark magenta
 })
 ramps("kTta", "kEA", "kdmw")
+// Added for pickups (Task 7b).
+pal({
+  K: "#6b1c33", // deep crimson: red gem pavilion
+})

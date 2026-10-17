@@ -264,7 +264,102 @@ anim("hut_smoke", { w: 16, h: 28, frames: 16, fps: 8 }, (c) => {
   }
 })
 
+// ---- Pickups. Drawn on the ground under the actors, so each carries its own dark outline.
+
+// XP gems, one cut per tier: crown lit from the top-left, pavilion in shade, reflected light low-left.
+// Frame 1 is the sparkle: the glint opens into a cross and the halo brightens. The halo is baked as
+// a translucent fringe outside the outline (pxl glow only lights opaque pixels), so the gem glows on
+// the grass. 7x8 body + 1px halo = 9x10.
+const GEM = `
+  ..kkk..
+  .kHWMk.
+  kHWHMMk
+  kHHMMDk
+  kMMMDEk
+  .kHMDk.
+  ..kDk..
+  ...k...`
+const GEM_SPARK = `
+  ..w....
+  .www...
+  ..w....`
+const GEMS = { blue: ["s", "b", "B", "M", "#8fd3f5"], green: ["a", "t", "T", "F", "#5ee0a0"], red: ["i", "r", "R", "K", "#ff9f9a"] }
+const gemKeys = (g, [H, M, D, E]) => g.replace(/H/g, H).replace(/M/g, M).replace(/D/g, D).replace(/E/g, E).replace(/W/g, "w")
+const halo = (hex) => (c) => {
+  const ring = []
+  for (let y = 0; y < c.h; y++) for (let x = 0; x < c.w; x++)
+    if (c.is(x, y, ".") && [[-1, 0], [1, 0], [0, -1], [0, 1]].some(([dx, dy]) => c.is(x + dx, y + dy, "k"))) ring.push([x, y])
+  for (const [x, y] of ring) c.px(x, y, hex)
+}
+for (const [name, keys] of Object.entries(GEMS)) {
+  anim("gem_" + name, { w: 9, h: 10 },
+    (c) => c.grid(1, 1, gemKeys(GEM, keys)),
+    frame({ ms: 900 }, halo(keys[4] + "50")),
+    frame({ ms: 160 }, (c) => c.grid(2, 2, GEM_SPARK), halo(keys[4] + "99")))
+}
+
+// Heart: plump, lit top-left lobe, shine spot. 8x7 + outline = 10x9.
+sprite("heart", { outline: "k" }, `
+  .rr..rr.
+  rirrrrrR
+  riwrrrRR
+  rrrrrrRR
+  .rrrrRR.
+  ..rrRR..
+  ...RR...`)
+
+// Horseshoe magnet: red arch, silver poles. 8x7 + outline = 10x9.
+sprite("magnet", { outline: "k" }, `
+  ..irrr..
+  .iwrrrR.
+  irR..rrR
+  irR..rrR
+  irR..rrR
+  wxX..wxX
+  xxX..xxX`)
+
+// Treasure chest: plank body, rounded lid, gold bands and lock. 12x10 + outline = 14x12.
+function chestBody(c, top) {                                  // body: rows top..top+5
+  c.rect(0, top, 12, 6, "n"); c.hline(0, top + 2, 12, "N"); c.hline(0, top + 5, 12, "N")
+  c.vline(0, top, 5, "u"); c.vline(11, top, 6, "N")
+  for (const x of [2, 9]) { c.vline(x, top, 6, "Y"); c.px(x, top + 5, "o") }
+  c.rect(5, top, 2, 2, "Y"); c.px(5, top, "y"); c.px(6, top + 1, "k")   // lock plate, keyhole
+}
+function chestLid(c, top) {                                   // lid: rows top..top+3
+  c.rect(1, top, 10, 1, "n"); c.rect(0, top + 1, 12, 3, "n")
+  c.hline(1, top, 10, "u"); c.hline(1, top + 1, 9, "u"); c.vline(11, top + 1, 3, "N")
+  c.hline(0, top + 3, 12, "N")
+  for (const x of [2, 9]) { c.vline(x, top, 4, "Y"); c.px(x, top, "y") }
+}
+sprite("chest", { w: 12, h: 10, outline: "k" }, (c) => { chestLid(c, 0); chestBody(c, 4) })
+sprite("_chest_body", { w: 12, h: 6, outline: "k" }, (c) => chestBody(c, 0))
+sprite("_chest_lid", { w: 12, h: 4, outline: "k" }, (c) => chestLid(c, 0))
+sprite("_chest_lid_back", { w: 12, h: 3, outline: "k" }, (c) => {   // thrown back: we see its dark underside
+  c.rect(0, 0, 12, 3, "N"); c.hline(1, 0, 10, "n"); for (const x of [2, 9]) c.vline(x, 0, 3, "Y")
+})
+// Opening (Task 12): the lid cracks, golden light beams out (no outline: it is light), sparkles rise.
+// Body outline spans rows 10..17 of the 14x18 canvas in every frame, so the chest doesn't jump.
+const BEAMS = [[3, 5], [5, 8], [7, 9], [9, 7], [11, 4]]       // column, height above the rim
+anim("chest_open", { w: 14, h: 18, fps: 8, loop: false, frames: 4 }, (c) => {
+  const f = c.frame
+  if (f === 0) { c.stamp("chest", 0, 6); return }
+  if (f === 1) {
+    c.stamp("_chest_lid", 0, 3); c.stamp("_chest_body", 0, 10)
+    c.hline(2, 9, 10, "y"); c.hline(3, 10, 8, "w")            // light through the crack
+    return
+  }
+  c.stamp("_chest_lid_back", 0, 5)
+  const fade = f === 3 ? 3 : 0
+  for (const [x, h] of BEAMS) {
+    c.vline(x, 11 - h + fade, h - fade, "#fff1a8b0"); c.px(x, 10, "y")
+  }
+  c.stamp("_chest_body", 0, 10)
+  c.hline(1, 10, 12, "y"); c.hline(3, 10, 8, "w")             // glowing rim of gold inside
+  for (const [x, y] of f === 2 ? [[1, 4], [12, 6]] : [[2, 1], [12, 2], [6, 0]]) { c.px(x, y, "w"); c.px(x, y + 1, "y") }
+})
+
 sheet("world", [
   "tree_*", "bush_*", "rock_*", "hut", "hut_smoke", "bridge", "path", "river_*",
   "shadow_*", "grass_*", "tall_*", "daisy", "woodpile", "stump*", "reed", "lily", "flower_*", "water_shimmer", "water_wade",
+  "gem_*", "heart", "magnet", "chest*",
 ])

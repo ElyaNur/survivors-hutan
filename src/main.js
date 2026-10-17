@@ -1,7 +1,7 @@
 import { startLoop } from './engine/loop.js';
 import { input, initInput } from './engine/input.js';
 import { loadSheets } from './engine/assets.js';
-import { createRun, updateRun, drawRun } from './game/run.js';
+import { createRun, updateRun, drawRun, chooseCard } from './game/run.js';
 
 const W = 480, H = 270;
 const canvas = document.getElementById('game');
@@ -24,7 +24,10 @@ window.run = run;   // TEMP-DEBUG: lets the browser console drive the run
 let loop;
 initInput(canvas, () => { if (!document.hidden) loop.setPaused(false); });
 loop = startLoop(
-  dt => { updateRun(run, dt, input); input.endFrame(); },
+  dt => {
+    if (run.state === 'levelup') chooseCard(run, run.cards[0]);   // TEMP-DEBUG: auto-pick until the level-up UI (Task 8)
+    updateRun(run, dt, input); input.endFrame();
+  },
   () => drawRun(ctx, run, assets));
 
 const pause = () => loop.setPaused(true);

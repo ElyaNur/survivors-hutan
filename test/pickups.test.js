@@ -1,0 +1,90 @@
+import { test } from 'node:test'; import assert from 'node:assert/strict';
+import TUNING from '../src/data/tuning.js';
+import { passiveMods } from '../src/logic/progression.js';
+import { dropGem, dropHeart, dropMagnet, dropChest, updatePickups } from '../src/game/pickups.js';
+import { createRun, updateRun, chooseCard } from '../src/game/run.js';
+
+const newRun = () => createRun('mage', 'fireball', 1);
+const gems = run => run.pickups.filter(q => q.kind === 'gem');
+const noInput = { pressed: () => false, moveVector: () => ({ x: 0, y: 0 }) };
+
+test('gem pickup gains xp scaled by mods.xp and counts every level', () => {
+  const run = newRun(), p = run.player;
+  run.mods = passiveMods({ passives: { wisdom: 5 } });          // xp x1.5
+  dropGem(run, p.x, p.y, 14);                                   // 21 xp: level 1 -> 3, 1 left over
+  updatePickups(run, 0.016);
+  assert.equal(run.pickups.length, 0);
+  assert.deepEqual(run.prog, { level: 3, xp: 1 });
+  assert.equal(run.pendingLevelUps, 2);
+});
+
+test('magnet radius pulls nearby pickups only; magnet item pulls every gem', () => {
+  const run = newRun(), p = run.player;
+  dropGem(run, p.x + 20, p.y, 1); dropGem(run, p.x + 200, p.y, 1);
+  updatePickups(run, 0.1);
+  const [near, far] = run.pickups;
+  assert.ok(near.x < p.x + 20, 'near gem pulled');
+  assert.equal(far.x, p.x + 200, 'far gem untouched');
+  dropMagnet(run, p.x, p.y);
+  updatePickups(run, 0.1);
+  assert.ok(far.x < p.x + 200, 'far gem pulled after magnet');
+});
+
+test('heart heals capped at maxHp; chest adds its levels', () => {
+  const run = newRun(), p = run.player;
+  p.hp = 90; dropHeart(run, p.x, p.y); dropChest(run, p.x, p.y, 3);
+  updatePickups(run, 0.016);
+  assert.equal(p.hp, p.maxHp);
+  assert.equal(run.pendingLevelUps, 3);
+});
+
+test('gem merge keeps count bounded and total xp', () => {
+  const run = newRun(), p = run.player, max = TUNING.drops.maxGems;
+  let total = 0;
+  for (let i = 0; i < max + 50; i++) { const xp = 1 + (i % 4); total += xp; dropGem(run, p.x + 100 + i, p.y, xp); }
+  assert.equal(gems(run).length, max);
+  assert.equal(gems(run).reduce((s, g) => s + g.xp, 0), total);
+  assert.ok(Math.max(...gems(run).map(g => g.x)) < p.x + 100 + max + 50 - 1, 'farthest gems were merged away');
+});
+
+test('pending level-ups switch to levelup with a card roll', () => {
+  const run = newRun();
+  run.pendingLevelUps = 2;
+  const t = run.time;
+  updateRun(run, 0.016, noInput);
+  assert.equal(run.state, 'levelup');
+  assert.ok(run.cards.length >= 1);
+  assert.equal(run.time, t, 'world paused');
+});
+
+test('chooseCard decrements, re-rolls while pending, pushes ults once', () => {
+  const run = newRun();
+  run.build.skills = { fireball: 5, meteor: 4 };
+  run.pendingLevelUps = 2; run.state = 'levelup';
+  chooseCard(run, { kind: 'skill', id: 'meteor', nextLevel: 5 });
+  assert.deepEqual(run.build.ults, ['armageddon']);
+  assert.deepEqual(run.newUlts, ['armageddon']);
+  assert.equal(run.pendingLevelUps, 1);
+  assert.equal(run.state, 'levelup');
+  assert.ok(run.cards.length >= 1);
+  chooseCard(run, { kind: 'skill', id: 'fireball', nextLevel: 5 });   // still both at 5: no second push
+  assert.deepEqual(run.build.ults, ['armageddon']);
+  assert.deepEqual(run.newUlts, ['armageddon']);
+  assert.equal(run.pendingLevelUps, 0);
+  assert.equal(run.state, 'playing');
+});
+
+test('chooseCard applies passives and heals', () => {
+  const run = newRun(), p = run.player;
+  run.pendingLevelUps = 3; p.hp = 50;
+  chooseCard(run, { kind: 'passive', id: 'vitality', nextLevel: 1 });
+  assert.equal(p.maxHp, TUNING.player.hp + 20);
+  assert.equal(p.hp, 70);
+  chooseCard(run, { kind: 'passive', id: 'swiftness', nextLevel: 1 });
+  assert.equal(p.speed, TUNING.player.speed * 1.08);
+  chooseCard(run, { kind: 'heal' });
+  assert.equal(p.hp, 100);
+  p.hp = p.maxHp - 5; run.pendingLevelUps = 1;
+  chooseCard(run, { kind: 'heal' });
+  assert.equal(p.hp, p.maxHp);
+});

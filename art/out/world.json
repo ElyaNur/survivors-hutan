@@ -1396,6 +1396,276 @@
     "h": 7
    },
    "duration": 200
+  },
+  "gem_blue_0": {
+   "frame": {
+    "x": 77,
+    "y": 188,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 900
+  },
+  "gem_blue_1": {
+   "frame": {
+    "x": 86,
+    "y": 188,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 160
+  },
+  "gem_green_0": {
+   "frame": {
+    "x": 95,
+    "y": 188,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 900
+  },
+  "gem_green_1": {
+   "frame": {
+    "x": 104,
+    "y": 188,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 160
+  },
+  "gem_red_0": {
+   "frame": {
+    "x": 0,
+    "y": 198,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 900
+  },
+  "gem_red_1": {
+   "frame": {
+    "x": 9,
+    "y": 198,
+    "w": 9,
+    "h": 10
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 10
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 10
+   },
+   "duration": 160
+  },
+  "heart": {
+   "frame": {
+    "x": 18,
+    "y": 198,
+    "w": 10,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 10,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 10,
+    "h": 9
+   }
+  },
+  "magnet": {
+   "frame": {
+    "x": 28,
+    "y": 198,
+    "w": 10,
+    "h": 9
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 10,
+    "h": 9
+   },
+   "sourceSize": {
+    "w": 10,
+    "h": 9
+   }
+  },
+  "chest": {
+   "frame": {
+    "x": 38,
+    "y": 198,
+    "w": 14,
+    "h": 12
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 14,
+    "h": 12
+   },
+   "sourceSize": {
+    "w": 14,
+    "h": 12
+   }
+  },
+  "chest_open_0": {
+   "frame": {
+    "x": 52,
+    "y": 198,
+    "w": 14,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 14,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 14,
+    "h": 18
+   },
+   "duration": 125
+  },
+  "chest_open_1": {
+   "frame": {
+    "x": 66,
+    "y": 198,
+    "w": 14,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 14,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 14,
+    "h": 18
+   },
+   "duration": 125
+  },
+  "chest_open_2": {
+   "frame": {
+    "x": 80,
+    "y": 198,
+    "w": 14,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 14,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 14,
+    "h": 18
+   },
+   "duration": 125
+  },
+  "chest_open_3": {
+   "frame": {
+    "x": 94,
+    "y": 198,
+    "w": 14,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 14,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 14,
+    "h": 18
+   },
+   "duration": 125
   }
  },
  "meta": {
@@ -1404,7 +1674,7 @@
   "format": "RGBA8888",
   "size": {
    "w": 734,
-   "h": 195
+   "h": 216
   },
   "scale": "1",
   "frameTags": [
@@ -1442,6 +1712,30 @@
     "name": "water_wade",
     "from": 65,
     "to": 67,
+    "direction": "forward"
+   },
+   {
+    "name": "gem_blue",
+    "from": 68,
+    "to": 69,
+    "direction": "forward"
+   },
+   {
+    "name": "gem_green",
+    "from": 70,
+    "to": 71,
+    "direction": "forward"
+   },
+   {
+    "name": "gem_red",
+    "from": 72,
+    "to": 73,
+    "direction": "forward"
+   },
+   {
+    "name": "chest_open",
+    "from": 77,
+    "to": 80,
     "direction": "forward"
    }
   ]
