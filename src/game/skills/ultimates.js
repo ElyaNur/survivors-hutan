@@ -52,7 +52,7 @@ const armageddon = {
     const v = camera(run.player), want = Math.min(ARM_TOTAL, Math.floor(st.t * ARM.rate) + 1);   // exactly rate x dur, the first at once
     for (; st.n < want; st.n++)
       spawnArea(run, { x: v.x + run.rng.next() * v.w, y: v.y + run.rng.next() * v.h, r: ARM.r * mods.area, dmg: ARM.dmg,
-        delay: ARM.warn, glow: 'fire', glowDur: GLOW_DUR, onTrigger: boom });
+        delay: ARM.warn, glow: 'fire', glowDur: GLOW_DUR, quiet: true, onTrigger: boom });
     st.t += dt;
   },
   draw(ctx, run, st, level, assets, cam) {
@@ -84,7 +84,7 @@ const absoluteZero = {
       if (e.dead || e.x < v.x || e.y < v.y || e.x >= v.x + v.w || e.y >= v.y + v.h) continue;
       e.frozenUntil = Math.max(e.frozenUntil, until); e.vulnerableUntil = until;
       fx.burst(e.x, e.y, '#a6f6ff', 2, 40);                 // palette c
-      damageEnemy(run, e, AZ.hitDmg, { power: 0 });         // ice holds it: no shove
+      damageEnemy(run, e, AZ.hitDmg, { power: 0, quiet: true });   // ice holds it: no shove; the screen-wide blast prints sparingly
     }
   },
   draw(ctx, run, st, level, assets, cam) {

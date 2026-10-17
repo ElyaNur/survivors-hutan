@@ -22,10 +22,10 @@ export function spawnProjectile(run, opts) {
 }
 
 const AREA = { x: 0, y: 0, r: 0, dmg: 0, delay: 0, dur: 0, tickEvery: 0.5, freeze: 0, slow: 0, slowDur: 1, sprite: '', warnSprite: '',
-  glow: '', glowDur: 0, onTrigger: null };
+  glow: '', glowDur: 0, quiet: false, onTrigger: null };
 // spawnArea(run, {x, y, r, dmg, delay = 0, dur = 0, tickEvery = 0.5, freeze = 0, slow = 0, slowDur = 1, sprite?, warnSprite?,
-//   glow?, glowDur?, onTrigger?(run, a)}): after `delay` hits every enemy within r, then ticks every tickEvery for `dur`
-// (onTrigger may change a.dmg for the ticks). glow: halo key lit on the ground for glowDur after the trigger, fading out.
+//   glow?, glowDur?, quiet?, onTrigger?(run, a)}): after `delay` hits every enemy within r, then ticks every tickEvery for `dur`
+// (onTrigger may change a.dmg for the ticks). quiet: its hits print through the number budget (damageEnemy). glow: halo key lit on the ground for glowDur after the trigger, fading out.
 export function spawnArea(run, opts) {
   const a = Object.assign(freeAreas.pop() ?? {}, AREA, opts);
   a.age = 0; a.triggered = false; a.nextTick = 0;
@@ -41,7 +41,7 @@ function applyArea(run, a) {
     if (e.dead) continue;
     const reach = a.r + e.r;
     if ((e.x - a.x) ** 2 + (e.y - a.y) ** 2 > reach * reach) continue;
-    if (a.dmg > 0) damageEnemy(run, e, a.dmg, { fromX: a.x, fromY: a.y });
+    if (a.dmg > 0) damageEnemy(run, e, a.dmg, { fromX: a.x, fromY: a.y, quiet: a.quiet });
     if (a.freeze) e.frozenUntil = Math.max(e.frozenUntil, now + a.freeze);
     if (a.slow) applySlow(e, a.slow, a.slowDur, now);
   }

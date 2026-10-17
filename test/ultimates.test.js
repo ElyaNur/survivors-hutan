@@ -84,3 +84,31 @@ test('an ult unlock banner shakes and holds the world for a beat', () => {
   updateBanner(run, 0.016);
   assert.equal(run.fx.frozen(), true);
 });
+
+import { spawnArea, updateProjectiles } from '../src/game/projectiles.js';
+const counting = run => { run.fx.nums = 0; run.fx.number = () => run.fx.nums++; return run; };
+const crowdAt = (run, n, dx) => Array.from({ length: n }, () => { const e = tank(run, dx); run.grid.insert(e); return e; });
+
+test('quiet big hits share the number budget: an ult blast never floods the screen', () => {
+  const run = counting(setup());
+  for (const e of crowdAt(run, 50, 60)) damageEnemy(run, e, 60, { quiet: true });
+  assert.ok(run.fx.nums <= TUNING.fx.numberBudget.burst, `${run.fx.nums} numbers`);
+  const loud = counting(setup());
+  for (const e of crowdAt(loud, 3, 60)) damageEnemy(loud, e, 60);
+  assert.equal(loud.fx.nums, 3, 'a lone big hit still always prints');
+});
+
+test('Absolute Zero and Armageddon blasts hit quietly', () => {
+  const az = counting(setup());
+  crowdAt(az, 50, 60);
+  ULTS.absoluteZero.update(az, {}, 0, az.mods, 0.01);
+  assert.ok(az.fx.nums <= TUNING.fx.numberBudget.burst, `${az.fx.nums} numbers`);
+  const arm = counting(setup());
+  ULTS.armageddon.update(arm, {}, 0, arm.mods, 0.01);
+  const a = arm.areas[0];
+  crowdAt(arm, 50, a.x - arm.player.x).forEach(e => { e.y = a.y; });
+  arm.grid.clear(); for (const e of arm.enemies) arm.grid.insert(e);
+  updateProjectiles(arm, U.armageddon.warn + 0.01);
+  assert.ok(arm.enemies.filter(e => e.hp < e.maxHp).length >= 50, 'the blast landed');
+  assert.ok(arm.fx.nums <= TUNING.fx.numberBudget.burst, `${arm.fx.nums} numbers`);
+});

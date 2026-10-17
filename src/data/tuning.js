@@ -40,7 +40,7 @@ const TUNING = {
   },
   ults: {
     armageddon:   { cd: 25, dur: 4, rate: 6, dmg: 60, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
-    absoluteZero: { cd: 30, freeze: 3, vulnMult: 2, hitDmg: 20 },          // hitDmg lands on the fresh ice (x frozenVulnMult)
+    absoluteZero: { cd: 30, freeze: 3, hitDmg: 20 },                       // hitDmg lands on the fresh ice: x frozenVulnMult (top level)
     badaiPetir:   { cd: 25, dur: 6, rate: 5, range: 140, dmg: 40, orbBoost: 0.5, jumps: 2, jumpRange: 60 },   // orbs deal x(1 + orbBoost)
   },
   passives: {   // per-level amount
