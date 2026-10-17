@@ -22,6 +22,7 @@ const tank = (run, dx, dy = 0) => { const e = spawnEnemy(run, 'orc', run.player.
 
 test('ult fires on unlock (through updateRun), then again only after cd x mods.cooldown', () => {
   const run = setup(), e = tank(run, 40);
+  run.player.hp = 1e9;                                          // the orc's blows must not end the run (Task 12) mid-test
   run.mods.cooldown = 0.5;
   run.build.ults.push('absoluteZero');
   updateRun(run, 0.01, still);

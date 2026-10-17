@@ -48,7 +48,7 @@ test('damageEnemy: kill drops a gem, counts a kill, fires poof + burst; the corp
   assert.equal(run.enemies.length, 0);
   assert.equal(run.kills, 1);                                   // the sweep does not double count
 });
-test('damageEnemy: a dead enemy takes no further damage; a boss kill hitstops', () => {
+test('damageEnemy: a dead enemy takes no further damage; a boss kill hitstops and drops a chest', () => {
   const { run, e, log } = setup('slime');
   damageEnemy(run, e, 999);
   const n = log.length;
@@ -57,7 +57,7 @@ test('damageEnemy: a dead enemy takes no further damage; a boss kill hitstops', 
   const b = spawnEnemy(run, 'kingSlime', 0, 0);
   damageEnemy(run, b, 1e6);
   assert.ok(log.some(l => l[0] === 'hitstop' && l[1] === TUNING.fx.hitstopBig));
-  assert.equal(run.pickups.filter(q => q.kind === 'gem').length, 1);   // bosses drop no gem
+  assert.ok(run.pickups.some(q => q.kind === 'chest'));          // boss drops: test/bosses.test.js
 });
 test('contact hurt flashes the screen red once per iframe window', () => {
   const { run, p, e, log } = setup('slime');

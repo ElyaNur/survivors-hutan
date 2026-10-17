@@ -6,7 +6,9 @@ import { drawText, textWidth } from '../engine/font.js';
 import TUNING from '../data/tuning.js';
 
 const W = 480, H = 270, SLOTS = 4, MAX_LV = 5, BANNER_T = 2.5, BANNER_X = 24, BANNER_EDGE = 8;   // ult_banner: 9-slice edge px
-const C = { k: '#1d1a2f', K: '#6b1c33', r: '#e2585e', i: '#ff9f9a', b: '#4aa8e0', s: '#8fd3f5', B: '#2f6fc4', Y: '#ffd23f', y: '#fff1a8', Z: '#463a72' };
+const C = { k: '#1d1a2f', K: '#6b1c33', r: '#e2585e', i: '#ff9f9a', R: '#a3324a', b: '#4aa8e0', s: '#8fd3f5', B: '#2f6fc4', Y: '#ffd23f', y: '#fff1a8', Z: '#463a72' };
+const BOSS_NAMES = { kingSlime: 'RAJA SLIME', orcChief: 'KEPALA ORC', treant: 'POHON TUA' };
+const BOSS_W = 200, BOSS_Y = 32, CHIP_EASE = 0.06;         // boss bar width, top; how fast the white damage chip catches up (per frame)
 
 export const formatTime = sec => {
   const s = Math.floor(sec);
@@ -75,6 +77,25 @@ function drawBanner(ctx, run, assets) {
   assets.draw(ctx, 'icon_' + id, W / 2 + 10 - textWidth(title, 2) / 2 - 14, cy - 3, { alpha });   // icon left of the title
 }
 
+const liveBoss = e => !e.dead && e.type in BOSS_NAMES;
+// The newest live boss: name over a red bar, a pale chip trailing each blow. Falls back to any other live boss.
+function drawBossBar(ctx, run, assets) {
+  let b = run.boss;
+  if (!b || b.dead) b = run.boss = run.enemies.find(liveBoss) ?? null;
+  if (!b) return;
+  const x = (W - BOSS_W) / 2, inner = BOSS_W - 4, hp = Math.max(0, b.hp) / b.maxHp;
+  // ponytail: the chip eases per drawn frame (no dt in the HUD); fine at 60 FPS, frame-rate bound otherwise
+  b.chip = Math.max(hp, (b.chip ?? 1) - Math.max(0.002, ((b.chip ?? 1) - hp) * CHIP_EASE));
+  drawText(ctx, assets, BOSS_NAMES[b.type], W / 2, BOSS_Y - 8, { color: 'r', align: 'center' });
+  assets.drawSlice(ctx, 'bar', x, BOSS_Y, BOSS_W, 8, 2);
+  ctx.fillStyle = C.K; ctx.fillRect(x + 2, BOSS_Y + 2, inner, 4);
+  ctx.fillStyle = C.y; ctx.fillRect(x + 2, BOSS_Y + 2, Math.round(inner * b.chip), 4);
+  const fill = Math.round(inner * hp);
+  ctx.fillStyle = C.r; ctx.fillRect(x + 2, BOSS_Y + 2, fill, 4);
+  ctx.fillStyle = C.i; ctx.fillRect(x + 2, BOSS_Y + 2, fill, 1);
+  ctx.fillStyle = C.R; ctx.fillRect(x + 2, BOSS_Y + 5, fill, 1);
+}
+
 export function drawHud(ctx, run, assets) {
   const { prog, player: p } = run;
   // xp bar across the top
@@ -84,17 +105,22 @@ export function drawHud(ctx, run, assets) {
   ctx.fillStyle = C.s; ctx.fillRect(3, 3, fill, 1);
   ctx.fillStyle = C.B; ctx.fillRect(3, 6, fill, 1);
   drawText(ctx, assets, `Lv ${prog.level}`, 4, 12, { color: 'y' });
-  drawText(ctx, assets, formatTime(run.time), W / 2, 12, { align: 'center', scale: 2 });
+  drawText(ctx, assets, formatTime(run.endAt ?? run.time), W / 2, 12, { align: 'center', scale: 2 });   // stops when the run ends
   drawText(ctx, assets, String(run.kills), W - 4, 13, { align: 'right' });
   assets.draw(ctx, 'icon_kill', W - 4 - textWidth(String(run.kills)) - 7, 15);
-  // hp under the player (same rounding as drawRun's camera)
+  if (run.ending !== 'lost') drawPlayerHp(ctx, p);         // gone once he has fallen
+  drawBossBar(ctx, run, assets);
+  drawBuild(ctx, run, assets);
+  drawRecipes(ctx, run, assets);
+  if (run.banner) drawBanner(ctx, run, assets);
+}
+
+// hp under the player (same rounding as drawRun's camera)
+function drawPlayerHp(ctx, p) {
   const cam = camera(p), sx = Math.round(p.x - Math.round(cam.x)), sy = Math.round(p.y - Math.round(cam.y)) + 15;
   const hp = Math.round(16 * Math.max(0, p.hp) / p.maxHp);
   ctx.fillStyle = C.k; ctx.fillRect(sx - 9, sy, 18, 4);
   ctx.fillStyle = C.K; ctx.fillRect(sx - 8, sy + 1, 16, 2);
   ctx.fillStyle = C.r; ctx.fillRect(sx - 8, sy + 1, hp, 2);
   ctx.fillStyle = C.i; ctx.fillRect(sx - 8, sy + 1, hp, 1);
-  drawBuild(ctx, run, assets);
-  drawRecipes(ctx, run, assets);
-  if (run.banner) drawBanner(ctx, run, assets);
 }

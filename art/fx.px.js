@@ -284,4 +284,44 @@ anim("fx_ultFlash", { w: 64, h: 64, fps: 14, loop: false, frames: 7 }, (c) => {
 },
   glow("wy", { r: 3, strength: 0.5, bands: 2 }))
 
-sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud"])
+// ---- Pohon Tua (boss). Roots warning, sized for rootR 20: one 1.0 s pass under the player's feet. The ground
+// darkens, cracks run out from the middle, a red danger ring throbs faster and faster, and root tips start
+// poking through just before they burst. Red, so it never reads as the mage's own golden meteor warning.
+const CRACKS = [[0.3, 17], [1.3, 15], [2.2, 18], [3.2, 14], [4.1, 17], [5.2, 16]]   // [angle, full length]
+anim("roots_warn", { w: 45, h: 45, fps: 10, frames: 10 }, (c) => {
+  const f = c.frame, C = 22, g = (f + 1) / 10
+  c.circ(C, C, Math.round(8 + g * 12), "#1d1a2f40"); c.circ(C, C, Math.round(4 + g * 8), "#1d1a2f50")   // see-through ink
+  for (const [a, L] of CRACKS) {
+    const len = Math.round(L * Math.min(1, g * 1.4)), ca = Math.cos(a), sa = Math.sin(a)
+    for (let i = 2; i <= len; i++) c.px(Math.round(C + ca * i + Math.sin(i * 0.9 + a) * 0.8), Math.round(C + sa * i), "N")
+    if (f >= 7) { const x = Math.round(C + ca * len), y = Math.round(C + sa * len); c.px(x, y - 1, "n"); c.px(x, y - 2 - (f - 7), "u") }   // tips poke through
+  }
+  const hot = f < 5 ? f % 2 === 0 : true                                    // throbs, then holds bright: it's coming
+  c.ring(C, C, 20, hot ? "i" : "r"); c.ring(C, C, 19, hot ? "r" : "R")
+  if (f >= 5 && f % 2) c.ring(C, C, 21, "r")
+})
+
+// Roots bursting out of the ground, 45x61, centred on the warned circle (rows 10..50): a ring of dirt
+// jumps up, thorny roots stab out and up, hold, then sink back as the clods fall.
+const SPIKES = [[-13, 4, 14, -1], [-6, -6, 18, 0], [1, 2, 24, 1], [8, -8, 16, 0], [14, 3, 13, 1], [-2, 10, 12, -1], [6, 9, 15, 1]]   // [dx, dy, height, lean]
+const RISE = [0.25, 0.8, 1, 1, 0.6, 0.25]
+anim("roots_hit", { w: 45, h: 61, fps: 12, loop: false, frames: RISE.length }, (c) => {
+  const f = c.frame, C = 22, G = 30
+  c.circ(C, G, 18, "#1d1a2f50")
+  for (let i = 0; i < 12; i++) {                                            // dirt clods thrown out
+    const a = i * 0.52 + 0.2, d = 10 + f * 3, up = f * 4 - f * f * 0.8
+    c.px(Math.round(C + Math.cos(a) * d), Math.round(G + Math.sin(a) * d * 0.8 - up), i % 3 ? "N" : "D")
+  }
+  for (const [dx, dy, h0, lean] of SPIKES) {
+    const h = Math.round(h0 * RISE[f]), x = C + dx, b = G + dy
+    if (h < 2) continue
+    c.poly([x - 3, b + 1, x + lean * 2, b - h, x + lean * 2 + 1, b - h, x + 4, b + 1], "N")
+    c.line(x + 4, b, x + lean * 2 + 1, b - h, "k")                          // ink right edge: reads on grass
+    c.line(x - 2, b, x + lean * 2, b - h + 1, "n"); c.px(x + lean * 2, b - h, "u")   // lit left edge, pale tip
+    if (h > 8) { c.px(x + 2 + lean, b - Math.round(h * 0.5), "N"); c.px(x + 3 + lean, b - Math.round(h * 0.5) - 1, "N") }   // a thorn
+    c.hline(x - 3, b + 1, 8, "k")                                           // the hole it came out of
+  }
+  if (f >= 4) c.dither(0, 0, 45, 61, ".", "_", f === 4 ? 0.3 : 0.6)
+})
+
+sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*"])

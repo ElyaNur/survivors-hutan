@@ -15,10 +15,12 @@ const TUNING = {
     orc:      { hp: 80,   speed: 28, dmg: 15, xp: 5,  size: 18 },
     witch:    { hp: 30,   speed: 35, dmg: 8,  xp: 4,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 10,
                  shotSize: 6, shotLife: 5, shotRange: 180 },
-    kingSlime: { hp: 600,  speed: 25, dmg: 20, xp: 40, size: 32, splitInto: 'slime', splitCount: 8 },
-    orcChief:  { hp: 1200, speed: 35, dmg: 25, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5 },
+    // Bosses. knock: share of the hit shove they take (default 1); chest: levels in the chest they drop.
+    kingSlime: { hp: 600,  speed: 25, dmg: 20, xp: 40, size: 32, splitInto: 'slime', splitCount: 8, knock: 0.15, chest: 1 },
+    orcChief:  { hp: 1200, speed: 35, dmg: 25, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5, chargeDur: 1.2,
+                 chargeRange: 170, knock: 0.1, chest: 2 },   // chargeEvery: windup to windup; chargeRange: winds up only this close (on screen)
     treant:    { hp: 8000, speed: 15, dmg: 30, xp: 0,  size: 64, rootWarn: 1.0, rootR: 20, rootDmg: 20, rootEvery: 3,
-                 summonType: 'goblin', summonCount: 6, summonEvery: 12 },
+                 summonType: 'goblin', summonCount: 6, summonEvery: 12, knock: 0 },   // killing it wins the run: no drops
   },
   skills: {
     fireball: { dmg: { base: 10, perLv: 4 }, cd: 1.2, speed: 160, boomR: [12, 14, 16, 18, 20], count: [1, 1, 2, 2, 3],
@@ -48,9 +50,13 @@ const TUNING = {
     magnet: { magnet: 0.25 }, wisdom: { xp: 0.10 }, amplify: { area: 0.08 },
   },
   healCard: 30,
+  endDelay: { won: 2, lost: 1.5 },   // s from the treant's death / the mage's to the result
   drops: {
     heartChance: 0.01, heartHeal: 25, magnetChance: 0.003,
     maxGems: 300, pullSpeed: 200,   // pullSpeed: px/s a magnetised pickup flies at the player
+    bossGemXp: 5,                   // a boss's xp falls as a ring of gems worth this much each
+    chestHold: 0.6,                 // s: level-up cards wait for the chest to finish opening
+    chestReach: 16,                 // px: a chest opens when the mage's body reaches it (never magnetised)
     gemTiers: [{ minXp: 5, sprite: 'gem_red' }, { minXp: 2, sprite: 'gem_green' }, { minXp: 0, sprite: 'gem_blue' }],   // first match wins
   },
   fx: {
@@ -61,8 +67,11 @@ const TUNING = {
     bigHit: 30,                        // damage at or above this prints yellow instead of white
     numberBudget: { burst: 6, rate: 15 },   // small-hit numbers: token bucket (max at once, refill /s) so crowds stay readable; big hits always print
     deathBurst: { count: 6, speed: 60 },
+    bossBurst: { count: 24, speed: 110 },   // a boss's death burst (kingSlime / orcChief); the treant's is bigger still
+    shakeBoss: { px: 3, dur: 0.35 },
     deathColor: {                      // particle colour per enemy type (palette)
       slime: '#5ee0a0', bat: '#9b5de5', slimeRed: '#e2585e', goblin: '#7fcf5c', wolf: '#a3a3c2', orc: '#8a9a58', witch: '#ff5ad9',
+      kingSlime: '#5ee0a0', orcChief: '#8a9a58', treant: '#46a24a',
       default: '#fff1a8',
     },
   },

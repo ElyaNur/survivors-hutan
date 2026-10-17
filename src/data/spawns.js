@@ -1,5 +1,6 @@
 // Spawn schedule (spec §7): data, not code. Minutes for waves, seconds for events and bosses.
 // Older types keep coming all run, with a shrinking share; HP grows via TUNING.enemyHpGrowthPerMin.
+const LATE = { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 4 };   // minute 19 on
 export const SCHEDULE = {
   waves: [
     { from: 0,  to: 1,  rate: 1.0,  mix: { slime: 1 } },
@@ -12,7 +13,8 @@ export const SCHEDULE = {
     { from: 12, to: 15, rate: 7.5,  mix: { slime: 1, bat: 1, slimeRed: 2, goblin: 3, wolf: 2, orc: 3, witch: 2 } },
     { from: 15, to: 17, rate: 9.0,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 3, witch: 3 } },
     { from: 17, to: 19, rate: 10.5, mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 3 } },
-    { from: 19, to: Infinity, rate: 12, mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 4 } },
+    { from: 19, to: 20, rate: 12, mix: LATE },
+    { from: 20, to: Infinity, rate: 6, mix: LATE },             // the treant is out (bosses at 1200 s): same mix, half rate
   ],
   groups: { goblin: 3 },                                    // goblins arrive in small bands
   groupSpread: 10,                                          // px jitter inside a band or pack

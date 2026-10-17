@@ -3,6 +3,7 @@ import TUNING from '../data/tuning.js';
 import { gainXp } from '../logic/progression.js';
 
 const D = TUNING.drops;
+const CHEST_LIFT = 3;                                    // chest_open (14x18) draws 3px higher so its body sits where the chest lay
 // Desyncs the sparkle of neighbouring gems; fixed at drop so a flying gem doesn't flicker.
 const phaseAt = (x, y) => (x * 37 + y * 17) % 1000;
 const drop = (run, kind, x, y, xp = 0, levels = 0) =>
@@ -38,7 +39,12 @@ function collect(run, q) {
   const p = run.player;
   if (q.kind === 'gem') run.pendingLevelUps += gainXp(run.prog, q.xp * run.mods.xp);
   else if (q.kind === 'heart') p.hp = Math.min(p.maxHp, p.hp + D.heartHeal);
-  else if (q.kind === 'chest') { run.pendingLevelUps += q.levels; run.prog.level += q.levels; }   // free levels, xp untouched
+  else if (q.kind === 'chest') {                          // free levels, xp untouched; the cards wait for the lid
+    run.pendingLevelUps += q.levels; run.prog.level += q.levels;
+    run.levelUpAt = run.time + D.chestHold;
+    run.fx.anim(q.x, q.y - CHEST_LIFT, 'chest_open');
+    run.fx.burst(q.x, q.y - 4, '#ffd23f', 10, 50); run.fx.burst(q.x, q.y - 4, '#fff1a8', 6, 35);
+  }
   else if (q.kind === 'magnet') for (const g of run.pickups) if (g.kind === 'gem') g.pulled = true;
 }
 
@@ -46,12 +52,13 @@ export function updatePickups(run, dt) {
   const p = run.player, ps = run.pickups, reach = TUNING.player.magnet * run.mods.magnet, step = D.pullSpeed * dt;
   for (let i = ps.length - 1; i >= 0; i--) {             // swap-remove: the moved-in one was already updated
     const q = ps[i], dx = p.x - q.x, dy = p.y - q.y, d = Math.hypot(dx, dy);
-    if (d < TUNING.player.pickup) {
+    const chest = q.kind === 'chest';                     // chests stay put and open at a touch, beside him, not under him
+    if (d < (chest ? D.chestReach : TUNING.player.pickup)) {
       collect(run, q);
       ps[i] = ps[ps.length - 1]; ps.pop();
       continue;
     }
-    if (d < reach) q.pulled = true;
+    if (d < reach && !chest) q.pulled = true;
     if (q.pulled) { const k = Math.min(step, d) / d; q.x += dx * k; q.y += dy * k; }
   }
 }

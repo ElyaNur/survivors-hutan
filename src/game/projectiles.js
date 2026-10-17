@@ -22,10 +22,10 @@ export function spawnProjectile(run, opts) {
 }
 
 const AREA = { x: 0, y: 0, r: 0, dmg: 0, delay: 0, dur: 0, tickEvery: 0.5, freeze: 0, slow: 0, slowDur: 1, sprite: '', warnSprite: '',
-  glow: '', glowDur: 0, quiet: false, onTrigger: null };
+  glow: '', glowDur: 0, quiet: false, hostile: false, onTrigger: null };
 // spawnArea(run, {x, y, r, dmg, delay = 0, dur = 0, tickEvery = 0.5, freeze = 0, slow = 0, slowDur = 1, sprite?, warnSprite?,
 //   glow?, glowDur?, quiet?, onTrigger?(run, a)}): after `delay` hits every enemy within r, then ticks every tickEvery for `dur`
-// (onTrigger may change a.dmg for the ticks). quiet: its hits print through the number budget (damageEnemy). glow: halo key lit on the ground for glowDur after the trigger, fading out.
+// (onTrigger may change a.dmg for the ticks). hostile: hurts the mage (within r + his radius) instead of enemies. quiet: its hits print through the number budget (damageEnemy). glow: halo key lit on the ground for glowDur after the trigger, fading out.
 export function spawnArea(run, opts) {
   const a = Object.assign(freeAreas.pop() ?? {}, AREA, opts);
   a.age = 0; a.triggered = false; a.nextTick = 0;
@@ -34,6 +34,11 @@ export function spawnArea(run, opts) {
 }
 
 function applyArea(run, a) {
+  if (a.hostile) {                                          // boss attack: only the mage
+    const pl = run.player, reach = a.r + PLAYER_R;
+    if ((pl.x - a.x) ** 2 + (pl.y - a.y) ** 2 <= reach * reach) hurtMage(run, a.dmg);
+    return;
+  }
   const now = run.time;
   near.length = 0;
   run.grid.query(a.x, a.y, a.r + MAX_ENEMY_R, near);

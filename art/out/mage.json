@@ -65,8 +65,8 @@
   },
   "mage_idle_3": {
    "frame": {
-    "x": 0,
-    "y": 26,
+    "x": 51,
+    "y": 0,
     "w": 17,
     "h": 26
    },
@@ -86,7 +86,7 @@
   },
   "mage_walk_0": {
    "frame": {
-    "x": 17,
+    "x": 0,
     "y": 26,
     "w": 17,
     "h": 26
@@ -107,7 +107,7 @@
   },
   "mage_walk_1": {
    "frame": {
-    "x": 34,
+    "x": 17,
     "y": 26,
     "w": 17,
     "h": 26
@@ -128,8 +128,8 @@
   },
   "mage_walk_2": {
    "frame": {
-    "x": 0,
-    "y": 52,
+    "x": 34,
+    "y": 26,
     "w": 17,
     "h": 26
    },
@@ -149,6 +149,48 @@
   },
   "mage_walk_3": {
    "frame": {
+    "x": 51,
+    "y": 26,
+    "w": 17,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 26
+   },
+   "duration": 125
+  },
+  "mage_hurt_0": {
+   "frame": {
+    "x": 0,
+    "y": 52,
+    "w": 17,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 26
+   },
+   "duration": 100
+  },
+  "mage_hurt_1": {
+   "frame": {
     "x": 17,
     "y": 52,
     "w": 17,
@@ -166,7 +208,112 @@
     "w": 17,
     "h": 26
    },
-   "duration": 125
+   "duration": 100
+  },
+  "mage_death_0": {
+   "frame": {
+    "x": 34,
+    "y": 52,
+    "w": 27,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 27,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 27,
+    "h": 26
+   },
+   "duration": 200
+  },
+  "mage_death_1": {
+   "frame": {
+    "x": 61,
+    "y": 52,
+    "w": 27,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 27,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 27,
+    "h": 26
+   },
+   "duration": 200
+  },
+  "mage_death_2": {
+   "frame": {
+    "x": 0,
+    "y": 78,
+    "w": 27,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 27,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 27,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "mage_death_3": {
+   "frame": {
+    "x": 27,
+    "y": 78,
+    "w": 27,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 27,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 27,
+    "h": 26
+   },
+   "duration": 250
+  },
+  "mage_death_4": {
+   "frame": {
+    "x": 54,
+    "y": 78,
+    "w": 27,
+    "h": 26
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 27,
+    "h": 26
+   },
+   "sourceSize": {
+    "w": 27,
+    "h": 26
+   },
+   "duration": 600
   }
  },
  "meta": {
@@ -174,8 +321,8 @@
   "image": "mage.png",
   "format": "RGBA8888",
   "size": {
-   "w": 51,
-   "h": 78
+   "w": 88,
+   "h": 104
   },
   "scale": "1",
   "frameTags": [
@@ -189,6 +336,18 @@
     "name": "mage_walk",
     "from": 4,
     "to": 7,
+    "direction": "forward"
+   },
+   {
+    "name": "mage_hurt",
+    "from": 8,
+    "to": 9,
+    "direction": "forward"
+   },
+   {
+    "name": "mage_death",
+    "from": 10,
+    "to": 14,
     "direction": "forward"
    }
   ]

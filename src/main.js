@@ -5,6 +5,7 @@ import { createRun, updateRun, drawRun, chooseCard } from './game/run.js';
 import { CLASSES } from './data/classes.js';
 import { drawHud, updateBanner } from './ui/hud.js';
 import { levelUpScreen, starterPickScreen } from './ui/screens.js';
+import { drawText } from './engine/font.js';
 
 const W = 480, H = 270;
 const canvas = document.getElementById('game');
@@ -33,6 +34,8 @@ loop = startLoop(
     if (!started) {
       const id = screen.update(input);
       if (id) { run = createRun(CLASS, id, Date.now(), assets); started = true; screen = null; window.run = run; }   // TEMP-DEBUG: console hook
+    } else if (run.state === 'won' || run.state === 'lost') {   // ponytail: minimal result until Task 13's screen
+      if (input.pressed('Enter')) { run = createRun(CLASS, CLASSES[CLASS].skills[0], 0, assets); started = false; screen = starterPickScreen(CLASSES[CLASS], assets); }
     } else if (screen) {
       const card = screen.update(input);
       if (card) { chooseCard(run, card); screen = null; }   // still levelup -> a fresh screen for the next pending level
@@ -41,7 +44,15 @@ loop = startLoop(
     if (!held) input.endFrame();                          // per sim step: a tap is never cleared before a step reads it (nor during hitstop)
     held = false;
   },
-  () => { drawRun(ctx, run, assets); if (started) drawHud(ctx, run, assets); if (screen) screen.draw(ctx); });
+  () => { drawRun(ctx, run, assets); if (started) drawHud(ctx, run, assets); if (screen) screen.draw(ctx); else drawResult(); });
+
+function drawResult() {
+  if (run.state !== 'won' && run.state !== 'lost') return;
+  const won = run.state === 'won';
+  ctx.globalAlpha = 0.5; ctx.fillStyle = '#1d1a2f'; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
+  drawText(ctx, assets, won ? 'MENANG!' : 'KALAH', W / 2, H / 2 - 60, { color: won ? 'y' : 'r', align: 'center', scale: 4 });   // above the mage, who stays in view
+  drawText(ctx, assets, 'Tekan Enter untuk main lagi', W / 2, H / 2 - 30, { align: 'center' });
+}
 
 const pause = () => loop.setPaused(true);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });

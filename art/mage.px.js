@@ -64,4 +64,42 @@ anim("mage_walk", { w: 15, h: 24, fps: 8, outline: "k" },
   frame((c) => mage(c, -1, "pass")),
   glow("wce", CRYSTAL))
 
+// Hurt (Task 12): he reels back (head and staff tip thrown back a pixel), winces, the crystal flickers.
+const wince = (dy, dx = 0) => (c) => { c.px(5 + dx, 6 + dy, "k"); c.px(6 + dx, 6 + dy, "k") }   // eye squeezed shut
+anim("mage_hurt", { w: 15, h: 24, fps: 10, outline: "k" },
+  frame((c) => { c.grid(0, 23, FEET.stand); c.grid(0, 14, BOT.join("\n")); c.grid(-1, 1, TOP) }, wince(1, -1), (c) => c.px(11, 0, "w")),
+  frame((c) => mage(c, 0, "stand"), wince(1)),
+  glow("wce", CRYSTAL))
+
+// Death (Task 12), 1.5 s, played once: he staggers, sinks to his knees leaning on the staff, bows his head,
+// and lies down at rest beside the fallen staff while the crystal's light dies out. Wider canvas (25, the
+// standing body at x5) so he can lie down; centred like the 15-wide sprites.
+const OX = 5
+const dim = (drop, map) => (c) => c.recolor(map, [OX + 9, drop, 7, 6])     // crystal rows only (never the beard)
+const kneel = (drop, lean, keep) => (c) => {
+  const rows = BOT.slice(0, keep)
+  rows.push(".YYYYYYYYYYYYn.")
+  c.grid(OX - 1, 23, "YYYYYYYYYYYYYY")                                     // the robe pooled on the ground
+  c.grid(OX, 23 - rows.length, rows.join("\n"))
+  c.grid(OX + lean, 1 + drop, TOP)
+  c.px(OX + 5 + lean, 6 + drop, "k"); c.px(OX + 6 + lean, 6 + drop, "k")  // eyes closed
+}
+const LYING = `
+..............vvV........
+.........PPvvvVVVVP......
+....PPvvvVVVVVVVwwwhH....
+..PvvvVVVVVVVVVwwwwwH....
+.PvvVVVVYVVVVVVVwwwwV....
+PvvVVVVVVYYVVVVVVPwwP....
+YYYYYYYYYYYYYYYYYYYYY....
+...nnnnnnnnnnnnnnnnnnnnMB`
+anim("mage_death", { w: 25, h: 24, loop: false, outline: "k" },
+  frame({ ms: 200 }, (c) => { c.grid(OX, 23, FEET.stand); c.grid(OX, 14, BOT.join("\n")); c.grid(OX - 1, 2, TOP) },
+    (c) => { c.px(OX + 4, 7, "k"); c.px(OX + 5, 7, "k") }),
+  frame({ ms: 200 }, kneel(3, 0, 6), dim(3, { w: "c", e: "c" })),
+  frame({ ms: 250 }, kneel(6, 0, 3), dim(6, { w: "c", c: "C", e: "C" })),
+  frame({ ms: 250 }, kneel(8, 1, 1), dim(8, { w: "C", c: "C", C: "B", e: "B" })),
+  frame({ ms: 600 }, (c) => c.grid(0, 16, LYING)),
+  glow("wce", { where: (x, y) => x >= OX + 11 && y < 16, r: 3, strength: 0.4, bands: 2 }))
+
 sheet("mage", ["mage_*"])

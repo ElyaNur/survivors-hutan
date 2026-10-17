@@ -8,7 +8,7 @@ import { updatePlayer, blinkHidden } from './player.js';
 import { createFx } from './fx.js';
 import { createSpawner, spawnerUpdate } from '../logic/spawner.js';
 import { updatePickups, drawPickups } from './pickups.js';
-import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy } from './enemies.js';
+import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy, drawTelegraphs, winBlast } from './enemies.js';
 import { updateProjectiles, drawAreas, drawProjectiles } from './projectiles.js';
 import { SKILLS } from './skills/index.js';
 import { ULTS } from './skills/ultimates.js';
@@ -21,12 +21,26 @@ export function createRun(classId, starterSkillId, seed, assets) {
       iframesUntil: 0, facing: 1, moving: false },
     prog: { level: 1, xp: 0 }, build, mods: passiveMods(build), pendingLevelUps: 0, cards: null, newUlts: [],
     skillState: {}, ultState: {}, enemies: [], projectiles: [], areas: [], pickups: [], fx: createFx(assets), numTokens: TUNING.fx.numberBudget.burst, numAt: 0, kills: 0, bossDead: false, banner: null,
+    levelUpAt: 0, boss: null,
+    ending: null, endAt: null, endT: 0, endFx: 0, endX: 0, endY: 0,   // 'won' | 'lost': run.time it ended, s since; win fireworks
   };
 }
 
+const END_BEAT = 0.3, END_BEATS = 5;                       // win fireworks: one blast every beat, this many
+
 export function updateRun(run, dt, input) {
   if (run.state !== 'playing') return;
-  if (run.pendingLevelUps > 0) { run.cards = rollCards(run.build, run.classDef, run.rng); run.state = 'levelup'; return; }
+  if (!run.ending && run.player.hp <= 0) {                 // he falls: before any level-up card can open
+    run.ending = 'lost'; run.endAt = run.time; run.endT = 0; run.fx.update(dt); return;
+  }
+  if (run.ending) {                                        // wall-clock (hitstop doesn't stretch it)
+    run.endT += dt;
+    if (run.endT >= TUNING.endDelay[run.ending]) { run.state = run.ending; return; }
+    if (run.ending === 'lost') { run.fx.update(dt); return; }   // the world holds still while he falls
+    for (; run.endFx < END_BEATS && run.endT >= (run.endFx + 1) * END_BEAT; run.endFx++) winBlast(run, run.endX, run.endY);
+  } else if (run.pendingLevelUps > 0 && run.time >= run.levelUpAt) {
+    run.cards = rollCards(run.build, run.classDef, run.rng); run.state = 'levelup'; return;
+  }
   const wasFrozen = run.fx.frozen();                       // hitstop: the world holds still, fx keep counting down
   run.fx.update(dt);
   if (wasFrozen) return;
@@ -35,7 +49,7 @@ export function updateRun(run, dt, input) {
   updatePlayer(run.player, dt, input);
   run.grid.clear();
   for (const e of run.enemies) run.grid.insert(e);
-  for (const s of spawnerUpdate(run.spawner, run.time, dt, camera(run.player), BOUNDS, run.rng, run.enemies.length))
+  if (!run.ending) for (const s of spawnerUpdate(run.spawner, run.time, dt, camera(run.player), BOUNDS, run.rng, run.enemies.length))
     spawnEnemy(run, s.type, s.x, s.y);
   updateEnemies(run, dt);
   const sk = run.build.skills;
@@ -64,7 +78,8 @@ function applyPassives(run) {
   p.speed = TUNING.player.speed * m.speed;
 }
 
-const OUTLINE_ALPHA = 0.8, OVERLAP_X = 12, OVERLAP_Y = 16;   // mage outline strength; how close (px) an enemy must be to count as overlapping
+const OUTLINE_ALPHA = 0.8, OVERLAP_X = 6, OVERLAP_Y = 10;   // mage outline strength; an enemy within r + this (px) of him counts as overlapping
+const HURT_T = 0.2;                                          // s: mage_hurt shows this long after a landed hit
 // The map is the same every run (fixed seed), so it is built once per page, on first draw.
 const WORLD_SEED = 1;
 let world = null;
@@ -81,18 +96,23 @@ export function drawRun(ctx, run, assets) {
   drawWorldTop(ctx, assets, cam, t);
   drawPickups(ctx, run, assets, cam, t);                   // on the ground, under every actor
   drawAreas(ctx, run, assets, cam);
+  drawTelegraphs(ctx, run, cam);
   // y-sort: props, enemies and the player by the row their feet stand on
   const feet = p.y + 12;                                     // mage sprite is 26 tall, drawn centred
   const es = sortEnemies(run, assets);
   let drawn = false, ei = 0;
   const wading = isWater(p.x, p.y) && !onBridge(p.x, p.y);
-  const hidden = blinkHidden(p, run.time);                   // iframes: blink
+  const dying = run.ending === 'lost';
+  const hidden = !dying && blinkHidden(p, run.time);         // iframes: blink (not while he falls)
+  const hurt = run.time < p.iframesUntil - TUNING.player.iframes + HURT_T;
+  const pose = dying ? 'mage_death' : hurt ? 'mage_hurt' : p.moving ? 'mage_walk' : 'mage_idle';
+  const pt = dying ? Math.min(run.endT * 1000, assets.animTotal('mage_death') - 1) : t;   // death plays once and holds
   let covered = false;                                       // an enemy was drawn over the mage
   const drawPlayer = (ox = 0, oy = 0, outline = false) => {
     if (hidden) return;
     const sx = p.x - cam.x + ox, sy = p.y - cam.y + oy;
     if (wading) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, cam.w, Math.round(sy) + 8); ctx.clip(); }   // feet under water
-    assets.draw(ctx, p.moving ? 'mage_walk' : 'mage_idle', sx, sy, { flip: p.facing < 0, t, flash: outline, alpha: outline ? OUTLINE_ALPHA : 1 });
+    assets.draw(ctx, pose, sx, sy, { flip: p.facing < 0, t: pt, flash: outline, alpha: outline ? OUTLINE_ALPHA : 1 });
     if (wading) { ctx.restore(); if (!outline) assets.draw(ctx, 'water_wade', sx, sy + 8, { t }); }
   };
   // draws every actor (player, enemies) whose feet are above row y
@@ -103,7 +123,7 @@ export function drawRun(ctx, run, assets) {
       if (py <= ey) { drawPlayer(); drawn = true; }
       else {
         const e = es[ei++];
-        if (drawn && Math.abs(e.x - p.x) < OVERLAP_X && Math.abs(e.y - p.y) < OVERLAP_Y) covered = true;
+        if (drawn && Math.abs(e.x - p.x) < e.r + OVERLAP_X && Math.abs(e.y - p.y) < e.r + OVERLAP_Y) covered = true;   // sized: a 64 px treant counts too
         drawEnemy(ctx, assets, e, cam, t, run.time);
       }
     }
