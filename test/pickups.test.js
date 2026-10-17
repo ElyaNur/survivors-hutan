@@ -1,6 +1,6 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
 import TUNING from '../src/data/tuning.js';
-import { passiveMods } from '../src/logic/progression.js';
+import { passiveMods, xpToNext } from '../src/logic/progression.js';
 import { dropGem, dropHeart, dropMagnet, dropChest, updatePickups } from '../src/game/pickups.js';
 import { createRun, updateRun, chooseCard } from '../src/game/run.js';
 
@@ -11,10 +11,11 @@ const noInput = { pressed: () => false, moveVector: () => ({ x: 0, y: 0 }) };
 test('gem pickup gains xp scaled by mods.xp and counts every level', () => {
   const run = newRun(), p = run.player;
   run.mods = passiveMods({ passives: { wisdom: 5 } });          // xp x1.5
-  dropGem(run, p.x, p.y, 14);                                   // 21 xp: level 1 -> 3, 1 left over
+  dropGem(run, p.x, p.y, (xpToNext(1) + xpToNext(2) + 1) / 1.5);   // level 1 -> 3, 1 left over after the x1.5
   updatePickups(run, 0.016);
   assert.equal(run.pickups.length, 0);
-  assert.deepEqual(run.prog, { level: 3, xp: 1 });
+  assert.equal(run.prog.level, 3);
+  assert.ok(Math.abs(run.prog.xp - 1) < 1e-9);
   assert.equal(run.pendingLevelUps, 2);
 });
 
@@ -32,7 +33,7 @@ test('magnet radius pulls nearby pickups only; magnet item pulls every gem', () 
 
 test('heart heals capped at maxHp; chest adds its levels', () => {
   const run = newRun(), p = run.player;
-  p.hp = 90; dropHeart(run, p.x, p.y); dropChest(run, p.x, p.y, 3);
+  p.hp = p.maxHp - 10; dropHeart(run, p.x, p.y); dropChest(run, p.x, p.y, 3);
   updatePickups(run, 0.016);
   assert.equal(p.hp, p.maxHp);
   assert.equal(run.pendingLevelUps, 3);

@@ -10,8 +10,8 @@ const ID = 'meteor', FX = TUNING.fx;
 const WARN_R = 28;                                          // meteor_warn is drawn for r 28 (Lv1)
 const FALL = 0.35, FROM_X = 60, FROM_Y = -170;              // s of the warning the rock is visible; where it falls from (px)
 const SPACING = 1.5;                                        // several meteors: centres at least this many r apart
-const TUFT_AREA = 170, TUFT_REACH = 0.85, GOLDEN = 2.39996, TUFT_DESYNC = 173;   // px² per fire tuft; share of r; sunflower spread
-const BURN_ALPHA = 0.9, BURN_FADE = 0.3;                    // tufts over the actors stay a little see-through; fade-out s
+const TUFT_REACH = 0.85, GOLDEN = 2.39996, TUFT_DESYNC = 173;   // share of r; sunflower spread
+const BURN_FADE = 0.3;                                      // fade-out s (TUNING.fx.burn: how see-through and how dense the tufts are)
 const MAGE_CLEAR = 12;                                      // px around the mage left free of tufts, so fire never buries him
 const BOOMS = [[0, 0, 2], [-0.55, -0.2, 1], [0.5, -0.35, 1], [0.1, 0.5, 1]];   // explosions: [dx, dy share of r, scale]
 const SPARKS = [['#ffffff', 6, 180], ['#fff1a8', 12, 150], ['#ffd23f', 12, 110], ['#e8532e', 10, 80], ['#5d5a78', 8, 120]];   // palette w/y/Y/O/X (debris)
@@ -66,7 +66,7 @@ export default {
     const burn = stat(ID, 'burn', level), tick = stat(ID, 'burnTick', level);
     for (const q of picks)
       spawnArea(run, { x: q.x, y: q.y, r, dmg: stat(ID, 'dmg', level), delay: stat(ID, 'warn', level), dur: burn, tickEvery: tick,
-        burnDmg: stat(ID, 'burnDps', level) * tick, tufts: Math.round(Math.PI * r * r / TUFT_AREA),
+        burnDmg: stat(ID, 'burnDps', level) * tick, tufts: Math.round(Math.PI * r * r / FX.burn.tuftArea),
         glow: 'fire', glowDur: burn, quiet: true, onTrigger: impact });   // quiet: a blast on a crowd prints sparingly
   },
   // Above the actors, so a crowd never hides them: the shadow (it falls on the monsters too), the rock, the fire
@@ -79,7 +79,7 @@ export default {
       if (a.triggered) {
         const age = a.age - a.delay;
         if (age >= a.dur) continue;
-        const alpha = BURN_ALPHA * Math.min(1, (a.dur - age) / BURN_FADE);
+        const alpha = FX.burn.alpha * Math.min(1, (a.dur - age) / BURN_FADE);
         for (let k = 0; k < a.tufts; k++) {                 // sunflower spiral: even cover, no clumps, no allocation
           const d = a.r * TUFT_REACH * Math.sqrt((k + 0.5) / a.tufts), g = k * GOLDEN, tx = x + Math.cos(g) * d, ty = y + Math.sin(g) * d;
           if (Math.abs(tx - px) < MAGE_CLEAR && Math.abs(ty - py) < MAGE_CLEAR) continue;

@@ -1,11 +1,13 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
+import TUNING from '../src/data/tuning.js';
 import { stat, densestPoint } from '../src/game/skills/index.js';
 
 test('stat reads arrays, {base, perLv} and plain numbers', () => {
   assert.equal(stat('fireball', 'count', 3), 2);
-  assert.ok(Math.abs(stat('frostNova', 'cd', 5) - 2.8) < 1e-9);
+  const nova = TUNING.skills.frostNova.cd;
+  assert.ok(Math.abs(stat('frostNova', 'cd', 5) - (nova.base + 4 * nova.perLv)) < 1e-9);
   assert.equal(stat('arcaneOrb', 'orbs', 5), 6);
-  assert.equal(stat('fireball', 'cd', 4), 1.2);
+  assert.equal(stat('fireball', 'cd', 4), TUNING.skills.fireball.cd);
 });
 
 const at = (x, y) => ({ x, y, dead: false });
