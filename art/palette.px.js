@@ -61,3 +61,8 @@ ramps("kTta", "kEA", "kdmw")
 pal({
   K: "#6b1c33", // deep crimson: red gem pavilion
 })
+// Added for the UI (Task 8): card and panel bodies, a shade under the ink outline.
+pal({
+  U: "#2a2346", // card / panel body (ink-violet, a step above k so the outline still reads)
+  Z: "#463a72", // card border mid (between U and V)
+})

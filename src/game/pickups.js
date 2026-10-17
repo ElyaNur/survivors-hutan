@@ -38,7 +38,7 @@ function collect(run, q) {
   const p = run.player;
   if (q.kind === 'gem') run.pendingLevelUps += gainXp(run.prog, q.xp * run.mods.xp);
   else if (q.kind === 'heart') p.hp = Math.min(p.maxHp, p.hp + D.heartHeal);
-  else if (q.kind === 'chest') run.pendingLevelUps += q.levels;
+  else if (q.kind === 'chest') { run.pendingLevelUps += q.levels; run.prog.level += q.levels; }   // free levels, xp untouched
   else if (q.kind === 'magnet') for (const g of run.pickups) if (g.kind === 'gem') g.pulled = true;
 }
 

@@ -71,5 +71,14 @@ export async function loadSheets(names, base = 'art/out/') {
       ctx.drawImage(flash ? sh.white : sh.img, f.x, f.y, f.w, f.h, -(flip ? f.w - (f.w >> 1) : f.w >> 1), -(f.h >> 1), f.w, f.h);
       ctx.restore();
     },
+    // 9-slice: corners b px fixed, edges and centre stretched to fill the w x h box at x,y (top-left).
+    drawSlice(ctx, name, x, y, w, h, b) {
+      const sh = frameOwner[name], f = sh.frames[name];
+      x = Math.round(x); y = Math.round(y);
+      const sx = [0, b, f.w - b], sw = [b, f.w - 2 * b, b], dx = [x, x + b, x + w - b], dw = [b, w - 2 * b, b];
+      const sy = [0, b, f.h - b], shh = [b, f.h - 2 * b, b], dy = [y, y + b, y + h - b], dh = [b, h - 2 * b, b];
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++)
+        ctx.drawImage(sh.img, f.x + sx[i], f.y + sy[j], sw[i], shh[j], dx[i], dy[j], dw[i], dh[j]);
+    },
   };
 }

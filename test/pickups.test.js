@@ -88,3 +88,12 @@ test('chooseCard applies passives and heals', () => {
   chooseCard(run, { kind: 'heal' });
   assert.equal(p.hp, p.maxHp);
 });
+
+test('R13: chest levels also raise the level number; xp unchanged', () => {
+  const run = newRun(), p = run.player;
+  run.prog.xp = 3;
+  dropChest(run, p.x, p.y, 2);
+  updatePickups(run, 0.016);
+  assert.deepEqual(run.prog, { level: 3, xp: 3 });
+  assert.equal(run.pendingLevelUps, 2);
+});

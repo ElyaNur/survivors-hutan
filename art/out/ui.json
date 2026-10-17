@@ -1,0 +1,12294 @@
+{
+ "frames": {
+  "glyph_32": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_32_y": {
+   "frame": {
+    "x": 5,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_32_r": {
+   "frame": {
+    "x": 10,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_32_g": {
+   "frame": {
+    "x": 15,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_32_x": {
+   "frame": {
+    "x": 20,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_32_c": {
+   "frame": {
+    "x": 25,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_33": {
+   "frame": {
+    "x": 30,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_33_y": {
+   "frame": {
+    "x": 33,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_33_r": {
+   "frame": {
+    "x": 36,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_33_g": {
+   "frame": {
+    "x": 39,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_33_x": {
+   "frame": {
+    "x": 42,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_33_c": {
+   "frame": {
+    "x": 45,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_34": {
+   "frame": {
+    "x": 48,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_34_y": {
+   "frame": {
+    "x": 53,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_34_r": {
+   "frame": {
+    "x": 58,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_34_g": {
+   "frame": {
+    "x": 63,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_34_x": {
+   "frame": {
+    "x": 68,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_34_c": {
+   "frame": {
+    "x": 73,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35": {
+   "frame": {
+    "x": 78,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35_y": {
+   "frame": {
+    "x": 83,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35_r": {
+   "frame": {
+    "x": 88,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35_g": {
+   "frame": {
+    "x": 93,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35_x": {
+   "frame": {
+    "x": 98,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_35_c": {
+   "frame": {
+    "x": 103,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36": {
+   "frame": {
+    "x": 108,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36_y": {
+   "frame": {
+    "x": 0,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36_r": {
+   "frame": {
+    "x": 5,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36_g": {
+   "frame": {
+    "x": 10,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36_x": {
+   "frame": {
+    "x": 15,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_36_c": {
+   "frame": {
+    "x": 20,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37": {
+   "frame": {
+    "x": 25,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37_y": {
+   "frame": {
+    "x": 30,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37_r": {
+   "frame": {
+    "x": 35,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37_g": {
+   "frame": {
+    "x": 40,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37_x": {
+   "frame": {
+    "x": 45,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_37_c": {
+   "frame": {
+    "x": 50,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38": {
+   "frame": {
+    "x": 55,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38_y": {
+   "frame": {
+    "x": 60,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38_r": {
+   "frame": {
+    "x": 65,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38_g": {
+   "frame": {
+    "x": 70,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38_x": {
+   "frame": {
+    "x": 75,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_38_c": {
+   "frame": {
+    "x": 80,
+    "y": 7,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_39": {
+   "frame": {
+    "x": 85,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_39_y": {
+   "frame": {
+    "x": 88,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_39_r": {
+   "frame": {
+    "x": 91,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_39_g": {
+   "frame": {
+    "x": 94,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_39_x": {
+   "frame": {
+    "x": 97,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_39_c": {
+   "frame": {
+    "x": 100,
+    "y": 7,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_40": {
+   "frame": {
+    "x": 103,
+    "y": 7,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_40_y": {
+   "frame": {
+    "x": 107,
+    "y": 7,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_40_r": {
+   "frame": {
+    "x": 0,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_40_g": {
+   "frame": {
+    "x": 4,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_40_x": {
+   "frame": {
+    "x": 8,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_40_c": {
+   "frame": {
+    "x": 12,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41": {
+   "frame": {
+    "x": 16,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41_y": {
+   "frame": {
+    "x": 20,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41_r": {
+   "frame": {
+    "x": 24,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41_g": {
+   "frame": {
+    "x": 28,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41_x": {
+   "frame": {
+    "x": 32,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_41_c": {
+   "frame": {
+    "x": 36,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_42": {
+   "frame": {
+    "x": 40,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_42_y": {
+   "frame": {
+    "x": 45,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_42_r": {
+   "frame": {
+    "x": 50,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_42_g": {
+   "frame": {
+    "x": 55,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_42_x": {
+   "frame": {
+    "x": 60,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_42_c": {
+   "frame": {
+    "x": 65,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43": {
+   "frame": {
+    "x": 70,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43_y": {
+   "frame": {
+    "x": 75,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43_r": {
+   "frame": {
+    "x": 80,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43_g": {
+   "frame": {
+    "x": 85,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43_x": {
+   "frame": {
+    "x": 90,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_43_c": {
+   "frame": {
+    "x": 95,
+    "y": 14,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_44": {
+   "frame": {
+    "x": 100,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_44_y": {
+   "frame": {
+    "x": 104,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_44_r": {
+   "frame": {
+    "x": 108,
+    "y": 14,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_44_g": {
+   "frame": {
+    "x": 0,
+    "y": 21,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_44_x": {
+   "frame": {
+    "x": 4,
+    "y": 21,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_44_c": {
+   "frame": {
+    "x": 8,
+    "y": 21,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_45": {
+   "frame": {
+    "x": 12,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_45_y": {
+   "frame": {
+    "x": 17,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_45_r": {
+   "frame": {
+    "x": 22,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_45_g": {
+   "frame": {
+    "x": 27,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_45_x": {
+   "frame": {
+    "x": 32,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_45_c": {
+   "frame": {
+    "x": 37,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_46": {
+   "frame": {
+    "x": 42,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_46_y": {
+   "frame": {
+    "x": 45,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_46_r": {
+   "frame": {
+    "x": 48,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_46_g": {
+   "frame": {
+    "x": 51,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_46_x": {
+   "frame": {
+    "x": 54,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_46_c": {
+   "frame": {
+    "x": 57,
+    "y": 21,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_47": {
+   "frame": {
+    "x": 60,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_47_y": {
+   "frame": {
+    "x": 65,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_47_r": {
+   "frame": {
+    "x": 70,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_47_g": {
+   "frame": {
+    "x": 75,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_47_x": {
+   "frame": {
+    "x": 80,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_47_c": {
+   "frame": {
+    "x": 85,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48": {
+   "frame": {
+    "x": 90,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48_y": {
+   "frame": {
+    "x": 95,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48_r": {
+   "frame": {
+    "x": 100,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48_g": {
+   "frame": {
+    "x": 105,
+    "y": 21,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48_x": {
+   "frame": {
+    "x": 0,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_48_c": {
+   "frame": {
+    "x": 5,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49": {
+   "frame": {
+    "x": 10,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49_y": {
+   "frame": {
+    "x": 15,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49_r": {
+   "frame": {
+    "x": 20,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49_g": {
+   "frame": {
+    "x": 25,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49_x": {
+   "frame": {
+    "x": 30,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_49_c": {
+   "frame": {
+    "x": 35,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50": {
+   "frame": {
+    "x": 40,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50_y": {
+   "frame": {
+    "x": 45,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50_r": {
+   "frame": {
+    "x": 50,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50_g": {
+   "frame": {
+    "x": 55,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50_x": {
+   "frame": {
+    "x": 60,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_50_c": {
+   "frame": {
+    "x": 65,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51": {
+   "frame": {
+    "x": 70,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51_y": {
+   "frame": {
+    "x": 75,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51_r": {
+   "frame": {
+    "x": 80,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51_g": {
+   "frame": {
+    "x": 85,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51_x": {
+   "frame": {
+    "x": 90,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_51_c": {
+   "frame": {
+    "x": 95,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52": {
+   "frame": {
+    "x": 100,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52_y": {
+   "frame": {
+    "x": 105,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52_r": {
+   "frame": {
+    "x": 110,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52_g": {
+   "frame": {
+    "x": 115,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52_x": {
+   "frame": {
+    "x": 120,
+    "y": 28,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_52_c": {
+   "frame": {
+    "x": 0,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53": {
+   "frame": {
+    "x": 5,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53_y": {
+   "frame": {
+    "x": 10,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53_r": {
+   "frame": {
+    "x": 15,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53_g": {
+   "frame": {
+    "x": 20,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53_x": {
+   "frame": {
+    "x": 25,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_53_c": {
+   "frame": {
+    "x": 30,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54": {
+   "frame": {
+    "x": 35,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54_y": {
+   "frame": {
+    "x": 40,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54_r": {
+   "frame": {
+    "x": 45,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54_g": {
+   "frame": {
+    "x": 50,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54_x": {
+   "frame": {
+    "x": 55,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_54_c": {
+   "frame": {
+    "x": 60,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55": {
+   "frame": {
+    "x": 65,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55_y": {
+   "frame": {
+    "x": 70,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55_r": {
+   "frame": {
+    "x": 75,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55_g": {
+   "frame": {
+    "x": 80,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55_x": {
+   "frame": {
+    "x": 85,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_55_c": {
+   "frame": {
+    "x": 90,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56": {
+   "frame": {
+    "x": 95,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56_y": {
+   "frame": {
+    "x": 100,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56_r": {
+   "frame": {
+    "x": 105,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56_g": {
+   "frame": {
+    "x": 110,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56_x": {
+   "frame": {
+    "x": 115,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_56_c": {
+   "frame": {
+    "x": 120,
+    "y": 35,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57": {
+   "frame": {
+    "x": 0,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57_y": {
+   "frame": {
+    "x": 5,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57_r": {
+   "frame": {
+    "x": 10,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57_g": {
+   "frame": {
+    "x": 15,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57_x": {
+   "frame": {
+    "x": 20,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_57_c": {
+   "frame": {
+    "x": 25,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_58": {
+   "frame": {
+    "x": 30,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_58_y": {
+   "frame": {
+    "x": 33,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_58_r": {
+   "frame": {
+    "x": 36,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_58_g": {
+   "frame": {
+    "x": 39,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_58_x": {
+   "frame": {
+    "x": 42,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_58_c": {
+   "frame": {
+    "x": 45,
+    "y": 42,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_59": {
+   "frame": {
+    "x": 48,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_59_y": {
+   "frame": {
+    "x": 52,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_59_r": {
+   "frame": {
+    "x": 56,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_59_g": {
+   "frame": {
+    "x": 60,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_59_x": {
+   "frame": {
+    "x": 64,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_59_c": {
+   "frame": {
+    "x": 68,
+    "y": 42,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_60": {
+   "frame": {
+    "x": 72,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_60_y": {
+   "frame": {
+    "x": 77,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_60_r": {
+   "frame": {
+    "x": 82,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_60_g": {
+   "frame": {
+    "x": 87,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_60_x": {
+   "frame": {
+    "x": 92,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_60_c": {
+   "frame": {
+    "x": 97,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61": {
+   "frame": {
+    "x": 102,
+    "y": 42,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61_y": {
+   "frame": {
+    "x": 0,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61_r": {
+   "frame": {
+    "x": 5,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61_g": {
+   "frame": {
+    "x": 10,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61_x": {
+   "frame": {
+    "x": 15,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_61_c": {
+   "frame": {
+    "x": 20,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62": {
+   "frame": {
+    "x": 25,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62_y": {
+   "frame": {
+    "x": 30,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62_r": {
+   "frame": {
+    "x": 35,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62_g": {
+   "frame": {
+    "x": 40,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62_x": {
+   "frame": {
+    "x": 45,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_62_c": {
+   "frame": {
+    "x": 50,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63": {
+   "frame": {
+    "x": 55,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63_y": {
+   "frame": {
+    "x": 60,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63_r": {
+   "frame": {
+    "x": 65,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63_g": {
+   "frame": {
+    "x": 70,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63_x": {
+   "frame": {
+    "x": 75,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_63_c": {
+   "frame": {
+    "x": 80,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64": {
+   "frame": {
+    "x": 85,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64_y": {
+   "frame": {
+    "x": 90,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64_r": {
+   "frame": {
+    "x": 95,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64_g": {
+   "frame": {
+    "x": 100,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64_x": {
+   "frame": {
+    "x": 105,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_64_c": {
+   "frame": {
+    "x": 110,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65": {
+   "frame": {
+    "x": 115,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65_y": {
+   "frame": {
+    "x": 120,
+    "y": 49,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65_r": {
+   "frame": {
+    "x": 0,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65_g": {
+   "frame": {
+    "x": 5,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65_x": {
+   "frame": {
+    "x": 10,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_65_c": {
+   "frame": {
+    "x": 15,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66": {
+   "frame": {
+    "x": 20,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66_y": {
+   "frame": {
+    "x": 25,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66_r": {
+   "frame": {
+    "x": 30,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66_g": {
+   "frame": {
+    "x": 35,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66_x": {
+   "frame": {
+    "x": 40,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_66_c": {
+   "frame": {
+    "x": 45,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67": {
+   "frame": {
+    "x": 50,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67_y": {
+   "frame": {
+    "x": 55,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67_r": {
+   "frame": {
+    "x": 60,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67_g": {
+   "frame": {
+    "x": 65,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67_x": {
+   "frame": {
+    "x": 70,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_67_c": {
+   "frame": {
+    "x": 75,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68": {
+   "frame": {
+    "x": 80,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68_y": {
+   "frame": {
+    "x": 85,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68_r": {
+   "frame": {
+    "x": 90,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68_g": {
+   "frame": {
+    "x": 95,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68_x": {
+   "frame": {
+    "x": 100,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_68_c": {
+   "frame": {
+    "x": 105,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69": {
+   "frame": {
+    "x": 110,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69_y": {
+   "frame": {
+    "x": 115,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69_r": {
+   "frame": {
+    "x": 120,
+    "y": 56,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69_g": {
+   "frame": {
+    "x": 0,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69_x": {
+   "frame": {
+    "x": 5,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_69_c": {
+   "frame": {
+    "x": 10,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70": {
+   "frame": {
+    "x": 15,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70_y": {
+   "frame": {
+    "x": 20,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70_r": {
+   "frame": {
+    "x": 25,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70_g": {
+   "frame": {
+    "x": 30,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70_x": {
+   "frame": {
+    "x": 35,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_70_c": {
+   "frame": {
+    "x": 40,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71": {
+   "frame": {
+    "x": 45,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71_y": {
+   "frame": {
+    "x": 50,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71_r": {
+   "frame": {
+    "x": 55,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71_g": {
+   "frame": {
+    "x": 60,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71_x": {
+   "frame": {
+    "x": 65,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_71_c": {
+   "frame": {
+    "x": 70,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72": {
+   "frame": {
+    "x": 75,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72_y": {
+   "frame": {
+    "x": 80,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72_r": {
+   "frame": {
+    "x": 85,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72_g": {
+   "frame": {
+    "x": 90,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72_x": {
+   "frame": {
+    "x": 95,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_72_c": {
+   "frame": {
+    "x": 100,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73": {
+   "frame": {
+    "x": 105,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73_y": {
+   "frame": {
+    "x": 110,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73_r": {
+   "frame": {
+    "x": 115,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73_g": {
+   "frame": {
+    "x": 120,
+    "y": 63,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73_x": {
+   "frame": {
+    "x": 0,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_73_c": {
+   "frame": {
+    "x": 5,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74": {
+   "frame": {
+    "x": 10,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74_y": {
+   "frame": {
+    "x": 15,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74_r": {
+   "frame": {
+    "x": 20,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74_g": {
+   "frame": {
+    "x": 25,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74_x": {
+   "frame": {
+    "x": 30,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_74_c": {
+   "frame": {
+    "x": 35,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75": {
+   "frame": {
+    "x": 40,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75_y": {
+   "frame": {
+    "x": 45,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75_r": {
+   "frame": {
+    "x": 50,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75_g": {
+   "frame": {
+    "x": 55,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75_x": {
+   "frame": {
+    "x": 60,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_75_c": {
+   "frame": {
+    "x": 65,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76": {
+   "frame": {
+    "x": 70,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76_y": {
+   "frame": {
+    "x": 75,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76_r": {
+   "frame": {
+    "x": 80,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76_g": {
+   "frame": {
+    "x": 85,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76_x": {
+   "frame": {
+    "x": 90,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_76_c": {
+   "frame": {
+    "x": 95,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77": {
+   "frame": {
+    "x": 100,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77_y": {
+   "frame": {
+    "x": 105,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77_r": {
+   "frame": {
+    "x": 110,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77_g": {
+   "frame": {
+    "x": 115,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77_x": {
+   "frame": {
+    "x": 120,
+    "y": 70,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_77_c": {
+   "frame": {
+    "x": 0,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78": {
+   "frame": {
+    "x": 5,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78_y": {
+   "frame": {
+    "x": 10,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78_r": {
+   "frame": {
+    "x": 15,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78_g": {
+   "frame": {
+    "x": 20,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78_x": {
+   "frame": {
+    "x": 25,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_78_c": {
+   "frame": {
+    "x": 30,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79": {
+   "frame": {
+    "x": 35,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79_y": {
+   "frame": {
+    "x": 40,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79_r": {
+   "frame": {
+    "x": 45,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79_g": {
+   "frame": {
+    "x": 50,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79_x": {
+   "frame": {
+    "x": 55,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_79_c": {
+   "frame": {
+    "x": 60,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80": {
+   "frame": {
+    "x": 65,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80_y": {
+   "frame": {
+    "x": 70,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80_r": {
+   "frame": {
+    "x": 75,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80_g": {
+   "frame": {
+    "x": 80,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80_x": {
+   "frame": {
+    "x": 85,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_80_c": {
+   "frame": {
+    "x": 90,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81": {
+   "frame": {
+    "x": 95,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81_y": {
+   "frame": {
+    "x": 100,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81_r": {
+   "frame": {
+    "x": 105,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81_g": {
+   "frame": {
+    "x": 110,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81_x": {
+   "frame": {
+    "x": 115,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_81_c": {
+   "frame": {
+    "x": 120,
+    "y": 77,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82": {
+   "frame": {
+    "x": 0,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82_y": {
+   "frame": {
+    "x": 5,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82_r": {
+   "frame": {
+    "x": 10,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82_g": {
+   "frame": {
+    "x": 15,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82_x": {
+   "frame": {
+    "x": 20,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_82_c": {
+   "frame": {
+    "x": 25,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83": {
+   "frame": {
+    "x": 30,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83_y": {
+   "frame": {
+    "x": 35,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83_r": {
+   "frame": {
+    "x": 40,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83_g": {
+   "frame": {
+    "x": 45,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83_x": {
+   "frame": {
+    "x": 50,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_83_c": {
+   "frame": {
+    "x": 55,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84": {
+   "frame": {
+    "x": 60,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84_y": {
+   "frame": {
+    "x": 65,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84_r": {
+   "frame": {
+    "x": 70,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84_g": {
+   "frame": {
+    "x": 75,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84_x": {
+   "frame": {
+    "x": 80,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_84_c": {
+   "frame": {
+    "x": 85,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85": {
+   "frame": {
+    "x": 90,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85_y": {
+   "frame": {
+    "x": 95,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85_r": {
+   "frame": {
+    "x": 100,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85_g": {
+   "frame": {
+    "x": 105,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85_x": {
+   "frame": {
+    "x": 110,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_85_c": {
+   "frame": {
+    "x": 115,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86": {
+   "frame": {
+    "x": 120,
+    "y": 84,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86_y": {
+   "frame": {
+    "x": 0,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86_r": {
+   "frame": {
+    "x": 5,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86_g": {
+   "frame": {
+    "x": 10,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86_x": {
+   "frame": {
+    "x": 15,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_86_c": {
+   "frame": {
+    "x": 20,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87": {
+   "frame": {
+    "x": 25,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87_y": {
+   "frame": {
+    "x": 30,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87_r": {
+   "frame": {
+    "x": 35,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87_g": {
+   "frame": {
+    "x": 40,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87_x": {
+   "frame": {
+    "x": 45,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_87_c": {
+   "frame": {
+    "x": 50,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88": {
+   "frame": {
+    "x": 55,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88_y": {
+   "frame": {
+    "x": 60,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88_r": {
+   "frame": {
+    "x": 65,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88_g": {
+   "frame": {
+    "x": 70,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88_x": {
+   "frame": {
+    "x": 75,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_88_c": {
+   "frame": {
+    "x": 80,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89": {
+   "frame": {
+    "x": 85,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89_y": {
+   "frame": {
+    "x": 90,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89_r": {
+   "frame": {
+    "x": 95,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89_g": {
+   "frame": {
+    "x": 100,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89_x": {
+   "frame": {
+    "x": 105,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_89_c": {
+   "frame": {
+    "x": 110,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90": {
+   "frame": {
+    "x": 115,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90_y": {
+   "frame": {
+    "x": 120,
+    "y": 91,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90_r": {
+   "frame": {
+    "x": 0,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90_g": {
+   "frame": {
+    "x": 5,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90_x": {
+   "frame": {
+    "x": 10,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_90_c": {
+   "frame": {
+    "x": 15,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_91": {
+   "frame": {
+    "x": 20,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_91_y": {
+   "frame": {
+    "x": 24,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_91_r": {
+   "frame": {
+    "x": 28,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_91_g": {
+   "frame": {
+    "x": 32,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_91_x": {
+   "frame": {
+    "x": 36,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_91_c": {
+   "frame": {
+    "x": 40,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_92": {
+   "frame": {
+    "x": 44,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_92_y": {
+   "frame": {
+    "x": 49,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_92_r": {
+   "frame": {
+    "x": 54,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_92_g": {
+   "frame": {
+    "x": 59,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_92_x": {
+   "frame": {
+    "x": 64,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_92_c": {
+   "frame": {
+    "x": 69,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_93": {
+   "frame": {
+    "x": 74,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_93_y": {
+   "frame": {
+    "x": 78,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_93_r": {
+   "frame": {
+    "x": 82,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_93_g": {
+   "frame": {
+    "x": 86,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_93_x": {
+   "frame": {
+    "x": 90,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_93_c": {
+   "frame": {
+    "x": 94,
+    "y": 98,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_94": {
+   "frame": {
+    "x": 98,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_94_y": {
+   "frame": {
+    "x": 103,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_94_r": {
+   "frame": {
+    "x": 108,
+    "y": 98,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_94_g": {
+   "frame": {
+    "x": 0,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_94_x": {
+   "frame": {
+    "x": 5,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_94_c": {
+   "frame": {
+    "x": 10,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95": {
+   "frame": {
+    "x": 15,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95_y": {
+   "frame": {
+    "x": 20,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95_r": {
+   "frame": {
+    "x": 25,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95_g": {
+   "frame": {
+    "x": 30,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95_x": {
+   "frame": {
+    "x": 35,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_95_c": {
+   "frame": {
+    "x": 40,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_96": {
+   "frame": {
+    "x": 45,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_96_y": {
+   "frame": {
+    "x": 49,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_96_r": {
+   "frame": {
+    "x": 53,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_96_g": {
+   "frame": {
+    "x": 57,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_96_x": {
+   "frame": {
+    "x": 61,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_96_c": {
+   "frame": {
+    "x": 65,
+    "y": 105,
+    "w": 4,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 4,
+    "h": 7
+   }
+  },
+  "glyph_97": {
+   "frame": {
+    "x": 69,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_97_y": {
+   "frame": {
+    "x": 74,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_97_r": {
+   "frame": {
+    "x": 79,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_97_g": {
+   "frame": {
+    "x": 84,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_97_x": {
+   "frame": {
+    "x": 89,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_97_c": {
+   "frame": {
+    "x": 94,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98": {
+   "frame": {
+    "x": 99,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98_y": {
+   "frame": {
+    "x": 104,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98_r": {
+   "frame": {
+    "x": 109,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98_g": {
+   "frame": {
+    "x": 114,
+    "y": 105,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98_x": {
+   "frame": {
+    "x": 0,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_98_c": {
+   "frame": {
+    "x": 5,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99": {
+   "frame": {
+    "x": 10,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99_y": {
+   "frame": {
+    "x": 15,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99_r": {
+   "frame": {
+    "x": 20,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99_g": {
+   "frame": {
+    "x": 25,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99_x": {
+   "frame": {
+    "x": 30,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_99_c": {
+   "frame": {
+    "x": 35,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100": {
+   "frame": {
+    "x": 40,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100_y": {
+   "frame": {
+    "x": 45,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100_r": {
+   "frame": {
+    "x": 50,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100_g": {
+   "frame": {
+    "x": 55,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100_x": {
+   "frame": {
+    "x": 60,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_100_c": {
+   "frame": {
+    "x": 65,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101": {
+   "frame": {
+    "x": 70,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101_y": {
+   "frame": {
+    "x": 75,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101_r": {
+   "frame": {
+    "x": 80,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101_g": {
+   "frame": {
+    "x": 85,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101_x": {
+   "frame": {
+    "x": 90,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_101_c": {
+   "frame": {
+    "x": 95,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102": {
+   "frame": {
+    "x": 100,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102_y": {
+   "frame": {
+    "x": 105,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102_r": {
+   "frame": {
+    "x": 110,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102_g": {
+   "frame": {
+    "x": 115,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102_x": {
+   "frame": {
+    "x": 120,
+    "y": 112,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_102_c": {
+   "frame": {
+    "x": 0,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103": {
+   "frame": {
+    "x": 5,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103_y": {
+   "frame": {
+    "x": 10,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103_r": {
+   "frame": {
+    "x": 15,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103_g": {
+   "frame": {
+    "x": 20,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103_x": {
+   "frame": {
+    "x": 25,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_103_c": {
+   "frame": {
+    "x": 30,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104": {
+   "frame": {
+    "x": 35,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104_y": {
+   "frame": {
+    "x": 40,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104_r": {
+   "frame": {
+    "x": 45,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104_g": {
+   "frame": {
+    "x": 50,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104_x": {
+   "frame": {
+    "x": 55,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_104_c": {
+   "frame": {
+    "x": 60,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105": {
+   "frame": {
+    "x": 65,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105_y": {
+   "frame": {
+    "x": 70,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105_r": {
+   "frame": {
+    "x": 75,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105_g": {
+   "frame": {
+    "x": 80,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105_x": {
+   "frame": {
+    "x": 85,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_105_c": {
+   "frame": {
+    "x": 90,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106": {
+   "frame": {
+    "x": 95,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106_y": {
+   "frame": {
+    "x": 100,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106_r": {
+   "frame": {
+    "x": 105,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106_g": {
+   "frame": {
+    "x": 110,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106_x": {
+   "frame": {
+    "x": 115,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_106_c": {
+   "frame": {
+    "x": 120,
+    "y": 119,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107": {
+   "frame": {
+    "x": 0,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107_y": {
+   "frame": {
+    "x": 5,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107_r": {
+   "frame": {
+    "x": 10,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107_g": {
+   "frame": {
+    "x": 15,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107_x": {
+   "frame": {
+    "x": 20,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_107_c": {
+   "frame": {
+    "x": 25,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108": {
+   "frame": {
+    "x": 30,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108_y": {
+   "frame": {
+    "x": 35,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108_r": {
+   "frame": {
+    "x": 40,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108_g": {
+   "frame": {
+    "x": 45,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108_x": {
+   "frame": {
+    "x": 50,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_108_c": {
+   "frame": {
+    "x": 55,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109": {
+   "frame": {
+    "x": 60,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109_y": {
+   "frame": {
+    "x": 65,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109_r": {
+   "frame": {
+    "x": 70,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109_g": {
+   "frame": {
+    "x": 75,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109_x": {
+   "frame": {
+    "x": 80,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_109_c": {
+   "frame": {
+    "x": 85,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110": {
+   "frame": {
+    "x": 90,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110_y": {
+   "frame": {
+    "x": 95,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110_r": {
+   "frame": {
+    "x": 100,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110_g": {
+   "frame": {
+    "x": 105,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110_x": {
+   "frame": {
+    "x": 110,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_110_c": {
+   "frame": {
+    "x": 115,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111": {
+   "frame": {
+    "x": 120,
+    "y": 126,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111_y": {
+   "frame": {
+    "x": 0,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111_r": {
+   "frame": {
+    "x": 5,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111_g": {
+   "frame": {
+    "x": 10,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111_x": {
+   "frame": {
+    "x": 15,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_111_c": {
+   "frame": {
+    "x": 20,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112": {
+   "frame": {
+    "x": 25,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112_y": {
+   "frame": {
+    "x": 30,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112_r": {
+   "frame": {
+    "x": 35,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112_g": {
+   "frame": {
+    "x": 40,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112_x": {
+   "frame": {
+    "x": 45,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_112_c": {
+   "frame": {
+    "x": 50,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113": {
+   "frame": {
+    "x": 55,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113_y": {
+   "frame": {
+    "x": 60,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113_r": {
+   "frame": {
+    "x": 65,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113_g": {
+   "frame": {
+    "x": 70,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113_x": {
+   "frame": {
+    "x": 75,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_113_c": {
+   "frame": {
+    "x": 80,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114": {
+   "frame": {
+    "x": 85,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114_y": {
+   "frame": {
+    "x": 90,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114_r": {
+   "frame": {
+    "x": 95,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114_g": {
+   "frame": {
+    "x": 100,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114_x": {
+   "frame": {
+    "x": 105,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_114_c": {
+   "frame": {
+    "x": 110,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115": {
+   "frame": {
+    "x": 115,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115_y": {
+   "frame": {
+    "x": 120,
+    "y": 133,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115_r": {
+   "frame": {
+    "x": 0,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115_g": {
+   "frame": {
+    "x": 5,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115_x": {
+   "frame": {
+    "x": 10,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_115_c": {
+   "frame": {
+    "x": 15,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116": {
+   "frame": {
+    "x": 20,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116_y": {
+   "frame": {
+    "x": 25,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116_r": {
+   "frame": {
+    "x": 30,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116_g": {
+   "frame": {
+    "x": 35,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116_x": {
+   "frame": {
+    "x": 40,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_116_c": {
+   "frame": {
+    "x": 45,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117": {
+   "frame": {
+    "x": 50,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117_y": {
+   "frame": {
+    "x": 55,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117_r": {
+   "frame": {
+    "x": 60,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117_g": {
+   "frame": {
+    "x": 65,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117_x": {
+   "frame": {
+    "x": 70,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_117_c": {
+   "frame": {
+    "x": 75,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118": {
+   "frame": {
+    "x": 80,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118_y": {
+   "frame": {
+    "x": 85,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118_r": {
+   "frame": {
+    "x": 90,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118_g": {
+   "frame": {
+    "x": 95,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118_x": {
+   "frame": {
+    "x": 100,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_118_c": {
+   "frame": {
+    "x": 105,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119": {
+   "frame": {
+    "x": 110,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119_y": {
+   "frame": {
+    "x": 115,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119_r": {
+   "frame": {
+    "x": 120,
+    "y": 140,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119_g": {
+   "frame": {
+    "x": 0,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119_x": {
+   "frame": {
+    "x": 5,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_119_c": {
+   "frame": {
+    "x": 10,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120": {
+   "frame": {
+    "x": 15,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120_y": {
+   "frame": {
+    "x": 20,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120_r": {
+   "frame": {
+    "x": 25,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120_g": {
+   "frame": {
+    "x": 30,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120_x": {
+   "frame": {
+    "x": 35,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_120_c": {
+   "frame": {
+    "x": 40,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121": {
+   "frame": {
+    "x": 45,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121_y": {
+   "frame": {
+    "x": 50,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121_r": {
+   "frame": {
+    "x": 55,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121_g": {
+   "frame": {
+    "x": 60,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121_x": {
+   "frame": {
+    "x": 65,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_121_c": {
+   "frame": {
+    "x": 70,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122": {
+   "frame": {
+    "x": 75,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122_y": {
+   "frame": {
+    "x": 80,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122_r": {
+   "frame": {
+    "x": 85,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122_g": {
+   "frame": {
+    "x": 90,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122_x": {
+   "frame": {
+    "x": 95,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_122_c": {
+   "frame": {
+    "x": 100,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123": {
+   "frame": {
+    "x": 105,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123_y": {
+   "frame": {
+    "x": 110,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123_r": {
+   "frame": {
+    "x": 115,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123_g": {
+   "frame": {
+    "x": 120,
+    "y": 147,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123_x": {
+   "frame": {
+    "x": 0,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_123_c": {
+   "frame": {
+    "x": 5,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_124": {
+   "frame": {
+    "x": 10,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_124_y": {
+   "frame": {
+    "x": 13,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_124_r": {
+   "frame": {
+    "x": 16,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_124_g": {
+   "frame": {
+    "x": 19,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_124_x": {
+   "frame": {
+    "x": 22,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_124_c": {
+   "frame": {
+    "x": 25,
+    "y": 154,
+    "w": 3,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 3,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 3,
+    "h": 7
+   }
+  },
+  "glyph_125": {
+   "frame": {
+    "x": 28,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_125_y": {
+   "frame": {
+    "x": 33,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_125_r": {
+   "frame": {
+    "x": 38,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_125_g": {
+   "frame": {
+    "x": 43,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_125_x": {
+   "frame": {
+    "x": 48,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_125_c": {
+   "frame": {
+    "x": 53,
+    "y": 154,
+    "w": 5,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 5,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 5,
+    "h": 7
+   }
+  },
+  "glyph_126": {
+   "frame": {
+    "x": 58,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_126_y": {
+   "frame": {
+    "x": 64,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_126_r": {
+   "frame": {
+    "x": 70,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_126_g": {
+   "frame": {
+    "x": 76,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_126_x": {
+   "frame": {
+    "x": 82,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_126_c": {
+   "frame": {
+    "x": 88,
+    "y": 154,
+    "w": 6,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 6,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 6,
+    "h": 7
+   }
+  },
+  "glyph_9733": {
+   "frame": {
+    "x": 94,
+    "y": 154,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_9733_y": {
+   "frame": {
+    "x": 101,
+    "y": 154,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_9733_r": {
+   "frame": {
+    "x": 108,
+    "y": 154,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_9733_g": {
+   "frame": {
+    "x": 115,
+    "y": 154,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_9733_x": {
+   "frame": {
+    "x": 122,
+    "y": 154,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_9733_c": {
+   "frame": {
+    "x": 0,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594": {
+   "frame": {
+    "x": 7,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594_y": {
+   "frame": {
+    "x": 14,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594_r": {
+   "frame": {
+    "x": 21,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594_g": {
+   "frame": {
+    "x": 28,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594_x": {
+   "frame": {
+    "x": 35,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "glyph_8594_c": {
+   "frame": {
+    "x": 42,
+    "y": 161,
+    "w": 7,
+    "h": 7
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 7,
+    "h": 7
+   },
+   "sourceSize": {
+    "w": 7,
+    "h": 7
+   }
+  },
+  "icon_fireball": {
+   "frame": {
+    "x": 49,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_meteor": {
+   "frame": {
+    "x": 65,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_iceShard": {
+   "frame": {
+    "x": 81,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_frostNova": {
+   "frame": {
+    "x": 97,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_chainLightning": {
+   "frame": {
+    "x": 113,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_arcaneOrb": {
+   "frame": {
+    "x": 129,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_armageddon": {
+   "frame": {
+    "x": 145,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_absoluteZero": {
+   "frame": {
+    "x": 161,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_badaiPetir": {
+   "frame": {
+    "x": 177,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_vitality": {
+   "frame": {
+    "x": 193,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_swiftness": {
+   "frame": {
+    "x": 209,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_focus": {
+   "frame": {
+    "x": 225,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_magnet": {
+   "frame": {
+    "x": 241,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_wisdom": {
+   "frame": {
+    "x": 257,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_amplify": {
+   "frame": {
+    "x": 273,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_heal": {
+   "frame": {
+    "x": 289,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_fireball_off": {
+   "frame": {
+    "x": 305,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_meteor_off": {
+   "frame": {
+    "x": 321,
+    "y": 161,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_iceShard_off": {
+   "frame": {
+    "x": 0,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_frostNova_off": {
+   "frame": {
+    "x": 16,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_chainLightning_off": {
+   "frame": {
+    "x": 32,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_arcaneOrb_off": {
+   "frame": {
+    "x": 48,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_armageddon_off": {
+   "frame": {
+    "x": 64,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_absoluteZero_off": {
+   "frame": {
+    "x": 80,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_badaiPetir_off": {
+   "frame": {
+    "x": 96,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "icon_kill": {
+   "frame": {
+    "x": 112,
+    "y": 177,
+    "w": 9,
+    "h": 8
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 9,
+    "h": 8
+   },
+   "sourceSize": {
+    "w": 9,
+    "h": 8
+   }
+  },
+  "card": {
+   "frame": {
+    "x": 121,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "card_sel": {
+   "frame": {
+    "x": 137,
+    "y": 177,
+    "w": 16,
+    "h": 16
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 16,
+    "h": 16
+   },
+   "sourceSize": {
+    "w": 16,
+    "h": 16
+   }
+  },
+  "panel": {
+   "frame": {
+    "x": 153,
+    "y": 177,
+    "w": 8,
+    "h": 8
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 8,
+    "h": 8
+   },
+   "sourceSize": {
+    "w": 8,
+    "h": 8
+   }
+  },
+  "slot": {
+   "frame": {
+    "x": 161,
+    "y": 177,
+    "w": 18,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 18,
+    "h": 18
+   }
+  },
+  "slot_lit": {
+   "frame": {
+    "x": 179,
+    "y": 177,
+    "w": 18,
+    "h": 18
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 18,
+    "h": 18
+   },
+   "sourceSize": {
+    "w": 18,
+    "h": 18
+   }
+  },
+  "bar": {
+   "frame": {
+    "x": 197,
+    "y": 177,
+    "w": 8,
+    "h": 8
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 8,
+    "h": 8
+   },
+   "sourceSize": {
+    "w": 8,
+    "h": 8
+   }
+  }
+ },
+ "meta": {
+  "app": "pxl",
+  "image": "ui.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 337,
+   "h": 195
+  },
+  "scale": "1"
+ }
+}
