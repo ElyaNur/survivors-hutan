@@ -1,0 +1,44 @@
+// Hutan Cerah: the one palette for every asset. Start each art file with include("palette.px.js").
+// Lowercase = light, uppercase = dark. Greens/water/wood/monsters come from mockup B ("cerah").
+pal({
+  k: "#1d1a2f", // outline, eyes (deep ink, never pure black)
+  // greens: grass, leaves, trees
+  F: "#1f5b3c", // deep forest shadow
+  f: "#2f7d3a", // tree
+  G: "#46a24a", // leaves, grass shade
+  g: "#7fcf5c", // grass
+  j: "#c3ef84", // lime highlight
+  // blues: water, sky, mage robe
+  M: "#2b3486", // navy: robe/hat shadow, deep water
+  B: "#2f6fc4", // blue: robe
+  b: "#4aa8e0", // river, robe light
+  s: "#8fd3f5", // foam, sky, sheen
+  // wood and earth
+  N: "#6b4030", // dark wood, boots
+  n: "#b77a45", // wood, hut, staff
+  u: "#e0a96a", // light wood
+  p: "#d9c27a", // path, sand
+  // monster reds and violets
+  R: "#a3324a", // dark red
+  r: "#e2585e", // monster red, roof
+  i: "#ff9f9a", // pink highlight
+  V: "#5a3a9e", // dark violet
+  v: "#9b5de5", // violet: monsters, arcane spells
+  l: "#d3b0ff", // lavender
+  // fire and light (spells)
+  O: "#e8532e", // hot orange-red
+  o: "#ff9a3c", // orange
+  Y: "#ffd23f", // gold, fire core, trims
+  y: "#fff1a8", // pale yellow light
+  w: "#ffffff", // white-hot core, eye shine
+  // ice (spells)
+  C: "#3ccfe0", // ice cyan
+  c: "#a6f6ff", // pale ice
+  // skin
+  H: "#e09a78", // skin shadow
+  h: "#ffd2a6", // skin
+  // stone and smoke
+  X: "#5d5a78", // stone dark, smoke
+  x: "#a3a3c2", // stone light, smoke light
+})
+ramps("kFfGgj", "kMBbs", "kBCcw", "kNnup", "kRri", "kROoYyw", "kVvl", "kHh", "kXx")

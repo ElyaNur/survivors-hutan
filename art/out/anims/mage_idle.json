@@ -1,0 +1,106 @@
+{
+ "frames": {
+  "mage_idle_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 20
+   },
+   "duration": 250
+  },
+  "mage_idle_1": {
+   "frame": {
+    "x": 17,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 20
+   },
+   "duration": 250
+  },
+  "mage_idle_2": {
+   "frame": {
+    "x": 34,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 20
+   },
+   "duration": 250
+  },
+  "mage_idle_3": {
+   "frame": {
+    "x": 51,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 17,
+    "h": 20
+   },
+   "sourceSize": {
+    "w": 17,
+    "h": 20
+   },
+   "duration": 250
+  }
+ },
+ "meta": {
+  "app": "pxl",
+  "image": "mage_idle.png",
+  "format": "RGBA8888",
+  "size": {
+   "w": 68,
+   "h": 20
+  },
+  "scale": "1",
+  "frameTags": [
+   {
+    "name": "mage_idle",
+    "from": 0,
+    "to": 3,
+    "direction": "forward"
+   }
+  ]
+ }
+}
