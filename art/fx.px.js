@@ -606,4 +606,132 @@ anim("fu_comet_core", { w: 27, h: 23, fps: 10, frames: 3, loop: false, outline: 
   if (f === 2) { c.recolor({ M: "y", B: "c" }, CORE); c.px(13, 11, "w") }          // light bursting through the cracks
 })
 
+// Supernova: the ring of star-fire rushing out of the mage, one upright tongue (strewn round the ring in game, desynced).
+// Hotter than any fire on the field: a blue-white heart at the root, white and pale gold up the middle, gold, an orange
+// edge and red licking tips. No outline: the brightness is its read (the ring's ink underline is drawn in game).
+anim("fu_novaFlame", { w: 11, h: 18, fps: 12, frames: 4 }, (c) => {
+  const f = c.frame, sway = [0, 1, 0, -1][f], tip = [1, 0, 2, 1][f], B = 14
+  c.poly([0, B, 5 + sway, tip, 10, B], "O"); c.circ(5, B, 5, "O")                 // teardrop: round root, licking tip
+  c.poly([1, B, 5 + sway, tip + 3, 9, B], "o"); c.circ(5, B, 4, "o")
+  c.poly([2, B + 1, 5 + sway, tip + 6, 8, B + 1], "Y"); c.circ(5, B + 1, 3, "Y")
+  c.poly([3, B + 1, 5 + (sway > 0 ? 1 : 0), tip + 9, 7, B + 1], "y"); c.circ(5, B + 1, 2, "y")
+  c.vline(5, B - 2, 3, "w"); c.hline(4, B + 1, 3, "w")                           // white-hot middle
+  c.hline(4, B + 2, 3, "c"); c.px(5, B + 3, "c"); c.px(3, B + 2, "C"); c.px(7, B + 2, "C")   // the blue-white star heart
+  c.px(5 + sway, tip + 1, "R")
+  const side = f % 2 ? 1 : 9                                                      // a little tongue flicking at the side
+  c.vline(side, B - 4 - (f >> 1), 3, "O"); c.px(side, B - 5 - (f >> 1), "o")
+  if (f === 1) c.px(7, tip + 1, "Y")                                              // sparks lifting off
+  if (f === 3) c.px(2, tip + 2, "y")
+},
+  glow("wyc", { r: 2, strength: 0.5, bands: 2 }))
+
+// The burning ground the ring leaves: a low star-fire tuft with blue-white embers at the root (Meteor's ground burns
+// orange; this burns gold and white).
+anim("fu_starfire", { w: 9, h: 12, fps: 10, frames: 4 }, (c) => {
+  const f = c.frame, sway = [0, 1, 0, -1][f], tip = [3, 2, 4, 2][f]
+  c.poly([1, 8, 4 + sway, tip, 5 + sway, tip, 8, 8], "o"); c.circ(4, 8, 3, "o")
+  c.poly([2, 9, 4 + sway, tip + 3, 7, 9], "Y"); c.circ(4, 9, 2, "Y")
+  c.circ(4, 10, 1, "y"); c.px(4, 9, "w"); c.px(4 + (sway > 0 ? 1 : 0), tip + 4, "y")
+  c.hline(1, 11, 7, "C"); c.px(3, 11, "c"); c.px(6, 11, "c")                       // frost-blue embers at the root
+  if (f === 1) c.px(6, tip - 1, "y")
+  if (f === 3) c.px(2, tip, "Y")
+},
+  glow("wy", { r: 2, strength: 0.4, bands: 2 }))
+
+// Bola Plasma, 43x43 + ink outline: a big ball of violet plasma round a white-gold fire heart, lightning veins crawling over
+// its skin and sparks jumping off it; an ink rim inside the shell so it reads over the crowd.
+const PL = 21, PR = 16                                                           // centre; shell radius
+anim("fu_plasma", { w: 43, h: 43, fps: 12, frames: 6, outline: "k" }, (c) => {
+  const k = c.phase * Math.PI * 2
+  for (let y = 0; y < 43; y++) for (let x = 0; x < 43; x++) {                    // the body: the heart, then the shell lit top-left
+    const dx = x - PL, dy = y - PL, d = Math.hypot(dx, dy)
+    if (d > PR + 0.4) continue
+    const swirl = Math.sin(3 * Math.atan2(dy, dx) + d * 0.6 - k * 2)               // plasma currents turning in the shell
+    let key = d > PR - 0.6 ? "V" : d < 4 ? "w" : d < 6 ? "y" : d < 8.2 + swirl * 0.8 ? "Y" : "v"
+    if (key === "v") key = dx + dy < -13 ? (swirl > 0.3 ? "l" : "z") : dx + dy > 11 && d > 12.6 ? "P" : swirl > 0.55 ? "v" : "V"
+    c.px(x, y, key)
+  }
+  for (let i = 0; i < 4; i++) {                                                   // veins: kinked lightning over the skin, from the heart outward
+    let a = -k + i * 1.571, r = 8.5, px = Math.round(PL + Math.cos(a) * r), py = Math.round(PL + Math.sin(a) * r)
+    for (let s = 0; s < 3; s++) {
+      a += (s % 2 ? -0.45 : 0.4); r += 2.2
+      const qx = Math.round(PL + Math.cos(a) * r), qy = Math.round(PL + Math.sin(a) * r)
+      c.line(px, py, qx, qy, s < 2 ? "w" : "y"); px = qx; py = qy
+    }
+  }
+  for (let i = 0; i < 5; i++) {                                                   // sparks off the skin: a kinked jump, hopping each frame
+    const a = k * 1.5 + i * 1.257 + (c.frame % 2) * 0.6, at = (aa, r) => [Math.round(PL + Math.cos(aa) * r), Math.round(PL + Math.sin(aa) * r)]
+    if (!((i + c.frame) % 3)) continue
+    const [x0, y0] = at(a, PR + 0.5), [x1, y1] = at(a + 0.15, PR + 2.5), [x2, y2] = at(a - 0.04, PR + 4.5)
+    c.line(x0, y0, x1, y1, "y"); c.line(x1, y1, x2, y2, "w")
+  }
+  c.px(11, 10, "w"); c.px(12, 10, "w"); c.px(11, 11, "w"); c.px(13, 9, "l")       // the glint on the shell
+},
+  glow("wy", { r: 3, strength: 0.6, bands: 2 }))
+
+// Penghakiman Langit's mark, sized for r 22 (scaled to r in game): one pass over the warning. A dark scorch swells, a
+// violet rune circle turns with its ticks closing in, and a lightning glyph in the middle charges up white.
+anim("fu_skyWarn", { w: 47, h: 47, fps: 10, frames: 8 }, (c) => {
+  const f = c.frame, C = 23, rot = f * 0.12, hot = f >= 6
+  c.circ(C, C, Math.round(6 + f * 1.6), "#1d1a2f50"); c.circ(C, C, Math.round(3 + f), "#1d1a2f80")   // see-through ink (k)
+  c.ring(C, C, 22, hot ? "l" : "v"); c.ring(C, C, 21, hot ? "w" : "V"); c.ring(C, C, 17, f % 2 ? "v" : "V")
+  for (let i = 0; i < 8; i++) {                                                   // rune ticks between the rings
+    const a = rot + i * Math.PI / 4, x0 = Math.round(C + Math.cos(a) * 17), y0 = Math.round(C + Math.sin(a) * 17)
+    const x1 = Math.round(C + Math.cos(a) * 21), y1 = Math.round(C + Math.sin(a) * 21)
+    c.line(x0, y0, x1, y1, i % 2 ? "v" : "l")
+  }
+  const m = 15 - f * 1.4                                                          // four marks closing in
+  for (const [dx, dy] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
+    const x = Math.round(C + dx * m), y = Math.round(C + dy * m)
+    c.line(x - dy * 2, y - dx * 2, x + dx * 2, y + dy * 2, "y"); c.line(x + dy * 2, y + dx * 2, x + dx * 2, y + dy * 2, "y")
+  }
+  const g = f < 3 ? "V" : f < 6 ? "Y" : "w"                                       // the glyph charging up
+  c.poly([C + 1, C - 7, C - 3, C + 1, C, C + 1, C - 2, C + 7, C + 4, C - 1, C + 1, C - 1, C + 3, C - 7], g)
+},
+  glow("wy", { r: 2, strength: 0.5, bands: 2 }))
+
+// Where a pillar lands, 49x33: a white flash on the ground, then a ring of light skidding out over it (seen from above,
+// so flattened), sparks thrown along the ground, and a scorched crater fading away.
+anim("fu_pillarHit", { w: 49, h: 33, fps: 18, loop: false, frames: 7 }, (c) => {
+  const f = c.frame, C = 24, CY = 20
+  c.ellipse(C, CY, 9 - (f >> 1), 3, f < 5 ? "#1d1a2fa0" : "#1d1a2f60")      // the scorch
+  if (f < 3) { c.ellipse(C, CY, 12 - f * 2, 6 - f, "y"); c.ellipse(C, CY, 10 - f * 2, 5 - f, "w") }
+  if (f >= 1) { const rx = 6 + f * 3, ry = 2 + f; c.ellipse(C, CY, rx, ry, f < 4 ? "w" : "l", true); c.ellipse(C, CY, rx - 1, ry - 1, f < 4 ? "l" : "v", true); if (f < 5) c.ellipse(C, CY, rx + 1, ry + 1, "v", true) }
+  for (let i = 0; i < 10; i++) {                                                  // sparks skidding out, kinked
+    const a = i * 0.628 + 0.3, r0 = 4 + f * 3, r1 = r0 + 4 - (f >> 1)
+    if (f >= 6 || r1 <= r0) continue
+    const x0 = Math.round(C + Math.cos(a) * r0), y0 = Math.round(CY + Math.sin(a) * r0 * 0.45 - (f < 3 ? 6 - 2 * f : 0) * Math.abs(Math.sin(a * 3)))
+    const x1 = Math.round(C + Math.cos(a) * r1), y1 = Math.round(CY + Math.sin(a) * r1 * 0.45)
+    c.line(x0, y0, x1, y1, f < 2 ? "w" : "y"); c.px(x1, y1, i % 2 ? "v" : "w")
+  }
+  if (f < 3) for (const [x, y] of [[C - 3, CY - 12], [C + 2, CY - 16], [C - 1, CY - 20], [C + 4, CY - 8]]) c.px(x, y - f * 3, "w")   // debris kicked up
+  if (f >= 5) c.dither(0, 0, 49, 33, ".", "_", f === 5 ? 0.3 : 0.6)
+},
+  glow("wyl", { r: 3, strength: 0.6, bands: 2 }))
+
+// Pusaran Kristal, 31x31 + ink outline: an ice pinwheel. Three curved blades sweep back from a gem hub, each with a white
+// leading edge, pale ice body and a cyan-to-blue trailing side; it spins clockwise (a third of a turn per loop).
+const IB = { C: 15, hub: 4, R: 14.5, bend: 1.15, w: 4.4 }
+anim("fu_iceBlade", { w: 31, h: 31, fps: 18, frames: 6, outline: "k" }, (c) => {
+  const C = IB.C, spin = c.phase * Math.PI * 2 / 3
+  for (let i = 0; i < 3; i++) {
+    const a0 = spin + i * Math.PI * 2 / 3, lead = [], trail = []
+    for (let s = 0; s <= 6; s++) {                                                // a curved, tapering blade: the leading edge ahead, the trailing one swept back
+      const t = s / 6, r = IB.hub + (IB.R - IB.hub) * t, a = a0 - IB.bend * t * t, w = IB.w * (1 - t) ** 0.8 / r
+      lead.push(Math.round(C + Math.cos(a + w) * r), Math.round(C + Math.sin(a + w) * r))
+      trail.unshift(Math.round(C + Math.cos(a - w * 1.6) * r), Math.round(C + Math.sin(a - w * 1.6) * r))
+    }
+    const pts = [...lead, ...trail]
+    c.poly(pts, "C")
+    for (let s = 0; s < 6; s++) {                                                 // the body, then the bright leading edge on top
+      const t = (s + 0.5) / 6, r = IB.hub + (IB.R - IB.hub) * t, a = a0 - IB.bend * t * t
+      c.px(Math.round(C + Math.cos(a) * r), Math.round(C + Math.sin(a) * r), "c")
+    }
+    for (let j = 0; j + 3 < lead.length; j += 2) c.line(lead[j], lead[j + 1], lead[j + 2], lead[j + 3], "w")
+    for (let j = 0; j + 3 < trail.length; j += 2) c.line(trail[j], trail[j + 1], trail[j + 2], trail[j + 3], j < 6 ? "B" : "C")
+  }
+  c.circ(C, C, IB.hub, "B"); c.circ(C, C, IB.hub - 1, "C"); c.circ(C - 1, C - 1, 1, "c"); c.px(C - 1, C - 1, "w")   // the gem hub
+},
+  glow("w", { r: 2, strength: 0.4, bands: 2 }))
+
 sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*", "fu_*"])

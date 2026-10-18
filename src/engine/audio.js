@@ -27,7 +27,8 @@ export const isMuted = store.isMuted, setMuted = store.setMuted;
 export const DUR = { fireball: 0.25, meteor: 0.6, ice: 0.35, nova: 0.5, zap: 0.15, orb: 0.15, hit: 0.08, die: 0.2, pickup: 0.15,
   levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06, lubangHitam: 1.4, lubangHitamBoom: 0.9, cincinMatahari: 0.3,
   phoenix: 0.55, phoenixDive: 0.45, phoenixBoom: 0.8, gletser: 0.9, gletserSlide: 1.2, pagarKristal: 0.25, pagarKristalZap: 0.2,
-  kometEs: 0.8, kometEsBurst: 0.4 };
+  kometEs: 0.8, kometEsBurst: 0.4, supernova: 1.0, bolaPlasma: 0.7, bolaPlasmaZap: 0.15, bolaPlasmaPop: 0.8, penghakimanLangitCall: 0.9,
+  penghakimanLangit: 0.5, pusaranKristal: 0.12 };
 export const createThrottle = () => ({ last: {}, ends: [] });
 const shared = createThrottle();
 export function shouldPlay(name, now, th = shared) {
@@ -162,6 +163,25 @@ const VOICES = {
     tone(t, 'triangle', 1760, 1700, 0.5, 0.1);
   },
   kometEsBurst(t) { [2637, 3136, 2349, 3520].forEach((f, i) => tone(t + i * 0.04, 'sine', f, f * 0.98, 0.2, 0.12)); noise(t, 0.1, 0.25, 'highpass', 4000, 4000); },   // the head shatters: tinkling shards
+  supernova(t) {                                                                                                        // a star going off: a sharp white crack, a deep boom, a roaring flame wave rushing out, an icy ring over it
+    noise(t, 0.05, 0.5, 'highpass', 3000, 3000); tone(t, 'sine', 120, 30, 0.9, 1.0);
+    noise(t + 0.03, 0.9, 0.45, 'bandpass', 300, 2600, 0.9, 0.12); tone(t + 0.02, 'triangle', 1980, 1960, 0.6, 0.08); tone(t + 0.02, 'triangle', 2005, 1985, 0.6, 0.06);
+  },
+  bolaPlasma(t) {                                                                                                       // the ball is born: a rising electric hum with a buzzing edge
+    const b = bus(t, 0.3, 0.7, 0.1, 400, 2400); tone(t, 'sawtooth', 90, 180, 0.7, 0, 0, b); tone(t, 'sawtooth', 92, 184, 0.7, 0, 0, b);
+    noise(t, 0.4, 0.12, 'bandpass', 2500, 4000, 2, 0.1);
+  },
+  bolaPlasmaZap(t) { noise(t, 0.03, 0.3, 'highpass', 3500, 3500); noise(t + 0.04, 0.03, 0.22, 'highpass', 2800, 2800); tone(t, 'square', 600, 150, 0.1, 0.06); },   // a lash of lightning: two snaps, a falling buzz
+  bolaPlasmaPop(t) {                                                                                                    // it pops: a thump and fire roar, with a crackle of lightning scattering off
+    tone(t, 'sine', 130, 35, 0.7, 0.9); noise(t, 0.6, 0.5, 'lowpass', 2000, 100);
+    for (let i = 0; i < 4; i++) noise(t + 0.04 + i * 0.05, 0.03, 0.3, 'highpass', 3000 - i * 300, 3000 - i * 300);
+  },
+  penghakimanLangitCall(t) { tone(t, 'sine', 55, 45, 0.9, 0.5, 0.3); noise(t, 0.85, 0.3, 'lowpass', 200, 600, 1, 0.35); },   // the sky gathers: a low rolling rumble swelling
+  penghakimanLangit(t) {                                                                                                // a pillar slams down: a split-second rip of thunder, a heavy crack, a rumble after
+    noise(t, 0.04, 0.6, 'highpass', 2000, 2000); tone(t, 'square', 1200, 80, 0.12, 0.1);
+    tone(t + 0.02, 'sine', 90, 35, 0.45, 0.7); noise(t + 0.02, 0.45, 0.4, 'lowpass', 1200, 90);
+  },
+  pusaranKristal(t) { tone(t, 'sine', 3136, 2800, 0.08, 0.06); noise(t, 0.04, 0.08, 'highpass', 5000, 5000); },   // a shard flung off: a soft glassy flick
   cincinMatahari(t) { noise(t, 0.2, 0.3, 'bandpass', 900, 3500, 2, 0.02); tone(t, 'triangle', 660, 1100, 0.18, 0.12); tone(t, 'sine', 330, 330, 0.25, 0.1); },   // solar flare: bright upward whoosh with a rising chirp
 };
 

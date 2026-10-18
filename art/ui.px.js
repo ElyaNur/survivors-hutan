@@ -214,11 +214,74 @@ icon("kometEs", (c) => {                                           // an ice com
   ..MM........`)
 })
 
+icon("supernova", (c) => {                                         // a star bursting: a white-hot heart, a ring of star-fire rushing out
+  badge(c, "K", "R")
+  c.grid(1, 1, `
+  ....oYYo....
+  ..oO....Oo..
+  .o...yy...o.
+  .O..ywwy..O.
+  Y..ywccwy..Y
+  Y.ywcwwcwy.Y
+  Y..ywccwy..Y
+  .O..ywwy..O.
+  .o...yy...o.
+  ..oO....Oo..
+  ....oYYo....
+  ............`)
+})
+icon("bolaPlasma", (c) => {                                        // a violet plasma ball round a gold heart, lightning jumping off it
+  badge(c, "P", "M")
+  c.grid(1, 1, `
+  ..........y.
+  ....kkkk.yw.
+  ..kVvvvvkw..
+  .kVzlvvvVk..
+  .kvlyYYvVk..
+  .kvYwwYvVk.y
+  .kvYwwYvVkw.
+  .kVvYYvVPk..
+  ..kVvwvVk...
+  .y.kkkkk....
+  yw..........
+  ............`)
+})
+icon("penghakimanLangit", (c) => {                                 // a pillar of lightning out of a storm sky, splashing on the ground
+  badge(c, "M", "P")
+  c.grid(1, 1, `
+  xXxxXXxxxXx.
+  XXxXXXxXXXXx
+  ..vlwwl.....
+  ...vlwwl....
+  ....lwwlv...
+  ...vlwwl....
+  ..vlwwl.....
+  ...vlwwl....
+  ....lwwlv...
+  ..yylwwlyy..
+  .wy.yyyy.yw.
+  ............`)
+})
+icon("pusaranKristal", (c) => {                                    // three ice blades whirling round a gem
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  .......cw...
+  ........cw..
+  ..wcc....cw.
+  .wcCCB...cC.
+  wC...BcwcCB.
+  .....cwwcB..
+  ..BCcwwc....
+  .BCcBcC.....
+  .Cc.....BC..
+  .cw.....Cc..
+  ..cw..BCcw..
+  ...ccccw....`)
+})
+
 // Placeholder fusion icons (until the real art): the two ingredients' colours split on the diagonal.
-const INGREDIENT = { fireball: "o", meteor: "X", iceShard: "C", frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
-for (const [id, a, b] of [["supernova", "fireball", "frostNova"], ["bolaPlasma", "fireball", "chainLightning"],
-  ["penghakimanLangit", "meteor", "chainLightning"],
-  ["pusaranKristal", "iceShard", "arcaneOrb"], ["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
+const INGREDIENT = { frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
+for (const [id, a, b] of [["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
   icon(id, (c) => { c.rect(0, 0, 14, 14, INGREDIENT[b]); c.poly([0, 0, 13, 0, 0, 13], INGREDIENT[a]); c.line(0, 13, 13, 0, "k") })
 
 // Undiscovered fusion: a "?" rune.

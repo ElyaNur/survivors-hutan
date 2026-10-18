@@ -1,4 +1,4 @@
-// Ice Shard: a fan of shards at the nearest enemy; each pierces and slows what it passes through.
+// Ice Shard: a fan of shards at the nearest enemy; each pierces and slows what it passes through (chill: Pusaran Kristal's shards too).
 import { stat, nearestEnemy } from './index.js';
 import { spawnProjectile } from '../projectiles.js';
 import { applySlow } from '../../logic/combat.js';
@@ -6,7 +6,7 @@ import { sfx } from '../../engine/audio.js';
 
 const ID = 'iceShard', DEG = Math.PI / 180;
 
-function chill(run, p, e) {
+export function chill(run, p, e) {
   applySlow(e, p.slow, p.slowDur, run.time);
   run.fx.anim(p.x, p.y, 'fx_iceHit');
   run.fx.burst(p.x, p.y, '#a6f6ff', 4, 60);                 // palette c

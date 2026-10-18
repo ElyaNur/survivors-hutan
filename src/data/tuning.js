@@ -70,10 +70,23 @@ const TUNING = {
     // its head bursts into `shards` shards (shardDmg, hit radius shardSize, pierce shardPierce, shardRange px at shardSpeed, slow for slowDur).
     kometEs:      { cd: 3.5, warn: 0.7, r: 44, dmg: 60, freeze: 2, shatter: 0.3, shards: 12, shardSize: 3, shardSpeed: 220, shardRange: 150,
                     shardDmg: 24, shardPierce: 2, slow: 0.4, slowDur: 1.5 },
-    // placeholders until Task 9-10: every cd hits the nearest few enemies within r
-    supernova:         { cd: 6, dmg: 60, r: 100 }, bolaPlasma:    { cd: 6, dmg: 60, r: 100 },
-    penghakimanLangit: { cd: 6, dmg: 60, r: 100 },
-    pusaranKristal:    { cd: 6, dmg: 60, r: 100 }, medanStatis:    { cd: 6, dmg: 60, r: 100 }, bentengEs:     { cd: 6, dmg: 60, r: 100 },
+    // Every cd (from the end of the last ring) a ring of fire rushes out of the mage to r px (x mods.area) over expand s, hitting
+    // each enemy once as its front passes: dmg. Every burnGap px of its run it lays a ring of burning spots,
+    // burnGap apart (r burnR, burnLife s, burnDmg every burnTick).
+    supernova:    { cd: 7.5, r: 100, expand: 0.65, dmg: 40, burnGap: 22, burnR: 12, burnLife: 1.4, burnTick: 0.4, burnDmg: 5 },
+    // Every cd (from the last pop) a plasma ball drifts at speed px/s to the densest crowd in view; every zapEvery s on the way it
+    // zaps everything within zapR (zapDmg), and at the end it pops: popDmg within popR. zapR and popR x mods.area.
+    bolaPlasma:   { cd: 3, speed: 70, zapR: 48, zapEvery: 0.3, zapDmg: 15, popR: 52, popDmg: 80 },
+    // Every cd, pillars lightning pillars strike random enemies' spots in view, warned for warn s (each stagger s after the last):
+    // dmg within r (x mods.area), then a bolt chains from the pillar on through jumps more enemies within jumpRange (chainDmg).
+    penghakimanLangit: { cd: 3.5, pillars: 6, warn: 0.5, stagger: 0.12, r: 22, dmg: 45, chainDmg: 26, jumps: 4, jumpRange: 70 },
+    // n ice blades orbit at orbitR (x mods.area), cutting what they touch within size px (dmg, each enemy every hitCd). Each sprays
+    // a shard every sprayEvery s (x mods.cooldown) outward, turned twist rad along the spin: shardDmg, hit radius shardSize,
+    // pierce shardPierce, shardRange px at shardSpeed, slowing by slow for slowDur.
+    pusaranKristal: { n: 3, orbitR: 40, rotSpeed: 3.2, size: 12, dmg: 12, hitCd: 0.4, push: 4, sprayEvery: 0.35, twist: 0.5,
+                      shardSpeed: 200, shardRange: 160, shardSize: 3, shardDmg: 14, shardPierce: 2, slow: 0.4, slowDur: 1.2 },
+    // placeholders until Task 10: every cd hits the nearest few enemies within r
+    medanStatis:  { cd: 6, dmg: 60, r: 100 }, bentengEs:     { cd: 6, dmg: 60, r: 100 },
   },
   passives: {   // per-level amount
     vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },

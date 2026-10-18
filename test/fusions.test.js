@@ -79,17 +79,17 @@ test('a fusion banner shakes and holds the world for a beat, and carries {id, fi
 test('every mage fusion has a FUSIONS module with update; unbuilt ones are flagged placeholder', () => {
   for (const f of CLASSES.mage.fusions) assert.equal(typeof FUSIONS[f.id]?.update, 'function', f.id);
   assert.equal(Object.keys(FUSIONS).length, CLASSES.mage.fusions.length);
-  assert.ok(FUSIONS.supernova.placeholder); assert.ok(!FUSIONS.hujanNeraka.placeholder);
+  assert.ok(FUSIONS.medanStatis.placeholder); assert.ok(!FUSIONS.hujanNeraka.placeholder);
 });
 
 test('placeholder hits the 5 nearest enemies within r, on cd', () => {
-  const run = setup(), st = {}, F = U.supernova;
+  const run = setup(), st = {}, F = U.medanStatis;
   const es = [10, 20, 30, 40, 50, 60].map(d => tank(run, d)), far = tank(run, F.r + 50);
-  FUSIONS.supernova.update(run, st, 0, run.mods, 0.01);
+  FUSIONS.medanStatis.update(run, st, 0, run.mods, 0.01);
   assert.deepEqual(es.map(e => e.hp < e.maxHp), [true, true, true, true, true, false]);
   assert.equal(far.hp, far.maxHp);
   const hp = es[0].hp;
-  FUSIONS.supernova.update(run, st, 0, run.mods, 0.01);
+  FUSIONS.medanStatis.update(run, st, 0, run.mods, 0.01);
   assert.equal(es[0].hp, hp, 'not again before cd');
 });
 
@@ -286,4 +286,57 @@ test('Komet Es: the impact freezes the crowd within r, then the comet bursts int
 
 test('Phoenix, Gletser, Pagar Kristal and Komet Es are real fusions, not placeholders', () => {
   for (const id of ['phoenix', 'gletser', 'pagarKristal', 'kometEs']) assert.ok(!FUSIONS[id].placeholder, id);
+});
+
+test('Supernova: the fire ring hits an enemy at radius 60 as its front passes, and leaves burning ground', () => {
+  const run = setup(), st = {}, S = U.supernova, e = tank(run, 60), dt = 0.02;
+  assert.ok(S.r * run.mods.area > 60 + e.r, 'the ring reaches it');
+  let at = null;
+  for (let t = 0; t < S.expand + 0.1 && at === null; t += dt) { live(run, 'supernova', st, dt, dt); if (e.hp < e.maxHp) at = st.R; }
+  assert.ok(at !== null, 'hit');
+  assert.ok(at >= 60 - e.r - 1e-6, `hit by the front (front at ${at})`);
+  assert.ok(e.maxHp - e.hp >= fusionDmg(run, S.dmg), 'the front landed');
+  live(run, 'supernova', st, S.expand);
+  assert.ok(run.areas.some(a => a.dmg > 0 && a.dur > 0 && Math.abs(Math.hypot(a.x - run.player.x, a.y - run.player.y) - 60) <= S.burnGap),
+    'burning ground along the ring');
+});
+
+test('Bola Plasma: the orb zaps both enemies near its path before it reaches the crowd, then pops', () => {
+  const run = setup(), st = {}, B = U.bolaPlasma, p = run.player;
+  const crowd = [0, 4, -4, 8].map(dy => tank(run, 200, dy)), path = [tank(run, 70, 12), tank(run, 120, -12)];
+  for (let t = 0; t < 10 && !(st.x - p.x > 120 + B.zapR * run.mods.area); t += 0.05) live(run, 'bolaPlasma', st, 0.05);
+  assert.ok(st.on, 'still flying');
+  for (const e of path) assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.zapDmg), 'zapped on the way');
+  live(run, 'bolaPlasma', st, 200 / B.speed);
+  assert.ok(!st.on, 'popped');
+  for (const e of crowd) assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.popDmg), 'the pop landed');
+});
+
+test('Penghakiman Langit: after the warning, the pillars chain on to more enemies than there are pillars', () => {
+  const run = setup(), st = {}, L = U.penghakimanLangit;
+  const es = [];
+  for (let i = 0; i < 10; i++) for (const dy of [-30, 30]) es.push(tank(run, -150 + i * 33, dy));
+  live(run, 'penghakimanLangit', st, L.warn * 0.9);
+  assert.ok(es.every(e => e.hp === e.maxHp), 'warned first');
+  live(run, 'penghakimanLangit', st, L.warn * 0.1 + L.pillars * L.stagger + 0.1);
+  const hit = es.filter(e => e.hp < e.maxHp).length;
+  assert.ok(hit > L.pillars, `${hit} enemies hit by ${L.pillars} pillars`);
+});
+
+test('Pusaran Kristal: the blades keep spraying slowing, piercing shards, and cut what they touch', () => {
+  const run = setup(), st = {}, K = U.pusaranKristal;
+  live(run, 'pusaranKristal', st, 1);
+  assert.ok(run.projectiles.length >= K.n, 'shards out');
+  assert.ok(run.projectiles.every(q => q.slow === K.slow && q.pierce > 0 && q.sprite === 'iceShard_fly'));
+  const n1 = st.sprayed;
+  live(run, 'pusaranKristal', st, 1);
+  assert.ok(st.sprayed > n1, 'still spraying');
+  const R = K.orbitR * run.mods.area, e = tank(run, 0);
+  e.x = run.player.x + Math.cos(st.angle) * R; e.y = run.player.y + Math.sin(st.angle) * R;
+  regrid(run); FUSIONS.pusaranKristal.update(run, st, 0, run.mods, 0.001);
+  assert.ok(e.maxHp - e.hp >= fusionDmg(run, K.dmg), 'cut on contact');
+});
+
+test('Supernova, Bola Plasma, Penghakiman Langit and Pusaran Kristal are real fusions, not placeholders', () => {
+  for (const id of ['supernova', 'bolaPlasma', 'penghakimanLangit', 'pusaranKristal']) assert.ok(!FUSIONS[id].placeholder, id);
 });

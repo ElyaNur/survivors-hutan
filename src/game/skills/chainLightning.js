@@ -30,8 +30,8 @@ export function chainTargets(run, first, jumps, range) {
 }
 
 // One bolt from (fromX, fromY), then every target's position at the strike (the dead don't drag it away).
-// bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir strikes through here too.
-export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
+// bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir and Penghakiman Langit (quiet) strike through here too.
+export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY, quiet = false) {
   const ts = chainTargets(run, first, jumps, range);
   sfx('zap');
   const b = bolts.find(o => o.age >= LIFE) ?? (bolts.push({ xs: [], ys: [] }), bolts[bolts.length - 1]);
@@ -39,7 +39,7 @@ export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
   b.xs[0] = fromX; b.ys[0] = fromY;
   ts.forEach((e, i) => {
     b.xs[i + 1] = e.x; b.ys[i + 1] = e.y;
-    damageEnemy(run, e, dmg, { fromX: b.xs[i], fromY: b.ys[i] });
+    damageEnemy(run, e, dmg, { fromX: b.xs[i], fromY: b.ys[i], quiet });
     run.fx.anim(e.x, e.y, 'fx_lightningHit');
     for (const [c, n, s] of SPARKS) run.fx.burst(e.x, e.y, c, n, s);
   });
