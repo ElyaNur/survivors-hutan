@@ -40,10 +40,15 @@ const TUNING = {
       rotSpeed: { base: 4.0, perLv: 0.4 }, hitCd: 0.5, size: 7, push: 4,   // size: orb hit radius px; push: knockback px
     },
   },
-  ults: {
-    armageddon:   { cd: 25, dur: 4, rate: 6, dmg: 55, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
+  fusions: {
+    hujanNeraka:  { cd: 25, dur: 4, rate: 6, dmg: 55, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
     absoluteZero: { cd: 22, freeze: 4, hitDmg: 40 },                       // hitDmg lands on the fresh ice: x frozenVulnMult (top level)
-    badaiPetir:   { cd: 22, dur: 6, rate: 7, range: 140, dmg: 50, orbBoost: 1.0, jumps: 3, jumpRange: 60 },   // orbs deal x(1 + orbBoost)
+    badaiPetir:   { cd: 22, dur: 6, rate: 7, range: 140, dmg: 50, orbBoost: 1.0, jumps: 3, jumpRange: 60 },   // orbBoost unused now: the orbs are consumed
+    // placeholders until Task 7-10: every cd hits the nearest few enemies within r
+    phoenix:           { cd: 6, dmg: 60, r: 100 }, supernova:      { cd: 6, dmg: 60, r: 100 }, bolaPlasma:    { cd: 6, dmg: 60, r: 100 },
+    cincinMatahari:    { cd: 6, dmg: 60, r: 100 }, kometEs:        { cd: 6, dmg: 60, r: 100 }, gletser:       { cd: 6, dmg: 60, r: 100 },
+    penghakimanLangit: { cd: 6, dmg: 60, r: 100 }, lubangHitam:    { cd: 6, dmg: 60, r: 100 }, pagarKristal:  { cd: 6, dmg: 60, r: 100 },
+    pusaranKristal:    { cd: 6, dmg: 60, r: 100 }, medanStatis:    { cd: 6, dmg: 60, r: 100 }, bentengEs:     { cd: 6, dmg: 60, r: 100 },
   },
   passives: {   // per-level amount
     vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },

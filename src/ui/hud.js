@@ -1,4 +1,4 @@
-// In-run HUD: xp bar, level, timer, kills, hp under the player, build slots, recipe panel, ult banner.
+// In-run HUD: xp bar, level, timer, kills, hp under the player, build slots, fusion banner.
 import { NAMES } from '../data/classes.js';
 import { xpToNext } from '../logic/progression.js';
 import { camera } from '../game/world.js';
@@ -15,11 +15,11 @@ export const formatTime = sec => {
   return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
 };
 
-// One ult at a time: takes the next entry from run.newUlts and shows it for BANNER_T s.
+// One fusion at a time: takes the next {id, first} from run.newFusions and shows it for BANNER_T s.
 export function updateBanner(run, dt) {
   if (run.banner && (run.banner.t += dt) >= BANNER_T) run.banner = null;
-  if (run.banner || !run.newUlts.length) return;
-  run.banner = { id: run.newUlts.shift(), t: 0 };
+  if (run.banner || !run.newFusions.length) return;
+  run.banner = { ...run.newFusions.shift(), t: 0 };
   const fx = run.fx, { shakeUlt, hitstopUlt } = TUNING.fx;   // the unlock lands like a blow
   fx.shake(shakeUlt.px, shakeUlt.dur); fx.hitstop(hitstopUlt);
   fx.anim(run.player.x, run.player.y, 'fx_ultFlash');
@@ -48,21 +48,6 @@ function drawBuild(ctx, run, assets) {
   for (let i = 0; i < SLOTS; i++) slot(ctx, assets, 92 + i * 20, py + 4, ps[i] && 'icon_' + ps[i], passives[ps[i]]);
 }
 
-function drawRecipes(ctx, run, assets) {
-  const { recipes } = run.classDef, { skills, ults } = run.build;
-  const pw = 80, ph = 6 + recipes.length * 24, px = W - 2 - pw, py = H - 2 - ph;
-  assets.drawSlice(ctx, 'panel', px, py, pw, ph, 3);
-  recipes.forEach((r, k) => {
-    const y = py + 4 + k * 24, has = ults.includes(r.ult);
-    const ing = id => 'icon_' + id + (skills[id] ? '' : '_off');
-    slot(ctx, assets, px + 4, y, ing(r.a), skills[r.a]);
-    drawText(ctx, assets, '+', px + 24, y + 7, { color: 'x' });
-    slot(ctx, assets, px + 30, y, ing(r.b), skills[r.b]);
-    drawText(ctx, assets, '→', px + 50, y + 7, { color: has ? 'y' : 'x' });
-    slot(ctx, assets, px + 58, y, 'icon_' + r.ult + (has ? '' : '_off'), 0, has);
-  });
-}
-
 function drawBanner(ctx, run, assets) {
   const { id, t } = run.banner, open = Math.min(1, t / 0.15), alpha = Math.min(1, (BANNER_T - t) / 0.4);
   const cy = 74, h = Math.round(36 * open);
@@ -74,7 +59,7 @@ function drawBanner(ctx, run, assets) {
   const title = `ULTIMATE TERBUKA: ${NAMES[id].name}!`;
   drawText(ctx, assets, title, W / 2 + 10, cy - 12, { color: t < 0.3 && Math.floor(t * 20) % 2 ? 'w' : 'y', align: 'center', scale: 2, alpha });
   drawText(ctx, assets, NAMES[id].desc, W / 2 + 10, cy + 5, { align: 'center', alpha });
-  assets.draw(ctx, 'icon_' + id, W / 2 + 10 - textWidth(title, 2) / 2 - 14, cy - 3, { alpha });   // icon left of the title
+  if (assets.has('icon_' + id)) assets.draw(ctx, 'icon_' + id, W / 2 + 10 - textWidth(title, 2) / 2 - 14, cy - 3, { alpha });   // icon left of the title
 }
 
 const liveBoss = e => !e.dead && e.type in BOSS_NAMES;
@@ -111,7 +96,6 @@ export function drawHud(ctx, run, assets) {
   if (run.ending !== 'lost') drawPlayerHp(ctx, p);         // gone once he has fallen
   drawBossBar(ctx, run, assets);
   drawBuild(ctx, run, assets);
-  drawRecipes(ctx, run, assets);
   if (run.banner) drawBanner(ctx, run, assets);
 }
 

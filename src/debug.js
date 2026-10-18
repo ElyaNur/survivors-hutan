@@ -1,8 +1,7 @@
 // ?debug only: test shortcuts. main.js imports this module only when the URL has ?debug.
-// F1 +60 s  F2 +1 pending level  F3 every owned skill to Lv5  F4 FPS / enemy / particle overlay
+// F1 +60 s  F2 +1 pending level  F4 FPS / enemy / particle overlay  F5 grant the next fusion
 // F6 400 slimes around the mage  F7 invincibility  F8 jump to 19:50
 import { drawText } from './engine/font.js';
-import { newlyUnlocked } from './logic/progression.js';
 
 const SLIMES = 400, JUMP_TO = 19 * 60 + 50;
 
@@ -12,13 +11,13 @@ export function install(game) {
   const actions = {
     F1: () => { game.run.time += 60; },
     F2: () => { game.run.pendingLevelUps++; },
-    F3: () => {
-      const { run } = game;
-      for (const id in run.build.skills) run.build.skills[id] = 5;
-      // same as the real path (chooseCard): unlock the ults this makes possible, and queue their banners
-      for (const u of newlyUnlocked(run.build, run.classDef)) { run.build.ults.push(u); run.newUlts.push(u); }
-    },
     F4: () => { overlayOn = !overlayOn; },
+    F5: () => {                                             // next fusion not owned: ingredients stay, banner queued, nothing persists
+      const { run } = game, f = run.classDef.fusions.find(f => !run.build.fusions.includes(f.id));
+      if (!f) return;
+      run.build.fusions.push(f.id);
+      run.newFusions.push({ id: f.id, first: !run.discovered.has(f.id) });
+    },
     F6: () => {
       const { run } = game, p = run.player;
       for (let i = 0; i < SLIMES; i++) {
@@ -31,7 +30,7 @@ export function install(game) {
   };
 
   addEventListener('keydown', e => {
-    if (!/^F[1-8]$/.test(e.code)) return;
+    if (!/^F[1-9]$/.test(e.code)) return;
     e.preventDefault();                                     // no help page, no reload
     if (!e.repeat) actions[e.code]?.();
   });

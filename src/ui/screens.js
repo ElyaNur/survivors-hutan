@@ -1,7 +1,6 @@
 // Card screens (starter pick, level-up) and the menus (main, class select, records, pause, result).
 import TUNING from '../data/tuning.js';
 import { NAMES } from '../data/classes.js';
-import { recipeTags } from '../logic/progression.js';
 import { drawText, wrapText, textWidth } from '../engine/font.js';
 import { formatTime } from './hud.js';
 import { EMPTY_RECORD } from '../logic/records.js';
@@ -27,11 +26,8 @@ export const cardAt = (rects, x, y) => rects.findIndex(r => x >= r.x && x < r.x 
 export function cardInfo(card, classDef, build) {
   if (card.kind === 'heal') return { icon: 'icon_heal', name: 'Isi HP', desc: `Pulihkan ${TUNING.healCard} HP.`, level: null, tags: [] };
   const n = card.nextLevel, { name, desc } = NAMES[card.id];
-  const tags = card.kind !== 'skill' ? [] : recipeTags(classDef, card.id).map(ult => {
-    const r = classDef.recipes.find(q => q.ult === ult), partner = r.a === card.id ? r.b : r.a;
-    return { text: '★ ' + NAMES[ult].name, unlocks: n === MAX_LV && (build.skills[partner] || 0) >= MAX_LV };   // this pick completes it
-  });
-  return { icon: 'icon_' + card.id, name, desc, level: n === 1 ? 'Baru!' : `Lv ${n - 1}→${n}`, tags };
+  if (card.kind === 'fusion') return { icon: 'icon_' + card.id, name, desc, level: null, tags: [] };   // ponytail: Task 4 rebuilds (hidden until discovered)
+  return { icon: 'icon_' + card.id, name, desc, level: n === 1 ? 'Baru!' : `Lv ${n - 1}→${n}`, tags: [] };   // ponytail: fusion tags come in Task 4
 }
 
 // Keyboard (number keys, arrows/WASD + Enter/Space) and mouse (hover, click) over a set of card rects.
@@ -70,7 +66,7 @@ function drawCard(ctx, assets, info, r, i, picker) {
   const y = r.y + Math.round((1 - ease((t - i * 0.05) / 0.25)) * 18) - (sel ? 2 : 0), x = r.x;   // slide in, lift when selected
   assets.drawSlice(ctx, sel ? 'card_sel' : 'card', x, y, r.w, r.h, 5);
   assets.drawSlice(ctx, sel ? 'slot_lit' : 'slot', x + 7, y + 7, 18, 18, 2);
-  assets.draw(ctx, info.icon, x + 16, y + 16);
+  if (assets.has(info.icon)) assets.draw(ctx, info.icon, x + 16, y + 16);   // ponytail: fusion icons arrive with the art task
   drawText(ctx, assets, info.name, x + 30, y + 9, { color: sel ? 'w' : 'y' });
   if (info.level) drawText(ctx, assets, info.level, x + 30, y + 18, { color: info.level === 'Baru!' ? 'g' : 'c' });
   if (i < 9) drawText(ctx, assets, String(i + 1), x + r.w - 8, y + 7, { color: sel ? 'y' : 'x' });
@@ -279,7 +275,7 @@ export function pauseScreen(assets) {
   };
 }
 
-// res: { won, time, kills, level, ults, newBest }. -> 'again' | 'menu'
+// res: { won, time, kills, level, fusions, newBest }. -> 'again' | 'menu'
 export function resultScreen(assets, res) {
   const ACTIONS = ['again', 'menu'], b = buttons(assets, ['Main lagi', 'Menu'], layoutCards(2, 2, 100, 20, 12, 214), 2);
   let t = 0;
@@ -298,14 +294,14 @@ export function resultScreen(assets, res) {
         drawText(ctx, assets, String(v), px + 112, y, { scale: 2 });
         if (res.newBest.includes(key)) drawText(ctx, assets, 'Rekor baru!', px + 208, y + 3, { color: Math.floor(t * 3) % 2 ? 'w' : 'g', align: 'right' });
       });
-      const uy = py + 12 + 3 * 20;
+      const fusions = res.fusions ?? [], uy = py + 12 + 3 * 20;
       drawText(ctx, assets, 'Ultimate', px + 12, uy + 3, { color: 'x' });
-      if (!res.ults.length) drawText(ctx, assets, '-', px + 112, uy + 3, { color: 'x' });
-      res.ults.forEach((id, n) => {
+      if (!fusions.length) drawText(ctx, assets, '-', px + 112, uy + 3, { color: 'x' });
+      fusions.forEach((id, n) => {
         assets.drawSlice(ctx, 'slot_lit', px + 110 + n * 22, uy - 4, 18, 18, 2);
-        assets.draw(ctx, 'icon_' + id, px + 119 + n * 22, uy + 5);
+        if (assets.has('icon_' + id)) assets.draw(ctx, 'icon_' + id, px + 119 + n * 22, uy + 5);
       });
-      if (res.ults.length) drawText(ctx, assets, res.ults.map(id => NAMES[id].name).join(', '), W / 2, uy + 22, { color: 'y', align: 'center' });
+      if (fusions.length) drawText(ctx, assets, fusions.map(id => NAMES[id].name).join(', '), W / 2, uy + 22, { color: 'y', align: 'center' });
       b.draw(ctx);
     },
   };

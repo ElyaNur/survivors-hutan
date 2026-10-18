@@ -68,7 +68,7 @@ function go(next) {
     const won = run.state === 'won', res = { time: Math.floor(run.endAt ?? run.time), kills: run.kills, level: run.prog.level, won };
     const m = mergeResult(records, classId, res);
     records = m.records; saveRecords(storage, records);
-    screen = resultScreen(assets, { ...res, ults: run.build.ults, newBest: m.newBest });
+    screen = resultScreen(assets, { ...res, fusions: run.build.fusions, newBest: m.newBest });
   } else screen = null;                                   // playing
 }
 go('menu');
