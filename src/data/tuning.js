@@ -103,6 +103,7 @@ const TUNING = {
     magnet: { magnet: 0.25 }, wisdom: { xp: 0.10 }, amplify: { area: 0.08 },
   },
   audio: { master: 0.3, minGap: 0.04, maxVoices: 12, detuneCents: 50 },   // master: output gain; minGap: s between plays of one name; detune: +-cents per play
+  touch: { stickR: 24, deadzone: 0.15, alpha: 0.45, pause: { right: 22, y: 20, size: 18, pad: 8 } },   // stickR: internal px of drag for full speed; deadzone: share of stickR; alpha: stick opacity; pause: button left edge `right` px in from the view's right edge, top y, + size, tap slack px around it
   healCard: 20,
   endDelay: { won: 2, lost: 1.5 },   // s from the treant's death / the mage's to the result
   drops: {

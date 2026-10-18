@@ -5,7 +5,7 @@ import { damageEnemy } from '../../enemies.js';
 import { sfx } from '../../../engine/audio.js';
 import { fusionDmg, ready, overlay } from './index.js';
 
-const F = TUNING.fusions, FX = TUNING.fx, W = 480, H = 270;
+const F = TUNING.fusions, FX = TUNING.fx;
 
 // ---- Absolute Zero: every enemy in view freezes and turns brittle (takes frozenVulnMult x damage) for `freeze` s,
 // and takes the blast. An ice wave rushes out of the mage across the screen; what dies on the ice shatters (enemies.js).
@@ -43,7 +43,7 @@ export default {
       const n = Math.ceil(2 * Math.PI * R / (back > 8 ? 4 : s));   // the trailing frost ring is dotted
       for (let i = 0; i < n; i++) {
         const a = i / n * 2 * Math.PI, x = Math.round(cx + Math.cos(a) * R), y = Math.round(cy + Math.sin(a) * R);
-        if (x > -s && y > -s && x < W && y < H) ctx.fillRect(x, y, s, s);
+        if (x > -s && y > -s && x < cam.w && y < cam.h) ctx.fillRect(x, y, s, s);
       }
     }
     ctx.globalAlpha = 1;

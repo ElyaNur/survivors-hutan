@@ -5,6 +5,7 @@
 // Import fusions through this file (the fusion modules import these helpers back, same cycle trick as skills/index.js).
 import '../index.js';                                        // enter the skill cycle through the registry first
 import TUNING from '../../../data/tuning.js';
+import { VIEW } from '../../../engine/view.js';
 import hujanNeraka from './hujanNeraka.js';
 import absoluteZero from './absoluteZero.js';
 import badaiPetir from './badaiPetir.js';
@@ -21,7 +22,7 @@ import pusaranKristal from './pusaranKristal.js';
 import medanStatis from './medanStatis.js';
 import bentengEs from './bentengEs.js';
 
-const W = 480, H = 270, PAD = 8;                            // overlays overfill the view by PAD (shake)
+const PAD = 8;                            // overlays overfill the view by PAD (shake)
 
 // Fusion damage grows with the enemies' hp, so a fusion found at minute 7 still bites at minute 18. Whole numbers, like every hit.
 export function fusionDmg(run, base) { return Math.round(base * TUNING.fusionDmgMult * (1 + TUNING.enemyHpGrowthPerMin * Math.floor(run.time / 60))); }
@@ -34,10 +35,10 @@ export function ready(st, cd, mods, dt) {
 }
 // 0..1..0 over a cast that lasts dur: fades in and out over `fade` s.
 export function envelope(t, dur, fade) { return Math.max(0, Math.min(1, t / fade, (dur - t) / fade)); }
-export function overlay(ctx, color, alpha, h = H, blend = 'source-over') {
+export function overlay(ctx, color, alpha, h = VIEW.h, blend = 'source-over') {
   if (alpha <= 0) return;
   ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.globalCompositeOperation = blend;
-  ctx.fillRect(-PAD, -PAD, W + 2 * PAD, h + PAD);
+  ctx.fillRect(-PAD, -PAD, VIEW.w + 2 * PAD, h + PAD);
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
 }
 
