@@ -17,3 +17,12 @@ test('frame time carries over between frames without dropping a step', () => {
   now = 20; cb(now);                            // a short frame: time banked, no step yet
   now = 2000 / 60; cb(now); assert.equal(updates, 2);
 });
+test('a throwing update does not stop the loop: the next frame is already scheduled', () => {
+  let now = 0, cb, scheduled = 0;
+  globalThis.requestAnimationFrame = f => { cb = f; scheduled++; };
+  performance.now = () => now;
+  startLoop(() => { throw new Error('boom'); }, () => {});
+  assert.equal(scheduled, 1);
+  now = 1000 / 60; assert.throws(() => cb(now), /boom/);
+  assert.equal(scheduled, 2);
+});

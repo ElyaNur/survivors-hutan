@@ -170,8 +170,9 @@ export function updateEnemies(run, dt) {
       if (!e.inRange || sf === 0) e.shotAt = Math.max(e.shotAt, now + CAST_LEAD);   // re-entering range: wind up first
       else if (now >= e.shotAt) { fire(run, e, def); e.shotAt = now + def.shotEvery; }
     } else if (e.type === 'orcChief') {                     // walk, then (on screen) windup 0.8 s -> straight charge
+      if (sf === 0) { e.stateUntil += dt; e.nextAt += dt; }   // frozen: his clocks stop too (no unseen charge on thaw)
       if (e.state === 'walk') {
-        if (now >= e.nextAt && d < def.chargeRange) {        // aim locks now: the telegraph shows the exact lane
+        if (sf > 0 && now >= e.nextAt && d < def.chargeRange) {        // aim locks now: the telegraph shows the exact lane
           e.state = 'windup'; e.stateUntil = now + def.chargeWindup; e.nextAt = now + def.chargeEvery;
           e.dirX = ux; e.dirY = uy; e.facing = ux < 0 ? -1 : 1;
         }
@@ -269,12 +270,13 @@ export function drawEnemy(ctx, assets, e, cam, tMs, now) {
 
 // Ground level, under the actors: the orc chief's charge lane while he winds up. It covers exactly the path his
 // body will sweep (width 2r, length speed x duration), fills up as the charge nears and blinks its edges.
+export const chargeLane = (e, def = e.def) => Math.round(def.chargeSpeed * def.chargeDur + e.r);   // centre travel + his body in front
 const LANE = { fill: '#e2585e', edge: '#ff9f9a', edgeDim: '#a3324a', chevron: '#fff1a8' };   // palette r i R y
 export function drawTelegraphs(ctx, run, cam) {
   const now = run.time;
   for (const e of run.enemies) {
     if (e.dead || e.state !== 'windup') continue;
-    const def = e.def, L = Math.round(def.chargeSpeed * def.chargeDur), w = Math.round(e.r);
+    const def = e.def, L = chargeLane(e, def), w = Math.round(e.r);
     const k = Math.min(1, 1 - (e.stateUntil - now) / def.chargeWindup), blink = Math.floor(now * 10) % 2 === 0;
     ctx.save();
     ctx.translate(Math.round(e.x - cam.x), Math.round(e.y - cam.y)); ctx.rotate(Math.atan2(e.dirY, e.dirX));

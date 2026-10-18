@@ -1,7 +1,7 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
 import TUNING from '../src/data/tuning.js';
 import { createRun, updateRun } from '../src/game/run.js';
-import { spawnEnemy, damageEnemy, updateEnemies } from '../src/game/enemies.js';
+import { spawnEnemy, damageEnemy, updateEnemies, chargeLane } from '../src/game/enemies.js';
 import { updateProjectiles } from '../src/game/projectiles.js';
 import { createRng } from '../src/logic/rng.js';
 import { createSpawner, spawnerUpdate } from '../src/logic/spawner.js';
@@ -153,4 +153,25 @@ test('chests are never magnetised: one inside the magnet radius stays put until 
   c.x = p.x + TUNING.drops.chestReach - 2;
   updateRun(run, 0.1, noInput);
   assert.equal(run.pendingLevelUps, 1);
+});
+
+test('orcChief: frozen, his charge clocks stop (no windup started, none finished, no unseen charge on thaw)', () => {
+  const dt = 1 / 60;
+  const a = setup('orcChief'); a.run.time = a.e.nextAt - 0.05; a.e.frozenUntil = a.run.time + 20;   // frozen just before he would wind up
+  const gap = a.e.nextAt - a.run.time;
+  for (let i = 0; i < 450; i++) { a.run.time += dt; updateEnemies(a.run, dt); }
+  assert.equal(a.e.state, 'walk');
+  assert.ok(Math.abs((a.e.nextAt - a.run.time) - gap) < 1e-6, 'nextAt keeps its distance from now');
+
+  const b = setup('orcChief'); b.run.time = b.e.nextAt; updateEnemies(b.run, dt);                  // mid-windup...
+  assert.equal(b.e.state, 'windup');
+  b.e.frozenUntil = b.run.time + 20; const left = b.e.stateUntil - b.run.time;
+  for (let i = 0; i < 450; i++) { b.run.time += dt; updateEnemies(b.run, dt); }                     // ...frozen far longer than the windup
+  assert.equal(b.e.state, 'windup');
+  assert.ok(Math.abs((b.e.stateUntil - b.run.time) - left) < 1e-6, 'the windup has the same time left');
+});
+
+test('orcChief: the drawn charge lane reaches as far as his body does (centre travel + radius)', () => {
+  const { e } = setup('orcChief'), def = T.orcChief;
+  assert.equal(chargeLane(e), Math.round(def.chargeSpeed * def.chargeDur + e.r));
 });

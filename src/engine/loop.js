@@ -9,11 +9,11 @@ export function stepClock(acc, frameDt, step = 1 / 60, maxFrame = 0.1) {
 export function startLoop(update, draw) {
   let acc = 0, last = performance.now();
   function frame(now) {
+    requestAnimationFrame(frame);                            // first: one bad frame must not freeze the game for good
     const dt = (now - last) / 1000; last = now;
     const r = stepClock(acc, dt); acc = r.acc;
     for (let i = 0; i < r.steps; i++) update(1 / 60);
     draw();
-    requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }

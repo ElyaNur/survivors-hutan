@@ -41,10 +41,13 @@ export function shouldPlay(name, now, th = shared) {
 let ctx = null, master = null, noiseBuf = null, detune = 0;
 
 function unlock() {
-  if (ctx) return;
+  if (ctx) { if (ctx.state !== 'running') ctx.resume?.(); return; }   // a first key that wasn't a real gesture leaves it suspended: retry on every later one
   try {
     ctx = new AudioContext();
-    master = ctx.createGain(); master.gain.value = A.master; master.connect(ctx.destination);
+    master = ctx.createGain(); master.gain.value = A.master;
+    const lim = ctx.createDynamicsCompressor();                      // limiter-ish: stacked voices squash instead of clipping
+    lim.threshold.value = -10; lim.knee.value = 6; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.25;
+    master.connect(lim); lim.connect(ctx.destination);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);   // one second of white noise, shared by every voice
     const d = noiseBuf.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -77,7 +80,7 @@ function tone(t, type, f0, f1, dur, vol, attack, out) {
 // Filtered noise, cutoff gliding f0 -> f1.
 function noise(t, dur, vol, kind, f0, f1, q = 1, attack) {
   const s = ctx.createBufferSource(), f = ctx.createBiquadFilter();
-  s.buffer = noiseBuf; s.playbackRate.value = 1 + detune / 1200;
+  s.buffer = noiseBuf; s.loop = true; s.playbackRate.value = 1 + detune / 1200;
   f.type = kind; f.Q.value = q;
   f.frequency.setValueAtTime(f0, t);
   if (f1 !== f0) f.frequency.exponentialRampToValueAtTime(f1, t + dur);
