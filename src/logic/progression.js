@@ -4,7 +4,7 @@ import { PASSIVES } from '../data/classes.js';
 export const MAX_LV = 5, MAX_SLOTS = 4;
 
 export function xpToNext(level) {
-  const { base, step1, step2, step3 } = TUNING.xp;   // base + step1*(l-1) (10/level) | then step2 (70/level) from l20 | step3 (160/level) from l40
+  const { base, step1, step2, step3 } = TUNING.xp;   // base + step1*(l-1) (10/level) | then step2 (40/level) from l20 | step3 (160/level) from l40
   if (level < 20) return base + step1 * (level - 1);
   if (level < 40) return base + step1 * 18 + step2 * (level - 19);
   return base + step1 * 18 + step2 * 20 + step3 * (level - 39);

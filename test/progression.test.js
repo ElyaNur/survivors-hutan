@@ -8,7 +8,7 @@ const maxed = ids => Object.fromEntries(ids.map(i => [i, 5]));
 
 test('xp curve', () => {
 assert.equal(xpToNext(1), 5); assert.equal(xpToNext(2), 15); assert.equal(xpToNext(19), 185);
-  assert.equal(xpToNext(20), 255); assert.equal(xpToNext(40), 1745);
+  assert.equal(xpToNext(20), 225); assert.equal(xpToNext(40), 1145);
 });
 test('gainXp handles multi-level and carries remainder', () => {
   const p = { level: 1, xp: 0 };
