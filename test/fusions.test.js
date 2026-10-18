@@ -168,9 +168,10 @@ const regrid = run => { run.grid.clear(); for (const e of run.enemies) run.grid.
 const step = (run, id, st, secs, dt = 0.05) => { for (let t = 0; t < secs - 1e-9; t += dt) { regrid(run); FUSIONS[id].update(run, st, 0, run.mods, dt); } };
 
 test('Lubang Hitam drags an enemy in for pull s, then collapses with a fusionDmg blast', () => {
-  const run = setup(), st = {}, L = U.lubangHitam;
-  FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);    // opens at once (empty view: on the mage)
-  const e = tank(run, 0); e.x = st.x + 40; e.y = st.y;
+  const run = setup(), st = {}, L = U.lubangHitam, e = tank(run, 60);
+  FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);    // opens at once, on the crowd of one
+  assert.equal(st.on, true);
+  e.x = st.x + 40; e.y = st.y;
   step(run, 'lubangHitam', st, 0.5);
   assert.ok(Math.hypot(e.x - st.x, e.y - st.y) < 40, 'pulled closer');
   const before = e.maxHp - e.hp;
@@ -190,10 +191,20 @@ test('Cincin Matahari: the suns launch fireballs, and a sun burns what it touche
 
 test('Lubang Hitam keeps one hole at a time: a cd that runs out mid-pull does not reopen it', () => {
   const run = setup(), st = {};
+  tank(run, 60);
   FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);
   st.cd = -1;                                               // as if the cd were shorter than the pull
   step(run, 'lubangHitam', st, 0.5);
   assert.ok(Math.abs(st.t - 0.5) < 1e-6, 'the open hole kept its clock');
+});
+
+test('Lubang Hitam stays charged while the view is empty, then opens on the first crowd in view', () => {
+  const run = setup(), st = {};
+  for (let t = 0; t < U.lubangHitam.cd * 2; t += 0.05) { step(run, 'lubangHitam', st, 0.05); assert.ok(!st.on, 'no hole on an empty screen'); }
+  const e = tank(run, 80);
+  step(run, 'lubangHitam', st, 0.05);
+  assert.equal(st.on, true, 'opens at once: the cd was kept');
+  assert.ok(Math.hypot(st.x - e.x, st.y - e.y) < 32, 'on the crowd');
 });
 
 import { drawRun } from '../src/game/run.js';

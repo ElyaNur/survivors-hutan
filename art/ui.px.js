@@ -13,7 +13,7 @@ const EXTRA = {
   "★": "..#..\n#####\n.###.\n.#.#.\n#...#",     // star
   "→": "..#..\n...#.\n#####\n...#.\n..#..",     // right arrow
 }
-const COLORS = { y: "Y", r: "r", g: "g", x: "x", c: "c" }   // variant suffix -> ink key (base is white)
+const COLORS = { y: "Y", r: "r", g: "g", x: "x", c: "c", l: "l" }   // variant suffix -> ink key (base is white); l: lavender, fusion lines
 const chars = []
 for (let c = 32; c <= 126; c++) chars.push(String.fromCharCode(c))
 chars.push("★", "→")

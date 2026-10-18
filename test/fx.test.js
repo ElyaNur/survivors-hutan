@@ -41,6 +41,16 @@ test('hitstop freezes then releases', () => {
   fx.hitstop(0.05); assert.equal(fx.frozen(), true);
   fx.update(0.06); assert.equal(fx.frozen(), false);
 });
+test('small hitstops keep a min gap (hitstopGap); bigger ones (boss, ult, win, or forced) always land', () => {
+  const fx = createFx(), G = TUNING.fx.hitstopGap, dt = 1 / 60;
+  let stops = 0, was = false;
+  for (let t = 0; t < 5; t += dt) { fx.hitstop(TUNING.fx.hitstopBig); if (fx.frozen() && !was) stops++; was = fx.frozen(); fx.update(dt); }   // asked every frame
+  assert.ok(stops >= 2 && stops <= 5 / G + 1, `${stops} hitstops in 5 s`);
+  fx.hitstop(TUNING.fx.hitstopBig); assert.equal(fx.frozen(), false, 'a small one inside the gap is refused');
+  fx.hitstop(TUNING.fx.hitstopUlt); assert.equal(fx.frozen(), true, 'a bigger one is not');
+  fx.update(TUNING.fx.hitstopUlt + dt);
+  fx.hitstop(TUNING.fx.hitstopBig, true); assert.equal(fx.frozen(), true, 'forced (boss kill)');
+});
 const stubCtx = calls => new Proxy({ canvas: { width: 480, height: 270 } }, {
   get: (t, k) => k in t ? t[k] : (k === 'fillRect' ? () => { calls.rect++; } : () => {}),
   set: (t, k, v) => { calls.set.push(k); t[k] = v; return true; },

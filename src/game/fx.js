@@ -14,7 +14,7 @@ export function createFx(assets) {
   const anims = pool(MAX_ANIMS, () => ({ life: 0, age: 0, x: 0, y: 0, name: '', scale: 1 }));
   let pi = 0, ni = 0, ai = 0;
   let shakePx = 0, shakeDur = 0, shakeLeft = 0, hitLeft = 0;
-  let flashColor = '#fff', flashDur = 0, flashLeft = 0, clock = 0, flashAt = -Infinity;
+  let flashColor = '#fff', flashDur = 0, flashLeft = 0, clock = 0, flashAt = -Infinity, hitAt = -Infinity;
   const off = { x: 0, y: 0 }, topt = { color: 'w', align: 'center', alpha: 1 };   // topt reused: no per-number allocation
   // Every full-screen flash (flashScreen, Badai Petir's lightning) shares one budget: at most one per TUNING.fx.flashGap s (photosensitivity).
   const tryFlash = () => { if (clock - flashAt < TUNING.fx.flashGap) return false; flashAt = clock; return true; };
@@ -23,7 +23,12 @@ export function createFx(assets) {
 
   const fx = {
     shake(px, dur) { if (px >= amp()) { shakePx = px; shakeDur = dur; shakeLeft = dur; } },
-    hitstop(sec) { if (sec > hitLeft) hitLeft = sec; },
+    // Small hitstops (<= hitstopBig) keep TUNING.fx.hitstopGap s apart, or a busy build stutters; bigger ones (ult, win) and
+    // `always` (a boss falls) land regardless. The world is frozen, not slowed: game time is unchanged either way.
+    hitstop(sec, always = sec > TUNING.fx.hitstopBig) {
+      if (sec <= hitLeft || (!always && clock - hitAt < TUNING.fx.hitstopGap)) return;
+      hitLeft = sec; hitAt = clock;
+    },
     number(x, y, value, color = 'w') {
       const n = nums[ni]; ni = (ni + 1) % nums.length;
       n.life = NUM_LIFE; n.x = x; n.y = y; n.text = String(value); n.color = color;

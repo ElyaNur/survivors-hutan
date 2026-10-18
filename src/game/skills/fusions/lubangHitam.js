@@ -5,7 +5,7 @@ import TUNING from '../../../data/tuning.js';
 import { camera } from '../../world.js';
 import { damageEnemy } from '../../enemies.js';
 import { drawHalo } from '../../projectiles.js';
-import { densestPoint } from '../index.js';
+import { densestCell } from '../index.js';
 import { sfx } from '../../../engine/audio.js';
 import { fusionDmg, ready } from './index.js';
 
@@ -56,7 +56,8 @@ export default {
     if (st.on && (st.t += dt) >= L.pull) { collapse(run, st); st.on = false; }
     else if (st.on) pull(run, st, dt);
     if (st.on || !ready(st, L.cd, mods, dt)) return;       // one hole at a time: the cd runs from the collapse
-    const q = densestPoint(run, camera(run.player));
+    const q = densestCell(run, camera(run.player));
+    if (!q) { st.cd = 0; return; }                          // stays charged until a crowd is in view
     st.on = true; st.t = 0; st.tickIn = L.tickEvery; st.x = q.x; st.y = q.y; st.r = L.r * mods.area;
     sfx('lubangHitam');
     run.fx.shake(FX.shakeMeteor.px, FX.shakeMeteor.dur);

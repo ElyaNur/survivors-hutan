@@ -54,9 +54,6 @@ export function densestCell(run, view, avoid = [], minD = 0) {
   return bestN ? { x: bx, y: by } : null;
 }
 
-// densestCell, or the player position when the view is empty.
-export const densestPoint = (run, view) => densestCell(run, view) ?? { x: run.player.x, y: run.player.y };
-
 // Uniform pick among on-screen enemies (reservoir sampling: no list built), or null.
 export function randomOnScreenEnemy(run, rng) {
   const v = camera(run.player);

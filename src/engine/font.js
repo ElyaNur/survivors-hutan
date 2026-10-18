@@ -23,7 +23,7 @@ export function wrapText(str, maxW) {
 }
 
 const opt = { alpha: 1 };                                    // reused: no per-glyph allocation
-// color: 'w' (white) | 'y' | 'r' | 'g' | 'x' (grey) | 'c' (ice). Chars outside the sheet draw as '?'.
+// color: 'w' (white) | 'y' | 'r' | 'g' | 'x' (grey) | 'c' (ice) | 'l' (lavender). Chars outside the sheet draw as '?'.
 export function drawText(ctx, assets, str, x, y, { color = 'w', align = 'left', scale = 1, alpha = 1 } = {}) {
   str = String(str);
   if (align !== 'left') x -= textWidth(str, scale) / (align === 'center' ? 2 : 1);

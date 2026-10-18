@@ -77,7 +77,7 @@ function drawCard(ctx, assets, info, r, i, picker) {
   assets.drawSlice(ctx, sel ? 'slot_lit' : 'slot', x + 7, y + 7, 18, 18, 2);
   assets.draw(ctx, info.icon, x + 16, y + 16);
   drawText(ctx, assets, info.name, x + 30, y + 9, { color: sel ? 'w' : 'y' });
-  if (info.level) drawText(ctx, assets, info.level, x + 30, y + 18, { color: info.level === 'Baru!' ? 'g' : info.level === 'Fusion!' ? 'y' : 'c' });
+  if (info.level) drawText(ctx, assets, info.level, x + 30, y + 18, { color: info.level === 'Baru!' ? 'g' : info.level === 'Fusion!' ? 'l' : 'c' });   // fusion line in lavender: never the name's gold
   if (i < 9) drawText(ctx, assets, String(i + 1), x + r.w - 8, y + 7, { color: sel ? 'y' : 'x' });
   wrapText(info.desc, r.w - 16).forEach((line, k) => drawText(ctx, assets, line, x + 8, y + 32 + k * 8, { color: sel ? 'w' : 'x' }));
   info.tags.forEach((tag, k) => {
@@ -98,7 +98,7 @@ function cardScreen(assets, infos, rects, cols, { title, sub, hint }) {
       if (sub) drawText(ctx, assets, sub, W / 2, ty + 14, { color: 'x', align: 'center' });
       infos.forEach((info, i) => drawCard(ctx, assets, info, rects[i], i, picker));
       const last = rects[rects.length - 1];
-      drawText(ctx, assets, hint, W / 2, last.y + last.h + 8, { color: 'x', align: 'center' });
+      drawText(ctx, assets, hint, W / 2, last.y + last.h + 12, { color: 'x', align: 'center' });   // clear of the bottom row's frames
     },
   };
 }
