@@ -1,5 +1,5 @@
 // ?debug only: test shortcuts. main.js imports this module only when the URL has ?debug.
-// F1 +60 s  F2 +1 pending level  F4 FPS / enemy / particle overlay  F5 grant the next fusion
+// F1 +60 s  F2 +1 pending level  F3 every owned skill to Lv5  F4 FPS / enemy / particle overlay  F5 grant the next fusion
 // F6 400 slimes around the mage  F7 invincibility  F8 jump to 19:50  F9 forget all discoveries
 import { drawText } from './engine/font.js';
 
@@ -11,6 +11,7 @@ export function install(game) {
   const actions = {
     F1: () => { game.run.time += 60; },
     F2: () => { game.run.pendingLevelUps++; },
+    F3: () => { for (const id in game.run.build.skills) game.run.build.skills[id] = 5; },
     F4: () => { overlayOn = !overlayOn; },
     F5: () => {                                             // next fusion not owned: ingredients stay, banner queued, nothing persists
       const { run } = game, f = run.classDef.fusions.find(f => !run.build.fusions.includes(f.id));
