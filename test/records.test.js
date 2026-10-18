@@ -1,5 +1,5 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
-import { loadRecords, saveRecords, mergeResult, RECORDS_KEY } from '../src/logic/records.js';
+import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet, RECORDS_KEY } from '../src/logic/records.js';
 
 const throwing = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
 const memory = (init = {}) => { const m = { ...init }; return { getItem: k => m[k] ?? null, setItem: (k, v) => { m[k] = String(v); }, m }; };
@@ -48,3 +48,33 @@ test('a won result adds a win and keeps other classes', () => {
   assert.deepEqual(records.archer, rec.archer);
   assert.equal(rec.mage.wins, 2);
 });
+
+test('recordFusion counts each pick and leaves its input alone', () => {
+  const r0 = {}, r1 = recordFusion(r0, 'mage', 'gletser'), r2 = recordFusion(r1, 'mage', 'gletser');
+  assert.deepEqual(r0, {});
+  assert.equal(r1.mage.fusions.gletser.made, 1);
+  assert.equal(r2.mage.fusions.gletser.made, 2);
+  assert.equal(r2.mage.fusions.gletser.wins, 0);
+});
+
+test('a v1 record has no discoveries and keeps its bests when a fusion is recorded', () => {
+  const v1 = { mage: { bestTime: 300, bestKills: 50, bestLevel: 10, wins: 1 } };
+  assert.equal(discoveredSet(v1, 'mage').size, 0);
+  assert.deepEqual(recordFusion(v1, 'mage', 'gletser').mage, { ...v1.mage, fusions: { gletser: { made: 1, wins: 0 } } });
+});
+
+test('discoveredSet lists made > 0 and shrugs off corrupt data', () => {
+  assert.deepEqual([...discoveredSet({ mage: { fusions: { a: { made: 2 }, b: { made: 0 } } } }, 'mage')], ['a']);
+  for (const fusions of ['x', [1], null, { lubangHitam: { made: 'a' } }, { z: null }])
+    assert.equal(discoveredSet({ mage: { fusions } }, 'mage').size, 0);
+  assert.equal(discoveredSet({}, 'mage').size, 0);
+});
+
+test('mergeResult: fusions get a win only on a won run', () => {
+  const rec = recordFusion({}, 'mage', 'lubangHitam'), res = { time: 1, kills: 1, level: 1, fusions: ['lubangHitam'] };
+  assert.equal(mergeResult(rec, 'mage', { ...res, won: true }).records.mage.fusions.lubangHitam.wins, 1);
+  assert.equal(mergeResult(rec, 'mage', { ...res, won: false }).records.mage.fusions.lubangHitam.wins, 0);
+});
+
+test('saving a fresh fusion record on a throwing storage does not throw', () =>
+  assert.doesNotThrow(() => saveRecords(throwing, recordFusion({}, 'mage', 'gletser'))));

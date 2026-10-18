@@ -8,7 +8,7 @@ import { CLASSES } from './data/classes.js';
 import { drawHud, updateBanner } from './ui/hud.js';
 import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, pauseScreen, resultScreen } from './ui/screens.js';
 import { sfx, isMuted, setMuted } from './engine/audio.js';
-import { loadRecords, saveRecords, mergeResult } from './logic/records.js';
+import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet } from './logic/records.js';
 
 const W = 480, H = 270;
 const canvas = document.getElementById('game');
@@ -66,9 +66,9 @@ function go(next) {
   else if (next === 'paused') screen = pauseScreen(assets);
   else if (next === 'result') {
     const won = run.state === 'won', res = { time: Math.floor(run.endAt ?? run.time), kills: run.kills, level: run.prog.level, won };
-    const m = mergeResult(records, classId, res);
+    const m = mergeResult(records, classId, { ...res, fusions: run.build.fusions });
     records = m.records; saveRecords(storage, records);
-    screen = resultScreen(assets, { ...res, fusions: run.build.fusions, newBest: m.newBest });
+    screen = resultScreen(assets, { ...res, fusions: run.build.fusions, found: run.found, newBest: m.newBest });
   } else screen = null;                                   // playing
 }
 go('menu');
@@ -77,14 +77,23 @@ const ACT = {
   menu: a => a === 'play' ? go('classSelect') : a === 'records' ? go('records') : toggleMute(),
   classSelect: a => a === 'back' ? go('menu') : (classId = a, go('starterPick')),
   records: () => go('menu'),
-  starterPick: id => { run = createRun(classId, id, Date.now(), assets); go('playing'); },
-  levelup: card => { chooseCard(run, card); go(run.state === 'levelup' ? 'levelup' : 'playing'); },   // a fresh screen per pending level
+  starterPick: id => { run = createRun(classId, id, Date.now(), assets, discoveredSet(records, classId)); go('playing'); },
+  levelup: card => {
+    if (card.kind === 'fusion') { records = recordFusion(records, classId, card.id); saveRecords(storage, records); }   // discovered forever, before the run can end
+    chooseCard(run, card); go(run.state === 'levelup' ? 'levelup' : 'playing');   // a fresh screen per pending level
+  },
   paused: a => { if (a === 'forfeit') run.player.hp = 0; go('playing'); },   // forfeit: he falls like any death, then the result
   result: a => go(a === 'again' ? 'starterPick' : 'menu'),
 };
 
 // What ?debug (src/debug.js) may touch. The run is replaced on each new run, hence the getter.
-const game = { get run() { return run; }, assets, spawnEnemy, overlays: [] };
+const game = {
+  get run() { return run; }, assets, spawnEnemy, overlays: [],
+  clearDiscoveries() {                                    // ?debug F9: forget every fusion of this class, cards go back to "???"
+    records = { ...records, [classId]: { ...records[classId], fusions: {} } }; saveRecords(storage, records);
+    run.discovered.clear();
+  },
+};
 if (new URLSearchParams(location.search).has('debug')) import('./debug.js').then(m => m.install(game)).catch(() => {});
 
 initInput(canvas);

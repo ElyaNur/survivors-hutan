@@ -1,6 +1,6 @@
 // ?debug only: test shortcuts. main.js imports this module only when the URL has ?debug.
 // F1 +60 s  F2 +1 pending level  F4 FPS / enemy / particle overlay  F5 grant the next fusion
-// F6 400 slimes around the mage  F7 invincibility  F8 jump to 19:50
+// F6 400 slimes around the mage  F7 invincibility  F8 jump to 19:50  F9 forget all discoveries
 import { drawText } from './engine/font.js';
 
 const SLIMES = 400, JUMP_TO = 19 * 60 + 50;
@@ -27,6 +27,7 @@ export function install(game) {
     },
     F7: () => { game.run.godMode = !game.run.godMode; },   // per run: a new run starts mortal again
     F8: () => { game.run.time = JUMP_TO; },
+    F9: () => game.clearDiscoveries(),
   };
 
   addEventListener('keydown', e => {
