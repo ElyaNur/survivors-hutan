@@ -4,6 +4,7 @@ import { xpToNext, fusionFor } from '../logic/progression.js';
 import { camera } from '../game/world.js';
 import { drawText, textWidth } from '../engine/font.js';
 import TUNING from '../data/tuning.js';
+import { VIEW } from '../engine/view.js';
 
 const W = 480, H = 270, SLOTS = 4, MAX_LV = 5, BANNER_T = 2.5, BANNER_X = 24, BANNER_EDGE = 8;   // ult_banner: 9-slice edge px
 const C = { k: '#1d1a2f', K: '#6b1c33', r: '#e2585e', i: '#ff9f9a', R: '#a3324a', b: '#4aa8e0', s: '#8fd3f5', B: '#2f6fc4', Y: '#ffd23f', y: '#fff1a8', Z: '#463a72' };
@@ -139,8 +140,12 @@ function drawPlayerHp(ctx, p) {
 }
 
 // ---- Touch: the pause button (top right, under the kills) and the stick while a finger holds it.
+export const pauseRect = () => {
+  const { right, y, size } = TUNING.touch.pause;
+  return { x: VIEW.w - right, y, w: size, h: size };
+};
 export const pauseHit = m => {
-  const { x, y, size, pad } = TUNING.touch.pause;
+  const { x, y, w: size } = pauseRect(), { pad } = TUNING.touch.pause;
   return m.x >= x - pad && m.x < x + size + pad && m.y >= y - pad && m.y < y + size + pad;
 };
 
@@ -160,7 +165,7 @@ function disc(name, r, px) {
 }
 
 export function drawTouch(ctx, assets, input) {
-  const { stickR: R, alpha, pause: b } = TUNING.touch;
+  const { stickR: R, alpha } = TUNING.touch, b = pauseRect();
   slot(ctx, assets, b.x, b.y, null);
   ctx.fillStyle = C.y; ctx.fillRect(b.x + 6, b.y + 5, 2, 8); ctx.fillRect(b.x + 10, b.y + 5, 2, 8);
   const s = input.stick;

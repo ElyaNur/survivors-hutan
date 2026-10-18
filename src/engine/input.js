@@ -1,7 +1,9 @@
-// Keyboard + pointer (mouse, touch, pen). Pointer coords are mapped into the internal 480x270 space.
+// Keyboard + pointer (mouse, touch, pen). Pointer coords are mapped into the internal view space (VIEW, 480x270 or 270x480).
+// Pointer events sit on window: in portrait the canvas is letterboxed, and a finger on a black bar must still steer.
 // Pointer events only, no mouse/touch listeners: a tap arrives once, never again as a synthetic mousedown.
 // A touch anywhere also spawns the virtual stick there; while it is held, moveVector() comes from it.
 import TUNING from '../data/tuning.js';
+import { VIEW } from './view.js';
 
 const keys = new Set(), taps = new Set();
 
@@ -39,21 +41,22 @@ export function initInput(canvas) {
     const r = canvas.getBoundingClientRect();
     return { x: (e.clientX - r.left) * canvas.width / r.width, y: (e.clientY - r.top) * canvas.height / r.height };
   };
-  canvas.addEventListener('pointermove', e => {
+  addEventListener('pointermove', e => {
     const p = toInternal(e);
     Object.assign(input.mouse, p);
     if (input.stick?.id === e.pointerId) Object.assign(input.stick, p);
   });
-  canvas.addEventListener('pointerdown', e => {
+  addEventListener('pointerdown', e => {
     const p = toInternal(e);
-    Object.assign(input.mouse, p); input.mouse.clicked = true;
+    Object.assign(input.mouse, p);
+    input.mouse.clicked = p.x >= 0 && p.x < VIEW.w && p.y >= 0 && p.y < VIEW.h;   // a tap on a bar picks nothing
     if (e.pointerType !== 'touch') return;               // mouse: default kept, a click must still focus an embedding iframe
     e.preventDefault();
     input.touched = true;
     if (!input.stick) input.stick = { id: e.pointerId, ox: p.x, oy: p.y, ...p };   // first finger steers; others only tap
   });
   const release = e => { if (input.stick?.id === e.pointerId) input.stick = null; };
-  canvas.addEventListener('pointerup', release);
-  canvas.addEventListener('pointercancel', release);
+  addEventListener('pointerup', release);
+  addEventListener('pointercancel', release);
   canvas.addEventListener('contextmenu', e => e.preventDefault());   // long press: no menu over the game
 }

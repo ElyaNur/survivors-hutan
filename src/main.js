@@ -8,19 +8,22 @@ import { CLASSES } from './data/classes.js';
 import { drawHud, updateBanner, drawTouch, pauseHit } from './ui/hud.js';
 import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen } from './ui/screens.js';
 import { sfx, isMuted, setMuted } from './engine/audio.js';
+import { VIEW, setPortrait } from './engine/view.js';
 import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet } from './logic/records.js';
 
-const W = 480, H = 270;
+// Picked once at load: portrait 270x480 on touch devices (or ?portrait), else landscape 480x270. Before anything reads VIEW.
+setPortrait(new URLSearchParams(location.search).has('portrait') || matchMedia('(pointer: coarse)').matches);
 const canvas = document.getElementById('game');
+canvas.width = VIEW.w; canvas.height = VIEW.h;
 const ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 
-// Integer scale when the window fits, otherwise the largest fractional scale >= 0.5.
+// Landscape: integer scale when the window fits, otherwise the largest fractional scale >= 0.5. Portrait: the exact fit (phones have no integer to spare).
 function resize() {
-  const fit = Math.min(innerWidth / W, innerHeight / H);
-  const scale = fit >= 1 ? Math.floor(fit) : Math.max(fit, 0.5);
-  canvas.style.width = W * scale + 'px';
-  canvas.style.height = H * scale + 'px';
+  const fit = Math.min(innerWidth / VIEW.w, innerHeight / VIEW.h);
+  const scale = VIEW.portrait ? fit : fit >= 1 ? Math.floor(fit) : Math.max(fit, 0.5);
+  canvas.style.width = VIEW.w * scale + 'px';
+  canvas.style.height = VIEW.h * scale + 'px';
 }
 addEventListener('resize', resize);
 resize();
