@@ -41,7 +41,7 @@ test('Absolute Zero freezes and exposes only on-screen enemies, and hits them', 
   FUSIONS.absoluteZero.update(run, {}, 0, run.mods, 0.01);
   const until = run.time + U.absoluteZero.freeze;
   assert.equal(on.frozenUntil, until); assert.equal(on.vulnerableUntil, until);
-  assert.equal(on.maxHp - on.hp, U.absoluteZero.hitDmg * TUNING.frozenVulnMult, 'the blast lands on frozen ice');
+  assert.equal(on.maxHp - on.hp, fusionDmg(run, U.absoluteZero.hitDmg) * TUNING.frozenVulnMult, 'the blast lands on frozen ice');
   assert.equal(off.frozenUntil, 0); assert.equal(off.vulnerableUntil, 0); assert.equal(off.hp, off.maxHp);
 });
 
@@ -84,9 +84,10 @@ test('every mage fusion has a real FUSIONS module with update (no placeholder le
 
 test('fusionDmg grows with the minute like enemy hp', () => {
   const run = setup();
-  assert.equal(fusionDmg(run, 40), 40);
+  const k = TUNING.fusionDmgMult;
+  assert.equal(fusionDmg(run, 40), Math.round(40 * k));
   run.time = 600;
-  assert.equal(fusionDmg(run, 40), 40 * (1 + TUNING.enemyHpGrowthPerMin * 10));
+  assert.equal(fusionDmg(run, 40), Math.round(40 * k * (1 + TUNING.enemyHpGrowthPerMin * 10)));
 });
 
 const fusionCard = { kind: 'fusion', id: 'hujanNeraka', a: 'fireball', b: 'meteor' };
@@ -217,7 +218,7 @@ const live = (run, id, st, secs, dt = 0.05) => {
 test('Phoenix: its wings leave fire and ice trails, and it dives into the densest crowd and blows up', () => {
   const run = setup(), st = {}, P = U.phoenix;
   const e = tank(run, Math.ceil(P.loopR + P.span + P.trailR) + 20);   // beyond the loop and its trails: only the dive reaches it
-  live(run, 'phoenix', st, 2);
+  live(run, 'phoenix', st, P.diveEvery * run.mods.cooldown - 0.1);
   assert.ok(run.areas.some(a => a.dmg > 0 && a.dur > 0), 'a burning trail');
   assert.ok(run.areas.some(a => a.slow > 0 && a.dur > 0), 'an icy trail');
   assert.equal(e.hp, e.maxHp, 'no dive yet');
@@ -288,7 +289,7 @@ test('Bola Plasma: the orb zaps both enemies near its path before it reaches the
   for (let t = 0; t < 10 && !(st.x - p.x > 120 + B.zapR * run.mods.area); t += 0.05) live(run, 'bolaPlasma', st, 0.05);
   assert.ok(st.on, 'still flying');
   for (const e of path) assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.zapDmg), 'zapped on the way');
-  live(run, 'bolaPlasma', st, 200 / B.speed);
+  for (let t = 0; t < 200 / B.speed + 1 && st.on; t += 0.05) live(run, 'bolaPlasma', st, 0.05);   // the next orb follows cd later
   assert.ok(!st.on, 'popped');
   for (const e of crowd) assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.popDmg), 'the pop landed');
 });

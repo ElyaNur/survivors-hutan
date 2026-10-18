@@ -1,5 +1,6 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
 import { createRng } from '../src/logic/rng.js';
+import TUNING from '../src/data/tuning.js';
 import { CLASSES, PASSIVES, NAMES } from '../src/data/classes.js';
 import { xpToNext, gainXp, rollCards, applyCard, fusionFor, eligibleFusions, consumedSkills, passiveMods } from '../src/logic/progression.js';
 const mage = CLASSES.mage;
@@ -7,7 +8,7 @@ const maxed = ids => Object.fromEntries(ids.map(i => [i, 5]));
 
 test('xp curve', () => {
 assert.equal(xpToNext(1), 5); assert.equal(xpToNext(2), 15); assert.equal(xpToNext(19), 185);
-  assert.equal(xpToNext(20), 295); assert.equal(xpToNext(40), 2545);
+  assert.equal(xpToNext(20), 255); assert.equal(xpToNext(40), 1745);
 });
 test('gainXp handles multi-level and carries remainder', () => {
   const p = { level: 1, xp: 0 };
@@ -92,4 +93,10 @@ test('passiveMods', () => {
   const m = passiveMods({ passives: { vitality: 2, swiftness: 1 } });
   assert.equal(m.maxHp, 40); assert.ok(Math.abs(m.speed - 1.08) < 1e-9); assert.equal(m.xp, 1);
   assert.deepEqual(passiveMods({ passives: {} }), { maxHp: 0, speed: 1, cooldown: 1, magnet: 1, xp: 1, area: 1 });
+});
+test('rollCards: a held skill\'s next level is drawn heldSkillWeight x as often as another card', () => {
+  const build = { skills: { fireball: 2 }, passives: {}, fusions: [] }, n = {};
+  for (let s = 0; s < 4000; s++) for (const c of rollCards(build, mage, createRng(s))) n[c.id] = (n[c.id] ?? 0) + 1;
+  const w = TUNING.cards.heldSkillWeight, k = n.fireball / ((n.meteor + n.focus) / 2);   // vs a new skill and a passive (weight 1)
+  assert.ok(w > 1.5 && Math.abs(k - w) < 0.6 * (w - 1), `held x${k.toFixed(2)}, want about x${w}`);
 });

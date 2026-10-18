@@ -23,8 +23,8 @@ import bentengEs from './bentengEs.js';
 
 const W = 480, H = 270, PAD = 8;                            // overlays overfill the view by PAD (shake)
 
-// Fusion damage grows with the enemies' hp, so a fusion found at minute 7 still bites at minute 18.
-export function fusionDmg(run, base) { return base * (1 + TUNING.enemyHpGrowthPerMin * Math.floor(run.time / 60)); }
+// Fusion damage grows with the enemies' hp, so a fusion found at minute 7 still bites at minute 18. Whole numbers, like every hit.
+export function fusionDmg(run, base) { return Math.round(base * TUNING.fusionDmgMult * (1 + TUNING.enemyHpGrowthPerMin * Math.floor(run.time / 60))); }
 
 // True when the cooldown is up, and restarts it. A fresh st (just fused) is ready at once.
 export function ready(st, cd, mods, dt) {
