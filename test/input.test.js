@@ -17,3 +17,20 @@ test('stick: ramps up between deadzone and radius, keeps the drag direction', ()
   const v = stickVector(-30, 40, 24, 0.15);
   assert.ok(Math.abs(v.x / v.y + 0.75) < 1e-9);
 });
+
+test('stale stick: a primary touch takes over, a hidden page drops it; a second finger does not steal', async () => {
+  const h = {};
+  globalThis.addEventListener = (n, f) => { h[n] = f; };
+  globalThis.document = { hidden: false, addEventListener: (n, f) => { h[n] = f; } };
+  const { input, initInput } = await import('../src/engine/input.js');
+  initInput({ getBoundingClientRect: () => ({ left: 0, top: 0, width: 270, height: 480 }), width: 270, height: 480, addEventListener() {} });
+  const down = (id, isPrimary) => h.pointerdown({ pointerType: 'touch', pointerId: id, isPrimary, clientX: 10, clientY: 10, preventDefault() {} });
+  down(1, true);
+  down(2, false);
+  assert.equal(input.stick.id, 1, 'a second finger only taps');
+  down(3, true);                                             // pointerup for 1 never came
+  assert.equal(input.stick.id, 3, 'a primary pointer replaces the stale stick');
+  document.hidden = true; h.visibilitychange();
+  assert.equal(input.stick, null);
+  delete globalThis.addEventListener; delete globalThis.document;
+});

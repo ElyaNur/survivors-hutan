@@ -37,6 +37,7 @@ export function initInput(canvas) {
   });
   addEventListener('keyup', e => keys.delete(e.code));
   addEventListener('blur', () => { keys.clear(); input.stick = null; });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) input.stick = null; });   // a release lost while hidden must not keep steering
   const toInternal = e => {
     const r = canvas.getBoundingClientRect();
     return { x: (e.clientX - r.left) * canvas.width / r.width, y: (e.clientY - r.top) * canvas.height / r.height };
@@ -53,7 +54,7 @@ export function initInput(canvas) {
     if (e.pointerType !== 'touch') return;               // mouse: default kept, a click must still focus an embedding iframe
     e.preventDefault();
     input.touched = true;
-    if (!input.stick) input.stick = { id: e.pointerId, ox: p.x, oy: p.y, ...p };   // first finger steers; others only tap
+    if (!input.stick || e.isPrimary) input.stick = { id: e.pointerId, ox: p.x, oy: p.y, ...p };   // first finger steers; others only tap. A primary pointer means no other finger is down: it replaces a stale stick whose release got lost
   });
   const release = e => { if (input.stick?.id === e.pointerId) input.stick = null; };
   addEventListener('pointerup', release);

@@ -180,7 +180,7 @@ export function menuScreen(assets, isMuted) {
   const ACTIONS = ['play', 'book', 'records', 'sound'], P = VIEW.portrait, { w: W, h: H } = VIEW;   // portrait: title on two lines, buttons in a column
   const b = buttons(assets, ['Main', 'Buku Resep', 'Rekor', () => 'Suara: ' + (isMuted() ? 'Mati' : 'Nyala')],
     P ? layoutCards(4, 1, 140, 22, 6, 300) : layoutCards(4, 4, 100, 20, 6, 196), P ? 1 : 4);
-  const band = P ? 140 : 80;
+  const band = P ? 150 : 80;
   return {
     rects: b.rects,
     update: input => ACTIONS[b.update(input)] ?? null,
@@ -193,9 +193,9 @@ export function menuScreen(assets, isMuted) {
       }
       ctx.fillStyle = shade.edge; ctx.fillRect(0, 0, W, H);   // vignette: the eye lands on the hut and the mage
       ctx.fillStyle = shade.top; ctx.fillRect(0, 0, W, band);  // dusk band so the title reads
-      if (P) { title(ctx, assets, 'SURVIVORS', 40, 4); title(ctx, assets, 'HUTAN', 78, 4); }
+      if (P) { title(ctx, assets, 'SURVIVORS', 40, 4); title(ctx, assets, 'HUTAN', 84, 4); }
       else title(ctx, assets, 'SURVIVORS HUTAN', 12, 4);
-      drawText(ctx, assets, 'Bertahan 20 menit di Hutan Cerah', W / 2, P ? 122 : 46, { color: 'w', align: 'center' });
+      drawText(ctx, assets, 'Bertahan 20 menit di Hutan Cerah', W / 2, P ? 128 : 46, { color: 'w', align: 'center' });
       b.draw(ctx);
       hint(ctx, assets, P ? 'Ketuk untuk memilih' : 'Panah + Enter, atau klik', H - 14);
     },
@@ -218,7 +218,7 @@ function classCard(ctx, assets, cls, r, sel, t, body, shake = 0) {
   body(x, y + 96);
 }
 
-const CLASS_RECTS = () => VIEW.portrait ? layoutCards(3, 2, 124, 150, 6, 70) : layoutCards(3, 3, 128, 150, 12, 54);   // portrait: 2 + 1, 8 px from the edges
+const CLASS_RECTS = () => VIEW.portrait ? layoutCards(3, 2, 122, 154, 10, 70) : layoutCards(3, 3, 128, 150, 12, 54);   // portrait: 2 + 1, 8 px from the edges, 154 tall like the cards drawn
 
 // -> class id | 'back'. Locked classes can be looked at, not picked. Portrait has no Esc, so a Kembali button goes last.
 export function classSelectScreen(assets, classes) {
@@ -242,7 +242,7 @@ export function classSelectScreen(assets, classes) {
         else wrapText(CLASS_INFO[cls.id].desc, rects[i].w - 16).forEach((l, k) => drawText(ctx, assets, l, x + 8, y + k * 8, { color: picker.sel === i ? 'w' : 'x' }));
       }, picker.sel === i ? shake : 0));
       if (P) button(ctx, assets, 'Kembali', rects[list.length], picker.sel === list.length);
-      hint(ctx, assets, P ? BACK_HINT : '1-3, panah + Enter, atau klik. Esc: kembali');
+      hint(ctx, assets, P ? 'Ketuk kelas untuk memilih' : '1-3, panah + Enter, atau klik. Esc: kembali');
     },
   };
 }
@@ -279,7 +279,7 @@ export function recordsScreen(assets, classes, records) {
 // `record` is records[classId] (maybe undefined, maybe v1-shaped); `found` is exposed for tests.
 export function bookScreen(assets, classDef, record) {
   const P = VIEW.portrait, cols = P ? 3 : 5, fus = classDef.fusions, seen = discoveredSet({ [classDef.id]: record }, classDef.id);
-  const top = P ? 56 : 38, grid = P ? layoutCards(fus.length, cols, 80, 46, 7, top) : layoutCards(fus.length, cols, 88, 38, 4, top), end = grid.at(-1);
+  const top = P ? 56 : 38, grid = P ? layoutCards(fus.length, cols, 82, 46, 4, top) : layoutCards(fus.length, cols, 88, 38, 4, top), end = grid.at(-1);
   const rects = [...grid, BACK_RECT()], picker = createPicker(rects, cols);   // the last rect is Kembali
   const panel = P ? { x: 8, y: end.y + end.h + 10, w: 254, h: 64 } : { x: 24, y: 164, w: 432, h: 46 };   // portrait: as wide as the grid, room for a 2-line desc
   return {
@@ -291,7 +291,7 @@ export function bookScreen(assets, classDef, record) {
     draw(ctx) {
       dim(ctx);
       title(ctx, assets, 'Buku Resep', top - 30, 2);
-      const cx = VIEW.w / 2, py = panel.y + (P ? 5 : 0);            // text origin: portrait centres it in the taller panel
+      const cx = VIEW.w / 2;
       drawText(ctx, assets, `Ditemukan: ${seen.size}/${fus.length}`, cx, top - 10, { color: 'x', align: 'center' });
       fus.forEach((f, i) => {
         const r = rects[i], sel = picker.sel === i, y = r.y - (sel ? 1 : 0), cx = r.x + r.w / 2;
@@ -304,12 +304,13 @@ export function bookScreen(assets, classDef, record) {
           drawText(ctx, assets, '???', cx, y + r.h / 2 + 7, { color: 'x', align: 'center' });
         }
       });
-      const f = fus[picker.sel];                                            // detail of the selected slot (none on Kembali)
+      const f = fus[picker.sel], got = f && seen.has(f.id), desc = got ? wrapText(NAMES[f.id].desc, panel.w - 16) : [];   // detail of the selected slot (none on Kembali)
+      const bh = got ? 24 + desc.length * 9 : 27, py = panel.y + (P ? Math.round((panel.h - bh) / 2) - 6 : 0);   // text origin: portrait centres the real block in the taller panel
       assets.drawSlice(ctx, 'card', panel.x, panel.y, panel.w, panel.h, 5);
       if (f) {
         drawText(ctx, assets, `${NAMES[f.a].name} + ${NAMES[f.b].name}`, cx, py + 6, { color: 'y', align: 'center' });
-        if (seen.has(f.id)) {
-          const e = record.fusions[f.id], desc = wrapText(NAMES[f.id].desc, panel.w - 16);
+        if (got) {
+          const e = record.fusions[f.id];
           drawText(ctx, assets, NAMES[f.id].name, cx, py + 16, { align: 'center' });
           desc.forEach((l, n) => drawText(ctx, assets, l, cx, py + 25 + n * 9, { color: 'x', align: 'center' }));
           drawText(ctx, assets, `Dibuat: ${e.made}   Menang: ${e.wins}`, cx, py + 25 + desc.length * 9, { color: 'y', align: 'center' });
@@ -324,8 +325,6 @@ export function bookScreen(assets, classDef, record) {
   };
 }
 
-// -> 'resume' | 'forfeit'. Esc toggles back. Menyerah asks twice: the click that refocuses the window after an
-// auto-pause can land on it, and one stray click must never end a long run.
 export const PAUSE_TEXT_X = 100, PAUSE_TEXT_W = 152;       // portrait pause: fusion row text column (panel ends at 260, 8 px air)
 // Portrait pause panel: the build that the play HUD leaves out, and the fusion pairs in reach.
 function drawPausePanel(ctx, assets, run) {
@@ -349,6 +348,8 @@ function drawPausePanel(ctx, assets, run) {
   drawText(ctx, assets, `Lv ${run.prog.level} - ${run.kills} kill - ${formatTime(run.endAt ?? run.time)}`, 20, 236, { color: 'x' });
 }
 
+// -> 'resume' | 'forfeit'. Esc toggles back. Menyerah asks twice: the click that refocuses the window after an
+// auto-pause can land on it, and one stray click must never end a long run.
 // Landscape: a small panel with the two buttons. Portrait: the build panel first (run is only read there).
 export function pauseScreen(assets, run) {
   let armed = false;
@@ -375,6 +376,7 @@ export function pauseScreen(assets, run) {
   };
 }
 
+// res: { won, time, kills, level, fusions, found, newBest }. -> 'again' | 'menu'
 export function resultScreen(assets, res) {
   const dy = (VIEW.h - 270) / 2, cx = VIEW.w / 2;   // portrait: today's layout (220 wide fits), moved down to the middle
   const ACTIONS = ['again', 'menu'], b = buttons(assets, ['Main lagi', 'Menu'], layoutCards(2, 2, 100, 20, 12, 214 + dy), 2);

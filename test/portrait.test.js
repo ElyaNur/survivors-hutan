@@ -82,7 +82,7 @@ test('portrait class select: Kembali is tappable and returns back', () => {
   setPortrait(false);
 });
 test('portrait text fits: card descs, book names, menu title', () => {
-  for (const f of mage.fusions) assert.ok(textWidth(NAMES[f.id].name) <= 80 - 6, f.id);
+  for (const f of mage.fusions) assert.ok(textWidth(NAMES[f.id].name) <= 82 - 10, f.id);
   assert.ok(textWidth('SURVIVORS', 4) <= 270 - 16);
   const build = { skills: {}, fusions: [] }, cards = [...mage.skills.map(id => ({ kind: 'skill', id, nextLevel: 1 })),
     ...PASSIVES.map(id => ({ kind: 'passive', id, nextLevel: 1 })), ...mage.fusions.map(f => ({ kind: 'fusion', ...f })), { kind: 'heal' }];
