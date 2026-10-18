@@ -11880,7 +11880,7 @@
     "h": 16
    }
   },
-  "icon_supernova": {
+  "icon_gletser": {
    "frame": {
     "x": 262,
     "y": 154,
@@ -11900,7 +11900,7 @@
     "h": 16
    }
   },
-  "icon_bolaPlasma": {
+  "icon_pagarKristal": {
    "frame": {
     "x": 278,
     "y": 154,
@@ -11940,7 +11940,7 @@
     "h": 16
    }
   },
-  "icon_gletser": {
+  "icon_supernova": {
    "frame": {
     "x": 310,
     "y": 154,
@@ -11960,7 +11960,7 @@
     "h": 16
    }
   },
-  "icon_penghakimanLangit": {
+  "icon_bolaPlasma": {
    "frame": {
     "x": 0,
     "y": 170,
@@ -11980,7 +11980,7 @@
     "h": 16
    }
   },
-  "icon_pagarKristal": {
+  "icon_penghakimanLangit": {
    "frame": {
     "x": 16,
     "y": 170,

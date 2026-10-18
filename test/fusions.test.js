@@ -79,17 +79,17 @@ test('a fusion banner shakes and holds the world for a beat, and carries {id, fi
 test('every mage fusion has a FUSIONS module with update; unbuilt ones are flagged placeholder', () => {
   for (const f of CLASSES.mage.fusions) assert.equal(typeof FUSIONS[f.id]?.update, 'function', f.id);
   assert.equal(Object.keys(FUSIONS).length, CLASSES.mage.fusions.length);
-  assert.ok(FUSIONS.phoenix.placeholder); assert.ok(!FUSIONS.hujanNeraka.placeholder);
+  assert.ok(FUSIONS.supernova.placeholder); assert.ok(!FUSIONS.hujanNeraka.placeholder);
 });
 
 test('placeholder hits the 5 nearest enemies within r, on cd', () => {
-  const run = setup(), st = {}, F = U.phoenix;
+  const run = setup(), st = {}, F = U.supernova;
   const es = [10, 20, 30, 40, 50, 60].map(d => tank(run, d)), far = tank(run, F.r + 50);
-  FUSIONS.phoenix.update(run, st, 0, run.mods, 0.01);
+  FUSIONS.supernova.update(run, st, 0, run.mods, 0.01);
   assert.deepEqual(es.map(e => e.hp < e.maxHp), [true, true, true, true, true, false]);
   assert.equal(far.hp, far.maxHp);
   const hp = es[0].hp;
-  FUSIONS.phoenix.update(run, st, 0, run.mods, 0.01);
+  FUSIONS.supernova.update(run, st, 0, run.mods, 0.01);
   assert.equal(es[0].hp, hp, 'not again before cd');
 });
 
@@ -222,4 +222,57 @@ test('a fusion with only drawTop draws on the frame it is picked, before any upd
     assert.doesNotThrow(() => drawRun(stub(), run, assets));
     assert.equal(typeof run.fusionState.cincinMatahari, 'object');
   } finally { if (hadDoc) globalThis.document = doc; else delete globalThis.document; }
+});
+
+// The fusion plus the projectiles and areas it spawns, with the clock running (freezes and slows are timed).
+const live = (run, id, st, secs, dt = 0.05) => {
+  for (let t = 0; t < secs - 1e-9; t += dt) { regrid(run); FUSIONS[id].update(run, st, 0, run.mods, dt); updateProjectiles(run, dt); run.time += dt; }
+};
+
+test('Phoenix: its wings leave fire and ice trails, and it dives into the densest crowd and blows up', () => {
+  const run = setup(), st = {}, P = U.phoenix;
+  const e = tank(run, 140);                                 // beyond the loop and its trails: only the dive reaches it
+  live(run, 'phoenix', st, 2);
+  assert.ok(run.areas.some(a => a.dmg > 0 && a.dur > 0), 'a burning trail');
+  assert.ok(run.areas.some(a => a.slow > 0 && a.dur > 0), 'an icy trail');
+  assert.equal(e.hp, e.maxHp, 'no dive yet');
+  live(run, 'phoenix', st, P.diveEvery);
+  assert.ok(e.maxHp - e.hp >= fusionDmg(run, P.diveDmg), 'the dive blast landed');
+});
+
+test('Gletser: the block runs over and freezes every enemy on its lane, nothing off it', () => {
+  const run = setup(), st = {}, G = U.gletser;
+  const lane = [60, 90, 90, 120, -60, -120].map(dx => tank(run, dx, 40));   // a row of the crowd 40 px below the mage
+  const off = tank(run, 100, -60);
+  live(run, 'gletser', st, G.warn + G.slide / G.speed + 0.5);
+  for (const e of lane) { assert.ok(e.hp < e.maxHp, 'run over'); assert.ok(e.frozenUntil > run.time, 'frozen'); }
+  assert.equal(off.hp, off.maxHp); assert.equal(off.frozenUntil, 0);
+});
+
+test('Pagar Kristal: two crystals 40 px apart zap an enemy on the link between them, not one 30 px off it', () => {
+  const run = setup(), K = U.pagarKristal, p = run.player;
+  const st = { cd: 1e9, crystals: [{ x: p.x + 60, y: p.y, age: 0 }, { x: p.x + 100, y: p.y, age: 0 }] };   // no new shards
+  const on = tank(run, 80), off = tank(run, 80, 30);
+  live(run, 'pagarKristal', st, K.tick * 2 + 0.01);
+  assert.ok(on.hp < on.maxHp, 'zapped on the link');
+  assert.equal(off.hp, off.maxHp);
+});
+
+test('Komet Es: the impact freezes the crowd within r, then the comet bursts into shards', () => {
+  const run = setup(), st = {}, K = U.kometEs, dt = 0.05;
+  const crowd = [0, 8, -8].map(dy => tank(run, 90, dy)), far = tank(run, -150);
+  let t = 0;
+  for (; t < K.warn + K.shatter + 1 && !run.projectiles.length; t += dt) {
+    regrid(run); FUSIONS.kometEs.update(run, st, 0, run.mods, dt);
+    if (run.projectiles.length) break;                      // counted before they fly off and pierce out
+    updateProjectiles(run, dt); run.time += dt;
+    if (!crowd[0].frozenUntil) assert.equal(run.projectiles.length, 0);
+  }
+  for (const e of crowd) assert.ok(e.frozenUntil > run.time, 'frozen first');
+  assert.equal(far.frozenUntil, 0, 'only within r');
+  assert.equal(run.projectiles.length, K.shards, 'then the shards');
+});
+
+test('Phoenix, Gletser, Pagar Kristal and Komet Es are real fusions, not placeholders', () => {
+  for (const id of ['phoenix', 'gletser', 'pagarKristal', 'kometEs']) assert.ok(!FUSIONS[id].placeholder, id);
 });

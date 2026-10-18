@@ -156,18 +156,22 @@ anim("meteor_fall", { w: 26, h: 15, fps: 12, frames: 3 }, (c) => {
 
 // Warning, sized for r 28 (scaled to r in game). One 0.8 s pass: a dithered shadow swells as the rock nears,
 // the danger ring throbs and four marks close in on the spot.
-anim("meteor_warn", { w: 59, h: 59, fps: 10, frames: 8 }, (c) => {
-  const f = c.frame, C = 29, sr = Math.round(9 + f * 2.4)
-  c.circ(C, C, sr, "#1d1a2f50"); c.circ(C, C, Math.round(sr * 0.6), "#1d1a2f80")   // see-through ink (k): any ground shows under it
-  const hot = f % 2 === 0
-  c.ring(C, C, 28, hot ? "Y" : "O"); c.ring(C, C, 27, hot ? "O" : "R")
-  const m = 24 - f * 1.6                                                           // closing marks
-  for (const [dx, dy] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
-    const x = Math.round(C + dx * m), y = Math.round(C + dy * m)
-    c.line(x - dy * 2, y - dx * 2, x + dx * 2, y + dy * 2, "Y"); c.line(x + dy * 2, y + dx * 2, x + dx * 2, y + dy * 2, "Y")
-    c.px(x + dx * 2, y + dy * 2, "y")
-  }
-})
+function dropWarn(name, swap = {}) {                                             // Ice drops (fu_iceWarn) reuse it recoloured
+  const K = (key) => swap[key] ?? key
+  anim(name, { w: 59, h: 59, fps: 10, frames: 8 }, (c) => {
+    const f = c.frame, C = 29, sr = Math.round(9 + f * 2.4)
+    c.circ(C, C, sr, "#1d1a2f50"); c.circ(C, C, Math.round(sr * 0.6), "#1d1a2f80")   // see-through ink (k): any ground shows under it
+    const hot = f % 2 === 0
+    c.ring(C, C, 28, K(hot ? "Y" : "O")); c.ring(C, C, 27, K(hot ? "O" : "R"))
+    const m = 24 - f * 1.6                                                           // closing marks
+    for (const [dx, dy] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
+      const x = Math.round(C + dx * m), y = Math.round(C + dy * m)
+      c.line(x - dy * 2, y - dx * 2, x + dx * 2, y + dy * 2, K("Y")); c.line(x + dy * 2, y + dx * 2, x + dx * 2, y + dy * 2, K("Y"))
+      c.px(x + dx * 2, y + dy * 2, K("y"))
+    }
+  })
+}
+dropWarn("meteor_warn")
 
 // Burning ground: one flame tuft, strewn over the area many times (desynced) in game.
 anim("fx_burn", { w: 9, h: 13, fps: 10, frames: 4 }, (c) => {
@@ -434,5 +438,172 @@ anim("fu_sun", { w: 25, h: 25, fps: 10, frames: 6, outline: "k" }, (c) => {
 },
   glow("wyY", { r: 3, strength: 0.5, bands: 2 }),
   sunRim)                                                                          // after the glow: the rim stays ink
+
+// Phoenix Api-Es, 40x34 + ink outline, side view flying right (flipped in game). A white-gold firebird: the near wing is
+// fire (gold, orange, red-tipped primaries), the far wing ice (white, pale ice, cyan, blue tips), a flame crest, a hooked
+// gold beak and a long tail of fire and ice streamers with eye-spots, all flapping on one beat.
+const PHX = { root: [20, 17], far: [23, 16], L: 13, FIRE: ["y", "Y", "o", "O", "R"], ICE: ["w", "c", "C", "B", "M"] }
+function phxWing(c, [rx, ry], a, L, [lead, hot, mid, cool, tip]) {
+  const dx = Math.cos(a), dy = Math.sin(a), sg = dy < 0 ? -1 : 1, R = Math.round   // sg: the turn that swings a feather toward the tail
+  for (let i = 6; i >= 0; i--) {                                                  // inner feathers first, the long primaries on top
+    const along = 1 - 0.14 * i, th = sg * (0.15 + 0.3 * i), ux = Math.cos(a + th), uy = Math.sin(a + th)
+    const bx = rx + dx * L * along, by = ry + dy * L * along, len = [11, 11, 10, 9, 8, 7, 6][i] * L / PHX.L
+    const nx = -uy * sg, ny = ux * sg                                             // across the feather, toward its trailing side
+    const at = (k, w = 0) => [R(bx + ux * len * k + nx * w), R(by + uy * len * k + ny * w)]
+    c.poly([...at(0, -1.5), ...at(0.55, -1.2), ...at(1), ...at(0.55, 1.2), ...at(0, 1.5)], mid)
+    c.poly([...at(0, -1.5), ...at(0.4, -1), ...at(0.4, 1), ...at(0, 1.5)], hot)
+    c.line(...at(0.3, 1), ...at(0.95, 1), cool); c.line(...at(0.8), ...at(1), cool); c.px(...at(1), tip)   // shaded trailing side, dark tip
+    c.line(...at(0, -1), ...at(0.5, -1), lead)                                    // its leading edge catching the light
+  }
+  c.line(rx, ry, R(rx + dx * L), R(ry + dy * L), lead, 2)                         // the arm
+}
+function phxTail(c, k) {                                                          // streamers rippling back from the rump
+  const S = [[19, 0.32, 0, "YoO", 1], [21, 0.62, 1.6, "cCB", 2], [20, 0.95, 3.2, "oOR", 7]]   // [root y, droop, wave phase, keys, last x]
+  for (const [y0, droop, ph, keys, end] of S) {
+    let px = 14, py = y0
+    for (let x = 13; x >= end; x--) {
+      const t = (14 - x) / 14, y = Math.round(y0 + (14 - x) * droop + Math.sin(x * 0.4 + k + ph) * 1.2 * t)
+      c.line(px, py, x, y, keys[Math.min(2, (t * 3) | 0)], t < 0.6 ? 2 : 1); px = x; py = y
+    }
+    if (end < 3) { c.px(px, py, keys[0] === "Y" ? "y" : "w"); c.px(px + 1, py, keys[0]) }   // a bright tip
+  }
+}
+function phxBody(c, k) {
+  c.ellipse(19, 19, 7, 4, "o", true); c.ellipse(19, 18, 6, 3, "Y", true); c.ellipse(20, 17, 4, 1, "y", true)   // lit from above
+  c.hline(14, 22, 9, "C"); c.hline(16, 23, 5, "B")                                // icy underside
+  c.circ(27, 14, 4, "o"); c.circ(27, 13, 3, "Y"); c.circ(26, 12, 1, "y")         // head
+  c.poly([30, 12, 36, 14, 34, 16, 30, 16], "Y"); c.line(31, 16, 34, 16, "O"); c.px(36, 14, "o"); c.px(35, 15, "O")   // hooked beak
+  c.px(28, 13, "w"); c.px(29, 13, "k"); c.px(29, 12, "k"); c.px(28, 12, "k")      // fierce eye under a dark brow
+  const sway = Math.round(Math.sin(k) * 1)
+  c.line(26, 11, 21, 4 + sway, "O"); c.line(27, 11, 24, 3 - sway, "o"); c.line(28, 11, 27, 5 + sway, "Y")   // flame crest
+  c.px(21, 4 + sway, "Y"); c.px(24, 3 - sway, "y"); c.px(27, 5 + sway, "w")
+  c.line(19, 20, 23, 17, "w")                                                     // white-hot heart
+}
+const FLAP = [-105, -62, 28, -62]                                                 // wing angle per frame: raised, sweeping, down, sweeping
+anim("fu_phoenix", { w: 40, h: 34, fps: 8, frames: FLAP.length, outline: "k" }, (c) => {
+  const k = c.phase * Math.PI * 2, a = FLAP[c.frame] * Math.PI / 180
+  const L = PHX.L * (0.62 + 0.38 * Math.abs(Math.sin(a)))                        // foreshortened as it sweeps past us
+  phxWing(c, PHX.far, a + 0.45, L * 0.9, PHX.ICE)
+  phxTail(c, k)
+  phxBody(c, k)
+  phxWing(c, PHX.root, a, L, PHX.FIRE)
+})
+
+// The ice wing's trail: a tuft of frost crystals shot up out of a rime patch (strewn like fx_burn's flames in game).
+anim("fu_frost", { w: 11, h: 11, fps: 6, frames: 3, outline: "B" }, (c) => {
+  c.ellipse(5, 9, 5, 1, "c", true); c.hline(1, 10, 9, "C")                       // rime on the ground
+  for (const [x, h, lean] of [[2, 4, -1], [5, 8, 0], [8, 5, 1]]) {                // prisms: base x, height, tip lean; lit left face, cyan right face
+    const tx = x + lean, ty = 9 - h
+    c.poly([x - 1, 9, tx, ty, x + 1, 9], "C"); c.line(x - 1, 9, tx, ty + 1, "c"); c.line(x, 9, tx, ty + 1, "c"); c.px(tx, ty, "w")
+  }
+  c.line(4, 6, 4, 8, "w")                                                         // the tall one's bright edge
+  const [gx, gy] = [[5, 1], [8, 4], [1, 5]][c.frame]                              // a glint hopping between the tips
+  c.px(gx, gy, "w"); c.px(gx, gy - 1, "w")
+})
+
+// Gletser, 46x42 + ink outline: a giant chunk of glacier ice. Crystal spikes jut from a snowy top, a pale-ice front face is
+// cut into facets with white cracks running down it, a blue shaded side, deep navy at the foot; a shine sweeps across it.
+const GL = {
+  spikes: [[[9, 17, 6, 4, 15, 14], [6, 4, 9, 17]], [[22, 9, 27, 0, 31, 9], [27, 0, 24, 9]], [[34, 12, 41, 3, 40, 13], [41, 3, 36, 12]]],   // [poly, lit edge]
+  top: [6, 16, 14, 9, 22, 8, 25, 4, 28, 8, 40, 11, 36, 18, 12, 20],
+  front: [6, 16, 12, 20, 36, 18, 38, 39, 23, 41, 4, 38],
+  side: [36, 18, 40, 11, 45, 16, 44, 35, 38, 39],
+  facets: [[[12, 20, 22, 19, 17, 30, 8, 28], "c"], [[22, 19, 36, 18, 33, 26, 25, 27], "c"], [[17, 30, 25, 27, 28, 37, 15, 38], "s"]],
+  snow: [9, 15, 15, 10, 22, 10, 25, 6, 28, 10, 38, 12, 34, 16, 24, 17, 13, 17],
+  drips: [[14, 17, 3], [21, 17, 2], [30, 16, 4]],                                 // [x, y, length]: snow hanging over the front rim
+  cracks: [[14, 21, 16, 26, 13, 31], [27, 19, 26, 24, 29, 28, 28, 33], [33, 19, 34, 25]],
+}
+anim("fu_glacier", { w: 46, h: 42, fps: 10, frames: 6, outline: "k" }, (c) => {
+  for (const [pts, lit] of GL.spikes) { c.poly(pts, "C"); c.line(...lit, "c"); c.px(lit[0], lit[1], "w") }
+  c.poly(GL.front, "C"); c.poly(GL.side, "B"); c.poly(GL.top, "c")
+  for (const [pts, key] of GL.facets) c.poly(pts, key)
+  c.poly([4, 34, 23, 37, 38, 35, 38, 39, 23, 41, 4, 38], "B"); c.poly([38, 34, 44, 31, 44, 35, 38, 39], "M")   // shaded foot
+  c.hline(6, 41, 17, "M")
+  c.poly(GL.snow, "w")
+  for (const [x, y, n] of GL.drips) { c.vline(x, y, n, "w"); c.px(x, y + n, "c") }
+  c.line(6, 16, 12, 20, "w"); c.line(36, 18, 40, 11, "c")                         // bright rims
+  for (const k of GL.cracks) for (let i = 0; i + 3 < k.length; i += 2) c.line(k[i], k[i + 1], k[i + 2], k[i + 3], "w")
+  c.line(40, 13, 43, 17, "C"); c.line(41, 20, 42, 28, "C")                        // light caught on the side
+  const sx = -14 + c.frame * 12                                                   // the shine: a diagonal band sweeping left to right
+  for (let y = 0; y < 42; y++) for (let x = 0; x < 46; x++) {
+    const d = x - sx - (42 - y) * 0.5
+    if (d >= 0 && d < 3 && c.is(x, y, "Ccs")) c.px(x, y, d < 1 ? "w" : "c")
+  }
+})
+
+// Pagar Kristal, 15x24 + ink outline: a fence post of ice. Three prisms stabbed into a cracked dirt mound (lit left face,
+// cyan right face, white edge), charged: a spark crackles on the tall one's tip and violet sparks jump off it.
+const KR = [[7, 19, 0, 2], [3, 10, -2, 1.5], [11, 12, 2, 1.5]]                   // prisms: [base x, height, tip lean, half width]
+anim("fu_crystal", { w: 15, h: 24, fps: 12, frames: 4, outline: "k" }, (c) => {
+  const B = 21
+  for (const [x, h, lean, w] of [KR[1], KR[2], KR[0]]) {                         // side prisms behind the tall one
+    const tx = x + lean, ty = B - h, l = Math.round(x - w), r = Math.round(x + w)
+    c.poly([l, B, tx, ty, r, B], "C"); c.poly([l, B, tx, ty, x, B], "c")
+    c.line(x, B - 1, tx, ty + 1, "w"); c.px(tx, ty, "w"); c.line(r, B, tx + (lean > 0 ? 0 : 1), ty + 2, "B")
+  }
+  c.ellipse(7, 22, 6, 1, "N", true); c.hline(3, 22, 9, "n"); c.px(5, 22, "N"); c.px(9, 22, "N")   // the dirt it's stabbed into
+  const f = c.frame, T = [7, 2]                                                   // the charge on the tip
+  const RAYS = [[[0, -2], [2, 0], [-2, 1]], [[-2, -1], [1, -2], [2, 2]], [[2, -1], [-1, -2], [-2, 2]], [[0, -2], [-2, 0], [2, 1]]][f]
+  c.px(T[0], T[1], "w")
+  for (const [dx, dy] of RAYS) { c.line(T[0], T[1], T[0] + dx, T[1] + dy, "y"); c.px(T[0] + dx, T[1] + dy, "w") }
+  for (const [x, y] of [[[3, 6], [12, 9]], [[1, 11], [13, 5]], [[4, 3], [11, 12]], [[2, 8], [13, 10]]][f]) c.px(x, y, "l")
+})
+
+// Komet Es, 46x23, flying right (turned in game like meteor_fall, but bigger): an angular ice nucleus with a navy rim and
+// white-lit faces in a frosty halo, a long tail streaming behind it, blue at the edge to a white core, ice chips glinting.
+anim("fu_comet", { w: 46, h: 23, fps: 12, frames: 3 }, (c) => {
+  const f = c.frame, cy = 11
+  const STRANDS = [[-5, 0.13, 24, "B"], [5, -0.13, 22, "B"], [-2, 0.05, 30, "w"], [2, -0.05, 18, "w"]]   // [dy at the head, spread/px, length, key]
+  for (let x = 0; x <= 32; x++) {                                                 // the tail's body: a cone, dithered out at the far end
+    const t = (32 - x) / 32, hw = 4 + 3 * t, wav = Math.sin(x * 0.45 + f * 2.1) * t
+    for (let y = Math.round(cy - hw + wav); y <= Math.round(cy + hw + wav); y++) {
+      const k = Math.abs(y - cy - wav) / hw
+      if (t > 0.55 && (x + y + f) % 2 && t + (1 - k) * 0.2 > 0.7) continue
+      if (t > 0.8 && (x * 3 + y) % 3) continue
+      c.px(x, y, k > 0.7 ? "C" : k > 0.3 || t > 0.5 ? "c" : "w")
+    }
+  }
+  for (const [dy0, k, len, key] of STRANDS) {                                     // streaks fanning back from the head
+    const n = len - [0, 3, 1][(f + Math.abs(dy0)) % 3]
+    for (let i = 0; i <= n; i++) {
+      const x = 32 - i, y = Math.round(cy + dy0 * (1 - i / 60) - k * i * 1.4 + Math.sin(i * 0.5 + f * 2) * 0.5 * (i / n))
+      c.px(x, y, key); if (i < n * 0.6 && key === "B") c.px(x, y + Math.sign(dy0), key)
+    }
+  }
+  for (let y = cy - 9; y <= cy + 9; y++) for (let x = 28; x < 46; x++) {           // coma: dithered frost round the head
+    const d = Math.hypot(x - 37, (y - cy) * 1.1)
+    if (d > 6 && d < 9 && (x + y) % 2 === 0 && (x > 33 || (y - cy) ** 2 > 16)) c.px(x, y, d < 7.5 ? "c" : "C")
+  }
+  for (let a = -1.1; a <= 1.1; a += 0.08) c.px(Math.round(37 + Math.cos(a) * 8.5), Math.round(cy + Math.sin(a) * 8.5), Math.abs(a) < 0.5 ? "w" : "c")   // bow shock
+  c.poly([30, cy - 1, 33, cy - 6, 39, cy - 7, 43, cy - 2, 42, cy + 3, 37, cy + 6, 32, cy + 5], "M")   // the nucleus: a jagged chunk, navy rim
+  c.poly([31, cy - 1, 34, cy - 5, 39, cy - 6, 42, cy - 2, 41, cy + 2, 37, cy + 5, 33, cy + 4], "C")
+  c.poly([31, cy - 1, 34, cy - 5, 39, cy - 6, 36, cy - 1], "c"); c.poly([36, cy - 1, 39, cy - 6, 42, cy - 2], "w")   // lit facets
+  c.poly([36, cy - 1, 42, cy - 2, 41, cy + 2, 37, cy + 5], "B")                    // shaded front-low facet
+  c.line(34, cy - 4, 37, cy - 5, "w"); c.px(32, cy, "c"); c.line(34, cy + 3, 36, cy + 1, "c")
+  for (const [x, y] of [[[6, 8], [14, 15], [21, 5], [25, 17]], [[9, 14], [17, 6], [23, 16], [4, 10]], [[12, 7], [19, 16], [26, 5], [7, 13]]][f]) { c.px(x, y, "w"); c.px(x + 1, y, "c") }   // ice chips shed behind
+})
+
+// Ice drop warning (Komet Es, Gletser), sized for r 28 like meteor_warn and drawn the same way, in ice: the shadow
+// swells, a cyan ring throbs, four marks close in.
+dropWarn("fu_iceWarn", { Y: "c", O: "C", R: "B", y: "w" })
+
+// The comet's head stuck in the ground after the impact, 27x23 + ink outline: an ice chunk with spikes burst up round it,
+// cracking open over its three frames until it bursts into shards.
+const CORE_SPIKES = [[3, 19, -3, 8], [8, 19, -1, 12], [19, 19, 1, 11], [24, 19, 3, 7]]   // [base x, base y, tip lean, height]
+const CORE = [6, 12, 10, 5, 17, 4, 22, 10, 20, 17, 13, 20, 7, 18]                 // the nucleus: a jagged chunk (like fu_comet's)
+const CORE_CRACKS = [[[14, 7, 13, 11]], [[14, 7, 13, 11, 15, 14], [10, 10, 8, 14], [18, 9, 20, 12]],
+  [[14, 7, 13, 11, 15, 14, 14, 18], [10, 10, 8, 14, 9, 17], [18, 9, 20, 12, 18, 16], [12, 6, 10, 8], [16, 5, 18, 7]]]
+anim("fu_comet_core", { w: 27, h: 23, fps: 10, frames: 3, loop: false, outline: "k" }, (c) => {
+  const f = c.frame
+  c.poly([0, 20, 4, 18, 22, 18, 26, 20, 22, 22, 4, 22], "B"); c.poly([2, 20, 5, 19, 21, 19, 24, 20, 21, 21, 5, 21], "c")   // frost crust round the hole
+  for (const [x, y, lean, h] of CORE_SPIKES) {
+    const tx = x + lean, ty = y - h
+    c.poly([x - 2, y, tx, ty, x + 2, y], "C"); c.poly([x - 2, y, tx, ty, x, y], "c"); c.line(x, y - 1, tx, ty + 1, "w"); c.px(tx, ty, "w")
+  }
+  c.poly(CORE, "M"); c.poly([7, 12, 10, 6, 17, 5, 21, 10, 19, 16, 13, 19, 8, 17], "C")
+  c.poly([7, 12, 10, 6, 17, 5, 13, 11], "c"); c.poly([13, 11, 17, 5, 21, 10], "w"); c.poly([13, 11, 21, 10, 19, 16, 13, 19], "B")   // lit and shaded facets
+  for (const k of CORE_CRACKS[f]) for (let i = 0; i + 3 < k.length; i += 2) c.line(k[i], k[i + 1], k[i + 2], k[i + 3], f < 2 ? "M" : "w")
+  if (f === 2) { c.recolor({ M: "y", B: "c" }, CORE); c.px(13, 11, "w") }          // light bursting through the cracks
+})
 
 sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*", "fu_*"])

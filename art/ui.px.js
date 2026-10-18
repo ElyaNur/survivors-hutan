@@ -149,11 +149,75 @@ icon("cincinMatahari", (c) => {                                    // three suns
   c.px(6, 7, "y"); c.px(12, 7, "Y")
 })
 
+icon("phoenix", (c) => {                                           // the firebird head-on: a fire wing and an ice wing raised, a split tail
+  badge(c, "P", "M")
+  c.grid(1, 1, `
+  O..........B
+  Oo...yy...cB
+  oYo..YY..cwC
+  .oYo.yk.cwC.
+  .OoYoYYcwcB.
+  ..OoYyycwB..
+  ...OoYwcB...
+  ....oYc.....
+  ...O.Yc.B...
+  ..O..o.C..B.
+  ..R..O.B..M.
+  ............`)
+})
+icon("gletser", (c) => {                                           // a glacier block skidding right, frost spraying off its front
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  ............
+  ....c..c....
+  ...wcwwcw...
+  ..wcccccwB..
+  ..cCcCCCcBw.
+  ..CCwCCCBBc.
+  w.CcCwCCBBw.
+  ..CCCCwCBB.c
+  w.BBBBBBBM..
+  ...MMMMMM.w.
+  cc.c.cc.c...
+  ............`)
+})
+icon("pagarKristal", (c) => {                                      // two ice posts and the crackling fence between them
+  badge(c, "P", "V")
+  c.grid(1, 1, `
+  .w........w.
+  wcw......wcw
+  cCc.y....cCc
+  cCwyly..ywCc
+  cC..wly.ylCc
+  cC....ywl.Cc
+  cCc....y..Cc
+  cCC.......CC
+  cCB.......CB
+  cCB.......CB
+  NnN.......NN
+  ............`)
+})
+icon("kometEs", (c) => {                                           // an ice comet streaking down, its tail of frost behind it
+  badge(c, "M", "P")
+  c.grid(1, 1, `
+  ..........c.
+  .........cc.
+  .......ccwc.
+  ......cwwcC.
+  .....cwwcC..
+  ..MMcwwcC.c.
+  .MCcwwcC....
+  MCcwccC..w..
+  MCwcCB......
+  MCcCBM..c...
+  .MBBM.......
+  ..MM........`)
+})
+
 // Placeholder fusion icons (until the real art): the two ingredients' colours split on the diagonal.
 const INGREDIENT = { fireball: "o", meteor: "X", iceShard: "C", frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
-for (const [id, a, b] of [["phoenix", "fireball", "iceShard"], ["supernova", "fireball", "frostNova"], ["bolaPlasma", "fireball", "chainLightning"],
-  ["kometEs", "meteor", "iceShard"], ["gletser", "meteor", "frostNova"],
-  ["penghakimanLangit", "meteor", "chainLightning"], ["pagarKristal", "iceShard", "chainLightning"],
+for (const [id, a, b] of [["supernova", "fireball", "frostNova"], ["bolaPlasma", "fireball", "chainLightning"],
+  ["penghakimanLangit", "meteor", "chainLightning"],
   ["pusaranKristal", "iceShard", "arcaneOrb"], ["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
   icon(id, (c) => { c.rect(0, 0, 14, 14, INGREDIENT[b]); c.poly([0, 0, 13, 0, 0, 13], INGREDIENT[a]); c.line(0, 13, 13, 0, "k") })
 
