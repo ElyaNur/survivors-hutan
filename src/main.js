@@ -6,7 +6,7 @@ import { spawnEnemy } from './game/enemies.js';
 import { HUT, isWater } from './game/world.js';
 import { CLASSES } from './data/classes.js';
 import { drawHud, updateBanner } from './ui/hud.js';
-import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, pauseScreen, resultScreen } from './ui/screens.js';
+import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen } from './ui/screens.js';
 import { sfx, isMuted, setMuted } from './engine/audio.js';
 import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet } from './logic/records.js';
 
@@ -60,6 +60,7 @@ function go(next) {
   scene = next;
   if (next === 'menu') { run = backdrop; screen = menuScreen(assets, isMuted); }
   else if (next === 'classSelect') screen = classSelectScreen(assets, CLASSES);
+  else if (next === 'book') screen = bookScreen(assets, CLASSES.mage, records.mage);
   else if (next === 'records') screen = recordsScreen(assets, CLASSES, records);
   else if (next === 'starterPick') { run = backdrop; screen = starterPickScreen(CLASSES[classId], assets); }
   else if (next === 'levelup') { screen = levelUpScreen(run, assets); sfx('levelup'); }
@@ -74,8 +75,9 @@ function go(next) {
 go('menu');
 
 const ACT = {
-  menu: a => a === 'play' ? go('classSelect') : a === 'records' ? go('records') : toggleMute(),
+  menu: a => a === 'play' ? go('classSelect') : a === 'book' ? go('book') : a === 'records' ? go('records') : toggleMute(),
   classSelect: a => a === 'back' ? go('menu') : (classId = a, go('starterPick')),
+  book: () => go('menu'),
   records: () => go('menu'),
   starterPick: id => { run = createRun(classId, id, Date.now(), assets, discoveredSet(records, classId)); go('playing'); },
   levelup: card => {

@@ -4,7 +4,7 @@ import { NAMES } from '../data/classes.js';
 import { drawText, wrapText, textWidth } from '../engine/font.js';
 import { formatTime } from './hud.js';
 import { fusionFor } from '../logic/progression.js';
-import { EMPTY_RECORD } from '../logic/records.js';
+import { EMPTY_RECORD, discoveredSet } from '../logic/records.js';
 
 const W = 480, H = 270, STEP = 1 / 60;   // update() runs once per fixed sim step
 const LOCK = 0.3;                        // s before a pick counts: no accidental pick from a mid-fight key or click
@@ -168,11 +168,11 @@ function title(ctx, assets, str, y, scale, color = 'y') {
 
 const hint = (ctx, assets, str, y = H - 12) => drawText(ctx, assets, str, W / 2, y, { align: 'center' });
 
-// Main menu over the live forest. -> 'play' | 'records' | 'sound'
+// Main menu over the live forest. -> 'play' | 'book' | 'records' | 'sound'
 let shade = null;                                          // gradients, built once on the first menu draw
 export function menuScreen(assets, isMuted) {
-  const ACTIONS = ['play', 'records', 'sound'];
-  const b = buttons(assets, ['Main', 'Rekor', () => 'Suara: ' + (isMuted() ? 'Mati' : 'Nyala')], layoutCards(3, 3, 100, 20, 10, 196), 3);
+  const ACTIONS = ['play', 'book', 'records', 'sound'];
+  const b = buttons(assets, ['Main', 'Buku Resep', 'Rekor', () => 'Suara: ' + (isMuted() ? 'Mati' : 'Nyala')], layoutCards(4, 4, 100, 20, 6, 196), 4);
   return {
     update: input => ACTIONS[b.update(input)] ?? null,
     draw(ctx) {
@@ -256,6 +256,55 @@ export function recordsScreen(assets, classes, records) {
         });
       }));
       back.draw(ctx);
+    },
+  };
+}
+
+// The recipe book: the class's fusions in a 5-wide grid (found ones named, the rest "???"), a detail panel, Kembali. -> 'back'
+// `record` is records[classId] (maybe undefined, maybe v1-shaped); `found` is exposed for tests.
+export function bookScreen(assets, classDef, record) {
+  const fus = classDef.fusions, seen = discoveredSet({ [classDef.id]: record }, classDef.id);
+  const rects = [...layoutCards(fus.length, 5, 88, 38, 4, 38), ...layoutCards(1, 1, 100, 20, 0, 216)];   // the last rect is Kembali
+  const picker = createPicker(rects, 5);
+  return {
+    found: seen.size,
+    update(input) {
+      if (input.pressed('Escape')) return 'back';
+      return picker.update(input) === fus.length ? 'back' : null;
+    },
+    draw(ctx) {
+      dim(ctx);
+      title(ctx, assets, 'Buku Resep', 8, 2);
+      drawText(ctx, assets, `Ditemukan: ${seen.size}/${fus.length}`, W / 2, 28, { color: 'x', align: 'center' });
+      fus.forEach((f, i) => {
+        const r = rects[i], sel = picker.sel === i, y = r.y - (sel ? 1 : 0), cx = r.x + r.w / 2;
+        assets.drawSlice(ctx, sel ? 'card_sel' : 'card', r.x, y, r.w, r.h, 5);
+        if (seen.has(f.id)) {
+          assets.draw(ctx, 'icon_' + f.id, cx, y + 13);
+          drawText(ctx, assets, NAMES[f.id].name, cx, y + 26, { color: sel ? 'w' : 'y', align: 'center' });
+        } else {
+          assets.draw(ctx, 'icon_' + f.a, cx - 10, y + 13); assets.draw(ctx, 'icon_' + f.b, cx + 10, y + 13);
+          drawText(ctx, assets, '???', cx, y + 26, { color: 'x', align: 'center' });
+        }
+      });
+      const f = fus[picker.sel];                                            // detail of the selected slot (none on Kembali)
+      assets.drawSlice(ctx, 'card', 24, 164, 432, 46, 5);
+      if (f) {
+        drawText(ctx, assets, `${NAMES[f.a].name} + ${NAMES[f.b].name}`, W / 2, 170, { color: 'y', align: 'center' });
+        if (seen.has(f.id)) {
+          const e = record.fusions[f.id];
+          drawText(ctx, assets, NAMES[f.id].name, W / 2, 180, { align: 'center' });
+          drawText(ctx, assets, NAMES[f.id].desc, W / 2, 189, { color: 'x', align: 'center' });
+          drawText(ctx, assets, `Dibuat: ${e.made}   Menang: ${e.wins}`, W / 2, 198, { color: 'y', align: 'center' });
+        } else {
+          drawText(ctx, assets, '???', W / 2, 181, { align: 'center' });
+          drawText(ctx, assets, 'Belum ditemukan.', W / 2, 192, { color: 'x', align: 'center' });
+        }
+      }
+      const k = rects[fus.length], sel = picker.sel === fus.length, ky = k.y - (sel ? 1 : 0);
+      assets.drawSlice(ctx, sel ? 'card_sel' : 'card', k.x, ky, k.w, k.h, 5);
+      drawText(ctx, assets, 'Kembali', k.x + k.w / 2, ky + (k.h - 5) / 2, { color: sel ? 'w' : 'y', align: 'center' });
+      hint(ctx, assets, 'Panah + Enter, atau klik. Esc: kembali');
     },
   };
 }

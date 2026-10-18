@@ -1,7 +1,7 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { textWidth, wrapText } from '../src/engine/font.js';
-import { layoutCards, cardAt, cardInfo, levelUpScreen, starterPickScreen } from '../src/ui/screens.js';
+import { layoutCards, cardAt, cardInfo, levelUpScreen, starterPickScreen, bookScreen } from '../src/ui/screens.js';
 import { formatTime, updateBanner } from '../src/ui/hud.js';
 import { CLASSES, NAMES } from '../src/data/classes.js';
 import { createRun } from '../src/game/run.js';
@@ -169,4 +169,18 @@ test('pause: Menyerah needs a second press (a refocus click alone never forfeits
   k.taps.add('Digit2'); assert.equal(step(q, k), null);
   k.taps.add('Enter'); assert.equal(step(q, k), 'forfeit');
   k.taps.add('Escape'); assert.equal(step(pauseScreen(null), k), 'resume');
+});
+
+test('Buku Resep: counts discoveries, Esc and the 16th item go back, a slot does nothing', () => {
+  const stub = () => { const taps = new Set(); return { taps, mouse: { x: 0, y: 0, clicked: false }, pressed: c => taps.delete(c) }; };
+  const run = (s, inp, n) => { let a = null; for (let i = 0; i < n && !a; i++) a = s.update(inp); return a; };
+  const s = bookScreen(null, mage, { fusions: { lubangHitam: { made: 2, wins: 1 } } });
+  assert.equal(s.found, 1);
+  assert.equal(bookScreen(null, mage, { bestTime: 5, wins: 1 }).found, 0);   // v1 record
+  assert.equal(bookScreen(null, mage, undefined).found, 0);
+  const inp = stub();
+  inp.taps.add('Enter'); assert.equal(run(s, inp, 30), null);                 // past the lock; slot 0 selected
+  inp.taps.add('Escape'); assert.equal(s.update(inp), 'back');
+  for (let i = 0; i < 15; i++) { inp.taps.add('ArrowRight'); s.update(inp); }  // slot 15 = Kembali
+  inp.taps.add('Enter'); assert.equal(s.update(inp), 'back');
 });
