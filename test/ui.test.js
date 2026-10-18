@@ -179,7 +179,9 @@ test('Buku Resep: counts discoveries, Esc and the 16th item go back, a slot does
   assert.equal(bookScreen(null, mage, { bestTime: 5, wins: 1 }).found, 0);   // v1 record
   assert.equal(bookScreen(null, mage, undefined).found, 0);
   const inp = stub();
-  inp.taps.add('Enter'); assert.equal(run(s, inp, 30), null);                 // past the lock; slot 0 selected
+  assert.equal(run(s, inp, 30), null);                                         // idle past the input lock
+  inp.taps.add('Enter'); assert.equal(s.update(inp), null);                    // Enter on slot 0 (a slot, not Kembali)
+  assert.equal(inp.taps.size, 0);                                              // the tap was read, not ignored
   inp.taps.add('Escape'); assert.equal(s.update(inp), 'back');
   for (let i = 0; i < 15; i++) { inp.taps.add('ArrowRight'); s.update(inp); }  // slot 15 = Kembali
   inp.taps.add('Enter'); assert.equal(s.update(inp), 'back');

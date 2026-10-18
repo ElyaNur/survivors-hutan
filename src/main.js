@@ -60,7 +60,7 @@ function go(next) {
   scene = next;
   if (next === 'menu') { run = backdrop; screen = menuScreen(assets, isMuted); }
   else if (next === 'classSelect') screen = classSelectScreen(assets, CLASSES);
-  else if (next === 'book') screen = bookScreen(assets, CLASSES.mage, records.mage);
+  else if (next === 'book') screen = bookScreen(assets, CLASSES[classId], records[classId]);
   else if (next === 'records') screen = recordsScreen(assets, CLASSES, records);
   else if (next === 'starterPick') { run = backdrop; screen = starterPickScreen(CLASSES[classId], assets); }
   else if (next === 'levelup') { screen = levelUpScreen(run, assets); sfx('levelup'); }
