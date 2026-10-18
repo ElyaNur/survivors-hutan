@@ -5,7 +5,7 @@ import { createRun, updateRun, drawRun, chooseCard } from './game/run.js';
 import { spawnEnemy } from './game/enemies.js';
 import { HUT, isWater } from './game/world.js';
 import { CLASSES } from './data/classes.js';
-import { drawHud, updateBanner } from './ui/hud.js';
+import { drawHud, updateBanner, drawTouch, pauseHit } from './ui/hud.js';
 import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen } from './ui/screens.js';
 import { sfx, isMuted, setMuted } from './engine/audio.js';
 import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet } from './logic/records.js';
@@ -102,7 +102,8 @@ initInput(canvas);
 startLoop(
   dt => {
     if (scene === 'playing') {
-      if (!run.ending && input.pressed('Escape')) go('paused');
+      const tapPause = input.touched && input.mouse.clicked && pauseHit(input.mouse);   // no Esc on a phone
+      if (!run.ending && (input.pressed('Escape') || tapPause)) go('paused');
       else {
         held = run.fx.frozen(); updateRun(run, dt, input); updateBanner(run, dt);
         if (run.state === 'levelup') go('levelup');
@@ -119,6 +120,7 @@ startLoop(
   () => {
     drawRun(ctx, run, assets);
     if (run !== backdrop && scene !== 'result') drawHud(ctx, run, assets);
+    if (scene === 'playing' && input.touched) drawTouch(ctx, assets, input);
     for (const draw of game.overlays) draw(ctx);
     screen?.draw(ctx);
   });

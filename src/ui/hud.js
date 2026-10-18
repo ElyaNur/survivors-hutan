@@ -137,3 +137,40 @@ function drawPlayerHp(ctx, p) {
   ctx.fillStyle = C.r; ctx.fillRect(sx - 8, sy + 1, hp, 2);
   ctx.fillStyle = C.i; ctx.fillRect(sx - 8, sy + 1, hp, 1);
 }
+
+// ---- Touch: the pause button (top right, under the kills) and the stick while a finger holds it.
+export const pauseHit = m => {
+  const { x, y, size, pad } = TUNING.touch.pause;
+  return m.x >= x - pad && m.x < x + size + pad && m.y >= y - pad && m.y < y + size + pad;
+};
+
+// A pixel-hard disc of radius r, cached: `px(d, dx, dy)` gives each pixel's colour (or null) by its distance from the centre.
+const discs = {};
+function disc(name, r, px) {
+  if (!discs[name]) {
+    const c = document.createElement('canvas'); c.width = c.height = 2 * r + 1;
+    const g = c.getContext('2d');
+    for (let y = -r; y <= r; y++) for (let x = -r; x <= r; x++) {
+      const col = px(Math.hypot(x, y), x, y);
+      if (col) { g.fillStyle = col; g.fillRect(x + r, y + r, 1, 1); }
+    }
+    discs[name] = c;
+  }
+  return discs[name];
+}
+
+export function drawTouch(ctx, assets, input) {
+  const { stickR: R, alpha, pause: b } = TUNING.touch;
+  slot(ctx, assets, b.x, b.y, null);
+  ctx.fillStyle = C.y; ctx.fillRect(b.x + 6, b.y + 5, 2, 8); ctx.fillRect(b.x + 10, b.y + 5, 2, 8);
+  const s = input.stick;
+  if (!s) return;
+  const K = 8, dx = s.x - s.ox, dy = s.y - s.oy, d = Math.hypot(dx, dy), k = d > R ? R / d : 1;
+  const base = disc('base', R, d => d > R + 0.5 ? null : d > R - 0.5 ? C.k : d > R - 1.5 ? C.y : d > R - 2.5 ? C.k : 'rgba(29, 26, 47, 0.4)');
+  const knob = disc('knob', K, (d, x, y) => d > K + 0.5 ? null : d > K - 0.5 ? C.k : x + y > K * 0.6 ? C.Y : C.y);
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(base, Math.round(s.ox) - R, Math.round(s.oy) - R);
+  ctx.drawImage(knob, Math.round(s.ox + dx * k) - K, Math.round(s.oy + dy * k) - K);
+  ctx.restore();
+}
