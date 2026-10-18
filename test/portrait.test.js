@@ -1,6 +1,6 @@
 import { test, after } from 'node:test'; import assert from 'node:assert/strict';
 import { setPortrait } from '../src/engine/view.js';
-import { pauseRect, pauseHit, fusionPairs, bossBarRect } from '../src/ui/hud.js';
+import { pauseRect, pauseHit, fusionPairs, bossBarRect, bannerInnerW, bannerDescLines } from '../src/ui/hud.js';
 import { createRun } from '../src/game/run.js';
 import { CLASSES, NAMES } from '../src/data/classes.js';
 import { textWidth } from '../src/engine/font.js';
@@ -30,6 +30,14 @@ test('boss bar rect: landscape as today; portrait inside the view, clear of the 
   assert.ok(b.x >= 0 && b.x + b.w <= 270 && b.y > p.y + p.h - 2 && b.y > 26);
   setPortrait(false);
 });
-test('banner fits portrait: every fusion title fits at the portrait banner scale', () => {
-  for (const f of mage.fusions) assert.ok(textWidth(`FUSION BARU: ${NAMES[f.id].name}!`, 1) <= 270 - 2 * 24 - 20, f.id);
+test('banner fits portrait: every wrapped description line and the title sit inside the frame art', () => {
+  setPortrait(true);
+  const inner = bannerInnerW();
+  for (const f of mage.fusions) {
+    for (const l of bannerDescLines(f.id)) assert.ok(textWidth(l) / 2 <= 270 / 2 - (24 + 8) - 4, `${f.id}: ${l}`);   // centred on the banner, 4 px of air inside the 8 px edge
+    // title is centred at w/2 + 10 with the icon 14 px left of it
+    const tw = textWidth(`FUSION BARU: ${NAMES[f.id].name}!`), c = 270 / 2 + 10;
+    assert.ok(c + tw / 2 <= 24 + 8 + inner && c - tw / 2 - 14 - 8 >= 24 + 8, f.id);
+  }
+  setPortrait(false);
 });

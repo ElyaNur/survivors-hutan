@@ -80,12 +80,15 @@ function drawFusionPanel(ctx, run, assets) {
   });
 }
 
+// Portrait banner text: wrapped to the frame's inner width (minus 4 px air each side), centred on the banner.
+export const bannerInnerW = () => VIEW.w - 2 * (BANNER_X + BANNER_EDGE);
+export const bannerDescLines = id => wrapText(NAMES[id].desc, bannerInnerW() - 8);
 // Portrait: title at scale 1 and the description wrapped, so the banner grows taller instead of wider.
 function drawBanner(ctx, run, assets) {
   const { id, first, t } = run.banner, open = Math.min(1, t / 0.15), alpha = Math.min(1, (BANNER_T - t) / 0.4);
   const { w, portrait } = VIEW, cy = 74, sc = portrait ? 1 : 2;
-  const desc = portrait ? wrapText(NAMES[id].desc, w - 2 * BANNER_X - 20) : [NAMES[id].desc];
-  const full = portrait ? 26 + desc.length * 8 : 36, h = Math.round(full * open), top = cy - full / 2;
+  const desc = portrait ? bannerDescLines(id) : [NAMES[id].desc];
+  const full = portrait ? 30 + desc.length * 8 : 36, h = Math.round(full * open), top = cy - full / 2;
   ctx.save();
   ctx.globalAlpha = alpha;
   if (h >= 2 * BANNER_EDGE) assets.drawSlice(ctx, 'ult_banner', BANNER_X, cy - h / 2, w - 2 * BANNER_X, h, BANNER_EDGE);
@@ -93,7 +96,7 @@ function drawBanner(ctx, run, assets) {
   if (open < 1) return;
   const title = `${first ? 'FUSION BARU' : 'FUSION'}: ${NAMES[id].name}!`, ty = portrait ? top + 10 : cy - 12;
   drawText(ctx, assets, title, w / 2 + 10, ty, { color: t < 0.3 && Math.floor(t * 20) % 2 ? 'w' : 'y', align: 'center', scale: sc, alpha });
-  desc.forEach((l, k) => drawText(ctx, assets, l, w / 2 + 10, (portrait ? ty + 10 : cy + 5) + k * 8, { align: 'center', alpha }));
+  desc.forEach((l, k) => drawText(ctx, assets, l, portrait ? w / 2 : w / 2 + 10, (portrait ? ty + 12 : cy + 5) + k * 8, { align: 'center', alpha }));
   assets.draw(ctx, 'icon_' + id, w / 2 + 10 - textWidth(title, sc) / 2 - 14, ty + (portrait ? 3 : 9), { alpha });   // icon left of the title
 }
 
