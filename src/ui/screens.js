@@ -2,7 +2,7 @@
 import TUNING from '../data/tuning.js';
 import { NAMES } from '../data/classes.js';
 import { drawText, wrapText, textWidth } from '../engine/font.js';
-import { formatTime } from './hud.js';
+import { formatTime, fusionPairs, buildSlots, slot } from './hud.js';
 import { fusionFor } from '../logic/progression.js';
 import { EMPTY_RECORD, discoveredSet } from '../logic/records.js';
 import { VIEW } from '../engine/view.js';
@@ -326,9 +326,34 @@ export function bookScreen(assets, classDef, record) {
 
 // -> 'resume' | 'forfeit'. Esc toggles back. Menyerah asks twice: the click that refocuses the window after an
 // auto-pause can land on it, and one stray click must never end a long run.
-export function pauseScreen(assets) {
+export const PAUSE_TEXT_X = 100, PAUSE_TEXT_W = 152;       // portrait pause: fusion row text column (panel ends at 260, 8 px air)
+// Portrait pause panel: the build that the play HUD leaves out, and the fusion pairs in reach.
+function drawPausePanel(ctx, assets, run) {
+  assets.drawSlice(ctx, 'panel', 10, 40, 250, 400, 3);
+  title(ctx, assets, 'JEDA', 52, 3);
+  drawText(ctx, assets, 'Skill', 36, 92, { color: 'x' }); drawText(ctx, assets, 'Pasif', 154, 92, { color: 'x' });
+  buildSlots(ctx, run, assets, 36, 154, 102);
+  const rows = fusionPairs(run);
+  if (rows.length) drawText(ctx, assets, 'Fusion yang bisa dibuat', 20, 140, { color: 'x' });
+  rows.forEach(({ f, a, b, lit }, n) => {
+    const y = 154 + n * 26, c = lit ? 'y' : 'x', seen = run.discovered.has(f.id), skills = run.build.skills;
+    slot(ctx, assets, 20, y, 'icon_' + a, skills[a], lit);
+    drawText(ctx, assets, '+', 42, y + 6, { color: c, align: 'center' });
+    slot(ctx, assets, 47, y, 'icon_' + b, skills[b], lit);
+    drawText(ctx, assets, '→', 70, y + 6, { color: c, align: 'center' });
+    slot(ctx, assets, 76, y, seen ? 'icon_' + f.id : 'icon_unknown', 0, lit);
+    const name = seen ? NAMES[f.id].name : '???';
+    drawText(ctx, assets, `${NAMES[a].name} + ${NAMES[b].name}`, PAUSE_TEXT_X, y + 3, { color: c });
+    drawText(ctx, assets, lit ? name + ' siap!' : name, PAUSE_TEXT_X, y + 11, { color: lit ? 'w' : 'y' });
+  });
+  drawText(ctx, assets, `Lv ${run.prog.level} - ${run.kills} kill - ${formatTime(run.endAt ?? run.time)}`, 20, 236, { color: 'x' });
+}
+
+// Landscape: a small panel with the two buttons. Portrait: the build panel first (run is only read there).
+export function pauseScreen(assets, run) {
   let armed = false;
-  const b = buttons(assets, ['Lanjut', () => (armed ? 'Yakin? Menyerah' : 'Menyerah')], layoutCards(2, 1, 110, 20, 8, 112), 1);
+  const P = VIEW.portrait;
+  const b = buttons(assets, ['Lanjut', () => (armed ? 'Yakin? Menyerah' : 'Menyerah')], layoutCards(2, 1, 110, 20, 8, P ? 360 : 112), 1);
   return {
     rects: b.rects,
     update(input) {
@@ -341,6 +366,7 @@ export function pauseScreen(assets) {
     },
     draw(ctx) {
       dim(ctx);
+      if (P) { drawPausePanel(ctx, assets, run); b.draw(ctx); return; }
       assets.drawSlice(ctx, 'panel', VIEW.w / 2 - 80, 56, 160, 132, 3);
       title(ctx, assets, 'JEDA', 70, 3);
       b.draw(ctx);
@@ -349,7 +375,6 @@ export function pauseScreen(assets) {
   };
 }
 
-// res: { won, time, kills, level, fusions, found, newBest }. -> 'again' | 'menu'
 export function resultScreen(assets, res) {
   const dy = (VIEW.h - 270) / 2, cx = VIEW.w / 2;   // portrait: today's layout (220 wide fits), moved down to the middle
   const ACTIONS = ['again', 'menu'], b = buttons(assets, ['Main lagi', 'Menu'], layoutCards(2, 2, 100, 20, 12, 214 + dy), 2);

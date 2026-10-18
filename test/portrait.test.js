@@ -4,7 +4,7 @@ import { pauseRect, pauseHit, fusionPairs, bossBarRect, bannerInnerW, bannerDesc
 import { createRun } from '../src/game/run.js';
 import { CLASSES, NAMES, PASSIVES } from '../src/data/classes.js';
 import { textWidth, wrapText } from '../src/engine/font.js';
-import { layoutCards, cardInfo, levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen } from '../src/ui/screens.js';
+import { layoutCards, cardInfo, levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen, PAUSE_TEXT_X, PAUSE_TEXT_W } from '../src/ui/screens.js';
 const mage = CLASSES.mage;
 after(() => setPortrait(false));
 
@@ -100,4 +100,23 @@ test('landscape rects unchanged', () => {
   assert.deepEqual(resultScreen(null, { fusions: [], newBest: [] }).rects, layoutCards(2, 2, 100, 20, 12, 214));
   assert.deepEqual(bookScreen(null, mage, undefined).rects, [...layoutCards(15, 5, 88, 38, 4, 38), ...layoutCards(1, 1, 100, 20, 0, 216)]);
   assert.deepEqual(recordsScreen(null, CLASSES, {}).rects, layoutCards(1, 1, 100, 20, 0, 216));
+});
+
+test('portrait pause: buttons fit, Menyerah still asks twice, fusion text fits the panel', () => {
+  setPortrait(true);
+  const run = createRun('mage', 'fireball', 1);
+  run.build.skills = { fireball: 5, meteor: 5, iceShard: 5, frostNova: 5 }; run.build.passives = { focus: 5, swiftness: 2, magnet: 1, vitality: 3 };
+  const p = pauseScreen(null, run);
+  assert.equal(p.rects.length, 2); p.rects.forEach(r => assert.ok(inside(r)));
+  assert.ok(fusionPairs(run).length <= 3);
+  const k = fakeInput(); steps(p, k, 30);                    // past the input lock
+  Object.assign(k.mouse, { x: p.rects[1].x + 5, y: p.rects[1].y + 5, clicked: true });
+  assert.equal(p.update(k), null);                           // first tap only arms it
+  assert.equal(p.update(k), 'forfeit');                      // second confirms
+  assert.ok(PAUSE_TEXT_X + PAUSE_TEXT_W <= 260 - 8);         // text column ends inside the panel (x 10..260)
+  for (const f of mage.fusions) {                            // the longest row text of every possible fusion
+    assert.ok(textWidth(`${NAMES[f.a].name} + ${NAMES[f.b].name}`) <= PAUSE_TEXT_W, f.id);
+    assert.ok(textWidth(NAMES[f.id].name + ' siap!') <= PAUSE_TEXT_W, f.id);
+  }
+  setPortrait(false);
 });

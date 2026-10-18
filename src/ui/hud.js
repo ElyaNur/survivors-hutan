@@ -43,16 +43,20 @@ export function slot(ctx, assets, x, y, iconName, lv = 0, lit = false) {
   if (lv) pips(ctx, x, y + 16, lv);
 }
 
-function drawBuild(ctx, run, assets) {
+// Skill slots at sx (skills, then the fusions that replaced pairs of them) and passive slots at px, row at y.
+export function buildSlots(ctx, run, assets, sx, px, y) {
   const { skills, passives, fusions } = run.build, sk = Object.keys(skills), ps = Object.keys(passives);
+  for (let i = 0; i < SLOTS; i++) {
+    const f = fusions[i - sk.length];
+    if (f) slot(ctx, assets, sx + i * 20, y, 'icon_' + f, 0, true);
+    else slot(ctx, assets, sx + i * 20, y, sk[i] && 'icon_' + sk[i], skills[sk[i]]);
+  }
+  for (let i = 0; i < SLOTS; i++) slot(ctx, assets, px + i * 20, y, ps[i] && 'icon_' + ps[i], passives[ps[i]]);
+}
+function drawBuild(ctx, run, assets) {
   const py = VIEW.h - 30;
   assets.drawSlice(ctx, 'panel', 2, py, 174, 28, 3);
-  for (let i = 0; i < SLOTS; i++) {                          // skills, then the fusions that replaced pairs of them
-    const f = fusions[i - sk.length];
-    if (f) slot(ctx, assets, 6 + i * 20, py + 4, 'icon_' + f, 0, true);
-    else slot(ctx, assets, 6 + i * 20, py + 4, sk[i] && 'icon_' + sk[i], skills[sk[i]]);
-  }
-  for (let i = 0; i < SLOTS; i++) slot(ctx, assets, 92 + i * 20, py + 4, ps[i] && 'icon_' + ps[i], passives[ps[i]]);
+  buildSlots(ctx, run, assets, 6, 92, py + 4);
 }
 
 // Held skill pairs that can fuse, closest first (max 3): A + B → result (? until discovered). Lit at 5 + 5.

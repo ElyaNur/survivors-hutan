@@ -67,7 +67,7 @@ function go(next) {
   else if (next === 'records') screen = recordsScreen(assets, CLASSES, records);
   else if (next === 'starterPick') { run = backdrop; screen = starterPickScreen(CLASSES[classId], assets); }
   else if (next === 'levelup') { screen = levelUpScreen(run, assets); sfx('levelup'); }
-  else if (next === 'paused') screen = pauseScreen(assets);
+  else if (next === 'paused') screen = pauseScreen(assets, run);
   else if (next === 'result') {
     const won = run.state === 'won', res = { time: Math.floor(run.endAt ?? run.time), kills: run.kills, level: run.prog.level, won };
     const m = mergeResult(records, classId, { ...res, fusions: run.build.fusions });
