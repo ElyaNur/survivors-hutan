@@ -84,7 +84,7 @@ test('chooseCard applies passives and heals', () => {
   chooseCard(run, { kind: 'passive', id: 'swiftness', nextLevel: 1 });
   assert.equal(p.speed, TUNING.player.speed * 1.08);
   chooseCard(run, { kind: 'heal' });
-  assert.equal(p.hp, 100);
+  assert.equal(p.hp, 70 + TUNING.healCard);
   p.hp = p.maxHp - 5; run.pendingLevelUps = 1;
   chooseCard(run, { kind: 'heal' });
   assert.equal(p.hp, p.maxHp);

@@ -1,25 +1,25 @@
 // Starting guesses (tuned later). Per-level skill values: number | {base, perLv} | 5-array (lv1..lv5).
 const TUNING = {
-  player: { hp: 120, speed: 60, iframes: 0.6, magnet: 24, pickup: 8, size: 12 },   // size: hitbox diameter (sprite is 17 wide)
+  player: { hp: 100, speed: 60, iframes: 0.6, magnet: 32, pickup: 8, size: 12 },   // size: hitbox diameter (sprite is 17 wide)
   frozenVulnMult: 2,
-  xp: { base: 5, step1: 18, step2: 110, step3: 160 },
+  xp: { base: 5, step1: 10, step2: 110, step3: 160 },
   enemyHpGrowthPerMin: 0.095,
   maxEnemies: 400,
   enemyCullDist: 700,   // farther than this from the player -> moved back to just off-screen
   enemies: {
-    slime:    { hp: 6,    speed: 30, dmg: 5,  xp: 1,  size: 12 },
-    bat:      { hp: 4,    speed: 56, dmg: 2,  xp: 1,  size: 10, wobble: 0.9, wobbleRate: 7 },
-    slimeRed: { hp: 18,   speed: 38, dmg: 8,  xp: 1.5,  size: 12 },
-    goblin:   { hp: 18,   speed: 45, dmg: 6,  xp: 1.5,  size: 14 },
-    wolf:     { hp: 25,   speed: 85, dmg: 10, xp: 2,  size: 16, reaim: 2 },
-    orc:      { hp: 80,   speed: 28, dmg: 15, xp: 3,  size: 18 },
-    witch:    { hp: 30,   speed: 35, dmg: 8,  xp: 2.5,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 10,
+    slime:    { hp: 6,    speed: 30, dmg: 6,  xp: 1,  size: 12 },
+    bat:      { hp: 4,    speed: 56, dmg: 3,  xp: 1,  size: 10, wobble: 0.9, wobbleRate: 7 },
+    slimeRed: { hp: 18,   speed: 38, dmg: 10,  xp: 1.5,  size: 12 },
+    goblin:   { hp: 18,   speed: 45, dmg: 8,  xp: 1.5,  size: 14 },
+    wolf:     { hp: 25,   speed: 85, dmg: 15, xp: 2,  size: 16, reaim: 2 },
+    orc:      { hp: 80,   speed: 28, dmg: 22, xp: 3,  size: 18 },
+    witch:    { hp: 30,   speed: 35, dmg: 12,  xp: 2.5,  size: 14, keepDist: 110, shotEvery: 3, shotSpeed: 60, shotDmg: 15,
                  shotSize: 6, shotLife: 5, shotRange: 180 },
     // Bosses. knock: share of the hit shove they take (default 1); chest: levels in the chest they drop.
-    kingSlime: { hp: 600,  speed: 25, dmg: 20, xp: 40, size: 32, splitInto: 'slime', splitCount: 8, knock: 0.15, chest: 1 },
-    orcChief:  { hp: 1200, speed: 35, dmg: 25, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5, chargeDur: 1.2,
+    kingSlime: { hp: 600,  speed: 25, dmg: 30, xp: 40, size: 32, splitInto: 'slime', splitCount: 8, knock: 0.15, chest: 1 },
+    orcChief:  { hp: 1200, speed: 35, dmg: 35, xp: 60, size: 32, chargeWindup: 0.8, chargeSpeed: 180, chargeEvery: 5, chargeDur: 1.2,
                  chargeRange: 170, knock: 0.1, chest: 2 },   // chargeEvery: windup to windup; chargeRange: winds up only this close (on screen)
-    treant:    { hp: 10000, speed: 15, dmg: 30, xp: 0,  size: 64, rootWarn: 1.0, rootR: 20, rootDmg: 20, rootEvery: 3,
+    treant:    { hp: 10000, speed: 15, dmg: 40, xp: 0,  size: 64, rootWarn: 1.0, rootR: 20, rootDmg: 30, rootEvery: 3,
                  summonType: 'goblin', summonCount: 6, summonEvery: 12, knock: 0 },   // killing it wins the run: no drops
   },
   skills: {
@@ -50,10 +50,10 @@ const TUNING = {
     magnet: { magnet: 0.25 }, wisdom: { xp: 0.10 }, amplify: { area: 0.08 },
   },
   audio: { master: 0.3, minGap: 0.04, maxVoices: 12, detuneCents: 50 },   // master: output gain; minGap: s between plays of one name; detune: +-cents per play
-  healCard: 30,
+  healCard: 20,
   endDelay: { won: 2, lost: 1.5 },   // s from the treant's death / the mage's to the result
   drops: {
-    heartChance: 0.04, heartHeal: 25, magnetChance: 0.003,
+    heartChance: 0.015, heartHeal: 20, magnetChance: 0.003,
     maxGems: 300, pullSpeed: 200,   // pullSpeed: px/s a magnetised pickup flies at the player
     bossGemXp: 5,                   // a boss's xp falls as a ring of gems worth this much each
     chestHold: 0.6,                 // s: level-up cards wait for the chest to finish opening

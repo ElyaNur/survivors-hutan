@@ -3,18 +3,18 @@
 const LATE = { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 4 };   // minute 19 on
 export const SCHEDULE = {
   waves: [
-    { from: 0,  to: 1,  rate: 0.8,  mix: { slime: 1 } },
-    { from: 1,  to: 2,  rate: 1.0,  mix: { slime: 6, bat: 1 } },
-    { from: 2,  to: 4,  rate: 1.8,  mix: { slime: 4, bat: 1.5 } },
-    { from: 4,  to: 5,  rate: 2.4,  mix: { slime: 2, bat: 2, slimeRed: 3 } },
-    { from: 5,  to: 7,  rate: 2.5,  mix: { slime: 1, bat: 2, slimeRed: 3, goblin: 3 } },
-    { from: 7,  to: 10, rate: 3.1,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 1 } },
-    { from: 10, to: 12, rate: 4.5,  mix: { slime: 1, bat: 1, slimeRed: 2, goblin: 3, wolf: 1, orc: 3 } },
-    { from: 12, to: 15, rate: 7.0,  mix: { slime: 1, bat: 1, slimeRed: 2, goblin: 3, wolf: 2, orc: 3, witch: 2 } },
-    { from: 15, to: 17, rate: 9.0,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 3, witch: 3 } },
-    { from: 17, to: 19, rate: 11,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 3 } },
-    { from: 19, to: 20, rate: 12, mix: LATE },
-    { from: 20, to: Infinity, rate: 6, mix: LATE },             // the treant is out (bosses at 1200 s): same mix, half rate
+    { from: 0,  to: 1,  rate: 1.2,  mix: { slime: 1 } },
+    { from: 1,  to: 2,  rate: 1.6,  mix: { slime: 6, bat: 1 } },
+    { from: 2,  to: 4,  rate: 2,  mix: { slime: 4, bat: 1.5 } },
+    { from: 4,  to: 5,  rate: 2.5,  mix: { slime: 2, bat: 2, slimeRed: 3 } },
+    { from: 5,  to: 7,  rate: 3.2,  mix: { slime: 1, bat: 2, slimeRed: 3, goblin: 3 } },
+    { from: 7,  to: 10, rate: 4,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 1 } },
+    { from: 10, to: 12, rate: 6.5,  mix: { slime: 1, bat: 1, slimeRed: 2, goblin: 3, wolf: 1, orc: 3 } },
+    { from: 12, to: 15, rate: 9,  mix: { slime: 1, bat: 1, slimeRed: 2, goblin: 3, wolf: 2, orc: 3, witch: 2 } },
+    { from: 15, to: 17, rate: 12,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 3, witch: 3 } },
+    { from: 17, to: 19, rate: 14,  mix: { slime: 1, bat: 2, slimeRed: 2, goblin: 3, wolf: 3, orc: 4, witch: 3 } },
+    { from: 19, to: 20, rate: 15, mix: LATE },
+    { from: 20, to: Infinity, rate: 7.5, mix: LATE },             // the treant is out (bosses at 1200 s): same mix, half rate
   ],
   groups: { goblin: 3, wolf: 3 },                           // goblins arrive in small bands, wolves in packs (one spawn point each)
   groupSpread: 10,                                          // px jitter inside a band or pack

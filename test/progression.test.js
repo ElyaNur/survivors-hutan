@@ -6,8 +6,8 @@ const mage = CLASSES.mage;
 const maxed = ids => Object.fromEntries(ids.map(i => [i, 5]));
 
 test('xp curve', () => {
-assert.equal(xpToNext(1), 5); assert.equal(xpToNext(2), 23); assert.equal(xpToNext(19), 329);
-  assert.equal(xpToNext(20), 439); assert.equal(xpToNext(40), 2689);
+assert.equal(xpToNext(1), 5); assert.equal(xpToNext(2), 15); assert.equal(xpToNext(19), 185);
+  assert.equal(xpToNext(20), 295); assert.equal(xpToNext(40), 2545);
 });
 test('gainXp handles multi-level and carries remainder', () => {
   const p = { level: 1, xp: 0 };
