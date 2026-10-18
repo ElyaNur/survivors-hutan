@@ -1,7 +1,7 @@
 import TUNING from '../data/tuning.js';
 import { PASSIVES } from '../data/classes.js';
 
-const MAX_LV = 5, MAX_SLOTS = 4;
+export const MAX_LV = 5, MAX_SLOTS = 4;
 
 export function xpToNext(level) {
   const { base, step1, step2, step3 } = TUNING.xp;   // base + step1*(l-1) (10/level) | then step2 (110/level) from l20 | step3 (160/level) from l40

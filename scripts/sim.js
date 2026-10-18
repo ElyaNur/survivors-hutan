@@ -3,7 +3,7 @@
 //   node scripts/sim.js --plan "fireball+meteor,iceShard+frostNova" --seeds 5      (several plans: --plan "a+b,c+d|a+b|none"; a plan is an ordered list of fusion pairs, or none)
 //   node scripts/sim.js --partitions --seeds 3      (all 15 three-pair builds: win rate each, then a per-fusion average and weakest/strongest)
 //   options: --seeds N (default 5), --start S (first seed, default 1), --max SECONDS (default 1500: the boss gets 5 min after 20:00), --verbose (one line per run), --trace (hp / level / position every 20 s), --god (immortal),
-//            --nofuse (reach each planned pair at Lv5 but never take the fusion card: the "fusion beats its ingredients" control)
+//            --nofuse (reach each planned pair at Lv5 but never take the fusion card: the "fusion beats its ingredients" control; use 1-2 pair plans, 4 slots without consumption)
 // Bot: steers to the safest of 16 headings (away from the crowd, circling, off walls and water, towards gems and chests);
 // card picks follow the plan: the current pair's two skills to Lv5, then passives; its fusion card is taken (never an unplanned one), then the next pair.
 // The starter is the first pair's first skill. `none` picks cards at random but never a fusion card (a build without fusions).
@@ -11,7 +11,7 @@
 // Not a human: it never dodges perfectly, but it never mis-picks a card. Use it to compare numbers, not to predict win rates.
 import { createRun, updateRun, chooseCard } from '../src/game/run.js';
 import { CLASSES } from '../src/data/classes.js';
-import { fusionFor } from '../src/logic/progression.js';
+import { fusionFor, MAX_SLOTS } from '../src/logic/progression.js';
 import { createRng } from '../src/logic/rng.js';
 import { SCHEDULE } from '../src/data/spawns.js';
 import { WORLD_W, WORLD_H, terrainSpeed } from '../src/game/world.js';
@@ -33,7 +33,11 @@ function pickCard(run, plan, rng) {
     for (const id of pair) { const c = cards.find(c => c.kind === 'skill' && c.id === id); if (c) return c; }
   }
   for (const id of PASSIVE_ORDER) { const c = cards.find(c => c.kind === 'passive' && c.id === id); if (c) return c; }
-  return rest.find(c => c.kind === 'skill') ?? rest[0] ?? cards[0];
+  // nothing planned on offer: upgrade a held skill, else a non-skill card (heal), else a new skill that leaves the current pair's missing partner(s) a slot
+  const used = Object.keys(b.skills).length + b.fusions.length, need = pair ? pair.filter(id => !(id in b.skills)).length : 0;
+  const next = plan[plan.indexOf(pair) + 1] ?? [];
+  return rest.find(c => c.kind === 'skill' && c.nextLevel > 1) ?? rest.find(c => c.kind !== 'skill')
+    ?? rest.find(c => next.includes(c.id) && used + 1 + need <= MAX_SLOTS) ?? rest[0] ?? cards[0];   // ponytail: a blocking skill only if it is all that is offered
 }
 
 // ---- Bot: movement
