@@ -22,8 +22,6 @@ function impact(run, a) {
   const fx = run.fx;
   sfx('kometEs');
   fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur * 0.5);
-  fx.hitstop(FX.hitstopBig);
-  fx.flashScreen('#a6f6ff', 0.15);
   fx.anim(a.x, a.y, 'fx_frostNova', { scale: a.r / NOVA_R });
   for (const [c, n, s] of IMPACT) fx.burst(a.x, a.y, c, n, s * a.r / K.r);
 }

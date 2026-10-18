@@ -11,7 +11,7 @@ import { updateBanner } from '../src/ui/hud.js';
 const U = TUNING.fusions;
 const spyFx = () => {
   const anims = [];
-  return { anims, number() {}, anim(x, y, name) { anims.push(name); }, burst() {}, hitstop() {}, flashScreen() {}, shake() {},
+  return { anims, number() {}, anim(x, y, name) { anims.push(name); }, burst() {}, hitstop() {}, flashScreen() {}, tryFlash: () => true, shake() {},
     update() {}, frozen: () => false };
 };
 const still = { moveVector: () => ({ x: 0, y: 0 }), pressed: () => false };

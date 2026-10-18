@@ -14,12 +14,14 @@ export function createFx(assets) {
   const anims = pool(MAX_ANIMS, () => ({ life: 0, age: 0, x: 0, y: 0, name: '', scale: 1 }));
   let pi = 0, ni = 0, ai = 0;
   let shakePx = 0, shakeDur = 0, shakeLeft = 0, hitLeft = 0;
-  let flashColor = '#fff', flashDur = 0, flashLeft = 0;
+  let flashColor = '#fff', flashDur = 0, flashLeft = 0, clock = 0, flashAt = -Infinity;
   const off = { x: 0, y: 0 }, topt = { color: 'w', align: 'center', alpha: 1 };   // topt reused: no per-number allocation
+  // Every full-screen flash (flashScreen, Badai Petir's lightning) shares one budget: at most one per TUNING.fx.flashGap s (photosensitivity).
+  const tryFlash = () => { if (clock - flashAt < TUNING.fx.flashGap) return false; flashAt = clock; return true; };
   const amp = () => (shakeLeft > 0 ? shakePx * shakeLeft / shakeDur : 0);
   const count = a => { let c = 0; for (let i = 0; i < a.length; i++) if (a[i].life > 0) c++; return c; };
 
-  return {
+  const fx = {
     shake(px, dur) { if (px >= amp()) { shakePx = px; shakeDur = dur; shakeLeft = dur; } },
     hitstop(sec) { if (sec > hitLeft) hitLeft = sec; },
     number(x, y, value, color = 'w') {
@@ -34,7 +36,8 @@ export function createFx(assets) {
         p.vx = Math.cos(a) * s; p.vy = Math.sin(a) * s; p.color = color;
       }
     },
-    flashScreen(color, dur) { flashColor = color; flashDur = flashLeft = dur; },
+    tryFlash,                                               // true (and spends the budget) when a flash may show now
+    flashScreen(color, dur) { if (fx.tryFlash()) { flashColor = color; flashDur = flashLeft = dur; } },
     // dur (seconds) defaults to the anim's own length.
     anim(x, y, name, { scale = 1, dur = (assets?.animTotal(name) || ANIM_FALLBACK * 1000) / 1000 } = {}) {
       const a = anims[ai]; ai = (ai + 1) % anims.length;
@@ -48,6 +51,7 @@ export function createFx(assets) {
       }
       for (const n of nums) if (n.life > 0) n.life -= dt;
       for (const a of anims) if (a.life > 0) { a.life -= dt; a.age += dt; }
+      clock += dt;
       if (flashLeft > 0) flashLeft -= dt;
       if (hitLeft > 0) hitLeft -= dt;
       if (shakeLeft > 0) shakeLeft -= dt;
@@ -87,4 +91,5 @@ export function createFx(assets) {
       }
     },
   };
+  return fx;
 }

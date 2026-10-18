@@ -47,7 +47,7 @@ export default {
       const e = randomNear(run, p.x, p.y, BP.range);
       if (!e) break;
       strike(run, st.bolts, e, fusionDmg(run, BP.dmg), BP.jumps, BP.jumpRange, st.cx + (run.rng.next() - 0.5) * CLOUD_SPREAD, st.cy + CLOUD_BASE);
-      if (st.t - st.litAt >= LIT_GAP) st.litAt = st.t;
+      if (st.t - st.litAt >= LIT_GAP && run.fx.tryFlash()) st.litAt = st.t;
       run.fx.shake(FX.shakeMeteor.px, FX.shakeMeteor.dur);
     }
     st.acc = Math.min(st.acc, 1);                           // nothing in range: don't bank a volley

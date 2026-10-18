@@ -116,6 +116,7 @@ const TUNING = {
   fx: {
     shakeMeteor: { px: 2, dur: 0.15 }, shakeUlt: { px: 4, dur: 0.4 }, hitstopBig: 0.05, hitstopUlt: 0.1, maxParticles: 600, maxNumbers: 150,
     shakeHurt: { px: 1.5, dur: 0.12 }, flashHurt: { color: '#ff2a2a', dur: 0.25 },
+    flashGap: 0.34,                    // s: min gap between any two screen flashes, all sources (<= 3/s: photosensitivity)
     burn: { alpha: 0.7, tuftArea: 300 },   // Meteor's burning ground: tuft opacity (lower = enemies and gems show through) and px² of ground per tuft (higher = sparser)
     blink: 0.08,                       // s: player sprite toggles this often during iframes
     knockback: 3,                      // px: default enemy shove per hit
