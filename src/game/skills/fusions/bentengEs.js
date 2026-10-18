@@ -26,7 +26,7 @@ function touch(run, st) {
     const reach = st.R + K.thick + e.r;                     // the wall and everything inside it
     if (e.dead || (e.x - pl.x) ** 2 + (e.y - pl.y) ** 2 > reach * reach || (st.hits.get(e) ?? 0) > now) continue;
     st.hits.set(e, now + K.hitCd);
-    damageEnemy(run, e, dmg, { fromX: pl.x, fromY: pl.y, power: K.push });
+    damageEnemy(run, e, dmg, { fromX: pl.x, fromY: pl.y, power: K.push, quiet: true });
     if (!e.dead) e.frozenUntil = Math.max(e.frozenUntil, now + K.freeze);
     run.fx.burst(e.x, e.y, '#a6f6ff', 3, 50);               // palette c
   }

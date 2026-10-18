@@ -341,7 +341,7 @@ test('Benteng Es: the ring freezes what touches it, and only its burst reaches b
   const touch = tank(run, R), far = tank(run, BR - 5);
   assert.ok(R + K.thick + far.r < BR - 5, 'the ring itself cannot reach it');
   live(run, 'bentengEs', st, 0.05);
-  assert.ok(touch.frozenUntil > run.time, 'frozen on contact'); assert.ok(touch.hp < touch.maxHp, 'and hurt');
+  assert.ok(touch.frozenUntil > run.time, 'frozen on contact'); assert.ok(touch.maxHp - touch.hp >= fusionDmg(run, K.dmg), 'and hurt');
   live(run, 'bentengEs', st, K.burstEvery * run.mods.cooldown - 0.2);
   assert.equal(far.hp, far.maxHp, 'no burst yet');
   live(run, 'bentengEs', st, 0.2 + K.burstTime + 0.15);
@@ -351,9 +351,10 @@ test('Benteng Es: the ring freezes what touches it, and only its burst reaches b
 
 test('Badai Petir: its storm core keeps striking the nearest enemy between storms', () => {
   const run = setup(), B = U.badaiPetir, st = { cd: 1e9 };  // no storm
-  const e = tank(run, B.coreRange * 0.5);
+  const e = tank(run, B.coreRange * 0.5), far = tank(run, -B.coreRange * 0.6);   // both in reach, e nearer the core
   live(run, 'badaiPetir', st, B.coreEvery + 0.05);
   assert.ok(!st.active); assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.coreDmg), 'struck by the core');
+  assert.equal(far.hp, far.maxHp, 'only the nearest');
 });
 
 test('the reused three hit with fusionDmg: they grow with the minute', () => {
@@ -363,7 +364,7 @@ test('the reused three hit with fusionDmg: they grow with the minute', () => {
   assert.equal(e.maxHp - e.hp, Math.round(fusionDmg(run, U.absoluteZero.hitDmg) * TUNING.frozenVulnMult));
   FUSIONS.hujanNeraka.update(run, {}, 0, run.mods, 0.01);
   assert.equal(run.areas[0].dmg, fusionDmg(run, U.hujanNeraka.dmg));
-  const b = setup(); b.time = 600; const t = tank(b, 60), st = {};
+  const b = setup(); b.time = 600; const t = tank(b, 60), st = { coreIn: 1e9 };   // core silent: only the storm bolt hits
   FUSIONS.badaiPetir.update(b, st, 0, b.mods, 0.01);
   assert.ok(t.maxHp - t.hp >= fusionDmg(b, U.badaiPetir.dmg), 'the storm bolt');
   assert.equal(U.badaiPetir.orbBoost, undefined);

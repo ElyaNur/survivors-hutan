@@ -90,7 +90,7 @@ const TUNING = {
     // Every pulse s (x mods.cooldown) the aura zaps everything within r (x mods.area): dmg, frozen for freeze s. Then every frozen enemy
     // in view (frozen by anything) conducts: it arcs to its nearest unfrozen neighbour within arc px for arcDmg.
     medanStatis:  { pulse: 1, r: 56, dmg: 7, freeze: 0.5, arc: 44, arcDmg: 7 },
-    // The ring stands ringR px out (x mods.area), thick px thick: what touches it (or stands inside it) takes dmg (each enemy every hitCd), is frozen for
+    // The ring stands ringR px out (x mods.area) and reaches thick px past it, the full disc inside too: what touches it takes dmg (each enemy every hitCd), is frozen for
     // freeze s and shoved push px. Every burstEvery s (x mods.cooldown, from the last burst's end) it blasts out to burstR (x mods.area)
     // over burstTime s, hitting each enemy once as its front passes: burstDmg, frozen burstFreeze s, shoved burstPush px; then it stands again.
     bentengEs:    { ringR: 28, thick: 6, dmg: 5, hitCd: 0.5, freeze: 1, push: 5, burstEvery: 6, burstTime: 0.35, burstR: 90, burstDmg: 20,
