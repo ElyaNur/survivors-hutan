@@ -1,9 +1,10 @@
 // World layout (pure logic: terrain, decor placement, camera) and its rendering (browser only).
 import { createRng } from '../logic/rng.js';
+import { VIEW } from '../engine/view.js';
 export const WORLD_W = 1920, WORLD_H = 1080;
 export const HUT = { x: 960, y: 540 }, SPAWN = { x: 960, y: 572 };
 export const RIVER_W = 44, BRIDGE = { y0: 524, y1: 556 };
-const VIEW_W = 480, VIEW_H = 270, EDGE = 64;
+const EDGE = 64;
 
 export const riverX = y => 1480 + 36 * Math.sin(y / 95);
 const inRiver = (x, y, pad = 0) => Math.abs(x - riverX(y)) < RIVER_W / 2 + pad;
@@ -17,9 +18,9 @@ export const clampToWorld = (p, margin = 8) => ({
 });
 
 export const camera = p => ({
-  x: Math.min(Math.max(p.x - VIEW_W / 2, 0), WORLD_W - VIEW_W),
-  y: Math.min(Math.max(p.y - VIEW_H / 2, 0), WORLD_H - VIEW_H),
-  w: VIEW_W, h: VIEW_H,
+  x: Math.min(Math.max(p.x - VIEW.w / 2, 0), WORLD_W - VIEW.w),
+  y: Math.min(Math.max(p.y - VIEW.h / 2, 0), WORLD_H - VIEW.h),
+  w: VIEW.w, h: VIEW.h,
 });
 
 // Decor: dense tree wall within EDGE px of the world border, sparse scatter inside.
