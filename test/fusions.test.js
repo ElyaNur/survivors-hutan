@@ -173,3 +173,31 @@ test('the Meteor skill blast is mass AoE too: it hits quietly', () => {
   SKILLS.meteor.update(run, {}, 5, run.mods, 0.01);
   assert.ok(run.areas.length > 0 && run.areas.every(a => a.quiet));
 });
+
+const regrid = run => { run.grid.clear(); for (const e of run.enemies) run.grid.insert(e); };
+const step = (run, id, st, secs, dt = 0.05) => { for (let t = 0; t < secs - 1e-9; t += dt) { regrid(run); FUSIONS[id].update(run, st, 0, run.mods, dt); } };
+
+test('Lubang Hitam drags an enemy in for pull s, then collapses with a fusionDmg blast', () => {
+  const run = setup(), st = {}, L = U.lubangHitam;
+  FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);    // opens at once (empty view: on the mage)
+  const e = tank(run, 0); e.x = st.x + 40; e.y = st.y;
+  step(run, 'lubangHitam', st, 0.5);
+  assert.ok(Math.hypot(e.x - st.x, e.y - st.y) < 40, 'pulled closer');
+  const before = e.maxHp - e.hp;
+  step(run, 'lubangHitam', st, L.pull);
+  assert.ok(e.maxHp - e.hp - before >= fusionDmg(run, L.collapseDmg), 'the collapse landed');
+});
+
+test('Cincin Matahari: the suns launch fireballs, and a sun burns what it touches', () => {
+  const run = setup(), st = {};
+  step(run, 'cincinMatahari', st, 3);
+  assert.ok(run.projectiles.length >= 2 && run.projectiles.every(p => p.sprite === 'fireball_fly'), 'fireballs from the suns (no skills held)');
+  const C = U.cincinMatahari, R = C.orbitR * run.mods.area;
+  const e = tank(run, 0); e.x = run.player.x + Math.cos(st.angle) * R; e.y = run.player.y + Math.sin(st.angle) * R;
+  step(run, 'cincinMatahari', st, 0.05);
+  assert.ok(e.hp < e.maxHp, 'burned on contact');
+});
+
+test('Lubang Hitam and Cincin Matahari are real fusions, not placeholders', () => {
+  assert.ok(!FUSIONS.lubangHitam.placeholder); assert.ok(!FUSIONS.cincinMatahari.placeholder);
+});

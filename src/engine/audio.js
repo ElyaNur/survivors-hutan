@@ -25,7 +25,7 @@ export const isMuted = store.isMuted, setMuted = store.setMuted;
 // ---- Throttle. Pure of audio: callers pass the clock. Each name plays at most once per minGap, and at most
 // maxVoices plays may be sounding at once (a play lasts DUR[name]). A refused play changes nothing.
 export const DUR = { fireball: 0.25, meteor: 0.6, ice: 0.35, nova: 0.5, zap: 0.15, orb: 0.15, hit: 0.08, die: 0.2, pickup: 0.15,
-  levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06 };
+  levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06, lubangHitam: 1.4, lubangHitamBoom: 0.9, cincinMatahari: 0.3 };
 export const createThrottle = () => ({ last: {}, ends: [] });
 const shared = createThrottle();
 export function shouldPlay(name, now, th = shared) {
@@ -130,6 +130,16 @@ const VOICES = {
   },
   chest(t) { [660, 880, 1320].forEach((f, i) => tone(t + i * 0.08, 'triangle', f, f, 0.25, 0.16)); noise(t, 0.05, 0.12, 'highpass', 3000, 3000); },   // creak-click + rising sparkle
   click(t) { tone(t, 'square', 640, 420, 0.04, 0.08); },                                                               // tiny UI tick
+  lubangHitam(t) {                                                                                                      // the hole opens: a sub drone sinking, air rushing in (noise swelling as its pitch falls)
+    tone(t, 'sine', 70, 34, 1.4, 0.7, 0.3); tone(t, 'triangle', 140, 52, 1.2, 0.12, 0.4);
+    noise(t, 1.3, 0.35, 'bandpass', 2400, 220, 2, 0.9);
+  },
+  lubangHitamBoom(t) {                                                                                                  // collapse: a sharp suck-in, then a deep thump, rumble and a falling arcane shimmer
+    noise(t, 0.08, 0.4, 'highpass', 1200, 5000, 1, 0.07);
+    tone(t + 0.07, 'sine', 150, 28, 0.8, 1.0); noise(t + 0.07, 0.75, 0.6, 'lowpass', 1500, 60);
+    tone(t + 0.07, 'triangle', 1400, 300, 0.5, 0.12); tone(t + 0.07, 'triangle', 1414, 306, 0.5, 0.1);
+  },
+  cincinMatahari(t) { noise(t, 0.2, 0.3, 'bandpass', 900, 3500, 2, 0.02); tone(t, 'triangle', 660, 1100, 0.18, 0.12); tone(t, 'sine', 330, 330, 0.25, 0.1); },   // solar flare: bright upward whoosh with a rising chirp
 };
 
 export function sfx(name) {

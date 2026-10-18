@@ -11820,7 +11820,7 @@
     "h": 16
    }
   },
-  "icon_phoenix": {
+  "icon_lubangHitam": {
    "frame": {
     "x": 214,
     "y": 154,
@@ -11840,7 +11840,7 @@
     "h": 16
    }
   },
-  "icon_supernova": {
+  "icon_cincinMatahari": {
    "frame": {
     "x": 230,
     "y": 154,
@@ -11860,7 +11860,7 @@
     "h": 16
    }
   },
-  "icon_bolaPlasma": {
+  "icon_phoenix": {
    "frame": {
     "x": 246,
     "y": 154,
@@ -11880,7 +11880,7 @@
     "h": 16
    }
   },
-  "icon_cincinMatahari": {
+  "icon_supernova": {
    "frame": {
     "x": 262,
     "y": 154,
@@ -11900,7 +11900,7 @@
     "h": 16
    }
   },
-  "icon_kometEs": {
+  "icon_bolaPlasma": {
    "frame": {
     "x": 278,
     "y": 154,
@@ -11920,7 +11920,7 @@
     "h": 16
    }
   },
-  "icon_gletser": {
+  "icon_kometEs": {
    "frame": {
     "x": 294,
     "y": 154,
@@ -11940,7 +11940,7 @@
     "h": 16
    }
   },
-  "icon_penghakimanLangit": {
+  "icon_gletser": {
    "frame": {
     "x": 310,
     "y": 154,
@@ -11960,7 +11960,7 @@
     "h": 16
    }
   },
-  "icon_lubangHitam": {
+  "icon_penghakimanLangit": {
    "frame": {
     "x": 0,
     "y": 170,

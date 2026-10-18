@@ -7,8 +7,8 @@ const ID = 'fireball', DEG = Math.PI / 180;
 const ART_R = 12, GLOW_DUR = 0.2;                           // fx_explosion is 24 px across; ground lit this long
 const SPARKS = [['#fff1a8', 6, 120], ['#ffd23f', 8, 90], ['#e8532e', 6, 50]];   // [palette y/Y/O, count, speed]
 
-// The ball itself deals nothing: the blast hits its target and everything around it.
-function boom(run, p) {
+// The ball itself deals nothing: the blast hits its target and everything around it. Cincin Matahari's shots blow up the same way.
+export function boom(run, p) {
   const fx = run.fx;
   spawnArea(run, { x: p.x, y: p.y, r: p.boomR, dmg: p.boomDmg, glow: 'fire', glowDur: GLOW_DUR });
   fx.anim(p.x, p.y, 'fx_explosion', { scale: Math.max(1, p.boomR / ART_R) });

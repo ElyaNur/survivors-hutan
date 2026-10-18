@@ -324,4 +324,111 @@ anim("roots_hit", { w: 45, h: 61, fps: 12, loop: false, frames: RISE.length }, (
   if (f >= 4) c.dither(0, 0, 45, 61, ".", "_", f === 4 ? 0.3 : 0.6)
 })
 
-sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*"])
+// ---- Fusions (prefix fu_).
+// Lubang Hitam, 61x33: an ink-black core with a tilted accretion disc spinning around it (white-hot inside, cooling
+// through lavender and orchid to violet, dark lanes between the arms), the side turning toward us brighter, and a
+// white photon ring arching over the top. The disc's back half goes behind the core, its front half across it.
+const BH = { C: [30, 16], rx: 30, ry: 8, core: 10 }
+const inDisc = (dx, dy) => Math.hypot(dx / BH.rx, dy / BH.ry) <= 1
+function bhDisc(c, front) {
+  const [cx, cy] = BH.C, k = c.phase * Math.PI * 2
+  for (let y = cy - BH.ry; y <= cy + BH.ry; y++) for (let x = cx - BH.rx; x <= cx + BH.rx; x++) {
+    const dx = x - cx, dy = y - cy, u = dx / BH.rx, v = dy / BH.ry, rho = Math.hypot(u, v)
+    if (rho > 1 || (dy > 0) !== front) continue
+    if (!front && Math.hypot(dx, dy) <= BH.core + 3) continue                    // behind the core and its ring
+    const arm = Math.sin(2 * Math.atan2(v, u) - 10 * rho - k)                     // two spiral arms, turning
+    const val = (1 - rho) * 1.3 + 0.3 * arm - 0.2 * u                            // hotter inside; the left side beams toward us
+    c.px(x, y, val > 1.0 ? "w" : val > 0.78 ? "l" : val > 0.52 ? "z" : val > 0.28 ? "v" : val > 0.08 ? "V" : "P")
+  }
+}
+const coreDome = (c, key) => {                                                   // the core where the front disc doesn't cover it
+  const [cx, cy] = BH.C
+  for (let y = cy - BH.core; y <= cy + BH.core; y++) for (let x = cx - BH.core; x <= cx + BH.core; x++)
+    if (Math.hypot(x - cx, y - cy) <= BH.core + 0.4 && !(y > cy && inDisc(x - cx, y - cy))) c.px(x, y, key)
+}
+anim("fu_blackHole", { w: 61, h: 33, fps: 12, frames: 8 }, (c) => {
+  const [cx, cy] = BH.C, k = c.phase * Math.PI * 2
+  bhDisc(c, false)
+  c.ring(cx, cy, BH.core + 3, "z"); c.ring(cx, cy, BH.core + 2, "l"); c.ring(cx, cy, BH.core + 1, "w")   // the photon ring: light bent
+                                                                                  // round the core, over the top and under the disc
+  coreDome(c, "k")
+  bhDisc(c, true)
+  for (let i = 0; i < 3; i++) {                                                   // hot clumps riding the disc
+    const a = k + i * 2.1, x = Math.round(cx + Math.cos(a) * BH.rx * 0.72), y = Math.round(cy + Math.sin(a) * BH.ry * 0.72)
+    if (Math.sin(a) > 0 || Math.hypot(x - cx, y - cy) > BH.core + 2) { c.px(x, y, "w"); c.px(x + (Math.sin(a) > 0 ? 1 : -1), y, "l") }
+  }
+},
+  glow("wl", { r: 3, strength: 0.6, bands: 2 }),
+  (c) => coreDome(c, "k"))                                                        // after the glow: the core stays pitch black
+
+// The gravity well under it, sized for r 80 (scaled to r in game): see-through ink deepening to the middle, three
+// thin spiral arms of darker ink and violet dust winding inward.
+anim("fu_blackHole_well", { w: 161, h: 161, fps: 10, frames: 8 }, (c) => {
+  const C = 80, k = c.phase * Math.PI * 2
+  for (let y = 0; y < 161; y++) for (let x = 0; x < 161; x++) {
+    const dx = x - C, dy = y - C, d = Math.hypot(dx, dy) / 80
+    if (d > 1) continue
+    const arm = Math.sin(3 * Math.atan2(dy, dx) + 11 * Math.sqrt(d) * 2 + k)
+    const ink = (1 - d) ** 1.4 + (arm > 0.7 ? 0.22 * (1 - d * 0.7) : 0)
+    if (ink > 0.75) c.px(x, y, "#1d1a2fb0")
+    else if (ink > 0.5) c.px(x, y, "#1d1a2f80")
+    else if (ink > 0.3) c.px(x, y, "#1d1a2f58")
+    else if (ink > 0.14) c.px(x, y, "#1d1a2f38")
+    else if (ink > 0.04 && (x + y) % 2 === 0) c.px(x, y, "#1d1a2f30")
+    if (arm > 0.93 && d > 0.2 && d < 0.92 && (x * 7 + y * 3) % 5 === 0) c.px(x, y, d < 0.55 ? "#d87bffc0" : "#9b5de5a0")   // dust in the arms (palette z, v)
+  }
+})
+
+// The collapse, sized for r 80 (scaled to r in game): the core pinches to a point, bursts into a white flash with rays,
+// then a thick violet shockwave rushes out over a lavender haze, flinging debris, and fades.
+const speck = (x, y, f) => { let h = (x * 374761393 + y * 668265263 + f * 2246822519) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296 }   // 0..1 hash: scattered, no stripes
+const BOOM_R = [0, 15, 28, 40, 51, 61, 70, 76, 80]
+anim("fu_blackHole_boom", { w: 167, h: 167, fps: 16, loop: false, frames: BOOM_R.length }, (c) => {
+  const f = c.frame, C = 83, R = BOOM_R[f]
+  const at = (a, d) => [Math.round(C + Math.cos(a) * d), Math.round(C + Math.sin(a) * d)]
+  if (f === 0) { c.ring(C, C, 7, "z"); c.ring(C, C, 5, "l"); c.ring(C, C, 4, "w"); c.circ(C, C, 3, "k"); c.px(C, C, "w"); return }
+  if (f >= 2) {                                                                   // haze inside the wave, thinning out
+    for (let y = C - R; y <= C + R; y++) for (let x = C - R; x <= C + R; x++) {
+      const d = Math.hypot(x - C, y - C)
+      if (d < R - 5 && d > R * 0.3 && speck(x, y, f) < (d / R) * (f < 5 ? 0.55 : 0.3)) c.px(x, y, d > R * 0.7 ? "z" : "v")
+    }
+  }
+  if (f < 4) c.circ(C, C, [0, 13, 15, 11][f], f === 1 ? "w" : f === 2 ? "l" : "z")   // the flash, cooling
+  if (f < 4) for (let i = 0; i < 16; i++) {                                       // rays out of the flash
+    const a = i * Math.PI / 8 + 0.2, long = i % 2 === 0, r0 = [0, 14, 18, 22][f], r1 = r0 + (long ? 22 : 12) - f * 4
+    const [x0, y0] = at(a, r0), [x1, y1] = at(a, r1)
+    c.line(x0, y0, x1, y1, f === 1 ? "w" : f === 2 ? "l" : "z", long && f < 3 ? 2 : 1); c.px(x1, y1, "w")
+  }
+  if (f >= 2) {                                                                   // the shockwave: white front, colour behind
+    c.ring(C, C, R - 5, "P"); c.ring(C, C, R - 4, "V"); c.ring(C, C, R - 3, "v"); c.ring(C, C, R - 2, "z"); c.ring(C, C, R - 1, "l")
+    c.ring(C, C, R, f < 6 ? "w" : "l")
+    if (f < 6) c.ring(C, C, R + 1, "l")
+  }
+  for (let i = 0; i < 24; i++) {                                                  // debris flung out ahead of the wave
+    const a = i * 0.262 + (i % 2) * 0.13, d = R + 4 + (i % 3) * 3
+    if (f === 0 || d > 82) continue
+    const [x, y] = at(a, d), [x2, y2] = at(a, d - 3)
+    c.line(x2, y2, x, y, i % 4 === 0 ? "o" : "z"); c.px(x, y, i % 4 === 0 ? "Y" : "w")
+  }
+  if (f >= 6) c.dither(0, 0, 167, 167, ".", "_", f === 6 ? 0.35 : f === 7 ? 0.6 : 0.8)
+},
+  glow("wl", { r: 3, strength: 0.6, bands: 2 }))
+
+// Cincin Matahari: a small sun, 15x15. White-hot core, gold body, an orange limb, and a corona of sixteen flame
+// tongues around it that flicker (each beat a different few leap out).
+anim("fu_sun", { w: 15, h: 15, fps: 10, frames: 6 }, (c) => {
+  const C = 7, f = c.frame
+  for (let i = 0; i < 16; i++) {
+    const a = i * Math.PI / 8 + f * 0.13, h = (i * 5 + f * 3) % 7                // h: this tongue's height this beat
+    const L = 4.5 + (h < 2 ? 2.5 : h < 4 ? 1.5 : 0.8)
+    const [x0, y0] = [Math.round(C + Math.cos(a) * 4), Math.round(C + Math.sin(a) * 4)]
+    const [x1, y1] = [Math.round(C + Math.cos(a) * L), Math.round(C + Math.sin(a) * L)]
+    c.line(x0, y0, x1, y1, h < 2 ? "Y" : "o"); c.px(x1, y1, h < 2 ? "o" : "O")
+  }
+  c.circ(C, C, 4, "o"); c.circ(C, C, 3, "Y"); c.circ(C - 1, C - 1, 2, "y")
+  c.px(C - 1, C - 1, "w"); c.px(C - 2, C - 1, "w"); c.px(C - 1, C - 2, "w")
+  c.px(C + 2, C + 1, "o"); c.px(C + 1, C + 2, "o")                                // a cooler spot low-right: it's round, not a disc
+},
+  glow("wy", { r: 3, strength: 0.5, bands: 2 }))
+
+sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*", "fu_*"])

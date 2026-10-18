@@ -122,11 +122,38 @@ icon("badaiPetir", (c) => {
   c.px(2, 10, "m"); c.px(12, 11, "m")
 })
 
+icon("lubangHitam", (c) => {                                       // black hole: ink core in a white photon ring, a tilted disc across it
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  w...........
+  ....llll....
+  ...lwwwwl...
+  ..lwkkkkwl..
+  ..wkkkkkkw..
+  .zwkkkkkkwz.
+  vzlwwwwwwlzv
+  VvzzllllzzvV
+  ..vlwwwwlv..
+  ...vllllv...
+  .z........l.
+  ............`)
+})
+icon("cincinMatahari", (c) => {                                    // three suns riding a golden orbit
+  badge(c, "M", "P")
+  c.ellipse(7, 7, 5, 3, "o", true)
+  const sun = (x, y) => {
+    c.px(x - 2, y, "o"); c.px(x + 2, y, "o"); c.px(x, y - 2, "o"); c.px(x, y + 2, "o")
+    c.rect(x - 1, y - 1, 3, 3, "Y"); c.px(x - 1, y - 1, "y"); c.px(x + 1, y + 1, "o"); c.px(x, y, "w")
+  }
+  sun(9, 4); sun(3, 7); sun(9, 10)
+  c.px(6, 7, "y"); c.px(12, 7, "Y")
+})
+
 // Placeholder fusion icons (until the real art): the two ingredients' colours split on the diagonal.
 const INGREDIENT = { fireball: "o", meteor: "X", iceShard: "C", frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
 for (const [id, a, b] of [["phoenix", "fireball", "iceShard"], ["supernova", "fireball", "frostNova"], ["bolaPlasma", "fireball", "chainLightning"],
-  ["cincinMatahari", "fireball", "arcaneOrb"], ["kometEs", "meteor", "iceShard"], ["gletser", "meteor", "frostNova"],
-  ["penghakimanLangit", "meteor", "chainLightning"], ["lubangHitam", "meteor", "arcaneOrb"], ["pagarKristal", "iceShard", "chainLightning"],
+  ["kometEs", "meteor", "iceShard"], ["gletser", "meteor", "frostNova"],
+  ["penghakimanLangit", "meteor", "chainLightning"], ["pagarKristal", "iceShard", "chainLightning"],
   ["pusaranKristal", "iceShard", "arcaneOrb"], ["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
   icon(id, (c) => { c.rect(0, 0, 14, 14, INGREDIENT[b]); c.poly([0, 0, 13, 0, 0, 13], INGREDIENT[a]); c.line(0, 13, 13, 0, "k") })
 
