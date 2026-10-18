@@ -98,7 +98,7 @@ function badge(c, top, bottom) {
   c.grad(1, 1, 12, 12, top + bottom, "v", 0.5)
   c.px(1, 1, "y")
 }
-icon("armageddon", (c) => {
+icon("hujanNeraka", (c) => {
   badge(c, "K", "R")
   for (const [x, y, r] of [[10, 3, 1], [11, 9, 1], [5, 7, 2]]) {   // meteor shower, big one in front
     c.line(x + 1, y - 1, x + 2 + r * 2, y - 2 - r * 2, r > 1 ? "o" : "O", r)
@@ -121,6 +121,31 @@ icon("badaiPetir", (c) => {
   c.poly([9, 6, 4, 10, 7, 10, 4, 14, 11, 8, 8, 8, 11, 6], "Y"); c.line(8, 7, 6, 9, "w"); c.px(6, 12, "y")
   c.px(2, 10, "m"); c.px(12, 11, "m")
 })
+
+// Placeholder fusion icons (until the real art): the two ingredients' colours split on the diagonal.
+const INGREDIENT = { fireball: "o", meteor: "X", iceShard: "C", frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
+for (const [id, a, b] of [["phoenix", "fireball", "iceShard"], ["supernova", "fireball", "frostNova"], ["bolaPlasma", "fireball", "chainLightning"],
+  ["cincinMatahari", "fireball", "arcaneOrb"], ["kometEs", "meteor", "iceShard"], ["gletser", "meteor", "frostNova"],
+  ["penghakimanLangit", "meteor", "chainLightning"], ["lubangHitam", "meteor", "arcaneOrb"], ["pagarKristal", "iceShard", "chainLightning"],
+  ["pusaranKristal", "iceShard", "arcaneOrb"], ["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
+  icon(id, (c) => { c.rect(0, 0, 14, 14, INGREDIENT[b]); c.poly([0, 0, 13, 0, 0, 13], INGREDIENT[a]); c.line(0, 13, 13, 0, "k") })
+
+// Undiscovered fusion: a "?" rune.
+icon("unknown", `
+.ZZZZZZZZZZZZ.
+ZPPPPPPPPPPPPZ
+ZPPPPllllPPPPZ
+ZPPPllPPllPPPZ
+ZPPPPPPPllPPPZ
+ZPPPPPPllPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPPPPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPPPPPPPPZ
+ZPPPPPPPPPPPPZ
+.ZZZZZZZZZZZZ.`)
 
 // Passives.
 icon("vitality", (c) => {
@@ -175,7 +200,7 @@ icon("heal", (c) => {                                               // level-up 
 const GREY = {}
 for (const k of "FfGMBNRPVODTEdKXnrAGbvmCoqHUZ") GREY[k] = "X"
 for (const k of "gjsupilYywceahtx") GREY[k] = "x"
-for (const id of ["fireball", "meteor", "iceShard", "frostNova", "chainLightning", "arcaneOrb", "armageddon", "absoluteZero", "badaiPetir"])
+for (const id of ["fireball", "meteor", "iceShard", "frostNova", "chainLightning", "arcaneOrb", "hujanNeraka", "absoluteZero", "badaiPetir"])
   sprite("icon_" + id + "_off", { base: "icon_" + id, swap: GREY })
 
 // Kill counter skull, 7x6 + outline.

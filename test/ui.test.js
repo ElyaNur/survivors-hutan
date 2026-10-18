@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { textWidth, wrapText } from '../src/engine/font.js';
 import { layoutCards, cardAt, cardInfo, levelUpScreen, starterPickScreen } from '../src/ui/screens.js';
 import { formatTime, updateBanner } from '../src/ui/hud.js';
-import { CLASSES } from '../src/data/classes.js';
+import { CLASSES, NAMES } from '../src/data/classes.js';
 import { createRun } from '../src/game/run.js';
 
 const mage = CLASSES.mage;
@@ -47,16 +47,37 @@ test('layoutCards centres rows; cardAt hit-tests them', () => {
   assert.equal(cardAt(r, 300, 10), -1);
 });
 
-test('cardInfo: level line and ★ recipe tags', () => {
-  const build = { skills: { fireball: 5, meteor: 4 } };
+test('cardInfo: level line and ★ recipe tags, hidden until discovered', () => {
+  const build = { skills: { fireball: 5, meteor: 4 }, fusions: [] };
   const meteor = cardInfo({ kind: 'skill', id: 'meteor', nextLevel: 5 }, mage, build);
   assert.equal(meteor.level, 'Lv 4→5');
-  assert.deepEqual(meteor.tags, [{ text: '★ Armageddon', unlocks: true }]);
+  assert.deepEqual(meteor.tags, [{ text: '★ ???', unlocks: true }]);
+  assert.deepEqual(cardInfo({ kind: 'skill', id: 'meteor', nextLevel: 5 }, mage, build, new Set(['hujanNeraka'])).tags, [{ text: '★ Hujan Neraka', unlocks: true }]);
   const ice = cardInfo({ kind: 'skill', id: 'iceShard', nextLevel: 1 }, mage, build);
   assert.equal(ice.level, 'Baru!');
-  assert.deepEqual(ice.tags, [{ text: '★ Absolute Zero', unlocks: false }]);
+  assert.deepEqual(ice.tags.map(t => t.text), ['★ ???', '★ ???'], 'one tag per other held skill');
+  assert.ok(ice.tags.every(t => !t.unlocks));
+  assert.equal(cardInfo({ kind: 'skill', id: 'meteor', nextLevel: 5 }, mage, { skills: { meteor: 4, arcaneOrb: 5 }, fusions: [] }, new Set(['lubangHitam'])).tags[0].text, '★ Lubang Hitam');
   assert.deepEqual(cardInfo({ kind: 'passive', id: 'magnet', nextLevel: 2 }, mage, build).tags, []);
   assert.equal(cardInfo({ kind: 'heal' }, mage, build).name, 'Isi HP');
+});
+
+test('cardInfo: fusion card is ??? until discovered', () => {
+  const build = { skills: { meteor: 5, arcaneOrb: 5 }, fusions: [] }, card = { kind: 'fusion', id: 'lubangHitam', a: 'meteor', b: 'arcaneOrb' };
+  assert.deepEqual(cardInfo(card, mage, build), { icon: 'icon_unknown', name: '???', level: 'Fusion!', desc: 'Meteor + Orb Arcane = ???', tags: [] });
+  const seen = cardInfo(card, mage, build, new Set(['lubangHitam']));
+  assert.equal(seen.name, NAMES.lubangHitam.name);
+  assert.equal(seen.icon, 'icon_lubangHitam');
+  assert.equal(seen.desc, `Meteor + Orb Arcane. ${NAMES.lubangHitam.desc}`);
+});
+
+test('fusion text fits: names within the banner/card width, hidden descs within 4 lines', () => {
+  for (const f of mage.fusions) {
+    assert.ok(textWidth(NAMES[f.id].name) <= 76, f.id);
+    const desc = cardInfo({ kind: 'fusion', ...f }, mage, { skills: {}, fusions: [] }).desc;
+    assert.ok(wrapText(desc, 104).length <= 4, desc);
+    assert.ok(wrapText(`${NAMES[f.a].name} + ${NAMES[f.b].name}. ${NAMES[f.id].desc}`, 104).length <= 4, f.id);
+  }
 });
 
 // Fake input: taps consumed on read like the real one.
@@ -116,14 +137,15 @@ test('formatTime mm:ss', () => {
   assert.equal(formatTime(1200), '20:00');
 });
 
-test('ult banner: one at a time from newUlts, 2.5 s each', () => {
+test('fusion banner: one at a time from newFusions, 2.5 s each', () => {
   const run = createRun('mage', 'fireball', 1);
-  run.newUlts.push('armageddon', 'absoluteZero');
+  run.newFusions.push({ id: 'hujanNeraka', first: true }, { id: 'absoluteZero', first: false });
   updateBanner(run, 0.016);
-  assert.equal(run.banner.id, 'armageddon');
-  assert.deepEqual(run.newUlts, ['absoluteZero'], 'shown entries are cleared');
+  assert.equal(run.banner.id, 'hujanNeraka');
+  assert.equal(run.banner.first, true);
+  assert.deepEqual(run.newFusions, [{ id: 'absoluteZero', first: false }], 'shown entries are cleared');
   updateBanner(run, 2.4);
-  assert.equal(run.banner.id, 'armageddon');
+  assert.equal(run.banner.id, 'hujanNeraka');
   updateBanner(run, 0.2);
   assert.equal(run.banner.id, 'absoluteZero');
   updateBanner(run, 2.6);

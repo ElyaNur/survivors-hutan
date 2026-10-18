@@ -1,6 +1,6 @@
 // In-run HUD: xp bar, level, timer, kills, hp under the player, build slots, fusion banner.
 import { NAMES } from '../data/classes.js';
-import { xpToNext } from '../logic/progression.js';
+import { xpToNext, fusionFor } from '../logic/progression.js';
 import { camera } from '../game/world.js';
 import { drawText, textWidth } from '../engine/font.js';
 import TUNING from '../data/tuning.js';
@@ -20,8 +20,10 @@ export function updateBanner(run, dt) {
   if (run.banner && (run.banner.t += dt) >= BANNER_T) run.banner = null;
   if (run.banner || !run.newFusions.length) return;
   run.banner = { ...run.newFusions.shift(), t: 0 };
-  const fx = run.fx, { shakeUlt, hitstopUlt } = TUNING.fx;   // the unlock lands like a blow
-  fx.shake(shakeUlt.px, shakeUlt.dur); fx.hitstop(hitstopUlt);
+  const fx = run.fx, { shakeUlt, hitstopUlt } = TUNING.fx;   // the unlock lands like a blow; a repeat only shakes
+  fx.shake(shakeUlt.px, shakeUlt.dur);
+  if (!run.banner.first) return;
+  fx.hitstop(hitstopUlt);
   fx.anim(run.player.x, run.player.y, 'fx_ultFlash');
 }
 
@@ -41,25 +43,51 @@ function slot(ctx, assets, x, y, iconName, lv = 0, lit = false) {
 }
 
 function drawBuild(ctx, run, assets) {
-  const { skills, passives } = run.build, sk = Object.keys(skills), ps = Object.keys(passives);
+  const { skills, passives, fusions } = run.build, sk = Object.keys(skills), ps = Object.keys(passives);
   const py = H - 30;
   assets.drawSlice(ctx, 'panel', 2, py, 174, 28, 3);
-  for (let i = 0; i < SLOTS; i++) slot(ctx, assets, 6 + i * 20, py + 4, sk[i] && 'icon_' + sk[i], skills[sk[i]]);
+  for (let i = 0; i < SLOTS; i++) {                          // skills, then the fusions that replaced pairs of them
+    const f = fusions[i - sk.length];
+    if (f) slot(ctx, assets, 6 + i * 20, py + 4, 'icon_' + f, 0, true);
+    else slot(ctx, assets, 6 + i * 20, py + 4, sk[i] && 'icon_' + sk[i], skills[sk[i]]);
+  }
   for (let i = 0; i < SLOTS; i++) slot(ctx, assets, 92 + i * 20, py + 4, ps[i] && 'icon_' + ps[i], passives[ps[i]]);
 }
 
+// Held skill pairs that can fuse, closest first (max 3): A + B → result (? until discovered). Lights up at 5 + 5.
+const ROW_H = 21, PANEL_W = 82;
+function drawFusionPanel(ctx, run, assets) {
+  const { skills } = run.build, sk = Object.keys(skills), pairs = [];
+  for (let i = 0; i < sk.length; i++) for (let j = i + 1; j < sk.length; j++) {
+    const f = fusionFor(run.classDef, sk[i], sk[j]);
+    if (f) pairs.push({ f, a: sk[i], b: sk[j], sum: skills[sk[i]] + skills[sk[j]] });
+  }
+  if (!pairs.length) return;
+  pairs.sort((p, q) => q.sum - p.sum);
+  const rows = pairs.slice(0, 3), h = rows.length * ROW_H + 6, y0 = H - 30 - 2 - h;
+  assets.drawSlice(ctx, 'panel', 2, y0, PANEL_W, h, 3);
+  rows.forEach(({ f, a, b }, n) => {
+    const y = y0 + 4 + n * ROW_H, lit = skills[a] === MAX_LV && skills[b] === MAX_LV, c = lit ? 'y' : 'x';
+    slot(ctx, assets, 6, y, 'icon_' + a, skills[a], lit);
+    drawText(ctx, assets, '+', 28, y + 6, { color: c, align: 'center' });
+    slot(ctx, assets, 33, y, 'icon_' + b, skills[b], lit);
+    drawText(ctx, assets, '→', 56, y + 6, { color: c, align: 'center' });
+    slot(ctx, assets, 62, y, run.discovered.has(f.id) ? 'icon_' + f.id : 'icon_unknown', 0, lit);
+  });
+}
+
 function drawBanner(ctx, run, assets) {
-  const { id, t } = run.banner, open = Math.min(1, t / 0.15), alpha = Math.min(1, (BANNER_T - t) / 0.4);
+  const { id, first, t } = run.banner, open = Math.min(1, t / 0.15), alpha = Math.min(1, (BANNER_T - t) / 0.4);
   const cy = 74, h = Math.round(36 * open);
   ctx.save();
   ctx.globalAlpha = alpha;
   if (h >= 2 * BANNER_EDGE) assets.drawSlice(ctx, 'ult_banner', BANNER_X, cy - h / 2, W - 2 * BANNER_X, h, BANNER_EDGE);
   ctx.restore();
   if (open < 1) return;
-  const title = `ULTIMATE TERBUKA: ${NAMES[id].name}!`;
+  const title = `${first ? 'FUSION BARU' : 'FUSION'}: ${NAMES[id].name}!`;
   drawText(ctx, assets, title, W / 2 + 10, cy - 12, { color: t < 0.3 && Math.floor(t * 20) % 2 ? 'w' : 'y', align: 'center', scale: 2, alpha });
   drawText(ctx, assets, NAMES[id].desc, W / 2 + 10, cy + 5, { align: 'center', alpha });
-  if (assets.has('icon_' + id)) assets.draw(ctx, 'icon_' + id, W / 2 + 10 - textWidth(title, 2) / 2 - 14, cy - 3, { alpha });   // icon left of the title
+  assets.draw(ctx, 'icon_' + id, W / 2 + 10 - textWidth(title, 2) / 2 - 14, cy - 3, { alpha });   // icon left of the title
 }
 
 const liveBoss = e => !e.dead && e.type in BOSS_NAMES;
@@ -96,6 +124,7 @@ export function drawHud(ctx, run, assets) {
   if (run.ending !== 'lost') drawPlayerHp(ctx, p);         // gone once he has fallen
   drawBossBar(ctx, run, assets);
   drawBuild(ctx, run, assets);
+  drawFusionPanel(ctx, run, assets);
   if (run.banner) drawBanner(ctx, run, assets);
 }
 

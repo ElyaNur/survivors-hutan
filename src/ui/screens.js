@@ -3,6 +3,7 @@ import TUNING from '../data/tuning.js';
 import { NAMES } from '../data/classes.js';
 import { drawText, wrapText, textWidth } from '../engine/font.js';
 import { formatTime } from './hud.js';
+import { fusionFor } from '../logic/progression.js';
 import { EMPTY_RECORD } from '../logic/records.js';
 
 const W = 480, H = 270, STEP = 1 / 60;   // update() runs once per fixed sim step
@@ -22,12 +23,20 @@ export function layoutCards(n, cols, w, h, gap, top) {
 
 export const cardAt = (rects, x, y) => rects.findIndex(r => x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h);
 
-// What a card shows. build/classDef give the level line and the recipe tags.
-export function cardInfo(card, classDef, build) {
+// What a card shows. build/classDef give the level line and the recipe tags; `discovered` (fusion ids) unhides names.
+export function cardInfo(card, classDef, build, discovered = new Set()) {
   if (card.kind === 'heal') return { icon: 'icon_heal', name: 'Isi HP', desc: `Pulihkan ${TUNING.healCard} HP.`, level: null, tags: [] };
-  const n = card.nextLevel, { name, desc } = NAMES[card.id];
-  if (card.kind === 'fusion') return { icon: 'icon_' + card.id, name, desc, level: null, tags: [] };   // ponytail: Task 4 rebuilds (hidden until discovered)
-  return { icon: 'icon_' + card.id, name, desc, level: n === 1 ? 'Baru!' : `Lv ${n - 1}→${n}`, tags: [] };   // ponytail: fusion tags come in Task 4
+  if (card.kind === 'fusion') {
+    const seen = discovered.has(card.id), mix = `${NAMES[card.a].name} + ${NAMES[card.b].name}`;
+    return seen ? { icon: 'icon_' + card.id, name: NAMES[card.id].name, level: 'Fusion!', desc: `${mix}. ${NAMES[card.id].desc}`, tags: [] }
+      : { icon: 'icon_unknown', name: '???', level: 'Fusion!', desc: `${mix} = ???`, tags: [] };
+  }
+  const n = card.nextLevel, { name, desc } = NAMES[card.id], tags = [];
+  if (card.kind === 'skill') for (const other of Object.keys(build.skills)) {   // one ★ per fusion this skill could join
+    const f = other !== card.id && fusionFor(classDef, card.id, other);
+    if (f) tags.push({ text: '★ ' + (discovered.has(f.id) ? NAMES[f.id].name : '???'), unlocks: n === MAX_LV && build.skills[other] === MAX_LV });
+  }
+  return { icon: 'icon_' + card.id, name, desc, level: n === 1 ? 'Baru!' : `Lv ${n - 1}→${n}`, tags };
 }
 
 // Keyboard (number keys, arrows/WASD + Enter/Space) and mouse (hover, click) over a set of card rects.
@@ -66,9 +75,9 @@ function drawCard(ctx, assets, info, r, i, picker) {
   const y = r.y + Math.round((1 - ease((t - i * 0.05) / 0.25)) * 18) - (sel ? 2 : 0), x = r.x;   // slide in, lift when selected
   assets.drawSlice(ctx, sel ? 'card_sel' : 'card', x, y, r.w, r.h, 5);
   assets.drawSlice(ctx, sel ? 'slot_lit' : 'slot', x + 7, y + 7, 18, 18, 2);
-  if (assets.has(info.icon)) assets.draw(ctx, info.icon, x + 16, y + 16);   // ponytail: fusion icons arrive with the art task
+  assets.draw(ctx, info.icon, x + 16, y + 16);
   drawText(ctx, assets, info.name, x + 30, y + 9, { color: sel ? 'w' : 'y' });
-  if (info.level) drawText(ctx, assets, info.level, x + 30, y + 18, { color: info.level === 'Baru!' ? 'g' : 'c' });
+  if (info.level) drawText(ctx, assets, info.level, x + 30, y + 18, { color: info.level === 'Baru!' ? 'g' : info.level === 'Fusion!' ? 'y' : 'c' });
   if (i < 9) drawText(ctx, assets, String(i + 1), x + r.w - 8, y + 7, { color: sel ? 'y' : 'x' });
   wrapText(info.desc, r.w - 16).forEach((line, k) => drawText(ctx, assets, line, x + 8, y + 32 + k * 8, { color: sel ? 'w' : 'x' }));
   info.tags.forEach((tag, k) => {
@@ -98,7 +107,7 @@ function cardScreen(assets, infos, rects, cols, { title, sub, hint }) {
 export function levelUpScreen(run, assets) {
   const cards = run.cards, rects = layoutCards(cards.length, 3, 120, 104, 12, 92);
   const more = run.pendingLevelUps - 1;
-  const s = cardScreen(assets, cards.map(c => cardInfo(c, run.classDef, run.build)), rects, 3, {
+  const s = cardScreen(assets, cards.map(c => cardInfo(c, run.classDef, run.build, run.discovered)), rects, 3, {
     title: 'Naik level!', sub: `Lv ${run.prog.level}` + (more > 0 ? ` (+${more} lagi)` : ''),
     hint: `${cards.map((_, i) => i + 1).join('/')}, panah + Enter, atau klik`,
   });
@@ -108,7 +117,7 @@ export function levelUpScreen(run, assets) {
 // update(input) -> the chosen skill id, or null.
 export function starterPickScreen(classDef, assets) {
   const ids = classDef.skills, rects = layoutCards(ids.length, 3, 120, 84, 8, 50);
-  const noBuild = { skills: {} };
+  const noBuild = { skills: {}, fusions: [] };
   const s = cardScreen(assets, ids.map(id => ({ ...cardInfo({ kind: 'skill', id, nextLevel: 1 }, classDef, noBuild), level: null })), rects, 3, {
     title: 'Pilih skill awal', sub: `Skill pertama ${classDef.name}. Skill lain datang saat naik level.`,
     hint: '1-6, panah + Enter, atau klik',
@@ -183,7 +192,7 @@ export function menuScreen(assets, isMuted) {
   };
 }
 
-const CLASS_INFO = { mage: { sprite: 'mage_idle', desc: 'Penyihir jarak jauh. 6 skill, 3 ultimate.' } };
+const CLASS_INFO = { mage: { sprite: 'mage_idle', desc: 'Penyihir jarak jauh. 6 skill, 15 fusion.' } };
 
 // One class card: the hero (or a locked '?'), name, and a body drawn by `body(x, y)`.
 // A selected locked card lights up violet (never gold: gold means pickable); `shake` s left of a refused pick.
@@ -275,7 +284,7 @@ export function pauseScreen(assets) {
   };
 }
 
-// res: { won, time, kills, level, fusions, newBest }. -> 'again' | 'menu'
+// res: { won, time, kills, level, fusions, found, newBest }. -> 'again' | 'menu'
 export function resultScreen(assets, res) {
   const ACTIONS = ['again', 'menu'], b = buttons(assets, ['Main lagi', 'Menu'], layoutCards(2, 2, 100, 20, 12, 214), 2);
   let t = 0;
@@ -294,14 +303,16 @@ export function resultScreen(assets, res) {
         drawText(ctx, assets, String(v), px + 112, y, { scale: 2 });
         if (res.newBest.includes(key)) drawText(ctx, assets, 'Rekor baru!', px + 208, y + 3, { color: Math.floor(t * 3) % 2 ? 'w' : 'g', align: 'right' });
       });
-      const fusions = res.fusions ?? [], uy = py + 12 + 3 * 20;
-      drawText(ctx, assets, 'Ultimate', px + 12, uy + 3, { color: 'x' });
+      const fusions = res.fusions ?? [], found = res.found ?? [], uy = py + 12 + 3 * 20;
+      drawText(ctx, assets, 'Fusion', px + 12, uy + 3, { color: 'x' });
       if (!fusions.length) drawText(ctx, assets, '-', px + 112, uy + 3, { color: 'x' });
       fusions.forEach((id, n) => {
+        const cx = px + 119 + n * 22;
         assets.drawSlice(ctx, 'slot_lit', px + 110 + n * 22, uy - 4, 18, 18, 2);
-        if (assets.has('icon_' + id)) assets.draw(ctx, 'icon_' + id, px + 119 + n * 22, uy + 5);
+        assets.draw(ctx, 'icon_' + id, cx, uy + 5);
+        if (found.includes(id)) drawText(ctx, assets, 'Baru!', cx, uy + 15, { color: Math.floor(t * 3) % 2 ? 'w' : 'g', align: 'center' });
       });
-      if (fusions.length) drawText(ctx, assets, fusions.map(id => NAMES[id].name).join(', '), W / 2, uy + 22, { color: 'y', align: 'center' });
+      wrapText(fusions.map(id => NAMES[id].name).join(', '), 200).slice(0, 2).forEach((l, k) => drawText(ctx, assets, l, W / 2, uy + 25 + k * 8, { color: 'y', align: 'center' }));
       b.draw(ctx);
     },
   };
