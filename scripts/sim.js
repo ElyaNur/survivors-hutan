@@ -1,14 +1,17 @@
 // Headless balance simulator: runs the real game logic (createRun / updateRun / chooseCard) with no DOM and no assets,
 // driven by a simple bot. Usage:
-//   node scripts/sim.js --plan armageddon,absoluteZero --seeds 5      (several plans: --plan "a,b|a|none"; plans: armageddon | absoluteZero | badaiPetir, comma list, or none)
-//   options: --seeds N (default 5), --start S (first seed, default 1), --max SECONDS (default 1500: the boss gets 5 min after 20:00), --verbose (one line per run), --trace (hp / level / position every 20 s), --god (immortal)
+//   node scripts/sim.js --plan "fireball+meteor,iceShard+frostNova" --seeds 5      (several plans: --plan "a+b,c+d|a+b|none"; a plan is an ordered list of fusion pairs, or none)
+//   node scripts/sim.js --partitions --seeds 3      (all 15 three-pair builds: win rate each, then a per-fusion average and weakest/strongest)
+//   options: --seeds N (default 5), --start S (first seed, default 1), --max SECONDS (default 1500: the boss gets 5 min after 20:00), --verbose (one line per run), --trace (hp / level / position every 20 s), --god (immortal),
+//            --nofuse (reach each planned pair at Lv5 but never take the fusion card: the "fusion beats its ingredients" control)
 // Bot: steers to the safest of 16 headings (away from the crowd, circling, off walls and water, towards gems and chests);
-// card picks follow the plan: the first planned ult's two skills, else a passive; once it unlocks, the next planned ult's skills.
-// `none` picks cards at random but never the one that completes a recipe (a build without ultimates).
-// Level / ult-minute columns average only the runs that got that far. A run still alive at --max counts as lost.
+// card picks follow the plan: the current pair's two skills to Lv5, then passives; its fusion card is taken (never an unplanned one), then the next pair.
+// The starter is the first pair's first skill. `none` picks cards at random but never a fusion card (a build without fusions).
+// Level / fusion-minute columns average only the runs that got that far. A run still alive at --max counts as lost.
 // Not a human: it never dodges perfectly, but it never mis-picks a card. Use it to compare numbers, not to predict win rates.
 import { createRun, updateRun, chooseCard } from '../src/game/run.js';
 import { CLASSES } from '../src/data/classes.js';
+import { fusionFor } from '../src/logic/progression.js';
 import { createRng } from '../src/logic/rng.js';
 import { SCHEDULE } from '../src/data/spawns.js';
 import { WORLD_W, WORLD_H, terrainSpeed } from '../src/game/world.js';
@@ -17,26 +20,20 @@ const DT = 1 / 60, DECIDE_EVERY = 4;   // bot re-decides at 15 Hz, like a human'
 const PASSIVE_ORDER = ['vitality', 'focus', 'wisdom', 'amplify', 'swiftness', 'magnet'];
 
 // ---- Bot: card picking
-// Skills still worth taking: the ingredients of the first planned ult not yet unlocked (recipe 1 completes before recipe 2 starts).
-function wantedSkills(plan, run) {
-  const ult = plan.find(u => !run.build.ults.includes(u));
-  const r = CLASSES.mage.recipes.find(x => x.ult === ult);
-  return r ? [r.a, r.b] : [];
-}
+// The pair being built: the first planned pair not yet fused (with --nofuse: not yet at Lv5 both).
+const pairDone = (p, b) => nofuse ? b.skills[p[0]] === 5 && b.skills[p[1]] === 5 : b.fusions.includes(fusionFor(CLASSES.mage, p[0], p[1]).id);
 
 function pickCard(run, plan, rng) {
-  const cards = run.cards, b = run.build;
-  if (!plan.length) {                                               // plan none: random, but never the card that completes a recipe
-    const completes = c => c.kind === 'skill' && c.nextLevel === 5 && CLASSES.mage.recipes.some(r => (r.a === c.id ? r.b : r.b === c.id ? r.a : null) && b.skills[r.a === c.id ? r.b : r.a] === 5);
-    const ok = cards.filter(c => !completes(c));
-    return rng.pick(ok.length ? ok : cards);
+  const cards = run.cards, b = run.build, pair = plan.find(p => !pairDone(p, b));
+  const rest = cards.filter(c => c.kind !== 'fusion');              // an unplanned fusion card is never taken (unless it is all there is)
+  if (!plan.length) return rng.pick(rest.length ? rest : cards);    // plan none: random, never a fusion
+  if (pair) {
+    const f = cards.find(c => c.kind === 'fusion' && fusionFor(CLASSES.mage, pair[0], pair[1]).id === c.id);
+    if (f) return f;
+    for (const id of pair) { const c = cards.find(c => c.kind === 'skill' && c.id === id); if (c) return c; }
   }
-  for (const id of wantedSkills(plan, run)) { const c = cards.find(c => c.kind === 'skill' && c.id === id); if (c) return c; }
   for (const id of PASSIVE_ORDER) { const c = cards.find(c => c.kind === 'passive' && c.id === id); if (c) return c; }
-  // nothing wanted: an unplanned skill, but never the second half of a recipe (a "one ult" plan stays one ult)
-  const partner = id => CLASSES.mage.recipes.map(r => r.a === id ? r.b : r.b === id ? r.a : null).find(Boolean);
-  const safe = cards.find(c => c.kind === 'skill' && !(partner(c.id) in b.skills));
-  return safe ?? cards[0];
+  return rest.find(c => c.kind === 'skill') ?? rest[0] ?? cards[0];
 }
 
 // ---- Bot: movement
@@ -103,21 +100,21 @@ const norm = (x, y) => { const d = Math.hypot(x, y) || 1; return { x: x / d, y: 
 
 // ---- One run
 function simulate(plan, seed, maxT) {
-  for (const u of plan) if (!CLASSES.mage.recipes.some(r => r.ult === u)) throw new Error(`unknown ult "${u}"`);
+  for (const p of plan) if (!fusionFor(CLASSES.mage, p[0], p[1])) throw new Error(`unknown fusion pair "${p.join('+')}"`);
   const bot = makeBot(seed);
   let mr = createRng(seed + 99).next;   // visual fx use Math.random: seed it so runs reproduce
   Math.random = () => mr();
-  const starter = plan.length ? CLASSES.mage.recipes.find(r => r.ult === plan[0]).a : bot.rng.pick(CLASSES.mage.skills);
+  const starter = plan.length ? plan[0][0] : bot.rng.pick(CLASSES.mage.skills);
   const run = createRun('mage', starter, seed);
   run.godMode = god;   // --god: cannot die, to read the xp pacing apart from survival
-  const r = { seed, levels: {}, ults: [], minHp: 1, minHpAt: 0, hpLow: {}, peak: 0 };
-  let nextMark = 300, ultCount = 0;
+  const r = { seed, levels: {}, fusions: [], minHp: 1, minHpAt: 0, hpLow: {}, peak: 0 };
+  let nextMark = 300, fusionCount = 0;
   for (let guard = 0; run.state === 'playing' || run.state === 'levelup'; guard++) {
     if (run.time >= maxT || guard > maxT * 60 * 3) { run.state = 'timeout'; break; }
     if (run.state === 'levelup') { chooseCard(run, pickCard(run, plan, bot.rng)); continue; }
     bot.steer(run);
     updateRun(run, DT, bot.input);
-    if (run.build.ults.length > ultCount) r.ults.push(Math.round(run.time)), ultCount = run.build.ults.length;
+    if (run.build.fusions.length > fusionCount) r.fusions.push(Math.round(run.time)), fusionCount = run.build.fusions.length;
     const hp = run.player.hp / run.player.maxHp, m = Math.floor(run.time / 60);
     if (hp < r.minHp) { r.minHp = hp; r.minHpAt = run.time; }
     r.hpLow[m] = Math.min(r.hpLow[m] ?? 1, hp);
@@ -135,23 +132,37 @@ function simulate(plan, seed, maxT) {
 // ---- CLI
 const arg = (name, def) => { const i = process.argv.indexOf('--' + name); return i < 0 ? def : (process.argv[i + 1] ?? true); };
 const seeds = +arg('seeds', 5), start = +arg('start', 1), maxT = +arg('max', 1500);
-const verbose = process.argv.includes('--verbose'), trace = process.argv.includes('--trace'), god = process.argv.includes('--god');
+const nofuse = process.argv.includes('--nofuse'), verbose = process.argv.includes('--verbose'), trace = process.argv.includes('--trace'), god = process.argv.includes('--god');
+const label = plan => plan.map(p => p.join('+')).join(',') || 'none';
 const fmt = s => s == null ? '-' : (s / 60).toFixed(1);
 
-function report(plan) {
+function report(plan, brief) {
   const results = [];
   for (let i = 0; i < seeds; i++) {
     const r = simulate(plan, start + i, maxT);
     results.push(r);
-    if (verbose) console.log(`seed ${r.seed}: ${r.state} @${fmt(r.time)}m lv${r.level} [L5m ${r.levels[5]} L10m ${r.levels[10]} L15m ${r.levels[15]} L20m ${r.levels[20]}] ults@${r.ults.map(fmt).join(',') || '-'}m minHp ${(Math.max(0, r.minHp) * 100).toFixed(0)}%@${fmt(r.minHpAt)}m kills ${r.kills} peak ${r.peak} | ${r.skills}${r.state === 'lost' ? ' | killers ' + JSON.stringify(r.killers) : ''}`);
+    if (verbose) console.log(`seed ${r.seed}: ${r.state} @${fmt(r.time)}m lv${r.level} [L5m ${r.levels[5]} L10m ${r.levels[10]} L15m ${r.levels[15]} L20m ${r.levels[20]}] fusions@${r.fusions.map(fmt).join(',') || '-'}m minHp ${(Math.max(0, r.minHp) * 100).toFixed(0)}%@${fmt(r.minHpAt)}m kills ${r.kills} peak ${r.peak} | ${r.skills}${r.state === 'lost' ? ' | killers ' + JSON.stringify(r.killers) : ''}`);
   }
   const wins = results.filter(r => r.state === 'won').length, avg = f => results.reduce((s, r) => s + f(r), 0) / results.length;
   const lv = m => { const v = results.map(r => r.levels[m]).filter(Boolean); return v.length ? (v.reduce((a, b) => a + b) / v.length).toFixed(1) : '-'; };
-  const ult = n => { const v = results.map(r => r.ults[n]).filter(x => x != null); return v.length ? `${fmt(v.reduce((a, b) => a + b) / v.length)}m (${v.length}/${results.length})` : '-'; };
+  const fus = n => { const v = results.map(r => r.fusions[n]).filter(x => x != null); return v.length ? `${fmt(v.reduce((a, b) => a + b) / v.length)}m (${v.length}/${results.length})` : '-'; };
   const early = Math.min(...results.map(r => Math.min(...[0, 1].map(m => r.hpLow[m] ?? 1))));
-  console.log(`plan ${plan.join(',') || 'none'} | ${seeds} seeds | win ${wins}/${seeds} (${(wins / seeds * 100).toFixed(0)}%) | avg survival ${fmt(avg(r => r.time))}m`);
-  console.log(`  level @5/10/15/20m: ${[5, 10, 15, 20].map(lv).join(' / ')} | ult1 ${ult(0)} | ult2 ${ult(1)}`);
+  if (brief) { console.log(`plan ${label(plan)} | win ${wins}/${seeds} (${(wins / seeds * 100).toFixed(0)}%)`); return wins / seeds; }
+  console.log(`plan ${label(plan)} | ${seeds} seeds | win ${wins}/${seeds} (${(wins / seeds * 100).toFixed(0)}%) | avg survival ${fmt(avg(r => r.time))}m`);
+  console.log(`  level @5/10/15/20m: ${[5, 10, 15, 20].map(lv).join(' / ')} | fusion1 ${fus(0)} | fusion2 ${fus(1)} | fusion3 ${fus(2)}`);
   console.log(`  min hp ${(Math.max(0, Math.min(...results.map(r => r.minHp))) * 100).toFixed(0)}% (minutes 0-2: ${(Math.max(0, early) * 100).toFixed(0)}%) | avg kills ${avg(r => r.kills).toFixed(0)} | peak alive ${Math.max(...results.map(r => r.peak))}`);
 }
-// --plan "armageddon,absoluteZero|armageddon|none": several plans in one go, separated by |
-for (const p of String(arg('plan', 'none')).split('|')) report(p.split(',').filter(x => x && x !== 'none'));
+// --plan "a+b,c+d|a+b|none": several plans in one go, separated by |; a plan is comma-separated pairs
+const parse = str => str.split(',').filter(x => x && x !== 'none').map(x => x.split('+'));
+// all perfect matchings of the skills (15 for 6): pair the first with each other, recurse on the rest
+const matchings = ([a, ...r]) => !a ? [[]] : r.flatMap((b, i) => matchings(r.filter((_, j) => j !== i)).map(m => [[a, b], ...m]));
+if (process.argv.includes('--partitions')) {
+  const rates = new Map();   // fusion id -> win rates of the builds containing it
+  for (const m of matchings(CLASSES.mage.skills)) {
+    const w = report(m, true);
+    for (const p of m) { const id = fusionFor(CLASSES.mage, p[0], p[1]).id; rates.set(id, [...(rates.get(id) ?? []), w]); }
+  }
+  const tab = [...rates].map(([id, v]) => [id, v.reduce((a, b) => a + b) / v.length]).sort((a, b) => b[1] - a[1]);
+  for (const [id, w] of tab) console.log(`${id.padEnd(18)} ${(w * 100).toFixed(0)}%`);
+  console.log(`weakest/strongest = ${tab[0][1] ? (tab.at(-1)[1] / tab[0][1]).toFixed(2) : "n/a (no wins)"}`);
+} else for (const p of String(arg('plan', 'none')).split('|')) report(parse(p));
