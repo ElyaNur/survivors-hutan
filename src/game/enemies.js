@@ -84,7 +84,7 @@ function killEnemy(run, e) {
 // Bosses: a ring of gems for their xp, their chest, the king slime's brood. The treant's fall wins the run.
 function killBoss(run, e) {
   const fx = run.fx, def = e.def, color = FX.deathColor[e.type] ?? FX.deathColor.default;
-  fx.hitstop(FX.hitstopBig);
+  fx.hitstop(FX.hitstopBig, true);                          // a boss falling always lands, gap or not
   if (e.type === 'treant') {
     run.bossDead = true; run.ending = 'won'; run.endAt = run.time; run.endT = 0; run.endFx = 0; run.endX = e.x; run.endY = e.y;
     fx.hitstop(WIN_FX.hitstop); fx.shake(WIN_FX.shake.px, WIN_FX.shake.dur); fx.flashScreen(WIN_FX.flash.color, WIN_FX.flash.dur);

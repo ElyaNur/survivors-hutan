@@ -58,19 +58,19 @@ test('pending level-ups switch to levelup with a card roll', () => {
   assert.equal(run.time, t, 'world paused');
 });
 
-test('chooseCard decrements, re-rolls while pending, pushes ults once', () => {
+test('chooseCard decrements, re-rolls while pending, and a fusion card fuses once', () => {
   const run = newRun();
-  run.build.skills = { fireball: 5, meteor: 4 };
+  run.build.skills = { fireball: 5, meteor: 5 };
   run.pendingLevelUps = 2; run.state = 'levelup';
-  chooseCard(run, { kind: 'skill', id: 'meteor', nextLevel: 5 });
-  assert.deepEqual(run.build.ults, ['armageddon']);
-  assert.deepEqual(run.newUlts, ['armageddon']);
+  chooseCard(run, { kind: 'fusion', id: 'hujanNeraka', a: 'fireball', b: 'meteor' });
+  assert.deepEqual(run.build.fusions, ['hujanNeraka']);
+  assert.deepEqual(run.build.skills, {});
+  assert.deepEqual(run.newFusions, [{ id: 'hujanNeraka', first: true }]);
   assert.equal(run.pendingLevelUps, 1);
   assert.equal(run.state, 'levelup');
   assert.ok(run.cards.length >= 1);
-  chooseCard(run, { kind: 'skill', id: 'fireball', nextLevel: 5 });   // still both at 5: no second push
-  assert.deepEqual(run.build.ults, ['armageddon']);
-  assert.deepEqual(run.newUlts, ['armageddon']);
+  assert.ok(run.cards.every(c => c.kind !== 'fusion'), 'the ingredients are gone: no fusion card left');
+  chooseCard(run, { kind: 'heal' });
   assert.equal(run.pendingLevelUps, 0);
   assert.equal(run.state, 'playing');
 });

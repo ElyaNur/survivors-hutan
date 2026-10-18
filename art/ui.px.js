@@ -13,7 +13,7 @@ const EXTRA = {
   "★": "..#..\n#####\n.###.\n.#.#.\n#...#",     // star
   "→": "..#..\n...#.\n#####\n...#.\n..#..",     // right arrow
 }
-const COLORS = { y: "Y", r: "r", g: "g", x: "x", c: "c" }   // variant suffix -> ink key (base is white)
+const COLORS = { y: "Y", r: "r", g: "g", x: "x", c: "c", l: "l" }   // variant suffix -> ink key (base is white); l: lavender, fusion lines
 const chars = []
 for (let c = 32; c <= 126; c++) chars.push(String.fromCharCode(c))
 chars.push("★", "→")
@@ -98,29 +98,261 @@ function badge(c, top, bottom) {
   c.grad(1, 1, 12, 12, top + bottom, "v", 0.5)
   c.px(1, 1, "y")
 }
-icon("armageddon", (c) => {
+icon("hujanNeraka", (c) => {                                       // a rain of meteors out of a burning sky, the ground on fire
   badge(c, "K", "R")
-  for (const [x, y, r] of [[10, 3, 1], [11, 9, 1], [5, 7, 2]]) {   // meteor shower, big one in front
-    c.line(x + 1, y - 1, x + 2 + r * 2, y - 2 - r * 2, r > 1 ? "o" : "O", r)
-    ball(c, x, y, r + 1, ["O", "Y", "y", "w"])
-  }
-  c.poly([1, 13, 1, 11, 4, 12, 8, 10, 13, 12, 13, 13], "k")        // burning ground
-  c.px(4, 11, "O"); c.px(9, 10, "o"); c.px(12, 11, "O")
+  c.grid(1, 1, `
+  ..........O.
+  ........yOo.
+  .......wYo..
+  ...OO..yY...
+  ..OoYo......
+  .OoYwO...Oo.
+  kXXYoO..wYo.
+  XxxXk...yY..
+  XwxXk.......
+  XxXXk..O..o.
+  .kkk..OoO.OY
+  OoRoOROoRoOR`)
 })
-icon("absoluteZero", (c) => {
+icon("absoluteZero", (c) => {                                      // the whole field frozen: a great snowflake over cracked ice
   badge(c, "M", "B")
-  c.hline(2, 7, 10, "c"); c.vline(7, 2, 10, "c")
-  c.line(3, 3, 11, 11, "c"); c.line(11, 3, 3, 11, "c")
-  for (const [x, y] of [[6, 3], [8, 3], [6, 11], [8, 11], [3, 6], [3, 8], [11, 6], [11, 8]]) c.px(x, y, "s")
-  c.circ(7, 7, 1, "w"); c.px(2, 2, "w"); c.px(12, 12, "s")
+  c.grid(1, 1, `
+  .....w......
+  ..w..c..w...
+  ...wcwcw....
+  .w..cCc..w..
+  ..cc.c.cc...
+  wcCcewecCcw.
+  ..cc.c.cc...
+  .w..cCc..w..
+  ...wcwcw....
+  ..w..c..w...
+  C....w....C.
+  sC.C...C.Cs.`)
 })
-icon("badaiPetir", (c) => {
+icon("badaiPetir", (c) => {                                        // the storm cloud throwing lightning, its storm core whirling under it
   badge(c, "P", "V")
-  c.circ(4, 4, 2, "l"); c.circ(8, 3, 3, "l"); c.circ(11, 5, 2, "x"); c.hline(2, 6, 11, "x")   // storm cloud
-  c.px(6, 1, "w"); c.px(3, 3, "w")
-  c.poly([9, 6, 4, 10, 7, 10, 4, 14, 11, 8, 8, 8, 11, 6], "Y"); c.line(8, 7, 6, 9, "w"); c.px(6, 12, "y")
-  c.px(2, 10, "m"); c.px(12, 11, "m")
+  c.grid(1, 1, `
+  ...kkk.kkk..
+  ..kvlvkvlvk.
+  .kvlvvvvvvvk
+  .kVvvVVvvVVk
+  ..kkkkYkkkk.
+  ......yY....
+  .kkk..wY....
+  kVlvk..Yy...
+  kvwVk..yw...
+  kVvVk...Y...
+  .kkk...yw...
+  ............`)
 })
+
+icon("lubangHitam", (c) => {                                       // black hole: ink core in a white photon ring, a tilted disc across it
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  w...........
+  ....llll....
+  ...lwwwwl...
+  ..lwkkkkwl..
+  ..wkkkkkkw..
+  .zwkkkkkkwz.
+  vzlwwwwwwlzv
+  VvzzllllzzvV
+  ..vlwwwwlv..
+  ...vllllv...
+  .z........l.
+  ............`)
+})
+icon("cincinMatahari", (c) => {                                    // three suns riding a golden orbit
+  badge(c, "M", "P")
+  c.ellipse(7, 7, 5, 3, "o", true)
+  const sun = (x, y) => {
+    c.px(x - 2, y, "o"); c.px(x + 2, y, "o"); c.px(x, y - 2, "o"); c.px(x, y + 2, "o")
+    c.rect(x - 1, y - 1, 3, 3, "Y"); c.px(x - 1, y - 1, "y"); c.px(x + 1, y + 1, "o"); c.px(x, y, "w")
+  }
+  sun(9, 4); sun(3, 7); sun(9, 10)
+  c.px(6, 7, "y"); c.px(12, 7, "Y")
+})
+
+icon("phoenix", (c) => {                                           // the firebird head-on: a fire wing and an ice wing raised, a split tail
+  badge(c, "P", "M")
+  c.grid(1, 1, `
+  O..........B
+  Oo...yy...cB
+  oYo..YY..cwC
+  .oYo.yk.cwC.
+  .OoYoYYcwcB.
+  ..OoYyycwB..
+  ...OoYwcB...
+  ....oYc.....
+  ...O.Yc.B...
+  ..O..o.C..B.
+  ..R..O.B..M.
+  ............`)
+})
+icon("gletser", (c) => {                                           // a glacier block skidding right, frost spraying off its front
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  ............
+  ....c..c....
+  ...wcwwcw...
+  ..wcccccwB..
+  ..cCcCCCcBw.
+  ..CCwCCCBBc.
+  w.CcCwCCBBw.
+  ..CCCCwCBB.c
+  w.BBBBBBBM..
+  ...MMMMMM.w.
+  cc.c.cc.c...
+  ............`)
+})
+icon("pagarKristal", (c) => {                                      // two ice posts and the crackling fence between them
+  badge(c, "P", "V")
+  c.grid(1, 1, `
+  .w........w.
+  wcw......wcw
+  cCc.y....cCc
+  cCwyly..ywCc
+  cC..wly.ylCc
+  cC....ywl.Cc
+  cCc....y..Cc
+  cCC.......CC
+  cCB.......CB
+  cCB.......CB
+  NnN.......NN
+  ............`)
+})
+icon("kometEs", (c) => {                                           // an ice comet streaking down, its tail of frost behind it
+  badge(c, "M", "P")
+  c.grid(1, 1, `
+  ..........c.
+  .........cc.
+  .......ccwc.
+  ......cwwcC.
+  .....cwwcC..
+  ..MMcwwcC.c.
+  .MCcwwcC....
+  MCcwccC..w..
+  MCwcCB......
+  MCcCBM..c...
+  .MBBM.......
+  ..MM........`)
+})
+
+icon("supernova", (c) => {                                         // a star bursting: a white-hot heart, a ring of star-fire rushing out
+  badge(c, "K", "R")
+  c.grid(1, 1, `
+  ....oYYo....
+  ..oO....Oo..
+  .o...yy...o.
+  .O..ywwy..O.
+  Y..ywccwy..Y
+  Y.ywcwwcwy.Y
+  Y..ywccwy..Y
+  .O..ywwy..O.
+  .o...yy...o.
+  ..oO....Oo..
+  ....oYYo....
+  ............`)
+})
+icon("bolaPlasma", (c) => {                                        // a violet plasma ball round a gold heart, lightning jumping off it
+  badge(c, "P", "M")
+  c.grid(1, 1, `
+  ..........y.
+  ....kkkk.yw.
+  ..kVvvvvkw..
+  .kVzlvvvVk..
+  .kvlyYYvVk..
+  .kvYwwYvVk.y
+  .kvYwwYvVkw.
+  .kVvYYvVPk..
+  ..kVvwvVk...
+  .y.kkkkk....
+  yw..........
+  ............`)
+})
+icon("penghakimanLangit", (c) => {                                 // a pillar of lightning out of a storm sky, splashing on the ground
+  badge(c, "M", "P")
+  c.grid(1, 1, `
+  xXxxXXxxxXx.
+  XXxXXXxXXXXx
+  ..vlwwl.....
+  ...vlwwl....
+  ....lwwlv...
+  ...vlwwl....
+  ..vlwwl.....
+  ...vlwwl....
+  ....lwwlv...
+  ..yylwwlyy..
+  .wy.yyyy.yw.
+  ............`)
+})
+icon("pusaranKristal", (c) => {                                    // three ice blades whirling round a gem
+  badge(c, "V", "P")
+  c.grid(1, 1, `
+  .......cw...
+  ........cw..
+  ..wcc....cw.
+  .wcCCB...cC.
+  wC...BcwcCB.
+  .....cwwcB..
+  ..BCcwwc....
+  .BCcBcC.....
+  .Cc.....BC..
+  .cw.....Cc..
+  ..cw..BCcw..
+  ...ccccw....`)
+})
+
+icon("medanStatis", (c) => {                                       // a ring of static round a spark, a frozen crystal conducting it on
+  badge(c, "M", "B")
+  c.grid(1, 1, `
+  ....eewe....
+  ..ew....we..
+  .e........e.
+  .w...w....w.
+  e...wew....e
+  w....wCw...w
+  e.....Cw...e
+  .w.....w.w..
+  .e......ywc.
+  ..ew....cwCc
+  ....eewe.CCB
+  .........BB.`)
+})
+icon("bentengEs", (c) => {                                         // a ring of ice blocks standing round its keep, frost blasting off it
+  badge(c, "B", "M")
+  c.grid(1, 1, `
+  w....w.....w
+  ...w.w.w....
+  ..w.cwc.w...
+  ..cwCcCwc...
+  .wcC...Ccw..
+  .cC..w..Cc..
+  wcC.wcw.Ccw.
+  .cCw.w.wCc..
+  .cwcwcwcwcB.
+  ..BcCcCcCB..
+  w..BBBBBB..w
+  ............`)
+})
+
+// Undiscovered fusion: a "?" rune.
+icon("unknown", `
+.ZZZZZZZZZZZZ.
+ZPPPPPPPPPPPPZ
+ZPPPPllllPPPPZ
+ZPPPllPPllPPPZ
+ZPPPPPPPllPPPZ
+ZPPPPPPllPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPPPPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPllPPPPPZ
+ZPPPPPPPPPPPPZ
+ZPPPPPPPPPPPPZ
+.ZZZZZZZZZZZZ.`)
 
 // Passives.
 icon("vitality", (c) => {
@@ -175,7 +407,7 @@ icon("heal", (c) => {                                               // level-up 
 const GREY = {}
 for (const k of "FfGMBNRPVODTEdKXnrAGbvmCoqHUZ") GREY[k] = "X"
 for (const k of "gjsupilYywceahtx") GREY[k] = "x"
-for (const id of ["fireball", "meteor", "iceShard", "frostNova", "chainLightning", "arcaneOrb", "armageddon", "absoluteZero", "badaiPetir"])
+for (const id of ["fireball", "meteor", "iceShard", "frostNova", "chainLightning", "arcaneOrb", "hujanNeraka", "absoluteZero", "badaiPetir"])
   sprite("icon_" + id + "_off", { base: "icon_" + id, swap: GREY })
 
 // Kill counter skull, 7x6 + outline.

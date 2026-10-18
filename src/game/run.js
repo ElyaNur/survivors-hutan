@@ -1,7 +1,7 @@
 import TUNING from '../data/tuning.js';
 import { CLASSES } from '../data/classes.js';
 import { createRng } from '../logic/rng.js';
-import { rollCards, applyCard, newlyUnlocked, passiveMods } from '../logic/progression.js';
+import { rollCards, applyCard, passiveMods } from '../logic/progression.js';
 import { SpatialGrid } from '../logic/grid.js';
 import { SPAWN, camera, isWater, onBridge, placeDecor, buildGround, buildProps, propVisible, drawProp, drawWorldTop } from './world.js';
 import { updatePlayer, blinkHidden } from './player.js';
@@ -11,16 +11,16 @@ import { updatePickups, drawPickups } from './pickups.js';
 import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy, drawTelegraphs, winBlast } from './enemies.js';
 import { updateProjectiles, drawAreas, drawProjectiles } from './projectiles.js';
 import { SKILLS } from './skills/index.js';
-import { ULTS } from './skills/ultimates.js';
+import { FUSIONS } from './skills/fusions/index.js';
 
-export function createRun(classId, starterSkillId, seed, assets) {
-  const build = { skills: { [starterSkillId]: 1 }, passives: {}, ults: [] };
+export function createRun(classId, starterSkillId, seed, assets, discovered = new Set()) {
+  const build = { skills: { [starterSkillId]: 1 }, passives: {}, fusions: [] };
   return {
     classDef: CLASSES[classId], time: 0, rng: createRng(seed), grid: new SpatialGrid(), spawner: createSpawner(), state: 'playing',
     player: { x: SPAWN.x, y: SPAWN.y, hp: TUNING.player.hp, maxHp: TUNING.player.hp, speed: TUNING.player.speed,
       iframesUntil: 0, facing: 1, moving: false },
-    prog: { level: 1, xp: 0 }, build, mods: passiveMods(build), pendingLevelUps: 0, cards: null, newUlts: [],
-    skillState: {}, ultState: {}, enemies: [], projectiles: [], areas: [], pickups: [], fx: createFx(assets), numTokens: TUNING.fx.numberBudget.burst, numAt: 0, kills: 0, bossDead: false, banner: null,
+    prog: { level: 1, xp: 0 }, build, mods: passiveMods(build), pendingLevelUps: 0, cards: null, newFusions: [], found: [], discovered,
+    skillState: {}, fusionState: {}, enemies: [], projectiles: [], areas: [], pickups: [], fx: createFx(assets), numTokens: TUNING.fx.numberBudget.burst, numAt: 0, kills: 0, bossDead: false, banner: null,
     levelUpAt: 0, boss: null,
     ending: null, endAt: null, endT: 0, endFx: 0, endX: 0, endY: 0,   // 'won' | 'lost': run.time it ended, s since; win fireworks
   };
@@ -53,7 +53,7 @@ export function updateRun(run, dt, input) {
   updateEnemies(run, dt);
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);
-  for (const id of run.build.ults) ULTS[id].update(run, run.ultState[id] ??= {}, 0, run.mods, dt);   // fresh state fires at once
+  for (const id of run.build.fusions) FUSIONS[id].update(run, run.fusionState[id] ??= {}, 0, run.mods, dt);   // fresh state fires at once
   updateProjectiles(run, dt);
   updatePickups(run, dt);
 }
@@ -64,7 +64,13 @@ export function chooseCard(run, card) {
   applyCard(run.build, card);
   if (card.kind === 'heal') p.hp = Math.min(p.maxHp, p.hp + TUNING.healCard);
   else if (card.kind === 'passive') applyPassives(run);
-  else for (const u of newlyUnlocked(run.build, run.classDef)) { run.build.ults.push(u); run.newUlts.push(u); }
+  else if (card.kind === 'fusion') {
+    delete run.skillState[card.a]; delete run.skillState[card.b];   // the ingredients are gone: no stale state if one is picked up again
+    const first = !run.discovered.has(card.id);
+    run.discovered.add(card.id);
+    if (first) run.found.push(card.id);
+    run.newFusions.push({ id: card.id, first });
+  }
   run.pendingLevelUps--;
   if (run.pendingLevelUps > 0) run.cards = rollCards(run.build, run.classDef, run.rng);
   else { run.cards = null; run.state = 'playing'; }
@@ -136,11 +142,12 @@ export function drawRun(ctx, run, assets) {
   actorsTo(Infinity);
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].draw?.(ctx, run, run.skillState[id] ??= {}, sk[id], assets, cam);
-  for (const id of run.build.ults) ULTS[id].draw(ctx, run, run.ultState[id] ??= {}, 0, assets, cam);   // skies, rocks, cloud: still under the mage
+  for (const id of run.build.fusions) FUSIONS[id].draw?.(ctx, run, run.fusionState[id] ??= {}, 0, assets, cam);   // skies, rocks, cloud: still under the mage
   drawProjectiles(ctx, run, assets, cam, t);
   // Above every actor, below the HUD. The mage is drawn again over spells and blasts (only numbers and the hurt
   // flash go over him): the player's anchor never drowns. Crowd over him: a 1px light outline first.
   run.fx.draw(ctx, cam, assets, () => {
+    for (const id of run.build.fusions) FUSIONS[id].drawTop?.(ctx, run, run.fusionState[id] ??= {}, 0, assets, cam);   // over smoke and crowd, under the mage
     if (covered) { drawPlayer(-1, 0, true); drawPlayer(1, 0, true); drawPlayer(0, -1, true); drawPlayer(0, 1, true); }
     drawPlayer();
   });

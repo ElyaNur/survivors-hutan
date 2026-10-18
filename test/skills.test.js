@@ -1,6 +1,6 @@
 import { test } from 'node:test'; import assert from 'node:assert/strict';
 import TUNING from '../src/data/tuning.js';
-import { stat, densestPoint } from '../src/game/skills/index.js';
+import { stat, densestCell } from '../src/game/skills/index.js';
 
 test('stat reads arrays, {base, perLv} and plain numbers', () => {
   assert.equal(stat('fireball', 'count', 3), 2);
@@ -13,15 +13,14 @@ test('stat reads arrays, {base, perLv} and plain numbers', () => {
 const at = (x, y) => ({ x, y, dead: false });
 const view = { x: 0, y: 0, w: 480, h: 480 };
 
-test('densestPoint finds the cluster', () => {
+test('densestCell finds the cluster', () => {
   const run = { player: { x: 50, y: 50 }, enemies: [at(100, 100), ...[0, 1, 2, 3, 4].map(i => at(298 + i, 300 + i))] };
-  const q = densestPoint(run, view);
+  const q = densestCell(run, view);
   assert.ok(Math.hypot(q.x - 300, q.y - 300) < 32, JSON.stringify(q));
 });
 
-test('densestPoint on an empty view returns the player position', () => {
-  const run = { player: { x: 50, y: 60 }, enemies: [at(1000, 1000)] };
-  assert.deepEqual({ ...densestPoint(run, view) }, { x: 50, y: 60 });
+test('densestCell on an empty view returns null', () => {
+  assert.equal(densestCell({ player: { x: 50, y: 60 }, enemies: [at(1000, 1000)] }, view), null);
 });
 
 import { createRun } from '../src/game/run.js';

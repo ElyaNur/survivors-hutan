@@ -25,7 +25,10 @@ export const isMuted = store.isMuted, setMuted = store.setMuted;
 // ---- Throttle. Pure of audio: callers pass the clock. Each name plays at most once per minGap, and at most
 // maxVoices plays may be sounding at once (a play lasts DUR[name]). A refused play changes nothing.
 export const DUR = { fireball: 0.25, meteor: 0.6, ice: 0.35, nova: 0.5, zap: 0.15, orb: 0.15, hit: 0.08, die: 0.2, pickup: 0.15,
-  levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06 };
+  levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06, lubangHitam: 1.4, lubangHitamBoom: 0.9, cincinMatahari: 0.3,
+  phoenix: 0.55, phoenixDive: 0.45, phoenixBoom: 0.8, gletser: 0.9, gletserSlide: 1.2, pagarKristal: 0.25, pagarKristalZap: 0.2,
+  kometEs: 0.8, kometEsBurst: 0.4, supernova: 1.0, bolaPlasma: 0.7, bolaPlasmaZap: 0.15, bolaPlasmaPop: 0.8, penghakimanLangitCall: 0.9,
+  penghakimanLangit: 0.5, pusaranKristal: 0.12, medanStatis: 0.35, medanStatisArc: 0.18, bentengEs: 0.7, bentengEsRise: 0.45 };
 export const createThrottle = () => ({ last: {}, ends: [] });
 const shared = createThrottle();
 export function shouldPlay(name, now, th = shared) {
@@ -130,6 +133,67 @@ const VOICES = {
   },
   chest(t) { [660, 880, 1320].forEach((f, i) => tone(t + i * 0.08, 'triangle', f, f, 0.25, 0.16)); noise(t, 0.05, 0.12, 'highpass', 3000, 3000); },   // creak-click + rising sparkle
   click(t) { tone(t, 'square', 640, 420, 0.04, 0.08); },                                                               // tiny UI tick
+  lubangHitam(t) {                                                                                                      // the hole opens: a sub drone sinking, air rushing in (noise swelling as its pitch falls)
+    tone(t, 'sine', 70, 34, 1.4, 0.7, 0.3); tone(t, 'triangle', 140, 52, 1.2, 0.12, 0.4);
+    noise(t, 1.3, 0.35, 'bandpass', 2400, 220, 2, 0.9);
+  },
+  lubangHitamBoom(t) {                                                                                                  // collapse: a sharp suck-in, then a deep thump, rumble and a falling arcane shimmer
+    noise(t, 0.08, 0.4, 'highpass', 1200, 5000, 1, 0.07);
+    tone(t + 0.07, 'sine', 150, 28, 0.8, 1.0); noise(t + 0.07, 0.75, 0.6, 'lowpass', 1500, 60);
+    tone(t + 0.07, 'triangle', 1400, 300, 0.5, 0.12); tone(t + 0.07, 'triangle', 1414, 306, 0.5, 0.1);
+  },
+  phoenix(t) {                                                                                                          // the firebird's cry: a screech up, then a long fall, over a crackle of flame
+    tone(t, 'sawtooth', 700, 1900, 0.12, 0.06, 0.01); tone(t + 0.1, 'triangle', 1900, 620, 0.42, 0.14, 0.01);
+    tone(t + 0.1, 'triangle', 1930, 640, 0.42, 0.08, 0.01); noise(t, 0.5, 0.18, 'bandpass', 1500, 600, 1.2, 0.05);
+  },
+  phoenixDive(t) { noise(t, 0.45, 0.4, 'bandpass', 3500, 500, 2, 0.15); tone(t, 'triangle', 1600, 2400, 0.3, 0.07, 0.1); },   // folding in: a falling whoosh, a rising whistle
+  phoenixBoom(t) {                                                                                                      // fire and ice blast: deep thump and roar, a frosty shimmer on top
+    tone(t, 'sine', 110, 34, 0.7, 0.9); noise(t, 0.6, 0.55, 'lowpass', 1800, 90);
+    tone(t + 0.02, 'triangle', 2600, 3400, 0.4, 0.07, 0.03); noise(t, 0.35, 0.12, 'highpass', 4000, 7000, 1, 0.03);
+  },
+  gletser(t) {                                                                                                          // the block lands: a crack of ice, a heavy thud, a glassy ring dying away
+    noise(t, 0.06, 0.45, 'highpass', 2500, 2500); tone(t, 'sine', 85, 30, 0.8, 1.0); noise(t + 0.02, 0.5, 0.4, 'lowpass', 900, 80);
+    tone(t + 0.03, 'sine', 1320, 1300, 0.5, 0.1); tone(t + 0.03, 'sine', 1980, 1960, 0.35, 0.06);
+  },
+  gletserSlide(t) { const b = bus(t, 0.35, 1.2, 0.08, 700, 250); tone(t, 'sawtooth', 58, 48, 1.2, 0, 0, b); noise(t, 1.1, 0.3, 'bandpass', 900, 500, 1.5, 0.08); },   // grinding over the ground
+  pagarKristal(t) { tone(t, 'sine', 2400, 2350, 0.18, 0.18); tone(t, 'sine', 3600, 3550, 0.1, 0.08); tone(t, 'square', 120, 110, 0.2, 0.04); },   // a crystal stabs in: tink with a buzz under it
+  pagarKristalZap(t) { noise(t, 0.04, 0.3, 'bandpass', 3200, 3200, 3); noise(t + 0.06, 0.04, 0.25, 'bandpass', 2600, 2600, 3); tone(t, 'square', 60, 60, 0.18, 0.06); },   // the fence bites: two snaps over a mains hum
+  kometEs(t) {                                                                                                          // impact: a deep boom and a glass crash, frost hissing out
+    tone(t, 'sine', 100, 30, 0.7, 0.9); noise(t, 0.12, 0.5, 'highpass', 3000, 1500); noise(t + 0.05, 0.7, 0.2, 'highpass', 5000, 3000, 1, 0.1);
+    tone(t, 'triangle', 1760, 1700, 0.5, 0.1);
+  },
+  kometEsBurst(t) { [2637, 3136, 2349, 3520].forEach((f, i) => tone(t + i * 0.04, 'sine', f, f * 0.98, 0.2, 0.12)); noise(t, 0.1, 0.25, 'highpass', 4000, 4000); },   // the head shatters: tinkling shards
+  supernova(t) {                                                                                                        // a star going off: a sharp white crack, a deep boom, a roaring flame wave rushing out, an icy ring over it
+    noise(t, 0.05, 0.5, 'highpass', 3000, 3000); tone(t, 'sine', 120, 30, 0.9, 1.0);
+    noise(t + 0.03, 0.9, 0.45, 'bandpass', 300, 2600, 0.9, 0.12); tone(t + 0.02, 'triangle', 1980, 1960, 0.6, 0.08); tone(t + 0.02, 'triangle', 2005, 1985, 0.6, 0.06);
+  },
+  bolaPlasma(t) {                                                                                                       // the ball is born: a rising electric hum with a buzzing edge
+    const b = bus(t, 0.3, 0.7, 0.1, 400, 2400); tone(t, 'sawtooth', 90, 180, 0.7, 0, 0, b); tone(t, 'sawtooth', 92, 184, 0.7, 0, 0, b);
+    noise(t, 0.4, 0.12, 'bandpass', 2500, 4000, 2, 0.1);
+  },
+  bolaPlasmaZap(t) { noise(t, 0.03, 0.3, 'highpass', 3500, 3500); noise(t + 0.04, 0.03, 0.22, 'highpass', 2800, 2800); tone(t, 'square', 600, 150, 0.1, 0.06); },   // a lash of lightning: two snaps, a falling buzz
+  bolaPlasmaPop(t) {                                                                                                    // it pops: a thump and fire roar, with a crackle of lightning scattering off
+    tone(t, 'sine', 130, 35, 0.7, 0.9); noise(t, 0.6, 0.5, 'lowpass', 2000, 100);
+    for (let i = 0; i < 4; i++) noise(t + 0.04 + i * 0.05, 0.03, 0.3, 'highpass', 3000 - i * 300, 3000 - i * 300);
+  },
+  penghakimanLangitCall(t) { tone(t, 'sine', 55, 45, 0.9, 0.5, 0.3); noise(t, 0.85, 0.3, 'lowpass', 200, 600, 1, 0.35); },   // the sky gathers: a low rolling rumble swelling
+  penghakimanLangit(t) {                                                                                                // a pillar slams down: a split-second rip of thunder, a heavy crack, a rumble after
+    noise(t, 0.04, 0.6, 'highpass', 2000, 2000); tone(t, 'square', 1200, 80, 0.12, 0.1);
+    tone(t + 0.02, 'sine', 90, 35, 0.45, 0.7); noise(t + 0.02, 0.45, 0.4, 'lowpass', 1200, 90);
+  },
+  pusaranKristal(t) { tone(t, 'sine', 3136, 2800, 0.08, 0.06); noise(t, 0.04, 0.08, 'highpass', 5000, 5000); },   // a shard flung off: a soft glassy flick
+  medanStatis(t) {                                                                                                      // the field lashes out: a mains-hum thud of static, a cold crackle, a glassy tick of ice
+    const b = bus(t, 0.3, 0.35, 0.005, 2400, 300); tone(t, 'sawtooth', 120, 60, 0.35, 0, 0, b); tone(t, 'square', 121, 61, 0.3, 0, 0, b);
+    for (let i = 0; i < 3; i++) noise(t + i * 0.03, 0.03, 0.22, 'bandpass', 4200 - i * 500, 4200 - i * 500, 4);
+    tone(t + 0.02, 'sine', 2093, 2093, 0.2, 0.08);
+  },
+  medanStatisArc(t) { noise(t, 0.025, 0.25, 'highpass', 5000, 5000); tone(t, 'square', 1400, 500, 0.08, 0.05); tone(t + 0.03, 'sine', 2637, 2600, 0.12, 0.05); },   // ice conducts: a thin snap, a falling zing, a tink
+  bentengEs(t) {                                                                                                        // the wall blasts out: an ice crack, a heavy whump, shards ringing off as it flies
+    noise(t, 0.05, 0.5, 'highpass', 2800, 2800); tone(t, 'sine', 110, 38, 0.6, 0.9); noise(t + 0.02, 0.55, 0.45, 'bandpass', 2400, 400, 1, 0.04);
+    [2349, 2794, 3136].forEach((f, i) => tone(t + 0.05 + i * 0.05, 'sine', f, f * 0.97, 0.3, 0.09));
+  },
+  bentengEsRise(t) { [1319, 1760, 2349].forEach((f, i) => tone(t + i * 0.06, 'triangle', f, f, 0.25, 0.09)); noise(t, 0.35, 0.12, 'highpass', 3000, 6000, 1, 0.15); },   // the wall grows back: a rising glassy chime over a frosty hiss
+  cincinMatahari(t) { noise(t, 0.2, 0.3, 'bandpass', 900, 3500, 2, 0.02); tone(t, 'triangle', 660, 1100, 0.18, 0.12); tone(t, 'sine', 330, 330, 0.25, 0.1); },   // solar flare: bright upward whoosh with a rising chirp
 };
 
 export function sfx(name) {

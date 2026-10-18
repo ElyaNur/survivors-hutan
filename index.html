@@ -5,9 +5,10 @@
 <title>Survivors Hutan</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #000;
+    touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }   /* no scroll, zoom or long-press menu */
   body { display: flex; align-items: center; justify-content: center; }
-  canvas { image-rendering: pixelated; flex: none; }
+  canvas { image-rendering: pixelated; flex: none; touch-action: none; }
 </style>
 </head>
 <body>

@@ -30,8 +30,8 @@ export function chainTargets(run, first, jumps, range) {
 }
 
 // One bolt from (fromX, fromY), then every target's position at the strike (the dead don't drag it away).
-// bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir strikes through here too.
-export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
+// bolts: the caller's pool (aged by ageBolts, drawn by drawBolts). Badai Petir and Penghakiman Langit (quiet) strike through here too.
+export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY, quiet = false) {
   const ts = chainTargets(run, first, jumps, range);
   sfx('zap');
   const b = bolts.find(o => o.age >= LIFE) ?? (bolts.push({ xs: [], ys: [] }), bolts[bolts.length - 1]);
@@ -39,7 +39,7 @@ export function strike(run, bolts, first, dmg, jumps, range, fromX, fromY) {
   b.xs[0] = fromX; b.ys[0] = fromY;
   ts.forEach((e, i) => {
     b.xs[i + 1] = e.x; b.ys[i + 1] = e.y;
-    damageEnemy(run, e, dmg, { fromX: b.xs[i], fromY: b.ys[i] });
+    damageEnemy(run, e, dmg, { fromX: b.xs[i], fromY: b.ys[i], quiet });
     run.fx.anim(e.x, e.y, 'fx_lightningHit');
     for (const [c, n, s] of SPARKS) run.fx.burst(e.x, e.y, c, n, s);
   });
@@ -69,6 +69,12 @@ function drawSegment(ctx, x0, y0, x1, y1, w, s) {
     pxLine(ctx, px, py, qx, qy, w);
     px = qx; py = qy;
   }
+}
+
+// One crackling arc, kinked by seed s: in the bolt's colours (violet edge, yellow body, white core) or the given [px, colour]
+// layers, widest first. Pagar Kristal's wires; Medan Statis's static (its own colours).
+export function drawArc(ctx, x0, y0, x1, y1, s, layers = LAYERS) {
+  for (const [w, color] of layers) { ctx.fillStyle = color; drawSegment(ctx, x0, y0, x1, y1, w, s); }
 }
 
 export function ageBolts(bolts, dt) { for (const b of bolts) b.age += dt; }

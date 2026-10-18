@@ -5,22 +5,25 @@ import { createRun, updateRun, drawRun, chooseCard } from './game/run.js';
 import { spawnEnemy } from './game/enemies.js';
 import { HUT, isWater } from './game/world.js';
 import { CLASSES } from './data/classes.js';
-import { drawHud, updateBanner } from './ui/hud.js';
-import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, pauseScreen, resultScreen } from './ui/screens.js';
+import { drawHud, updateBanner, drawTouch, pauseHit } from './ui/hud.js';
+import { levelUpScreen, starterPickScreen, menuScreen, classSelectScreen, recordsScreen, bookScreen, pauseScreen, resultScreen } from './ui/screens.js';
 import { sfx, isMuted, setMuted } from './engine/audio.js';
-import { loadRecords, saveRecords, mergeResult } from './logic/records.js';
+import { VIEW, setPortrait } from './engine/view.js';
+import { loadRecords, saveRecords, mergeResult, recordFusion, discoveredSet } from './logic/records.js';
 
-const W = 480, H = 270;
+// Picked once at load: portrait 270x480 on touch devices (or ?portrait), else landscape 480x270. Before anything reads VIEW.
+setPortrait(new URLSearchParams(location.search).has('portrait') || matchMedia('(pointer: coarse)').matches);
 const canvas = document.getElementById('game');
+canvas.width = VIEW.w; canvas.height = VIEW.h;
 const ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 
-// Integer scale when the window fits, otherwise the largest fractional scale >= 0.5.
+// Landscape: integer scale when the window fits, otherwise the largest fractional scale >= 0.5. Portrait: the exact fit (phones have no integer to spare).
 function resize() {
-  const fit = Math.min(innerWidth / W, innerHeight / H);
-  const scale = fit >= 1 ? Math.floor(fit) : Math.max(fit, 0.5);
-  canvas.style.width = W * scale + 'px';
-  canvas.style.height = H * scale + 'px';
+  const fit = Math.min(innerWidth / VIEW.w, innerHeight / VIEW.h);
+  const scale = VIEW.portrait ? fit : fit >= 1 ? Math.floor(fit) : Math.max(fit, 0.5);
+  canvas.style.width = VIEW.w * scale + 'px';
+  canvas.style.height = VIEW.h * scale + 'px';
 }
 addEventListener('resize', resize);
 resize();
@@ -60,38 +63,50 @@ function go(next) {
   scene = next;
   if (next === 'menu') { run = backdrop; screen = menuScreen(assets, isMuted); }
   else if (next === 'classSelect') screen = classSelectScreen(assets, CLASSES);
+  else if (next === 'book') screen = bookScreen(assets, CLASSES[classId], records[classId]);
   else if (next === 'records') screen = recordsScreen(assets, CLASSES, records);
   else if (next === 'starterPick') { run = backdrop; screen = starterPickScreen(CLASSES[classId], assets); }
   else if (next === 'levelup') { screen = levelUpScreen(run, assets); sfx('levelup'); }
-  else if (next === 'paused') screen = pauseScreen(assets);
+  else if (next === 'paused') screen = pauseScreen(assets, run);
   else if (next === 'result') {
     const won = run.state === 'won', res = { time: Math.floor(run.endAt ?? run.time), kills: run.kills, level: run.prog.level, won };
-    const m = mergeResult(records, classId, res);
+    const m = mergeResult(records, classId, { ...res, fusions: run.build.fusions });
     records = m.records; saveRecords(storage, records);
-    screen = resultScreen(assets, { ...res, ults: run.build.ults, newBest: m.newBest });
+    screen = resultScreen(assets, { ...res, fusions: run.build.fusions, found: run.found, newBest: m.newBest });
   } else screen = null;                                   // playing
 }
 go('menu');
 
 const ACT = {
-  menu: a => a === 'play' ? go('classSelect') : a === 'records' ? go('records') : toggleMute(),
+  menu: a => a === 'play' ? go('classSelect') : a === 'book' ? go('book') : a === 'records' ? go('records') : toggleMute(),
   classSelect: a => a === 'back' ? go('menu') : (classId = a, go('starterPick')),
+  book: () => go('menu'),
   records: () => go('menu'),
-  starterPick: id => { run = createRun(classId, id, Date.now(), assets); go('playing'); },
-  levelup: card => { chooseCard(run, card); go(run.state === 'levelup' ? 'levelup' : 'playing'); },   // a fresh screen per pending level
+  starterPick: id => { run = createRun(classId, id, Date.now(), assets, discoveredSet(records, classId)); go('playing'); },
+  levelup: card => {
+    if (card.kind === 'fusion') { records = recordFusion(records, classId, card.id); saveRecords(storage, records); }   // discovered forever, before the run can end
+    chooseCard(run, card); go(run.state === 'levelup' ? 'levelup' : 'playing');   // a fresh screen per pending level
+  },
   paused: a => { if (a === 'forfeit') run.player.hp = 0; go('playing'); },   // forfeit: he falls like any death, then the result
   result: a => go(a === 'again' ? 'starterPick' : 'menu'),
 };
 
 // What ?debug (src/debug.js) may touch. The run is replaced on each new run, hence the getter.
-const game = { get run() { return run; }, assets, spawnEnemy, overlays: [] };
+const game = {
+  get run() { return run; }, assets, spawnEnemy, overlays: [],
+  clearDiscoveries() {                                    // ?debug F9: forget every fusion of this class, cards go back to "???"
+    records = { ...records, [classId]: { ...records[classId], fusions: {} } }; saveRecords(storage, records);
+    run.discovered.clear();
+  },
+};
 if (new URLSearchParams(location.search).has('debug')) import('./debug.js').then(m => m.install(game)).catch(() => {});
 
 initInput(canvas);
 startLoop(
   dt => {
     if (scene === 'playing') {
-      if (!run.ending && input.pressed('Escape')) go('paused');
+      const tapPause = input.touched && input.mouse.clicked && pauseHit(input.mouse);   // no Esc on a phone
+      if (!run.ending && (input.pressed('Escape') || tapPause)) go('paused');
       else {
         held = run.fx.frozen(); updateRun(run, dt, input); updateBanner(run, dt);
         if (run.state === 'levelup') go('levelup');
@@ -108,6 +123,7 @@ startLoop(
   () => {
     drawRun(ctx, run, assets);
     if (run !== backdrop && scene !== 'result') drawHud(ctx, run, assets);
+    if (scene === 'playing' && input.touched) drawTouch(ctx, assets, input);
     for (const draw of game.overlays) draw(ctx);
     screen?.draw(ctx);
   });
