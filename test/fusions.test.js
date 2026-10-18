@@ -201,3 +201,11 @@ test('Cincin Matahari: the suns launch fireballs, and a sun burns what it touche
 test('Lubang Hitam and Cincin Matahari are real fusions, not placeholders', () => {
   assert.ok(!FUSIONS.lubangHitam.placeholder); assert.ok(!FUSIONS.cincinMatahari.placeholder);
 });
+
+test('Lubang Hitam keeps one hole at a time: a cd that runs out mid-pull does not reopen it', () => {
+  const run = setup(), st = {};
+  FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);
+  st.cd = -1;                                               // as if the cd were shorter than the pull
+  step(run, 'lubangHitam', st, 0.5);
+  assert.ok(Math.abs(st.t - 0.5) < 1e-6, 'the open hole kept its clock');
+});

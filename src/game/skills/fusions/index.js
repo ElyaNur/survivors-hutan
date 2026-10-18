@@ -1,5 +1,6 @@
 // Fusions: the skills a finished pair of level-5 skills turns into (the two ingredients are consumed).
 // Same shape as a skill ({ id, update(run, st, level, mods, dt), draw? }, level always 0); state in run.fusionState[id].
+// drawTop?(same args): drawn over the fx layer (smoke, poofs, blasts) but under the mage, for what must read in a crowd.
 // Each fires on its first update after the fusion, then every cd x mods.cooldown.
 // Import fusions through this file (the fusion modules import these helpers back, same cycle trick as skills/index.js).
 import '../index.js';                                        // enter the skill cycle through the registry first

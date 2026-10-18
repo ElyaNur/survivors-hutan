@@ -55,7 +55,7 @@ export default {
   update(run, st, level, mods, dt) {
     if (st.on && (st.t += dt) >= L.pull) { collapse(run, st); st.on = false; }
     else if (st.on) pull(run, st, dt);
-    if (!ready(st, L.cd, mods, dt)) return;
+    if (st.on || !ready(st, L.cd, mods, dt)) return;       // one hole at a time: the cd runs from the collapse
     const q = densestPoint(run, camera(run.player));
     st.on = true; st.t = 0; st.tickIn = L.tickEvery; st.x = q.x; st.y = q.y; st.r = L.r * mods.area;
     sfx('lubangHitam');

@@ -9,10 +9,11 @@ import { sfx } from '../../../engine/audio.js';
 import { fusionDmg } from './index.js';
 
 const C = TUNING.fusions.cincinMatahari, TAU = Math.PI * 2, MAX_ENEMY_R = 32;
-const SHOT_R = 4, HALO = 1.8, DESYNC = 170;                 // shot hit radius px; sun halo scale; ms between the suns' flicker
-const TRAIL = [[0.16, 2, '#fff1a8'], [0.28, 2, '#ffd23f'], [0.4, 2, '#ff9a3c'], [0.52, 1, '#ff9a3c'], [0.64, 1, '#e8532e']];   // [radians back, px, palette y/Y/o/o/O]
+const HALO = 2.6, DESYNC = 170;                             // sun halo scale; ms between the suns' flicker
+const TRAIL = [[0.34, 4, '#fff1a8'], [0.46, 3, '#ffd23f'], [0.58, 3, '#ff9a3c'], [0.7, 2, '#ff9a3c'], [0.82, 2, '#e8532e'], [0.94, 1, '#e8532e']];   // [radians back, px, palette y/Y/o/o/O/O]
 const EMBERS = 8, EMBER = ['#ffd23f', '#ff9a3c'];           // embers shed per s per sun (palette Y, o)
-const RING_DOTS = 48, RING = ['#ffd23f', 0.3], RING_TURN = -0.3;   // the faint golden orbit: dots, colour + alpha, share of the suns' spin
+const INK = '#1d1a2f', RING_GOLD = '#ffd23f', RING_DASH = 6, RING_GAP = 3, RING_ALPHA = 0.75, RING_TURN = -0.3;   // the orbit: gold dashes
+                                                            // on an ink underline (reads over mint slimes), px on/off, share of the suns' spin
 const near = [];
 
 // ponytail: linear scan, n shots per fireEvery over <= 400 enemies; grid if suns or fire rate grow a lot.
@@ -27,7 +28,7 @@ function outerTarget(run, x, y, ox, oy) {
 
 function shoot(run, mods, x, y, ox, oy) {
   const e = outerTarget(run, x, y, ox, oy), a = e ? Math.atan2(e.y - y, e.x - x) : Math.atan2(oy, ox);
-  spawnProjectile(run, { x, y, vx: Math.cos(a) * C.shotSpeed, vy: Math.sin(a) * C.shotSpeed, dmg: 0, radius: SHOT_R,
+  spawnProjectile(run, { x, y, vx: Math.cos(a) * C.shotSpeed, vy: Math.sin(a) * C.shotSpeed, dmg: 0, radius: C.shotSize,
     life: C.shotRange / C.shotSpeed, sprite: 'fireball_fly', glow: 'fire', onHit: boom,
     boomR: C.boomR * mods.area, boomDmg: fusionDmg(run, C.shotDmg) });
   run.fx.burst(x, y, '#fff1a8', 3, 50);                     // palette y: the sun spits
@@ -56,13 +57,19 @@ export default {
       if (Math.random() < EMBERS * dt) run.fx.burst(x, y, EMBER[i & 1], 1, 16);
     }
   },
-  draw(ctx, run, st, level, assets, cam) {
+  // Over the fx layer (their own blasts' smoke, the crowd's death poofs), under the mage: the ring always reads.
+  drawTop(ctx, run, st, level, assets, cam) {
     if (!st.R) return;
-    const pl = run.player, cx = pl.x - cam.x, cy = pl.y - cam.y, R = st.R, t = performance.now();
-    ctx.globalAlpha = RING[1]; ctx.fillStyle = RING[0];
-    for (let k = 0; k < RING_DOTS; k++) {
-      const a = k * TAU / RING_DOTS + st.angle * RING_TURN;
-      ctx.fillRect(Math.round(cx + Math.cos(a) * R), Math.round(cy + Math.sin(a) * R), 1, 1);
+    const pl = run.player, cx = pl.x - cam.x, cy = pl.y - cam.y, R = st.R, t = run.time * 1000;
+    const n = Math.round(TAU * R / (RING_DASH + RING_GAP)), step = TAU / n, dash = step * RING_DASH / (RING_DASH + RING_GAP);
+    ctx.globalAlpha = RING_ALPHA;
+    for (let k = 0; k < n; k++) {                           // dashed orbit: each dash a run of 1px dots, ink under gold
+      const a0 = k * step + st.angle * RING_TURN;
+      for (let a = a0; a < a0 + dash; a += 1 / R) {
+        const x = Math.round(cx + Math.cos(a) * R), y = Math.round(cy + Math.sin(a) * R);
+        ctx.fillStyle = INK; ctx.fillRect(x, y + 1, 1, 1);
+        ctx.fillStyle = RING_GOLD; ctx.fillRect(x, y, 1, 1);
+      }
     }
     ctx.globalAlpha = 1;
     for (let i = 0; i < C.n; i++) {

@@ -44,13 +44,13 @@ const TUNING = {
     hujanNeraka:  { cd: 25, dur: 4, rate: 6, dmg: 55, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
     absoluteZero: { cd: 22, freeze: 4, hitDmg: 40 },                       // hitDmg lands on the fresh ice: x frozenVulnMult (top level)
     badaiPetir:   { cd: 22, dur: 6, rate: 7, range: 140, dmg: 50, orbBoost: 1.0, jumps: 3, jumpRange: 60 },   // orbBoost unused now: the orbs are consumed
-    // r: pull reach px; pull: s it drags before collapsing; pullSpeed: px/s at the rim (more inside); tickDmg every tickEvery s while
+    // cd: s from one collapse to the next opening (x mods.cooldown); r: pull reach px; pull: s it drags before collapsing; pullSpeed: px/s at the rim (more inside); tickDmg every tickEvery s while
     // pulling; collapseDmg hits everything within r, shoving it out by blastPush px. Damage numbers go through fusionDmg.
-    lubangHitam:    { cd: 9, r: 80, pull: 2.5, pullSpeed: 110, swirl: 0.6, tickDmg: 5, tickEvery: 0.5, collapseDmg: 110, blastPush: 14 },
-    // n suns orbit at orbitR (x mods.area), burn on contact (dmg, each enemy every hitCd); each fires a fireball every fireEvery s
-    // (x mods.cooldown) at the nearest enemy within shotRange on its outer side; shotDmg blasts boomR.
-    cincinMatahari: { n: 3, orbitR: 34, rotSpeed: 2.2, size: 7, dmg: 14, hitCd: 0.4, push: 5,
-                      fireEvery: 1.2, shotSpeed: 170, shotRange: 210, shotDmg: 26, boomR: 16 },
+    lubangHitam:    { cd: 6.5, r: 80, pull: 2.5, pullSpeed: 110, swirl: 0.6, tickDmg: 5, tickEvery: 0.5, collapseDmg: 110, blastPush: 14 },
+    // n suns orbit at orbitR (x mods.area), burn on contact within size px (dmg, each enemy every hitCd); each fires a fireball
+    // (hit radius shotSize) every fireEvery s (x mods.cooldown) at the nearest enemy within shotRange on its outer side; shotDmg blasts boomR.
+    cincinMatahari: { n: 3, orbitR: 42, rotSpeed: 2.0, size: 10, dmg: 14, hitCd: 0.4, push: 5,
+                      fireEvery: 1.2, shotSpeed: 170, shotRange: 210, shotSize: 4, shotDmg: 26, boomR: 16 },
     // placeholders until Task 8-10: every cd hits the nearest few enemies within r
     phoenix:           { cd: 6, dmg: 60, r: 100 }, supernova:      { cd: 6, dmg: 60, r: 100 }, bolaPlasma:    { cd: 6, dmg: 60, r: 100 },
     kometEs:           { cd: 6, dmg: 60, r: 100 }, gletser:        { cd: 6, dmg: 60, r: 100 },

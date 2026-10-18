@@ -414,21 +414,25 @@ anim("fu_blackHole_boom", { w: 167, h: 167, fps: 16, loop: false, frames: BOOM_R
 },
   glow("wl", { r: 3, strength: 0.6, bands: 2 }))
 
-// Cincin Matahari: a small sun, 15x15. White-hot core, gold body, an orange limb, and a corona of sixteen flame
-// tongues around it that flicker (each beat a different few leap out).
-anim("fu_sun", { w: 15, h: 15, fps: 10, frames: 6 }, (c) => {
-  const C = 7, f = c.frame
-  for (let i = 0; i < 16; i++) {
-    const a = i * Math.PI / 8 + f * 0.13, h = (i * 5 + f * 3) % 7                // h: this tongue's height this beat
-    const L = 4.5 + (h < 2 ? 2.5 : h < 4 ? 1.5 : 0.8)
-    const [x0, y0] = [Math.round(C + Math.cos(a) * 4), Math.round(C + Math.sin(a) * 4)]
-    const [x1, y1] = [Math.round(C + Math.cos(a) * L), Math.round(C + Math.sin(a) * L)]
-    c.line(x0, y0, x1, y1, h < 2 ? "Y" : "o"); c.px(x1, y1, h < 2 ? "o" : "O")
+// Cincin Matahari: a sun, 25x25 + ink outline. White-hot core, gold body shaded to an orange limb low-right, an ink
+// rim (it must read over a green crowd and smoke), and a corona of licking flame whose edge boils round it.
+const SUN_C = 12
+const sunRim = (c) => { for (let y = 0; y < 25; y++) for (let x = 0; x < 25; x++) { const d = Math.hypot(x - SUN_C, y - SUN_C); if (d > 6.4 && d <= 7.4) c.px(x, y, "k") } }
+anim("fu_sun", { w: 25, h: 25, fps: 10, frames: 6, outline: "k" }, (c) => {
+  const C = SUN_C, k = c.phase * Math.PI * 2
+  for (let y = 0; y < 25; y++) for (let x = 0; x < 25; x++) {                    // corona: wavy flame edge, hotter inside
+    const dx = x - C, dy = y - C, d = Math.hypot(dx, dy), a = Math.atan2(dy, dx)
+    const R = 9 + 1.4 * Math.sin(6 * a + k) + 1.1 * Math.sin(4 * a - 2 * k) + 0.6 * Math.sin(9 * a + 3 * k)
+    if (d > R || d <= 7) continue
+    c.px(x, y, d > R - 1 ? "O" : d > R - 2.2 ? "o" : "Y")
   }
-  c.circ(C, C, 4, "o"); c.circ(C, C, 3, "Y"); c.circ(C - 1, C - 1, 2, "y")
-  c.px(C - 1, C - 1, "w"); c.px(C - 2, C - 1, "w"); c.px(C - 1, C - 2, "w")
-  c.px(C + 2, C + 1, "o"); c.px(C + 1, C + 2, "o")                                // a cooler spot low-right: it's round, not a disc
+  sunRim(c)
+  c.circ(C, C, 6, "o"); c.circ(C - 1, C - 1, 5, "Y"); c.circ(C - 2, C - 2, 3, "y")
+  c.px(C - 3, C - 3, "w"); c.px(C - 2, C - 3, "w"); c.px(C - 3, C - 2, "w"); c.px(C - 2, C - 2, "w"); c.px(C - 1, C - 3, "w")
+  const spot = [[3, 1], [2, 3], [1, 3], [3, 2], [2, 2], [3, 0]][c.frame]         // a cooler spot drifting on the limb
+  c.px(C + spot[0], C + spot[1], "o")
 },
-  glow("wy", { r: 3, strength: 0.5, bands: 2 }))
+  glow("wyY", { r: 3, strength: 0.5, bands: 2 }),
+  sunRim)                                                                          // after the glow: the rim stays ink
 
 sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*", "fu_*"])
