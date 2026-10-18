@@ -147,7 +147,7 @@ export function drawRun(ctx, run, assets) {
   // Above every actor, below the HUD. The mage is drawn again over spells and blasts (only numbers and the hurt
   // flash go over him): the player's anchor never drowns. Crowd over him: a 1px light outline first.
   run.fx.draw(ctx, cam, assets, () => {
-    for (const id of run.build.fusions) FUSIONS[id].drawTop?.(ctx, run, run.fusionState[id], 0, assets, cam);   // over smoke and crowd, under the mage
+    for (const id of run.build.fusions) FUSIONS[id].drawTop?.(ctx, run, run.fusionState[id] ??= {}, 0, assets, cam);   // over smoke and crowd, under the mage
     if (covered) { drawPlayer(-1, 0, true); drawPlayer(1, 0, true); drawPlayer(0, -1, true); drawPlayer(0, 1, true); }
     drawPlayer();
   });

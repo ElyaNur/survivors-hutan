@@ -209,3 +209,17 @@ test('Lubang Hitam keeps one hole at a time: a cd that runs out mid-pull does no
   step(run, 'lubangHitam', st, 0.5);
   assert.ok(Math.abs(st.t - 0.5) < 1e-6, 'the open hole kept its clock');
 });
+
+import { drawRun } from '../src/game/run.js';
+test('a fusion with only drawTop draws on the frame it is picked, before any update', () => {
+  const stub = () => new Proxy(function () {}, { get: (o, k) => k === Symbol.toPrimitive ? () => 0 : (k in o ? o[k] : stub()),
+    set: (o, k, v) => (o[k] = v, true), apply: () => stub() });   // any canvas / ctx call, any property
+  const hadDoc = 'document' in globalThis, doc = globalThis.document;
+  globalThis.document = { createElement: () => stub() };
+  try {
+    const run = createRun('mage', 'fireball', 1); run.build.fusions = ['cincinMatahari'];
+    const assets = { draw() {}, drawSlice() {}, animTotal: () => 500, has: () => true, size: () => ({ w: 16, h: 16 }) };
+    assert.doesNotThrow(() => drawRun(stub(), run, assets));
+    assert.equal(typeof run.fusionState.cincinMatahari, 'object');
+  } finally { if (hadDoc) globalThis.document = doc; else delete globalThis.document; }
+});
