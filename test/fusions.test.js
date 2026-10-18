@@ -231,7 +231,7 @@ const live = (run, id, st, secs, dt = 0.05) => {
 
 test('Phoenix: its wings leave fire and ice trails, and it dives into the densest crowd and blows up', () => {
   const run = setup(), st = {}, P = U.phoenix;
-  const e = tank(run, 140);                                 // beyond the loop and its trails: only the dive reaches it
+  const e = tank(run, Math.ceil(P.loopR + P.span + P.trailR) + 20);   // beyond the loop and its trails: only the dive reaches it
   live(run, 'phoenix', st, 2);
   assert.ok(run.areas.some(a => a.dmg > 0 && a.dur > 0), 'a burning trail');
   assert.ok(run.areas.some(a => a.slow > 0 && a.dur > 0), 'an icy trail');
@@ -245,7 +245,7 @@ test('Gletser: the block runs over and freezes every enemy on its lane, nothing 
   const lane = [60, 90, 90, 120, -60, -120].map(dx => tank(run, dx, 40));   // a row of the crowd 40 px below the mage
   const off = tank(run, 100, -60);
   live(run, 'gletser', st, G.warn + G.slide / G.speed + 0.5);
-  for (const e of lane) { assert.ok(e.hp < e.maxHp, 'run over'); assert.ok(e.frozenUntil > run.time, 'frozen'); }
+  for (const e of lane) { assert.ok(e.hp < e.maxHp, 'run over'); assert.ok(e.frozenUntil >= G.warn + G.freeze - 1e-6, 'frozen when hit'); }   // every hit comes after the landing
   assert.equal(off.hp, off.maxHp); assert.equal(off.frozenUntil, 0);
 });
 
@@ -256,6 +256,17 @@ test('Pagar Kristal: two crystals 40 px apart zap an enemy on the link between t
   live(run, 'pagarKristal', st, K.tick * 2 + 0.01);
   assert.ok(on.hp < on.maxHp, 'zapped on the link');
   assert.equal(off.hp, off.maxHp);
+});
+
+test('Pagar Kristal: shards lodge as crystals, never more than maxCrystals, each gone after life', () => {
+  const run = setup(), st = {}, K = U.pagarKristal;
+  run.mods.cooldown = 0.01;                                 // a throw every step
+  const flight = K.throwR * run.mods.area / K.shardSpeed;   // the longest a shard flies before it lodges
+  live(run, 'pagarKristal', st, (K.maxCrystals + 3) * 0.05 + flight);
+  assert.equal(st.crystals.length, K.maxCrystals);
+  st.cd = 1e9;                                              // no more throws (the last ones in flight still lodge)
+  live(run, 'pagarKristal', st, flight + K.life + 0.1);
+  assert.equal(st.crystals.length, 0, 'expired');
 });
 
 test('Komet Es: the impact freezes the crowd within r, then the comet bursts into shards', () => {

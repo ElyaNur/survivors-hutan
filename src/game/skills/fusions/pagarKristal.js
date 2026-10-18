@@ -9,7 +9,7 @@ import { sfx } from '../../../engine/audio.js';
 import { fusionDmg, ready } from './index.js';
 
 const K = TUNING.fusions.pagarKristal;
-const MAX_ENEMY_R = 32, GOLDEN = 2.39996, FLAT = 0.75;      // grid margin; each throw turns this far round the mage; throws squashed like the view
+const MAX_ENEMY_R = 32, GOLDEN = 2.39996;                   // grid margin; each throw turns this far round the mage
 const UP = 9, WIRE_UP = 8;                                  // fu_crystal drawn this far above its spot (it stands on it); wires strung this high
 const GROW = 0.12, BLINK = 0.6, ZAP_ANIMS = 6;              // s a crystal takes to grow in; s it blinks before it goes; hit sparks per tick
 const SHATTER = [['#ffffff', 4, 80], ['#a6f6ff', 6, 60]];   // palette w, c
@@ -31,10 +31,10 @@ function lodge(run, p) {
 
 function throwShard(run, st, mods) {
   const pl = run.player, a = (st.turn = ((st.turn ?? 0) + GOLDEN) % (Math.PI * 2));
-  const d = K.throwR * mods.area * (0.7 + 0.3 * Math.abs(Math.sin(a * 3.7))), ux = Math.cos(a), uy = Math.sin(a) * FLAT;
+  const d = K.throwR * mods.area * (1 - K.throwSpread + K.throwSpread * Math.abs(Math.sin(a * 3.7))), ux = Math.cos(a), uy = Math.sin(a) * K.flat;
   const len = Math.hypot(ux, uy);
   spawnProjectile(run, { x: pl.x, y: pl.y, vx: ux / len * K.shardSpeed, vy: uy / len * K.shardSpeed, dmg: fusionDmg(run, K.shardDmg),
-    radius: 3, pierce: Infinity, life: d * len / K.shardSpeed, sprite: 'iceShard_fly', glow: 'ice', onEnd: lodge, fence: st });
+    radius: K.shardSize, pierce: Infinity, life: d * len / K.shardSpeed, sprite: 'iceShard_fly', glow: 'ice', onEnd: lodge, fence: st });
 }
 
 // Distance² from (px, py) to the segment a-b.

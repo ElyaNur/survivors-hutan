@@ -9,7 +9,7 @@ import { sfx } from '../../../engine/audio.js';
 import { fusionDmg } from './index.js';
 
 const P = TUNING.fusions.phoenix, FX = TUNING.fx, TAU = Math.PI * 2;
-const FLAT = 0.6, ALT = 18;                                 // the loop seen from above (squashed); px the bird flies over its ground point
+const ALT = 18;                                             // px the bird flies over its ground point
 const REBORN = 0.4, NOVA_R = 36;                            // s it takes to flare back in; fx_frostNova's art radius
 const DIVE = [[0.18, 0.12], [0.12, 0.25], [0.06, 0.45], [0, 1]];   // the diving bird and its afterimages: [s behind, alpha]
 const SHADOW = [[-5, 10], [-8, 16], [-5, 10]];              // ground shadow rows: [x offset, width]
@@ -25,8 +25,8 @@ function iceTrail() {}
 // Ground point and heading on the loop at angle a.
 function onLoop(run, st, mods) {
   const pl = run.player, R = P.loopR * mods.area, c = Math.cos(st.a), s = Math.sin(st.a);
-  st.x = pl.x + c * R; st.y = pl.y + s * R * FLAT; st.alt = ALT;
-  st.hx = -s; st.hy = c * FLAT;
+  st.x = pl.x + c * R; st.y = pl.y + s * R * P.flat; st.alt = ALT;
+  st.hx = -s; st.hy = c * P.flat;
 }
 
 function reborn(run, st, mods) {
@@ -96,7 +96,7 @@ export default {
     if (st.a === undefined) return;
     const x = Math.round(st.x - cam.x), y = Math.round(st.y - cam.y), by = y - Math.round(st.alt);
     ctx.globalAlpha = 0.3; ctx.fillStyle = '#1d1a2f';      // palette k: its shadow on the ground
-    SHADOW.forEach(([ox, w], i) => ctx.fillRect(x + ox, y + i, w, 1));
+    for (let i = 0; i < SHADOW.length; i++) ctx.fillRect(x + SHADOW[i][0], y + i, SHADOW[i][1], 1);
     ctx.globalAlpha = 1;
     const grow = Math.min(1, st.born / REBORN), face = st.hx < 0 ? -1 : 1;
     drawHalo(ctx, 'fire', x - face * 3, by - 4, 2.6 * grow);

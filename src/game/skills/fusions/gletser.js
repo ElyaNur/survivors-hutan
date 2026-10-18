@@ -10,7 +10,7 @@ import { sfx } from '../../../engine/audio.js';
 import { fusionDmg, ready } from './index.js';
 
 const G = TUNING.fusions.gletser, FX = TUNING.fx;
-const MAX_ENEMY_R = 32, HW = 23, EDGE = 24;                 // grid margin; the block's half width px (fu_glacier); kept this far inside the view
+const MAX_ENEMY_R = 32, EDGE = 24;                          // grid margin; px the drop is kept inside the view
 const LIFT = 10, FALL = 0.35, FROM_Y = -190;                // block drawn this far above its lane (it stands on it); s of the warn it is seen falling, from px above
 const WARN_R = 28, NOVA_R = 36, SHATTER = 2.5;              // fu_iceWarn / fx_frostNova art radii; the shatter's scale
 const RIME_GAP = 9, RIME_LIFE = 0.9, RIME_UP = 2;           // frost tufts left on its lane: px apart, s each lasts, px above the foot
@@ -32,7 +32,7 @@ function land(run, st, mods) {
 // Moves the block step px and runs over what its swept footprint covers (each enemy once per run).
 function slide(run, st, mods, step) {
   const x0 = st.x, x1 = st.x + st.dir * step, half = G.half * mods.area, dmg = fusionDmg(run, G.dmg);
-  const lo = Math.min(x0, x1) - HW, hi = Math.max(x0, x1) + HW;
+  const HW = G.halfW, lo = Math.min(x0, x1) - HW, hi = Math.max(x0, x1) + HW;
   near.length = 0;
   run.grid.query((x0 + x1) / 2, st.y, HW + step / 2 + half + MAX_ENEMY_R, near);
   for (const e of near) {
@@ -43,7 +43,7 @@ function slide(run, st, mods, step) {
     run.fx.burst(e.x, e.y, '#a6f6ff', 3, 60);               // palette c
   }
   st.x = x1;
-  if (Math.random() < 0.8) run.fx.burst(x1 + st.dir * HW, st.y + LIFT - 2, SPRAY[Math.random() < 0.5 ? 0 : 1], 2, 70);
+  if (Math.random() < 0.8) run.fx.burst(x1 + st.dir * G.halfW, st.y + LIFT - 2, SPRAY[Math.random() < 0.5 ? 0 : 1], 2, 70);
   if ((st.left -= step) <= 0) {                             // the end of its run: it bursts apart
     st.phase = null;
     run.fx.anim(st.x, st.y - LIFT, 'fx_shatter', { scale: SHATTER });
@@ -86,7 +86,7 @@ export default {
     const x = st.x - cam.x;
     let y = st.y - cam.y - LIFT;
     if (st.phase === 'fall') {
-      const k = 1 - (G.warn - st.t) / FALL;
+      const k = 1 - (G.warn - st.t) / Math.min(FALL, G.warn);   // a short warn shows all of the fall
       if (k <= 0) return;
       y += FROM_Y * (1 - k * k);
     }

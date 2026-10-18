@@ -51,23 +51,24 @@ const TUNING = {
     // (hit radius shotSize) every fireEvery s (x mods.cooldown) at the nearest enemy within shotRange on its outer side; shotDmg blasts boomR.
     cincinMatahari: { n: 3, orbitR: 42, rotSpeed: 2.0, size: 10, dmg: 14, hitCd: 0.4, push: 5,
                       fireEvery: 1.2, shotSpeed: 170, shotRange: 210, shotSize: 4, shotDmg: 26, boomR: 16 },
-    // The bird loops round the mage (loopR px x mods.area, loopSpeed rad/s). Every trailEvery s each wing drops a trail spot
+    // The bird loops round the mage (loopR px x mods.area, loopSpeed rad/s; the loop squashed to flat of its height, seen from above). Every trailEvery s each wing drops a trail spot
     // span px to its side (r trailR, lasting trailLife, ticking every trailTick): fire burns for burnDmg, ice slows by slow
     // for slowDur. Every diveEvery s (x mods.cooldown) it dives (diveTime s) through the densest crowd and blows up: diveDmg
     // within diveR (x mods.area), slowing too. Damage numbers go through fusionDmg.
-    phoenix:      { loopR: 60, loopSpeed: 2.2, span: 10, trailEvery: 0.08, trailR: 9, trailLife: 1.2, trailTick: 0.35, burnDmg: 7,
+    phoenix:      { loopR: 60, flat: 0.6, loopSpeed: 2.2, span: 10, trailEvery: 0.08, trailR: 9, trailLife: 1.2, trailTick: 0.35, burnDmg: 7,
                     slow: 0.5, slowDur: 1, diveEvery: 5, diveTime: 0.45, diveR: 46, diveDmg: 100 },
     // Every cd (from the end of the last run) the block drops land px beyond the densest crowd in view, warned for warn s:
     // landDmg within landR. Then it slides slide px across the view at speed px/s, running over everything within half px
-    // of its lane once (dmg, frozen for freeze s, shoved push px off the lane). landR and half x mods.area.
-    gletser:      { cd: 4.5, warn: 0.6, land: 40, landR: 36, landDmg: 40, speed: 300, slide: 420, half: 18, dmg: 80, freeze: 2, push: 8 },
-    // Every cd a shard (shardDmg to what it pierces) flies throwR px (x mods.area) out at shardSpeed and lodges as a crystal,
+    // of its lane and halfW px of its middle once (dmg, frozen for freeze s, shoved push px off the lane). landR and half x mods.area.
+    gletser:      { cd: 4.5, warn: 0.6, land: 40, landR: 36, landDmg: 40, speed: 300, slide: 420, half: 18, halfW: 23, dmg: 80, freeze: 2, push: 8 },
+    // Every cd a shard (shardDmg to what it pierces, hit radius shardSize) flies out at shardSpeed and lodges as a crystal: throwR px
+    // (x mods.area), the last throwSpread of it varying per throw, the ring squashed to flat of its height (seen from above);
     // at most maxCrystals, each for life s. Crystals within link px are wired by lightning: every tick s each wire hits what
     // stands across it (within its radius + wire px) for tickDmg.
-    pagarKristal: { cd: 0.7, maxCrystals: 8, life: 6, throwR: 64, shardSpeed: 240, shardDmg: 14, link: 72, wire: 3, tick: 0.3, tickDmg: 6 },
+    pagarKristal: { cd: 0.7, maxCrystals: 8, life: 6, throwR: 64, throwSpread: 0.3, flat: 0.75, shardSize: 3, shardSpeed: 240, shardDmg: 14, link: 72, wire: 3, tick: 0.3, tickDmg: 6 },
     // Every cd a comet falls on the densest crowd in view (warn s): dmg and freeze s within r (x mods.area). shatter s later
-    // its head bursts into `shards` shards (shardDmg, pierce shardPierce, shardRange px at shardSpeed, slow for slowDur).
-    kometEs:      { cd: 3.5, warn: 0.7, r: 44, dmg: 60, freeze: 2, shatter: 0.3, shards: 12, shardSpeed: 220, shardRange: 150,
+    // its head bursts into `shards` shards (shardDmg, hit radius shardSize, pierce shardPierce, shardRange px at shardSpeed, slow for slowDur).
+    kometEs:      { cd: 3.5, warn: 0.7, r: 44, dmg: 60, freeze: 2, shatter: 0.3, shards: 12, shardSize: 3, shardSpeed: 220, shardRange: 150,
                     shardDmg: 24, shardPierce: 2, slow: 0.4, slowDur: 1.5 },
     // placeholders until Task 9-10: every cd hits the nearest few enemies within r
     supernova:         { cd: 6, dmg: 60, r: 100 }, bolaPlasma:    { cd: 6, dmg: 60, r: 100 },

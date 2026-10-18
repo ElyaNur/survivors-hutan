@@ -12,11 +12,11 @@ import { fusionDmg, ready } from './index.js';
 const K = TUNING.fusions.kometEs, FX = TUNING.fx, TAU = Math.PI * 2;
 const WARN_R = 28, NOVA_R = 36;                             // fu_iceWarn / fx_frostNova art radii
 const FALL = 0.4, FROM_X = 80, FROM_Y = -200, ANG = Math.atan2(-FROM_Y, -FROM_X);   // s of the warning the comet is seen; where it falls from
-const CORE_UP = 6, SHARD_R = 3, HEAD = 14;                  // fu_comet_core drawn this far above the spot; shard hit radius; fu_comet's head, px ahead of its middle
+const CORE_UP = 6, HEAD = 14;                               // fu_comet_core drawn this far above the spot; fu_comet's head, px ahead of its middle
 const IMPACT = [['#ffffff', 10, 170], ['#a6f6ff', 16, 130], ['#3ccfe0', 12, 90], ['#2f6fc4', 6, 60]];   // palette w/c/C/B
 const BURST = [['#ffffff', 8, 140], ['#a6f6ff', 10, 110]];  // palette w, c
 
-const fallK = a => 1 - (a.delay - a.age) / FALL;            // 0..1 along its fall; <= 0 still out of sight
+const fallK = a => 1 - (a.delay - a.age) / Math.min(FALL, a.delay);   // 0..1 along its fall; <= 0 still out of sight (a short warn shows all of it)
 
 function impact(run, a) {
   const fx = run.fx;
@@ -39,7 +39,7 @@ function burst(run, a) {
   const fx = run.fx, dmg = fusionDmg(run, K.shardDmg), a0 = a.x * 0.37;
   for (let i = 0; i < K.shards; i++) {
     const ang = a0 + i * TAU / K.shards;
-    spawnProjectile(run, { x: a.x, y: a.y, vx: Math.cos(ang) * K.shardSpeed, vy: Math.sin(ang) * K.shardSpeed, dmg, radius: SHARD_R,
+    spawnProjectile(run, { x: a.x, y: a.y, vx: Math.cos(ang) * K.shardSpeed, vy: Math.sin(ang) * K.shardSpeed, dmg, radius: K.shardSize,
       pierce: K.shardPierce, life: K.shardRange / K.shardSpeed, sprite: 'iceShard_fly', glow: 'ice', onHit: chill });
   }
   fx.anim(a.x, a.y - CORE_UP, 'fx_shatter', { scale: 2 });
