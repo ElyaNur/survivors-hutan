@@ -5,7 +5,6 @@
 // Import fusions through this file (the fusion modules import these helpers back, same cycle trick as skills/index.js).
 import '../index.js';                                        // enter the skill cycle through the registry first
 import TUNING from '../../../data/tuning.js';
-import { damageEnemy } from '../../enemies.js';
 import hujanNeraka from './hujanNeraka.js';
 import absoluteZero from './absoluteZero.js';
 import badaiPetir from './badaiPetir.js';
@@ -23,7 +22,6 @@ import medanStatis from './medanStatis.js';
 import bentengEs from './bentengEs.js';
 
 const W = 480, H = 270, PAD = 8;                            // overlays overfill the view by PAD (shake)
-const PLACEHOLDER_HITS = 5;
 
 // Fusion damage grows with the enemies' hp, so a fusion found at minute 7 still bites at minute 18.
 export function fusionDmg(run, base) { return base * (1 + TUNING.enemyHpGrowthPerMin * Math.floor(run.time / 60)); }
@@ -41,24 +39,6 @@ export function overlay(ctx, color, alpha, h = H, blend = 'source-over') {
   ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.globalCompositeOperation = blend;
   ctx.fillRect(-PAD, -PAD, W + 2 * PAD, h + PAD);
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
-}
-
-// A stand-in until the real fusion lands: every cd, hits the nearest few enemies within r.
-export function makePlaceholder(id) {
-  return {
-    id, placeholder: true,
-    update(run, st, level, mods, dt) {
-      const F = TUNING.fusions[id];
-      if (!ready(st, F.cd, mods, dt)) return;
-      const p = run.player, near = [];
-      for (const e of run.enemies) { const d = (e.x - p.x) ** 2 + (e.y - p.y) ** 2; if (!e.dead && d <= F.r * F.r) near.push([d, e]); }
-      near.sort((a, b) => a[0] - b[0]);
-      for (const [, e] of near.slice(0, PLACEHOLDER_HITS)) {
-        run.fx.burst(e.x, e.y, '#ffffff', 4, 60);           // palette w
-        damageEnemy(run, e, fusionDmg(run, F.dmg), { quiet: true });
-      }
-    },
-  };
 }
 
 export const FUSIONS = { hujanNeraka, phoenix, supernova, bolaPlasma, cincinMatahari, kometEs, gletser, penghakimanLangit,

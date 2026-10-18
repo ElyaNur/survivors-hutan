@@ -43,7 +43,9 @@ const TUNING = {
   fusions: {
     hujanNeraka:  { cd: 25, dur: 4, rate: 6, dmg: 55, r: 36, warn: 0.3 },   // rate: meteors/s; warn: s of shadow before each lands
     absoluteZero: { cd: 22, freeze: 4, hitDmg: 40 },                       // hitDmg lands on the fresh ice: x frozenVulnMult (top level)
-    badaiPetir:   { cd: 22, dur: 6, rate: 7, range: 140, dmg: 50, orbBoost: 1.0, jumps: 3, jumpRange: 60 },   // orbBoost unused now: the orbs are consumed
+    // The storm: every cd, for dur s, rate bolts/s at random enemies within range (dmg, chaining jumps x jumpRange). The storm core (the
+    // orbs, consumed) circles the mage at orbitR (x mods.area, rotSpeed rad/s) and every coreEvery s strikes the nearest enemy within coreRange (coreDmg).
+    badaiPetir:   { cd: 22, dur: 6, rate: 7, range: 140, dmg: 50, jumps: 3, jumpRange: 60, orbitR: 30, rotSpeed: 1.6, coreEvery: 0.7, coreRange: 100, coreDmg: 16 },
     // cd: s from one collapse to the next opening (x mods.cooldown); r: pull reach px; pull: s it drags before collapsing; pullSpeed: px/s at the rim (more inside); tickDmg every tickEvery s while
     // pulling; collapseDmg hits everything within r, shoving it out by blastPush px. Damage numbers go through fusionDmg.
     lubangHitam:    { cd: 6.5, r: 80, pull: 2.5, pullSpeed: 110, swirl: 0.6, tickDmg: 5, tickEvery: 0.5, collapseDmg: 110, blastPush: 14 },
@@ -72,8 +74,8 @@ const TUNING = {
                     shardDmg: 24, shardPierce: 2, slow: 0.4, slowDur: 1.5 },
     // Every cd (from the end of the last ring) a ring of fire rushes out of the mage to r px (x mods.area) over expand s, hitting
     // each enemy once as its front passes: dmg. Every burnGap px of its run it lays a ring of burning spots,
-    // burnGap apart (r burnR, burnLife s, burnDmg every burnTick).
-    supernova:    { cd: 7.5, r: 100, expand: 0.65, dmg: 40, burnGap: 22, burnR: 12, burnLife: 1.4, burnTick: 0.4, burnDmg: 5 },
+    // burnGap apart (r burnR, burnLife s, burnDmg every burnTick). The ring then stands fade s at full reach before the cd starts.
+    supernova:    { cd: 7.5, r: 100, expand: 0.65, fade: 0.25, dmg: 40, burnGap: 22, burnR: 12, burnLife: 1.4, burnTick: 0.4, burnDmg: 5 },
     // Every cd (from the last pop) a plasma ball drifts at speed px/s to the densest crowd in view; every zapEvery s on the way it
     // zaps everything within zapR (zapDmg), and at the end it pops: popDmg within popR. zapR and popR x mods.area.
     bolaPlasma:   { cd: 3, speed: 70, zapR: 48, zapEvery: 0.3, zapDmg: 15, popR: 52, popDmg: 80 },
@@ -85,8 +87,14 @@ const TUNING = {
     // pierce shardPierce, shardRange px at shardSpeed, slowing by slow for slowDur.
     pusaranKristal: { n: 3, orbitR: 40, rotSpeed: 3.2, size: 12, dmg: 12, hitCd: 0.4, push: 4, sprayEvery: 0.35, twist: 0.5,
                       shardSpeed: 200, shardRange: 160, shardSize: 3, shardDmg: 14, shardPierce: 2, slow: 0.4, slowDur: 1.2 },
-    // placeholders until Task 10: every cd hits the nearest few enemies within r
-    medanStatis:  { cd: 6, dmg: 60, r: 100 }, bentengEs:     { cd: 6, dmg: 60, r: 100 },
+    // Every pulse s (x mods.cooldown) the aura zaps everything within r (x mods.area): dmg, frozen for freeze s. Then every frozen enemy
+    // in view (frozen by anything) conducts: it arcs to its nearest unfrozen neighbour within arc px for arcDmg.
+    medanStatis:  { pulse: 1, r: 56, dmg: 7, freeze: 0.5, arc: 44, arcDmg: 7 },
+    // The ring stands ringR px out (x mods.area), thick px thick: what touches it (or stands inside it) takes dmg (each enemy every hitCd), is frozen for
+    // freeze s and shoved push px. Every burstEvery s (x mods.cooldown, from the last burst's end) it blasts out to burstR (x mods.area)
+    // over burstTime s, hitting each enemy once as its front passes: burstDmg, frozen burstFreeze s, shoved burstPush px; then it stands again.
+    bentengEs:    { ringR: 28, thick: 6, dmg: 5, hitCd: 0.5, freeze: 1, push: 5, burstEvery: 6, burstTime: 0.35, burstR: 90, burstDmg: 20,
+                    burstFreeze: 1.5, burstPush: 12 },
   },
   passives: {   // per-level amount
     vitality: { maxHp: 20 }, swiftness: { speed: 0.08 }, focus: { cooldown: 0.06 },

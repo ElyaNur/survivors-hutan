@@ -8,7 +8,7 @@ import { sfx } from '../../../engine/audio.js';
 import { fusionDmg, ready } from './index.js';
 
 const S = TUNING.fusions.supernova, FX = TUNING.fx, TAU = Math.PI * 2;
-const MAX_ENEMY_R = 32, FADE = 0.25;                        // grid margin; s the ring stands at full reach, fading
+const MAX_ENEMY_R = 32;                                     // grid margin
 const TONGUE = 8, TONGUE_UP = 7;                            // px between flame tongues round the ring; px fu_novaFlame's middle sits above its root
 const TUFT_UP = 4, BURN_FADE = 0.3;                         // px fu_starfire sits above its spot; s a burning spot fades out
 const EDGE = [[1, '#1d1a2f'], [0, '#ffffff'], [-1, '#a6f6ff']];   // the front: [px out from R, palette k/w/c]: ink line, white edge, ice-white inside
@@ -63,7 +63,7 @@ export default {
       const k = Math.min(1, (st.t += dt) / S.expand);
       st.R = st.Rmax * (1 - (1 - k) ** 2);                  // bursts out fast, slowing as it spreads
       if (st.t - dt < S.expand) { sweep(run, st); layBurn(run, st, mods); }
-      if (st.t >= S.expand + FADE) st.on = false;
+      if (st.t >= S.expand + S.fade) st.on = false;
       return;
     }
     if (ready(st, S.cd, mods, dt)) cast(run, st, mods);
@@ -83,7 +83,7 @@ export default {
   drawTop(ctx, run, st, level, assets, cam) {
     if (!st.on) return;
     const cx = st.x - cam.x, cy = st.y - cam.y, R = st.R, w = cam.w, h = cam.h;
-    const fade = Math.min(1, (S.expand + FADE - st.t) / FADE), t = run.time * 1000;
+    const fade = Math.min(1, (S.expand + S.fade - st.t) / S.fade), t = run.time * 1000;
     if (st.t < 0.2) drawHalo(ctx, 'fire', cx, cy, 5 * (1 - st.t / 0.2) + 1);   // the star's flare at the mage
     if (R < 2) return;
     ctx.globalAlpha = fade;

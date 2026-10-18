@@ -3,7 +3,7 @@ import TUNING from '../../../data/tuning.js';
 import { camera } from '../../world.js';
 import { damageEnemy } from '../../enemies.js';
 import { sfx } from '../../../engine/audio.js';
-import { ready, overlay } from './index.js';
+import { fusionDmg, ready, overlay } from './index.js';
 
 const F = TUNING.fusions, FX = TUNING.fx, W = 480, H = 270;
 
@@ -17,7 +17,7 @@ export default {
   id: 'absoluteZero',
   update(run, st, level, mods, dt) {
     if (!ready(st, AZ.cd, mods, dt)) return;
-    const p = run.player, v = camera(p), until = run.time + AZ.freeze, fx = run.fx;
+    const p = run.player, v = camera(p), until = run.time + AZ.freeze, fx = run.fx, dmg = fusionDmg(run, AZ.hitDmg);
     st.at = run.time; st.x = p.x; st.y = p.y; sfx('ult');
     fx.flashScreen(ICE_FLASH[0], ICE_FLASH[1]);
     fx.shake(FX.shakeUlt.px, FX.shakeUlt.dur);
@@ -26,7 +26,7 @@ export default {
       if (e.dead || e.x < v.x || e.y < v.y || e.x >= v.x + v.w || e.y >= v.y + v.h) continue;
       e.frozenUntil = Math.max(e.frozenUntil, until); e.vulnerableUntil = until;
       fx.burst(e.x, e.y, '#a6f6ff', 2, 40);                 // palette c
-      damageEnemy(run, e, AZ.hitDmg, { power: 0, quiet: true });   // ice holds it: no shove; the screen-wide blast prints sparingly
+      damageEnemy(run, e, dmg, { power: 0, quiet: true });   // ice holds it: no shove; the screen-wide blast prints sparingly
     }
   },
   draw(ctx, run, st, level, assets, cam) {

@@ -28,7 +28,7 @@ export const DUR = { fireball: 0.25, meteor: 0.6, ice: 0.35, nova: 0.5, zap: 0.1
   levelup: 0.55, ult: 1.0, hurt: 0.25, bossRoar: 1.1, chest: 0.5, click: 0.06, lubangHitam: 1.4, lubangHitamBoom: 0.9, cincinMatahari: 0.3,
   phoenix: 0.55, phoenixDive: 0.45, phoenixBoom: 0.8, gletser: 0.9, gletserSlide: 1.2, pagarKristal: 0.25, pagarKristalZap: 0.2,
   kometEs: 0.8, kometEsBurst: 0.4, supernova: 1.0, bolaPlasma: 0.7, bolaPlasmaZap: 0.15, bolaPlasmaPop: 0.8, penghakimanLangitCall: 0.9,
-  penghakimanLangit: 0.5, pusaranKristal: 0.12 };
+  penghakimanLangit: 0.5, pusaranKristal: 0.12, medanStatis: 0.35, medanStatisArc: 0.18, bentengEs: 0.7, bentengEsRise: 0.45 };
 export const createThrottle = () => ({ last: {}, ends: [] });
 const shared = createThrottle();
 export function shouldPlay(name, now, th = shared) {
@@ -182,6 +182,17 @@ const VOICES = {
     tone(t + 0.02, 'sine', 90, 35, 0.45, 0.7); noise(t + 0.02, 0.45, 0.4, 'lowpass', 1200, 90);
   },
   pusaranKristal(t) { tone(t, 'sine', 3136, 2800, 0.08, 0.06); noise(t, 0.04, 0.08, 'highpass', 5000, 5000); },   // a shard flung off: a soft glassy flick
+  medanStatis(t) {                                                                                                      // the field lashes out: a mains-hum thud of static, a cold crackle, a glassy tick of ice
+    const b = bus(t, 0.3, 0.35, 0.005, 2400, 300); tone(t, 'sawtooth', 120, 60, 0.35, 0, 0, b); tone(t, 'square', 121, 61, 0.3, 0, 0, b);
+    for (let i = 0; i < 3; i++) noise(t + i * 0.03, 0.03, 0.22, 'bandpass', 4200 - i * 500, 4200 - i * 500, 4);
+    tone(t + 0.02, 'sine', 2093, 2093, 0.2, 0.08);
+  },
+  medanStatisArc(t) { noise(t, 0.025, 0.25, 'highpass', 5000, 5000); tone(t, 'square', 1400, 500, 0.08, 0.05); tone(t + 0.03, 'sine', 2637, 2600, 0.12, 0.05); },   // ice conducts: a thin snap, a falling zing, a tink
+  bentengEs(t) {                                                                                                        // the wall blasts out: an ice crack, a heavy whump, shards ringing off as it flies
+    noise(t, 0.05, 0.5, 'highpass', 2800, 2800); tone(t, 'sine', 110, 38, 0.6, 0.9); noise(t + 0.02, 0.55, 0.45, 'bandpass', 2400, 400, 1, 0.04);
+    [2349, 2794, 3136].forEach((f, i) => tone(t + 0.05 + i * 0.05, 'sine', f, f * 0.97, 0.3, 0.09));
+  },
+  bentengEsRise(t) { [1319, 1760, 2349].forEach((f, i) => tone(t + i * 0.06, 'triangle', f, f, 0.25, 0.09)); noise(t, 0.35, 0.12, 'highpass', 3000, 6000, 1, 0.15); },   // the wall grows back: a rising glassy chime over a frosty hiss
   cincinMatahari(t) { noise(t, 0.2, 0.3, 'bandpass', 900, 3500, 2, 0.02); tone(t, 'triangle', 660, 1100, 0.18, 0.12); tone(t, 'sine', 330, 330, 0.25, 0.1); },   // solar flare: bright upward whoosh with a rising chirp
 };
 

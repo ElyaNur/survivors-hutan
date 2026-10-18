@@ -76,21 +76,10 @@ test('a fusion banner shakes and holds the world for a beat, and carries {id, fi
   assert.equal(run.banner.id, 'hujanNeraka'); assert.equal(run.banner.first, true);
 });
 
-test('every mage fusion has a FUSIONS module with update; unbuilt ones are flagged placeholder', () => {
+test('every mage fusion has a real FUSIONS module with update (no placeholder left)', () => {
   for (const f of CLASSES.mage.fusions) assert.equal(typeof FUSIONS[f.id]?.update, 'function', f.id);
   assert.equal(Object.keys(FUSIONS).length, CLASSES.mage.fusions.length);
-  assert.ok(FUSIONS.medanStatis.placeholder); assert.ok(!FUSIONS.hujanNeraka.placeholder);
-});
-
-test('placeholder hits the 5 nearest enemies within r, on cd', () => {
-  const run = setup(), st = {}, F = U.medanStatis;
-  const es = [10, 20, 30, 40, 50, 60].map(d => tank(run, d)), far = tank(run, F.r + 50);
-  FUSIONS.medanStatis.update(run, st, 0, run.mods, 0.01);
-  assert.deepEqual(es.map(e => e.hp < e.maxHp), [true, true, true, true, true, false]);
-  assert.equal(far.hp, far.maxHp);
-  const hp = es[0].hp;
-  FUSIONS.medanStatis.update(run, st, 0, run.mods, 0.01);
-  assert.equal(es[0].hp, hp, 'not again before cd');
+  for (const [id, m] of Object.entries(FUSIONS)) assert.ok(!('placeholder' in m), id);
 });
 
 test('fusionDmg grows with the minute like enemy hp', () => {
@@ -198,10 +187,6 @@ test('Cincin Matahari: the suns launch fireballs, and a sun burns what it touche
   assert.ok(e.hp < e.maxHp, 'burned on contact');
 });
 
-test('Lubang Hitam and Cincin Matahari are real fusions, not placeholders', () => {
-  assert.ok(!FUSIONS.lubangHitam.placeholder); assert.ok(!FUSIONS.cincinMatahari.placeholder);
-});
-
 test('Lubang Hitam keeps one hole at a time: a cd that runs out mid-pull does not reopen it', () => {
   const run = setup(), st = {};
   FUSIONS.lubangHitam.update(run, st, 0, run.mods, 0.01);
@@ -284,10 +269,6 @@ test('Komet Es: the impact freezes the crowd within r, then the comet bursts int
   assert.equal(run.projectiles.length, K.shards, 'then the shards');
 });
 
-test('Phoenix, Gletser, Pagar Kristal and Komet Es are real fusions, not placeholders', () => {
-  for (const id of ['phoenix', 'gletser', 'pagarKristal', 'kometEs']) assert.ok(!FUSIONS[id].placeholder, id);
-});
-
 test('Supernova: the fire ring hits an enemy at radius 60 as its front passes, and leaves burning ground', () => {
   const run = setup(), st = {}, S = U.supernova, e = tank(run, 60), dt = 0.02;
   assert.ok(S.r * run.mods.area > 60 + e.r, 'the ring reaches it');
@@ -314,8 +295,9 @@ test('Bola Plasma: the orb zaps both enemies near its path before it reaches the
 
 test('Penghakiman Langit: after the warning, the pillars chain on to more enemies than there are pillars', () => {
   const run = setup(), st = {}, L = U.penghakimanLangit;
-  const es = [];
-  for (let i = 0; i < 10; i++) for (const dy of [-30, 30]) es.push(tank(run, -150 + i * 33, dy));
+  const es = [tank(run, -150, -30)], gap = Math.ceil(L.r * run.mods.area + es[0].r) + 2;   // a pillar on one tank never reaches the next
+  assert.ok(gap <= L.jumpRange, 'the chain can jump the gap');
+  for (let i = 0; i < 10; i++) for (const dy of [-30, 30]) if (i || dy > 0) es.push(tank(run, -150 + i * gap, dy));
   live(run, 'penghakimanLangit', st, L.warn * 0.9);
   assert.ok(es.every(e => e.hp === e.maxHp), 'warned first');
   live(run, 'penghakimanLangit', st, L.warn * 0.1 + L.pillars * L.stagger + 0.1);
@@ -337,6 +319,52 @@ test('Pusaran Kristal: the blades keep spraying slowing, piercing shards, and cu
   assert.ok(e.maxHp - e.hp >= fusionDmg(run, K.dmg), 'cut on contact');
 });
 
-test('Supernova, Bola Plasma, Penghakiman Langit and Pusaran Kristal are real fusions, not placeholders', () => {
-  for (const id of ['supernova', 'bolaPlasma', 'penghakimanLangit', 'pusaranKristal']) assert.ok(!FUSIONS[id].placeholder, id);
+test('Medan Statis: the aura zaps and freezes what is inside r, and a frozen enemy outside it arcs to its neighbour', () => {
+  const run = setup(), st = {}, M = U.medanStatis, R = M.r * run.mods.area;
+  const inside = tank(run, R * 0.5), d = Math.ceil(R + inside.r) + 2;
+  const cond = tank(run, d), nb = tank(run, d + 30), lone = tank(run, d + 30 + M.arc + 20);
+  cond.frozenUntil = 1e9;                                   // frozen by something else, out of the aura's reach
+  assert.ok(M.arc >= 30 && d + 30 > R + nb.r, 'only the conductor can reach the neighbour');
+  live(run, 'medanStatis', st, 0.05);
+  assert.ok(inside.maxHp - inside.hp >= fusionDmg(run, M.dmg), 'zapped by the pulse'); assert.ok(inside.frozenUntil > run.time, 'and frozen');
+  assert.ok(nb.maxHp - nb.hp >= fusionDmg(run, M.arcDmg), 'the frozen enemy conducted');
+  assert.equal(lone.hp, lone.maxHp, 'beyond arc of every conductor'); assert.equal(cond.hp, cond.maxHp, 'the conductor itself is spared');
+  const hp = nb.hp;
+  live(run, 'medanStatis', st, M.pulse * run.mods.cooldown - 0.1);
+  assert.equal(nb.hp, hp, 'not again before the next pulse');
+  live(run, 'medanStatis', st, 0.15);
+  assert.ok(nb.hp < hp, 'the next pulse conducts again');
+});
+
+test('Benteng Es: the ring freezes what touches it, and only its burst reaches burstR', () => {
+  const run = setup(), st = {}, K = U.bentengEs, R = K.ringR * run.mods.area, BR = K.burstR * run.mods.area;
+  const touch = tank(run, R), far = tank(run, BR - 5);
+  assert.ok(R + K.thick + far.r < BR - 5, 'the ring itself cannot reach it');
+  live(run, 'bentengEs', st, 0.05);
+  assert.ok(touch.frozenUntil > run.time, 'frozen on contact'); assert.ok(touch.hp < touch.maxHp, 'and hurt');
+  live(run, 'bentengEs', st, K.burstEvery * run.mods.cooldown - 0.2);
+  assert.equal(far.hp, far.maxHp, 'no burst yet');
+  live(run, 'bentengEs', st, 0.2 + K.burstTime + 0.15);
+  assert.ok(far.maxHp - far.hp >= fusionDmg(run, K.burstDmg), 'the burst reached it');
+  assert.ok(!st.on, 'the burst is over and the ring stands again');
+});
+
+test('Badai Petir: its storm core keeps striking the nearest enemy between storms', () => {
+  const run = setup(), B = U.badaiPetir, st = { cd: 1e9 };  // no storm
+  const e = tank(run, B.coreRange * 0.5);
+  live(run, 'badaiPetir', st, B.coreEvery + 0.05);
+  assert.ok(!st.active); assert.ok(e.maxHp - e.hp >= fusionDmg(run, B.coreDmg), 'struck by the core');
+});
+
+test('the reused three hit with fusionDmg: they grow with the minute', () => {
+  const run = setup(); run.time = 600;
+  const e = tank(run, 100, 50);
+  FUSIONS.absoluteZero.update(run, {}, 0, run.mods, 0.01);
+  assert.equal(e.maxHp - e.hp, Math.round(fusionDmg(run, U.absoluteZero.hitDmg) * TUNING.frozenVulnMult));
+  FUSIONS.hujanNeraka.update(run, {}, 0, run.mods, 0.01);
+  assert.equal(run.areas[0].dmg, fusionDmg(run, U.hujanNeraka.dmg));
+  const b = setup(); b.time = 600; const t = tank(b, 60), st = {};
+  FUSIONS.badaiPetir.update(b, st, 0, b.mods, 0.01);
+  assert.ok(t.maxHp - t.hp >= fusionDmg(b, U.badaiPetir.dmg), 'the storm bolt');
+  assert.equal(U.badaiPetir.orbBoost, undefined);
 });

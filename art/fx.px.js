@@ -734,4 +734,74 @@ anim("fu_iceBlade", { w: 31, h: 31, fps: 18, frames: 6, outline: "k" }, (c) => {
 },
   glow("w", { r: 2, strength: 0.4, bands: 2 }))
 
+// Medan Statis: the aura's field, sized for r 56 (scaled to r in game): see-through electric blue deepening to a bright rim
+// on an ink line (it must read over a mint crowd), static filaments flickering inside it (re-laid every frame) and white
+// sparks crawling along the rim.
+const SF = { C: 57, R: 56 }
+anim("fu_staticField", { w: 115, h: 115, fps: 12, frames: 4 }, (c) => {
+  const { C, R } = SF, f = c.frame
+  c.circ(C, C, R, "#7cf0ff48")                                                    // see-through glow (palette e; pxl replaces, never blends)
+  c.ring(C, C, R - 4, "#2b3486a0"); c.ring(C, C, R - 2, "#3ccfe0a0"); c.ring(C, C, R - 1, "e"); c.ring(C, C, R, "w"); c.ring(C, C, R + 1, "#1d1a2fc0")   // the rim, inside out (palette M, C, e, w, k)
+  for (let i = 0; i < 14; i++) {                                                  // filaments: short kinked threads, re-laid each frame
+    const a0 = speck(i, f, 7) * Math.PI * 2, r0 = R * (0.25 + 0.68 * speck(f, i, 3))
+    let x = C + Math.cos(a0) * r0, y = C + Math.sin(a0) * r0, a = a0 + (speck(i, i, f) - 0.5) * 2.4
+    for (let s = 0; s < 3; s++) {
+      const nx = x + Math.cos(a) * 5, ny = y + Math.sin(a) * 5
+      c.line(Math.round(x), Math.round(y) + 1, Math.round(nx), Math.round(ny) + 1, "#2b3486c0")   // a navy underside
+      c.line(Math.round(x), Math.round(y), Math.round(nx), Math.round(ny), s === 1 ? "w" : "e")
+      x = nx; y = ny; a += s % 2 ? 0.9 : -0.9
+    }
+  }
+  for (let i = 0; i < 8; i++) {                                                   // sparks crawling round the rim
+    const a = i * 0.785 + f * 0.2, x = Math.round(C + Math.cos(a) * R), y = Math.round(C + Math.sin(a) * R)
+    c.rect(x - 1, y - 1, 3, 3, "w"); c.px(x - 2, y, "e"); c.px(x + 2, y, "e"); c.px(x, y - 2, "e"); c.px(x, y + 2, "e")
+  }
+})
+
+// A node of the aura, 21x21 (a few ride round the rim): a white-hot spark in an ink-rimmed cyan and blue shell, four
+// kinked prongs of static jumping off it (each with an ink underside, so it reads over the crowd), turned every frame.
+anim("fu_staticNode", { w: 21, h: 21, fps: 14, frames: 6 }, (c) => {
+  const C = 10, f = c.frame, at = (a, r) => [Math.round(C + Math.cos(a) * r), Math.round(C + Math.sin(a) * r)]
+  for (const [dy, hot, cool] of [[1, "k", "k"], [0, "w", "e"]]) for (let i = 0; i < 4; i++) {
+    const a = f * 0.75 + i * Math.PI / 2 + (i % 2) * 0.35, [x0, y0] = at(a, 4), [x1, y1] = at(a + 0.4, 7), [x2, y2] = at(a - 0.15, 10)
+    c.line(x0, y0 + dy, x1, y1 + dy, cool); c.line(x1, y1 + dy, x2, y2 + dy, hot)
+  }
+  c.circ(C, C, 5, "k"); c.circ(C, C, 4, "M"); c.circ(C, C, 3, "C"); c.circ(C - 1, C - 1, 2, "e"); c.circ(C - 1, C - 1, 1, "w"); c.px(C + 1, C - 2, "w")
+},
+  glow("w", { r: 2, strength: 0.5, bands: 2 }))
+
+// Benteng Es: one block of the ice wall, 11x17 + ink outline (a ring of them turns round the mage): a pointed prism of
+// glacier ice, lit left face, cyan right face, a white ridge, a navy foot frosted white; a glint runs up the ridge.
+anim("fu_iceWall", { w: 11, h: 17, fps: 8, frames: 4, outline: "k" }, (c) => {
+  c.poly([0, 15, 1, 6, 5, 0, 9, 5, 10, 15], "C")                                 // the prism
+  c.poly([0, 15, 1, 6, 5, 0, 5, 15], "c")                                         // lit left face
+  c.poly([7, 15, 9, 5, 10, 15], "B")                                              // the far side in shade
+  c.line(5, 1, 5, 14, "w"); c.line(1, 7, 4, 2, "w")                               // ridge, lit edge
+  c.line(2, 10, 3, 12, "C"); c.line(7, 8, 8, 11, "c")                             // cracks in the ice
+  c.hline(0, 16, 11, "M"); c.hline(0, 15, 11, "B"); c.px(2, 15, "w"); c.px(6, 15, "c"); c.px(9, 16, "B")   // the foot, frosted
+  const g = 12 - c.frame * 3                                                      // the glint climbing the ridge
+  c.px(5, g, "w"); c.px(4, g, "w"); c.px(6, g + 1, "c"); if (g > 2) c.px(5, g - 1, "w")
+},
+  glow("w", { r: 1, strength: 0.35, bands: 1 }))
+
+// Badai Petir's storm core, 19x19 + ink outline (the orbs, consumed, circling the mage): a ball of storm cloud whirling
+// round a white-hot eye, its bands turning, lightning cracking across it and forking off its skin.
+const STC = 9
+anim("fu_stormCore", { w: 19, h: 19, fps: 12, frames: 6, outline: "k" }, (c) => {
+  const k = c.phase * Math.PI * 2, f = c.frame
+  for (let y = 0; y < 19; y++) for (let x = 0; x < 19; x++) {
+    const dx = x - STC, dy = y - STC, d = Math.hypot(dx, dy)
+    if (d > 8.4) continue
+    const band = Math.sin(Math.atan2(dy, dx) * 2 - d * 0.8 + k)                    // cloud bands spiralling into the eye
+    c.px(x, y, d < 2 ? "w" : d < 3.2 ? "y" : d > 7.6 ? "P" : dx + dy < -6 ? (band > 0 ? "l" : "v") : band > 0.35 ? "v" : band > -0.4 ? "V" : "P")
+  }
+  const BOLTS = [[[-6, -3], [-2, -1], [-1, 2], [4, 1]], [[5, -5], [2, -1], [3, 2], [-1, 6]], [[-5, 4], [-1, 1], [2, 2], [6, -2]]]
+  const b = BOLTS[f % 3]                                                          // a crack of lightning across it, a new one each frame
+  for (let i = 0; i + 1 < b.length; i++) c.line(STC + b[i][0], STC + b[i][1], STC + b[i + 1][0], STC + b[i + 1][1], i === 1 ? "w" : "Y")
+  const a = k + f * 1.3, x0 = Math.round(STC + Math.cos(a) * 8), y0 = Math.round(STC + Math.sin(a) * 8)   // a fork jumping off the skin
+  c.line(x0, y0, Math.round(STC + Math.cos(a + 0.2) * 9.4), Math.round(STC + Math.sin(a + 0.2) * 9.4), "y")
+  c.px(STC - 1, STC - 1, "w")
+},
+  glow("wyY", { r: 2, strength: 0.55, bands: 2 }))
+
 sheet("fx", ["fireball*", "fx_*", "iceShard*", "arcaneOrb", "meteor*", "stormCloud", "roots_*", "fu_*"])

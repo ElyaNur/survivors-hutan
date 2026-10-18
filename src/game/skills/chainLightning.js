@@ -71,9 +71,10 @@ function drawSegment(ctx, x0, y0, x1, y1, w, s) {
   }
 }
 
-// One crackling arc in the bolt's colours (violet edge, yellow body, white core), kinked by seed s. Pagar Kristal's wires.
-export function drawArc(ctx, x0, y0, x1, y1, s) {
-  for (const [w, color] of LAYERS) { ctx.fillStyle = color; drawSegment(ctx, x0, y0, x1, y1, w, s); }
+// One crackling arc, kinked by seed s: in the bolt's colours (violet edge, yellow body, white core) or the given [px, colour]
+// layers, widest first. Pagar Kristal's wires; Medan Statis's static (its own colours).
+export function drawArc(ctx, x0, y0, x1, y1, s, layers = LAYERS) {
+  for (const [w, color] of layers) { ctx.fillStyle = color; drawSegment(ctx, x0, y0, x1, y1, w, s); }
 }
 
 export function ageBolts(bolts, dt) { for (const b of bolts) b.age += dt; }

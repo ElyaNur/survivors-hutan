@@ -33,6 +33,8 @@ export default {
     ageBolts(st.bolts ??= [], dt);
     st.t = (st.t ?? Infinity) + dt;
     if (!ready(st, L.cd, mods, dt)) return;
+    // ponytail: pillars + 1 full enemy scans per cast (randomOnScreenEnemy), and per landing nearestEnemy + chainTargets' scans:
+    // ~35 passes over <= 400 enemies every cd s. Build the on-screen list once per cast if cd ever drops well under a second.
     if (!randomOnScreenEnemy(run, run.rng)) { st.cd = 0; return; }   // stays charged until something is in view
     const r = L.r * mods.area, dmg = fusionDmg(run, L.dmg);
     for (let i = 0; i < L.pillars; i++) {

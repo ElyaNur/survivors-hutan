@@ -98,28 +98,53 @@ function badge(c, top, bottom) {
   c.grad(1, 1, 12, 12, top + bottom, "v", 0.5)
   c.px(1, 1, "y")
 }
-icon("hujanNeraka", (c) => {
+icon("hujanNeraka", (c) => {                                       // a rain of meteors out of a burning sky, the ground on fire
   badge(c, "K", "R")
-  for (const [x, y, r] of [[10, 3, 1], [11, 9, 1], [5, 7, 2]]) {   // meteor shower, big one in front
-    c.line(x + 1, y - 1, x + 2 + r * 2, y - 2 - r * 2, r > 1 ? "o" : "O", r)
-    ball(c, x, y, r + 1, ["O", "Y", "y", "w"])
-  }
-  c.poly([1, 13, 1, 11, 4, 12, 8, 10, 13, 12, 13, 13], "k")        // burning ground
-  c.px(4, 11, "O"); c.px(9, 10, "o"); c.px(12, 11, "O")
+  c.grid(1, 1, `
+  ..........O.
+  ........yOo.
+  .......wYo..
+  ...OO..yY...
+  ..OoYo......
+  .OoYwO...Oo.
+  kXXYoO..wYo.
+  XxxXk...yY..
+  XwxXk.......
+  XxXXk..O..o.
+  .kkk..OoO.OY
+  OoRoOROoRoOR`)
 })
-icon("absoluteZero", (c) => {
+icon("absoluteZero", (c) => {                                      // the whole field frozen: a great snowflake over cracked ice
   badge(c, "M", "B")
-  c.hline(2, 7, 10, "c"); c.vline(7, 2, 10, "c")
-  c.line(3, 3, 11, 11, "c"); c.line(11, 3, 3, 11, "c")
-  for (const [x, y] of [[6, 3], [8, 3], [6, 11], [8, 11], [3, 6], [3, 8], [11, 6], [11, 8]]) c.px(x, y, "s")
-  c.circ(7, 7, 1, "w"); c.px(2, 2, "w"); c.px(12, 12, "s")
+  c.grid(1, 1, `
+  .....w......
+  ..w..c..w...
+  ...wcwcw....
+  .w..cCc..w..
+  ..cc.c.cc...
+  wcCcewecCcw.
+  ..cc.c.cc...
+  .w..cCc..w..
+  ...wcwcw....
+  ..w..c..w...
+  C....w....C.
+  sC.C...C.Cs.`)
 })
-icon("badaiPetir", (c) => {
+icon("badaiPetir", (c) => {                                        // the storm cloud throwing lightning, its storm core whirling under it
   badge(c, "P", "V")
-  c.circ(4, 4, 2, "l"); c.circ(8, 3, 3, "l"); c.circ(11, 5, 2, "x"); c.hline(2, 6, 11, "x")   // storm cloud
-  c.px(6, 1, "w"); c.px(3, 3, "w")
-  c.poly([9, 6, 4, 10, 7, 10, 4, 14, 11, 8, 8, 8, 11, 6], "Y"); c.line(8, 7, 6, 9, "w"); c.px(6, 12, "y")
-  c.px(2, 10, "m"); c.px(12, 11, "m")
+  c.grid(1, 1, `
+  ...kkk.kkk..
+  ..kvlvkvlvk.
+  .kvlvvvvvvvk
+  .kVvvVVvvVVk
+  ..kkkkYkkkk.
+  ......yY....
+  .kkk..wY....
+  kVlvk..Yy...
+  kvwVk..yw...
+  kVvVk...Y...
+  .kkk...yw...
+  ............`)
 })
 
 icon("lubangHitam", (c) => {                                       // black hole: ink core in a white photon ring, a tilted disc across it
@@ -279,10 +304,38 @@ icon("pusaranKristal", (c) => {                                    // three ice 
   ...ccccw....`)
 })
 
-// Placeholder fusion icons (until the real art): the two ingredients' colours split on the diagonal.
-const INGREDIENT = { frostNova: "s", chainLightning: "Y", arcaneOrb: "v" }
-for (const [id, a, b] of [["medanStatis", "frostNova", "chainLightning"], ["bentengEs", "frostNova", "arcaneOrb"]])
-  icon(id, (c) => { c.rect(0, 0, 14, 14, INGREDIENT[b]); c.poly([0, 0, 13, 0, 0, 13], INGREDIENT[a]); c.line(0, 13, 13, 0, "k") })
+icon("medanStatis", (c) => {                                       // a ring of static round a spark, a frozen crystal conducting it on
+  badge(c, "M", "B")
+  c.grid(1, 1, `
+  ....eewe....
+  ..ew....we..
+  .e........e.
+  .w...w....w.
+  e...wew....e
+  w....wCw...w
+  e.....Cw...e
+  .w.....w.w..
+  .e......ywc.
+  ..ew....cwCc
+  ....eewe.CCB
+  .........BB.`)
+})
+icon("bentengEs", (c) => {                                         // a ring of ice blocks standing round its keep, frost blasting off it
+  badge(c, "B", "M")
+  c.grid(1, 1, `
+  w....w.....w
+  ...w.w.w....
+  ..w.cwc.w...
+  ..cwCcCwc...
+  .wcC...Ccw..
+  .cC..w..Cc..
+  wcC.wcw.Ccw.
+  .cCw.w.wCc..
+  .cwcwcwcwcB.
+  ..BcCcCcCB..
+  w..BBBBBB..w
+  ............`)
+})
 
 // Undiscovered fusion: a "?" rune.
 icon("unknown", `

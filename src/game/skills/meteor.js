@@ -30,11 +30,11 @@ function impact(run, a) {
 // Meteor areas are the ones whose trigger is ours (the pool resets onTrigger; a flag field would leak into reuse).
 const mine = a => a.onTrigger === impact;
 // How far along its fall a meteor's rock is (0..1, squared below so it speeds up); <= 0 = still out of sight.
-// A warning shorter than FALL (Armageddon's) shows the rock for all of it.
+// A warning shorter than FALL (Hujan Neraka's) shows the rock for all of it.
 const fallK = a => 1 - (a.delay - a.age) / Math.min(FALL, a.delay);
 const ANG = Math.atan2(-FROM_Y, -FROM_X);
 
-// Shared with Armageddon: embers off a falling rock, and the warning shadow + the rock itself (screen x, y).
+// Shared with Hujan Neraka: embers off a falling rock, and the warning shadow + the rock itself (screen x, y).
 export function shedEmbers(run, a) {
   const k = fallK(a);
   if (k > 0) run.fx.burst(a.x + FROM_X * (1 - k * k), a.y + FROM_Y * (1 - k * k), k < 0.5 ? '#ffd23f' : '#e8532e', 1, 20);

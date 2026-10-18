@@ -4,7 +4,7 @@ import { camera } from '../../world.js';
 import { spawnArea } from '../../projectiles.js';
 import { shedEmbers, drawIncoming } from '../meteor.js';
 import { sfx } from '../../../engine/audio.js';
-import { ready, envelope, overlay } from './index.js';
+import { fusionDmg, ready, envelope, overlay } from './index.js';
 
 const F = TUNING.fusions, FX = TUNING.fx, H = 270;
 
@@ -34,7 +34,7 @@ export default {
     if (st.t === undefined || st.t > ARM.dur + ARM.warn) return;
     const v = camera(run.player), want = Math.min(TOTAL, Math.floor(st.t * ARM.rate) + 1);   // exactly rate x dur, the first at once
     for (; st.n < want; st.n++)
-      spawnArea(run, { x: v.x + run.rng.next() * v.w, y: v.y + run.rng.next() * v.h, r: ARM.r * mods.area, dmg: ARM.dmg,
+      spawnArea(run, { x: v.x + run.rng.next() * v.w, y: v.y + run.rng.next() * v.h, r: ARM.r * mods.area, dmg: fusionDmg(run, ARM.dmg),
         delay: ARM.warn, glow: 'fire', glowDur: GLOW_DUR, quiet: true, onTrigger: boom });
     st.t += dt;
   },
@@ -43,7 +43,7 @@ export default {
     const k = envelope(st.t, ARM.dur + ARM.warn, SKY_FADE) * (1 - SKY_PULSE + SKY_PULSE * Math.sin(st.t * 9));
     overlay(ctx, SKY_BURN[0], SKY_BURN[1] * k, H, 'multiply');
     for (const [h, a] of SKY_BANDS) overlay(ctx, SKY, a * k, h);
-    const t = performance.now();
+    const t = run.time * 1000;
     for (const a of run.areas) if (armMeteor(a) && !a.triggered) drawIncoming(ctx, assets, a, a.x - cam.x, a.y - cam.y, t);
   },
 };
