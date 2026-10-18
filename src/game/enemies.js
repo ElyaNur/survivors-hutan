@@ -69,9 +69,11 @@ function killEnemy(run, e) {
   const fx = run.fx;
   run.kills++;
   if (BOSSES.has(e.type)) { killBoss(run, e); return; }
-  dropGem(run, e.x, e.y, e.def.xp);
-  if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
-  if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
+  if (!e.swarm) {                                           // swarm members drop nothing: the swarm is a test, not a feast
+    dropGem(run, e.x, e.y, e.def.xp);
+    if (run.rng.next() < TUNING.drops.heartChance) dropHeart(run, e.x + 4, e.y);
+    if (run.rng.next() < TUNING.drops.magnetChance) dropMagnet(run, e.x - 4, e.y);
+  }
   if (run.time < e.vulnerableUntil) {                       // died on Absolute Zero's ice: it shatters
     sfx('ice'); fx.anim(e.x, e.y, 'fx_shatter');
     for (const [c, n, sp] of SHATTER) fx.burst(e.x, e.y, c, n, sp);

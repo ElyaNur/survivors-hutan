@@ -41,15 +41,14 @@ export function spawnerUpdate(sp, t, dt, view, bounds, rng, aliveCount, margin =
   const out = sp.out;
   out.length = 0;
   const { events, bosses, waves, groups } = SCHEDULE;
+  const min = t / 60;
+  let wave = waves[0];
+  for (const w of waves) if (min >= w.from) wave = w;      // waves are sorted by `from`
   for (; sp.ei < events.length && events[sp.ei].at <= t; sp.ei++) {
-    const ev = events[sp.ei];
-    if (ev.kind === 'wolfPack') cluster(out, 'wolf', ev.count, view, bounds, rng, margin);
-    else {
-      const cx = view.x + view.w / 2, cy = view.y + view.h / 2, a0 = rng.next() * Math.PI * 2;
-      for (let i = 0; i < ev.count; i++) {
-        const a = a0 + i / ev.count * Math.PI * 2;
-        out.push({ type: 'bat', x: clampTo(cx + Math.cos(a) * SCHEDULE.ringRadius, bounds.w), y: clampTo(cy + Math.sin(a) * SCHEDULE.ringRadius, bounds.h) });
-      }
+    const ev = events[sp.ei], cx = view.x + view.w / 2, cy = view.y + view.h / 2, a0 = rng.next() * Math.PI * 2;
+    for (let i = 0; i < ev.count; i++) {
+      const a = a0 + i / ev.count * Math.PI * 2;
+      out.push({ type: pickType(wave.mix, rng), swarm: true, x: clampTo(cx + Math.cos(a) * SCHEDULE.ringRadius, bounds.w), y: clampTo(cy + Math.sin(a) * SCHEDULE.ringRadius, bounds.h) });
     }
   }
   for (; sp.bi < bosses.length && bosses[sp.bi].at <= t; sp.bi++) {
@@ -58,9 +57,6 @@ export function spawnerUpdate(sp, t, dt, view, bounds, rng, aliveCount, margin =
   }
   let room = TUNING.maxEnemies - aliveCount;
   if (room <= 0) return out;                               // capped: no backlog builds up either
-  const min = t / 60;
-  let wave = waves[0];
-  for (const w of waves) if (min >= w.from) wave = w;      // waves are sorted by `from`
   for (sp.acc += wave.rate * dt; sp.acc >= 1 && room > 0; sp.acc--) {
     const type = pickType(wave.mix, rng), n = Math.min(groups[type] ?? 1, room);
     if (n > 1) cluster(out, type, n, view, bounds, rng, margin);

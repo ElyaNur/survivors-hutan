@@ -7,6 +7,7 @@ import { SPAWN, camera, isWater, onBridge, placeDecor, buildGround, buildProps, 
 import { updatePlayer, blinkHidden } from './player.js';
 import { createFx } from './fx.js';
 import { createSpawner, spawnerUpdate } from '../logic/spawner.js';
+import { SCHEDULE } from '../data/spawns.js';
 import { updatePickups, drawPickups } from './pickups.js';
 import { BOUNDS, spawnEnemy, updateEnemies, sortEnemies, drawEnemy, drawTelegraphs, winBlast } from './enemies.js';
 import { updateProjectiles, drawAreas, drawProjectiles } from './projectiles.js';
@@ -49,7 +50,8 @@ export function updateRun(run, dt, input) {
   run.grid.clear();
   for (const e of run.enemies) run.grid.insert(e);
   if (!run.ending) for (const s of spawnerUpdate(run.spawner, run.time, dt, camera(run.player), BOUNDS, run.rng, run.enemies.length))
-    spawnEnemy(run, s.type, s.x, s.y);
+    if (s.swarm) { const e = spawnEnemy(run, s.type, s.x, s.y); e.hp = e.maxHp = Math.round(e.hp * SCHEDULE.swarmHp); e.swarm = true; }
+    else spawnEnemy(run, s.type, s.x, s.y);
   updateEnemies(run, dt);
   const sk = run.build.skills;
   for (const id in sk) SKILLS[id].update(run, run.skillState[id] ??= {}, sk[id], run.mods, dt);

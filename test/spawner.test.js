@@ -42,13 +42,16 @@ test('a boss fires exactly once when t crosses its time', () => {
   assert.equal(run(sp, 600.5, 5, 400, rng).filter(s => s.type === 'kingSlime').length, 0);
 });
 
-test('crossing an event time yields `count` entities of the right type', () => {
+test('a swarm every 2 minutes: `count` enemies from the current wave mix, ringed off-screen, growing', () => {
+  assert.deepEqual(SCHEDULE.events.map(e => e.at), [120, 240, 360, 480, 600, 720, 840, 960, 1080]);
+  let last = 0;
   for (const ev of SCHEDULE.events) {
-    const type = ev.kind === 'batRing' ? 'bat' : 'wolf';
+    assert.ok(ev.count > last); last = ev.count;
     const sp = createSpawner(), rng = createRng(3);
-    run(sp, 0, ev.at - 0.5, 400, rng);
-    const got = run(sp, ev.at - 0.5, 1, 400, rng);
-    assert.equal(got.filter(s => s.type === type).length, ev.count, `${ev.kind} at ${ev.at}`);
-    assert.ok(got.every(inBounds));
+    run(sp, 0, ev.at - 0.5, 400, rng);                       // capped: only the swarm (and bosses) can appear
+    const mix = SCHEDULE.waves.findLast(w => ev.at / 60 >= w.from).mix;
+    const got = run(sp, ev.at - 0.5, 1, 400, rng).filter(s => s.type in mix);
+    assert.equal(got.length, ev.count, `swarm at ${ev.at}`);
+    assert.ok(got.every(inBounds) && got.every(p => p.x < VIEW.x || p.x > VIEW.x + VIEW.w || p.y < VIEW.y || p.y > VIEW.y + VIEW.h));   // ring corners sit just past the screen edge;
   }
 });

@@ -18,15 +18,9 @@ export const SCHEDULE = {
   ],
   groups: { goblin: 3, wolf: 3 },                           // goblins arrive in small bands, wolves in packs (one spawn point each)
   groupSpread: 10,                                          // px jitter inside a band or pack
-  ringRadius: 280,                                          // batRing: circle around the view centre
-  events: [
-    { at: 180,  kind: 'batRing',  count: 16 },
-    { at: 360,  kind: 'batRing',  count: 22 },
-    { at: 480,  kind: 'wolfPack', count: 6 },
-    { at: 660,  kind: 'batRing',  count: 28 },
-    { at: 780,  kind: 'wolfPack', count: 10 },
-    { at: 960,  kind: 'batRing',  count: 36 },
-    { at: 1080, kind: 'wolfPack', count: 14 },
-  ],
+  ringRadius: 280,                                          // swarm ring: circle around the view centre, just off-screen
+  // Every 2 minutes a swarm: a full ring of the current wave's mix closes in from all sides, bigger each time (2:00 -> 18:00).
+  swarmHp: 3,                                               // swarm members: hp x this, and they drop nothing (no xp, hearts or magnets)
+  events: Array.from({ length: 9 }, (_, i) => ({ at: 120 * (i + 1), kind: 'swarm', count: 60 + 20 * i })),
   bosses: [{ at: 600, type: 'kingSlime' }, { at: 900, type: 'orcChief' }, { at: 1200, type: 'treant' }],
 };
