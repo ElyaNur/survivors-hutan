@@ -244,6 +244,25 @@ test('Pagar Kristal: two crystals 40 px apart zap an enemy on the link between t
   assert.equal(off.hp, off.maxHp);
 });
 
+test('Pagar Kristal: each crystal wires only its nearest neighbours; the zap and the drawn wires are the same links', () => {
+  const run = setup(), K = U.pagarKristal, p = run.player, far = K.link * 0.9, n = K.neighbours;
+  assert.ok(n >= 1 && n < 3, 'a triangle of posts is wired up within itself');
+  const tri = x => [[0, 0], [0, -12], [-10, 6]].map(([dx, dy]) => ({ x: p.x + x + dx, y: p.y + dy, age: 1 }));
+  const st = { cd: 1e9, crystals: [...tri(-far / 2), ...tri(far / 2)] };   // two tight posts-triangles, their tips `far` apart (< link)
+  const gap = tank(run, 0), wired = tank(run, -far / 2, -6);                // midway between the tips; on a link inside the left one
+  live(run, 'pagarKristal', st, K.tick * 2 + 0.01);
+  assert.ok(st.links.length / 2 <= st.crystals.length * n, 'at most `neighbours` links per crystal');
+  assert.ok(wired.hp < wired.maxHp, 'zapped on a link');
+  assert.equal(gap.hp, gap.maxHp, 'the tips are in range but not each other\'s nearest: no wire, no zap');
+  const xs = [], ctx = { fillRect: x => xs.push(x), drawImage() {} };          // drawn wires: px columns the fence covers
+  const hadDoc = 'document' in globalThis, doc = globalThis.document;
+  globalThis.document = { createElement: () => ({ getContext: () => ({ createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }), putImageData() {} }) }) };
+  try { FUSIONS.pagarKristal.drawTop(ctx, run, st, 0, { draw() {} }, { x: p.x - 240, y: p.y - 135 }); }
+  finally { if (hadDoc) globalThis.document = doc; else delete globalThis.document; }
+  assert.ok(xs.some(x => Math.abs(x - 240 + far / 2) < 10), 'the left triangle\'s wires are drawn');
+  assert.ok(!xs.some(x => Math.abs(x - 240) < far / 4), 'nothing drawn across the gap');
+});
+
 test('Pagar Kristal: shards lodge as crystals, never more than maxCrystals, each gone after life', () => {
   const run = setup(), st = {}, K = U.pagarKristal;
   run.mods.cooldown = 0.01;                                 // a throw every step

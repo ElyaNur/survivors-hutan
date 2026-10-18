@@ -69,7 +69,7 @@ const TUNING = {
     // (x mods.area), the last throwSpread of it varying per throw, the ring squashed to flat of its height (seen from above);
     // at most maxCrystals, each for life s. Crystals within link px are wired by lightning: every tick s each wire hits what
     // stands across it (within its radius + wire px) for tickDmg.
-    pagarKristal: { cd: 0.25, maxCrystals: 20, life: 8, throwR: 165, throwSpread: 0.5, flat: 0.75, shardSize: 5, shardSpeed: 240, shardDmg: 25, link: 90, wire: 6, tick: 0.3, tickDmg: 18 },
+    pagarKristal: { cd: 0.25, maxCrystals: 20, life: 8, throwR: 165, throwSpread: 0.5, flat: 0.75, shardSize: 5, shardSpeed: 240, shardDmg: 25, link: 90, neighbours: 2, wire: 6, tick: 0.3, tickDmg: 26 },
     // Every cd a comet falls on the densest crowd in view (warn s): dmg and freeze s within r (x mods.area). shatter s later
     // its head bursts into `shards` shards (shardDmg, hit radius shardSize, pierce shardPierce, shardRange px at shardSpeed, slow for slowDur).
     kometEs:      { cd: 1.2, warn: 0.7, r: 52, dmg: 120, freeze: 2, shatter: 0.3, shards: 16, shardSize: 3, shardSpeed: 220, shardRange: 150,
